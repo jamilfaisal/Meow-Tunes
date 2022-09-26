@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag;
 
-    public float jumpForce;
+    public float maxJumpForce;
+    private bool jumpKeyHeld;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
@@ -19,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     public float jumpingGravity;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
@@ -77,6 +77,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        if(!grounded && !jumpKeyHeld &&Vector3.Dot(rb.velocity, Vector3.up) > 0){
+            rb.AddForce(Vector3.down * 30f * rb.mass);
+        }
     }
 
     private void MyInput()
@@ -85,13 +89,21 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
-        {
-            readyToJump = false;
+        if(Input.GetButtonDown("Jump")){
+            jumpKeyHeld = true;
 
-            Jump();
+            if(readyToJump && grounded){
 
-            Invoke(nameof(ResetJump), jumpCooldown);
+                readyToJump = false;
+
+                Jump();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+
+            }
+        }
+        else if(Input.GetButtonUp("Jump")){
+            jumpKeyHeld = false;
         }
     }
 
@@ -174,7 +186,8 @@ public class PlayerMovement : MonoBehaviour
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(transform.up * maxJumpForce, ForceMode.Impulse);
+
     }
     private void ResetJump()
     {
