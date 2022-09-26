@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
+    public float jumpingGravity;
+
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
@@ -136,6 +138,8 @@ public class PlayerMovement : MonoBehaviour
         // in air
         else if(!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            //Add some additional gravity to not make the control floaty
+            rb.AddForce(Vector3.down * jumpingGravity * rb.mass);
 
 
         //Turn off Gravity when on slope to avoid unwanted sliding
