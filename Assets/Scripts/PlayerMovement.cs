@@ -24,8 +24,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ground Check")]
     public float playerHeight;
+    public float playerWidth;
     public LayerMask whatIsGround;
     private bool grounded;
+    private RaycastHit sphereHit;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -60,8 +62,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        // ground check shoot a sphere to the foot of the player
+        // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
+        float sphereCastRadius = playerWidth * 0.5f;
+        float sphereCastTravelDist = playerHeight * 0.5f - playerWidth * 0.5f + 0.3f;
+        grounded = Physics.SphereCast(transform.position + Vector3.up*sphereCastTravelDist*2, sphereCastRadius, Vector3.down, out sphereHit, sphereCastTravelDist*2.1f);
 
         MyInput();
         SpeedControl();
