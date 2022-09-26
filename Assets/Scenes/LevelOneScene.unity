@@ -13456,6 +13456,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8033697961162981968, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
+      propertyPath: airMultiplier
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8033697961162981973, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_Name
       value: Player
