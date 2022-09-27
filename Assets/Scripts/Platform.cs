@@ -22,6 +22,10 @@ public class Platform : MonoBehaviour
         _oldColor = new Color(_startColor.r, _startColor.g, _startColor.b, 1f);
         _startColorTransp = new Color(_startColor.r, _startColor.g, _startColor.b, 0.3f);
         _collider = GetComponent<BoxCollider>();
+        if (_collider == null)
+        {
+            _collider = GetComponent<MeshCollider>();
+        }
 
     }
     

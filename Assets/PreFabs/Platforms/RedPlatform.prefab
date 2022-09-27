@@ -94,8 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5949604385859566547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d004aabaa482d49e4a2b24e61352181d, type: 3}
+  m_Script: {fileID: 11500000, guid: 57a36bc9ecece4c5b85b6013e99a17b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isBlinking: 0
-  blinkTime: 0.4511
