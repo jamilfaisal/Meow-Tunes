@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject completeLevelUI;
 
     private void Update() {
-        if (Input.GetButton("Start") && gameHasEnded) {
+        if (Input.GetButton("Submit") && gameHasEnded) {
             restartLevel();
         }
     }
