@@ -4,53 +4,111 @@ using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
 {
-    private GameObject[] greenPlatforms;    
-    private GameObject[] redPlatforms;
-    private GameObject conductor;
+    private GameObject[] _greenPlatforms;    
+    private GameObject[] _redPlatforms;
+    private readonly Platform[] _greenPlatformScripts = new Platform[50];
+    private readonly Platform[] _redPlatformScripts = new Platform[50];
+    private Platform[] _toEnableScript = new Platform[50];
+    private Platform[] _toDisableScript = new Platform[50];
+    private GameObject _conductor;
     // This is the time we're given for each beat
-    public float delayTime = 1.8045f;
-    private GameObject[] toEnable;
-    private GameObject[] toDisable;
-    private GameObject[] tempEnable;
-    private GameObject[] tempDisable;
+    private float _delayTime = 3.609f;
+    // The time we should wait before platform starts blinking
+    private float _blinkTime = 2.255f;
+    private GameObject[] _toEnable;
+    private GameObject[] _toDisable;
+    private GameObject[] _tempEnable;
+    private GameObject[] _tempDisable;
+    private MeshRenderer[] _toBlink;
+    private MeshRenderer[] _toNotBlink;
+    private MeshRenderer[] _tempBlink;
+    private MeshRenderer[] _tempNoBlink;
 
-
+    // For blinking effect
+    private Color _startColor;
     void Start()
     {
-        greenPlatforms = GameObject.FindGameObjectsWithTag("Green");
-        redPlatforms = GameObject.FindGameObjectsWithTag("Red");
-        toEnable = greenPlatforms;
-        toDisable = redPlatforms;
+        _greenPlatforms = GameObject.FindGameObjectsWithTag("Green");
+        _redPlatforms = GameObject.FindGameObjectsWithTag("Red");
+        
+        GetPlatforms();
+        // DisableInitial();
+        
+        _toEnable = _redPlatforms;
+        _toDisable = _greenPlatforms;
+        _toEnableScript = _redPlatformScripts;
+        _toDisableScript = _greenPlatformScripts;
+
+        
         StartTheCoroutine();
+
     }
 
     private IEnumerator SwitchPlatformsTimeout() {
-     while(true) {
+     while(true)
+     {
+
+         var tempEnableScripts = _toEnableScript;
+         var tempDisableScripts = _toDisableScript;
+        _tempEnable = _toEnable;
+        _tempDisable = _toDisable;
         
-        tempEnable = toEnable;
-        tempDisable = toDisable;
-
-
-        for (int i = 0; i < toEnable.Length; i++) 
+        yield return new WaitForSeconds(_blinkTime - .55f);
+        
+        // Start blinking the platforms that are about to disappear
+        for (var i = 0; i < _toDisable.Length; i++)
         {
-            toEnable[i].SetActive(true);
+            if (_toDisableScript[i] == null) continue;
+            var coroutine = _toDisableScript[i].Blink();
+            StartCoroutine(coroutine);
         }
 
-        for (int j = 0; j < toDisable.Length; j++) 
+        yield return new WaitForSeconds(_delayTime - _blinkTime);
+        
+        for (var i = 0; i < _toEnable.Length; i++)
         {
-            toDisable[j].SetActive(false);
+            if (_toEnableScript[i] == null) continue;
+            _toEnableScript[i].Reappear();
         }
 
+        for (var i = 0; i < _toDisable.Length; i++)
+        {
+            if (_toDisableScript[i] == null) continue;
+            _toDisableScript[i].Disappear();
+        }
+        
         // Switching the platforms that will be enabled on the next beat
-        toEnable = tempDisable;
-        toDisable = tempEnable;
+        _toEnable = _tempDisable;
+        _toDisable = _tempEnable;
 
-        yield return new WaitForSeconds(delayTime);
+        _toEnableScript = tempDisableScripts;
+        _toDisableScript = tempEnableScripts;
+
+        yield return new WaitForSeconds(.55f);
      }
     }
+    
+    
 
     private void StartTheCoroutine() {
-        StartCoroutine("SwitchPlatformsTimeout");
+        StartCoroutine(nameof(SwitchPlatformsTimeout));
+    }
+    
+    private void GetPlatforms()
+    {
+        
+        for (int i = 0; i < _greenPlatforms.Length; i++)
+        {
+            if (_greenPlatforms[i] == null) continue;
+            _greenPlatformScripts[i] = _greenPlatforms[i].GetComponent<Platform>();
+        }
+        
+        for (int i = 0; i < _redPlatforms.Length; i++)
+        {
+            if (_redPlatforms[i] == null) continue;
+            _redPlatformScripts[i] = _redPlatforms[i].GetComponent<Platform>();
+        }
+        
     }
 
 }
