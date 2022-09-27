@@ -8031,6 +8031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenPlatform (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4921780870533060527, guid: c016d76eb0549da479991a8d97a147e6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7946823978767004749, guid: c016d76eb0549da479991a8d97a147e6, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8338,6 +8342,10 @@ PrefabInstance:
     - target: {fileID: 1913265012420453118, guid: 2a46091291e4a6e4a8b6db2a7b20f154, type: 3}
       propertyPath: m_Name
       value: RedPlatform (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913265012420453118, guid: 2a46091291e4a6e4a8b6db2a7b20f154, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3028059670937134537, guid: 2a46091291e4a6e4a8b6db2a7b20f154, type: 3}
       propertyPath: m_Mesh
@@ -9304,7 +9312,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-16294
+  m_Name: pb_Mesh-54356
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
