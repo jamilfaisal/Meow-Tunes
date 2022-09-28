@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+
 
 public class RespawnManager : MonoBehaviour
 {
@@ -9,13 +11,11 @@ public class RespawnManager : MonoBehaviour
     void Start()
     {
         respawnPoint = playerCharacter.transform.position;
-
     }
 
     public void respawnPlayer() {
-        Destroy(playerCharacter);
-        playerCharacter = GameObject.Instantiate(Resources.Load("Player"),
-             respawnPoint, Quaternion.identity) as GameObject;
+        playerCharacter.transform.position = respawnPoint;
+        playerCharacter.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
     }
 
     public void setRespawnPoint(Vector3 newRespawnPoint) {
