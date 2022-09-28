@@ -6,7 +6,7 @@ public class Respawner : MonoBehaviour
 {
     public RespawnManager respawnManager;
     public LifeManager lifeManager;
-    
+
     private void OnTriggerEnter(Collider collider) 
     {
         if (collider.gameObject.tag == "Player")
