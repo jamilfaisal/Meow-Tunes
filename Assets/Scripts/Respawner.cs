@@ -13,8 +13,6 @@ public class Respawner : MonoBehaviour
         {
             respawnManager.respawnPlayer();
             lifeManager.LostLife();
-        } else {
-            Destroy(collider.gameObject);
         }
     }
 }
