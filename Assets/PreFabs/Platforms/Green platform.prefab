@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5232127324475656237}
   - component: {fileID: 6871883581717762153}
   - component: {fileID: 997492008393400127}
+  - component: {fileID: 4651214979464683065}
   m_Layer: 0
   m_Name: Green platform
   m_TagString: Green
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4838933450186888610, guid: 3d218c5e567e724439579699f9ffe6c8, type: 3}
-  - {fileID: -915216440286173917, guid: 3d218c5e567e724439579699f9ffe6c8, type: 3}
+  - {fileID: 2100000, guid: 0ef88137bcaf3ac4bad2976560de38b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,3 +116,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.009809123, y: 0.008954233, z: 0.009779397}
   m_Center: {x: 0.000044062705, y: 4.656613e-10, z: -0.000000014202669}
+--- !u!114 &4651214979464683065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6024897541686110712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34a257b7cb50472bacc23fd981eb24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchState: 1
