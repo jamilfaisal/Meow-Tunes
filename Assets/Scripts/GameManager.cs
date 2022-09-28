@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject lostLevelUI;
     public GameObject playerGameObject;
 
+    public AudioSource gameOverSound;
+
     private void Update() {
         if (Input.GetButton("Submit") && gameHasEnded) {
             restartLevel();
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void lostLevel() {
         if (gameHasEnded == false) {
+            gameOverSound.Play();
             gameHasEnded = true;
             playerGameObject.GetComponent<PlayerMovement>().enabled = false;
             lostLevelUI.SetActive(true);

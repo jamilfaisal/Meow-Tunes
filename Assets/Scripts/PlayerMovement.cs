@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             _justLanded = false;
         }
         
-        if (rb.velocity.magnitude > 0 && grounded && !walkingSound.isPlaying) walkingSound.Play();
+        if (rb.velocity.magnitude > 1 && grounded && !walkingSound.isPlaying) walkingSound.Play();
         if (rb.velocity.magnitude <= 0 || !grounded) walkingSound.Stop();
     
     }

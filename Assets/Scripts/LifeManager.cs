@@ -8,6 +8,7 @@ public class LifeManager : MonoBehaviour
     public int playerLives = 5;
     public TMP_Text playerLivesText;
     public GameManager gameManager;
+    public AudioSource respawnSound;
 
     void Start()
     {
@@ -20,6 +21,10 @@ public class LifeManager : MonoBehaviour
         playerLivesText.text = "x " + playerLives;
         if (playerLives == 0) {
             gameManager.lostLevel();
+        }
+        else
+        {
+            respawnSound.Play();
         }
     }
 }
