@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource jumpSound3;
     public AudioSource jumpSound4;
     private AudioSource[] jumpSounds;
+    private int lastJumpSound = -1;
     
     public AudioSource landFromJumpSound;
     private bool _justLanded = false;
@@ -127,9 +128,7 @@ public class PlayerMovement : MonoBehaviour
                 readyToJump = false;
 
                 Jump();
-
-                var jumpSoundIndex = Random.Range(0, 3);
-                jumpSounds[jumpSoundIndex].Play();
+                pickJumpSound().Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
 
@@ -138,6 +137,20 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetButtonUp("Jump")){
             jumpKeyHeld = false;
         }
+    }
+
+    private AudioSource pickJumpSound() {
+        int jumpSoundIndex = -1;
+        if (lastJumpSound == -1) {
+            jumpSoundIndex = Random.Range(0, 3);
+        } else {
+            jumpSoundIndex = Random.Range(0, 3);
+            if (jumpSoundIndex == lastJumpSound) {
+                jumpSoundIndex = (jumpSoundIndex + Random.Range(1, 3)) % 4;
+            }
+        }
+        lastJumpSound = jumpSoundIndex;
+        return jumpSounds[jumpSoundIndex];
     }
 
     private void MovementStateHandler(){
