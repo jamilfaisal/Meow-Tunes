@@ -5,13 +5,13 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public RespawnManager respawnManager;
-    public Transform checkpointTransform;
     
     private void OnTriggerEnter(Collider collider) 
     {
         if (collider.gameObject.tag == "Player")
         {
-            respawnManager.setRespawnPoint(checkpointTransform.position);
+            Destroy(this.gameObject);
+            respawnManager.setRespawnPoint(collider.gameObject.transform.position);
         }
     }
 }

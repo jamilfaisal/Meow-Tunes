@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 
 public class RespawnManager : MonoBehaviour
@@ -15,6 +14,7 @@ public class RespawnManager : MonoBehaviour
 
     public void respawnPlayer() {
         playerCharacter.transform.position = respawnPoint;
+        playerCharacter.transform.rotation = new Quaternion(0,0,0,0);
         playerCharacter.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
     }
 
