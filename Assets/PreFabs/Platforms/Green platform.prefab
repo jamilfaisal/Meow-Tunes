@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5232127324475656237}
   - component: {fileID: 6871883581717762153}
   - component: {fileID: 997492008393400127}
-  - component: {fileID: 8095842943623243548}
+  - component: {fileID: 6593599351807107600}
   m_Layer: 0
   m_Name: Green platform
   m_TagString: Green
@@ -116,7 +116,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.009809123, y: 0.008954233, z: 0.009779397}
   m_Center: {x: 0.000044062705, y: 4.656613e-10, z: -0.000000014202669}
---- !u!114 &8095842943623243548
+--- !u!114 &6593599351807107600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6024897541686110712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91026d25e1ca54a39bfe61f6ad649477, type: 3}
+  m_Script: {fileID: 11500000, guid: d34a257b7cb50472bacc23fd981eb24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlinking: 0
+  switchState: 1
+  shouldBlink: 0

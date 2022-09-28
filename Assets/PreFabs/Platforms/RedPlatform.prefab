@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6474748025397027177}
   - component: {fileID: 7959327923481915084}
   - component: {fileID: 5301231380920556038}
-  - component: {fileID: 9190220634178212720}
+  - component: {fileID: 9133706297157300839}
   m_Layer: 0
   m_Name: RedPlatform
   m_TagString: Red
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9190220634178212720
+--- !u!114 &9133706297157300839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5949604385859566547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91026d25e1ca54a39bfe61f6ad649477, type: 3}
+  m_Script: {fileID: 11500000, guid: d34a257b7cb50472bacc23fd981eb24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlinking: 0
+  switchState: 1
+  shouldBlink: 0

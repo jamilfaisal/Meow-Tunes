@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 4138296795296372947}
   - component: {fileID: 3364112658736710739}
   - component: {fileID: 3364112658736710736}
-  - component: {fileID: 3364112658736710749}
-  - component: {fileID: 1132268731962453233}
+  - component: {fileID: -6466277634902742557}
   m_Layer: 0
   m_Name: Red ramp
   m_TagString: Red
@@ -119,7 +118,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 664456749670281567, guid: 08fce865d78fe80478ad1758c133317b, type: 3}
---- !u!114 &3364112658736710749
+--- !u!114 &-6466277634902742557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,20 +127,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2481152932589385990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91026d25e1ca54a39bfe61f6ad649477, type: 3}
+  m_Script: {fileID: 11500000, guid: d34a257b7cb50472bacc23fd981eb24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlinking: 0
---- !u!114 &1132268731962453233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2481152932589385990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91026d25e1ca54a39bfe61f6ad649477, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBlinking: 0
+  switchState: 1
+  shouldBlink: 0

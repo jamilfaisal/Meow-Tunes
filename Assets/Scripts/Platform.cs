@@ -51,9 +51,9 @@ public class Platform : MonoBehaviour
             for (var i = 0; i < 3; i++)
             {
                 _material.color = _startColor * 1.5f;
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSecondsRealtime(0.1f);
                 _material.color = _startColor;
-                yield return new WaitForSeconds(_blinkTime - 0.1f);
+                yield return new WaitForSecondsRealtime(_blinkTime - 0.1f);
             }
             isBlinking = false;
         }

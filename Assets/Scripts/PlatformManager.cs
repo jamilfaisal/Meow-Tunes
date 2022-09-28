@@ -53,9 +53,11 @@ public class PlatformManager : MonoBehaviour
         _tempEnable = _toEnable;
         _tempDisable = _toDisable;
         
-        yield return new WaitForSeconds(_blinkTime - .55f);
+        yield return new WaitForSecondsRealtime(_blinkTime - .60f);
         
         // Start blinking the platforms that are about to disappear
+        
+        
         for (var i = 0; i < _toDisable.Length; i++)
         {
             if (_toDisableScript[i] == null) continue;
@@ -63,7 +65,7 @@ public class PlatformManager : MonoBehaviour
             StartCoroutine(coroutine);
         }
 
-        yield return new WaitForSeconds(_delayTime - _blinkTime);
+        yield return new WaitForSecondsRealtime(_delayTime - _blinkTime);
         
         for (var i = 0; i < _toEnable.Length; i++)
         {
@@ -84,7 +86,7 @@ public class PlatformManager : MonoBehaviour
         _toEnableScript = tempDisableScripts;
         _toDisableScript = tempEnableScripts;
 
-        yield return new WaitForSeconds(.55f);
+        yield return new WaitForSecondsRealtime(.60f);
      }
     }
     

@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 2719288398050010128}
   - component: {fileID: 3638151769386530968}
   - component: {fileID: 3638151769386530971}
-  - component: {fileID: 3638151769386530974}
-  - component: {fileID: -5161181174193824754}
+  - component: {fileID: -1130700285982424711}
   m_Layer: 0
   m_Name: Green ramp
   m_TagString: Green
@@ -119,7 +118,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7434549690534084444, guid: 9eb40dc9ac3ad3c4b98463c807afc876, type: 3}
---- !u!114 &3638151769386530974
+--- !u!114 &-1130700285982424711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,20 +127,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4520529992394933701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91026d25e1ca54a39bfe61f6ad649477, type: 3}
+  m_Script: {fileID: 11500000, guid: d34a257b7cb50472bacc23fd981eb24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlinking: 0
---- !u!114 &-5161181174193824754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4520529992394933701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91026d25e1ca54a39bfe61f6ad649477, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBlinking: 0
+  switchState: 1
+  shouldBlink: 0
