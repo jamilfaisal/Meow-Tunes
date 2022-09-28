@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Sound Effects")]
+    public AudioSource jumpSound1;
+    public AudioSource jumpSound2;
+    public AudioSource jumpSound3;
+    public AudioSource jumpSound4;
+    private AudioSource[] jumpSounds;
+    
+    public AudioSource landFromJumpSound;
+    private bool _justLanded = false;
+
+    public AudioSource walkingSound;
+    private bool _isMoving;
+    
     [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
@@ -58,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        
+        jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
 
     private void Update()
@@ -67,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         float sphereCastRadius = playerWidth * 0.5f;
         float sphereCastTravelDist = playerHeight * 0.5f - playerWidth * 0.5f + 0.3f;
         grounded = Physics.SphereCast(transform.position + Vector3.up*sphereCastTravelDist*2, sphereCastRadius, Vector3.down, out sphereHit, sphereCastTravelDist*2.1f);
-
+        
         MyInput();
         SpeedControl();
         MovementStateHandler();
@@ -77,6 +92,16 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if (_justLanded && grounded)
+        {
+            landFromJumpSound.Play();
+            _justLanded = false;
+        }
+        
+        if (rb.velocity.magnitude > 0 && grounded && !walkingSound.isPlaying) walkingSound.Play();
+        if (rb.velocity.magnitude <= 0 || !grounded) walkingSound.Stop();
+    
     }
 
     private void FixedUpdate()
@@ -102,6 +127,9 @@ public class PlayerMovement : MonoBehaviour
                 readyToJump = false;
 
                 Jump();
+
+                var jumpSoundIndex = Random.Range(0, 3);
+                jumpSounds[jumpSoundIndex].Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
 
@@ -150,7 +178,9 @@ public class PlayerMovement : MonoBehaviour
 
         // on ground
         if(grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
 
         // in air
         else if(!grounded)
@@ -198,6 +228,7 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
         exitingSlope = false;
+        _justLanded = true;
     }
 
     private bool OnSlope()
