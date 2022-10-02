@@ -20,7 +20,7 @@ public class Respawner : MonoBehaviour
         if (collider.gameObject.CompareTag("Player"))
         {
             lifeManager.LostLife();
-            Invoke(nameof(Respawn), _respawnClip.length - 4);
+            Invoke(nameof(Respawn), _respawnClip.length - 5f);
         }
     }
 
