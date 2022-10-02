@@ -2,24 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class Platform : PlatformParent
 {
 
     public bool switchState = true;
     private bool _state = true;
-    // This is the time we're given for each beat
-    private float _delayTime = 3.609f;
-    // The time we should wait before platform starts blinking
-    private float _blinkDelay = 2.255f;
-
-    
     private MeshRenderer _renderer;
     private Color _startColor;
     private Color _oldColor;
     private Color _startColorTransp;
     private Collider _collider;
     private Material _material;
-    private float _blinkTime = 0.4511f;
     
     void Start()
     {
@@ -55,7 +48,7 @@ public class Platform : MonoBehaviour
     private IEnumerator SwitchState()
     {
         var oldState = _state;
-        yield return new WaitForSeconds(_blinkDelay);
+        yield return new WaitForSeconds(blinkDelay[tempo]);
         
         // Start blink
         if (_state)
@@ -71,7 +64,10 @@ public class Platform : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(_delayTime - _blinkDelay);
+            Debug.Log("Tempo: " + tempo);
+            Debug.Log("Tempo Time: " + tempoTime[tempo]);
+            Debug.Log("Blink Time: " + blinkDelay[tempo]);
+            yield return new WaitForSeconds(tempoTime[tempo] - blinkDelay[tempo]);
             Reappear();
         }
         
