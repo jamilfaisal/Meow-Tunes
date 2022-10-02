@@ -5,42 +5,34 @@ using UnityEngine;
 
 public class Conductor : MonoBehaviour
 {
-    public AudioSource songIntro;
-    public AudioSource songLoop;
-
-    private Dictionary<AudioSource, bool> _pauseStates = new Dictionary<AudioSource, bool>();
-
-
+    
+    public GameManager gameManager;
+    public AudioSource audioSourceIntro;
+    public AudioSource audioSourceLoop;
+    private int audioSourcePlaying = 0;
+    private AudioSource[] audioSources;
 
     void Start()
     {
-        _pauseStates.Add(songIntro, false);
-        _pauseStates.Add(songLoop, false);
-        
-        songIntro.Play();
-        // Play the Loop version after the intro version is done
-        songLoop.PlayDelayed(songIntro.clip.length);
+        audioSourceIntro.Play();
+        audioSources = new AudioSource[] {audioSourceIntro, audioSourceLoop};
+    }
+
+    private void FixedUpdate() {
+        if (gameManager.isGamePaused()) return;
+        if (!audioSourceIntro.isPlaying && audioSourcePlaying == 0) {
+            audioSourceLoop.Play();
+            audioSourcePlaying = 1;
+        }
     }
 
     public void Pause()
     {
-        foreach (AudioSource audio in _pauseStates.Keys.ToList())
-        {
-            _pauseStates[audio] = audio.isPlaying;
-            audio.Pause();
-        }
+        audioSources[audioSourcePlaying].Pause();
     }
     
     public void Resume()
     {
-        foreach (AudioSource audio in _pauseStates.Keys.ToList())
-        {
-            if (_pauseStates[audio])
-            {
-                audio.Play();
-            }
-    
-            _pauseStates[audio] = false;
-        }
+        audioSources[audioSourcePlaying].Play();
     }
 }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     bool gameHasEnded = false;
+    public static bool gameIsPaused = false;
     public GameObject completeLevelUI;
     public GameObject lostLevelUI;
     public GameObject playerGameObject;
@@ -38,5 +39,17 @@ public class GameManager : MonoBehaviour
     void restartLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         gameHasEnded = false;
+    }
+
+    public bool isGamePaused() {
+        return gameIsPaused;
+    }
+
+    public void pauseGame() {
+        gameIsPaused = true;
+    }
+
+    public void resumeGame() {
+        gameIsPaused = false;
     }
 }

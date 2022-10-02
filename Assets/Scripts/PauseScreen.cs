@@ -6,7 +6,7 @@ using UnityEngine;
 public class PauseScreen : MonoBehaviour
 {
     public GameObject pauseMenuUI;
-    public static bool isPaused = false;
+    public GameManager gameManager;
     public Conductor musicPlayer;
     public AudioSource walkingSound;
     public GameObject playerMovement;
@@ -22,7 +22,7 @@ public class PauseScreen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (gameManager.isGamePaused())
             {
                 Resume();
             }
@@ -39,7 +39,7 @@ public class PauseScreen : MonoBehaviour
         musicPlayer.Resume();
         _playerMovementScript.enabled = true;
         Time.timeScale = 1f;
-        isPaused = false;
+        gameManager.resumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -51,7 +51,7 @@ public class PauseScreen : MonoBehaviour
         _playerMovementScript.enabled = false;
         walkingSound.Stop();
         Time.timeScale = 0f;
-        isPaused = true;
+        gameManager.pauseGame();
         // This is because the camera script locks the cursor,
         // so we need to enable it again to be able to click buttons
         Cursor.lockState = CursorLockMode.None;
