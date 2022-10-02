@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
 
     public void lostLevel() {
         if (gameHasEnded == false) {
-            gameOverSound.Play();
             gameHasEnded = true;
+            gameOverSound.Play();
             playerGameObject.GetComponent<PlayerMovement>().enabled = false;
             lostLevelUI.SetActive(true);
         }
@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
 
     public bool isGamePaused() {
         return gameIsPaused;
+    }
+
+    public bool hasGameEnded() {
+        return gameHasEnded;
     }
 
     public void pauseGame() {
