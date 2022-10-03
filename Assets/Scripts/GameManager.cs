@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -10,8 +12,16 @@ public class GameManager : MonoBehaviour
     public GameObject completeLevelUI;
     public GameObject lostLevelUI;
     public GameObject playerGameObject;
+    private PlayerInput _playerInput;
 
     public AudioSource gameOverSound;
+    private PlayerMovement _playerMovement;
+
+    private void Start()
+    {
+        _playerMovement = playerGameObject.GetComponent<PlayerMovement>();
+        _playerInput = playerGameObject.GetComponent<PlayerInput>();
+    }
 
     private void Update() {
         if (Input.GetButton("Submit") && gameHasEnded) {
@@ -21,7 +31,8 @@ public class GameManager : MonoBehaviour
     public void wonLevel() {
         if (gameHasEnded == false) {
             gameHasEnded = true;
-            playerGameObject.GetComponent<PlayerMovement>().enabled = false;
+            _playerMovement.enabled = false;
+            // _playerInput.enabled = false;
             completeLevelUI.SetActive(true);
         }
     }
@@ -30,7 +41,8 @@ public class GameManager : MonoBehaviour
         if (gameHasEnded == false) {
             gameOverSound.Play();
             gameHasEnded = true;
-            playerGameObject.GetComponent<PlayerMovement>().enabled = false;
+            _playerMovement.enabled = false;
+            // _playerInput.enabled = false;
             lostLevelUI.SetActive(true);
         }
     }
@@ -39,4 +51,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         gameHasEnded = false;
     }
+
+    public void StartLevel()
+    {
+        if (gameHasEnded)
+        {
+            restartLevel();
+        }
+    }
+    
 }

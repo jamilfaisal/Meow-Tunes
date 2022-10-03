@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
+   
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
     public AudioSource jumpSound2;
@@ -30,9 +34,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    public Gamepad gamepad;
 
     public float jumpingGravity;
-
     [Header("Keybinds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
 
@@ -72,9 +76,11 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
-        
+        gamepad = Gamepad.current;
+      
         jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
+
 
     private void Update()
     {
@@ -139,6 +145,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void TriggerJump(InputAction.CallbackContext context)
+    {
+        if (!context.started && this.enabled)
+        {
+            jumpKeyHeld = true;
+
+            if(readyToJump && grounded){
+
+                readyToJump = false;
+
+                Jump();
+                pickJumpSound().Play();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+
+            }
+
+            if (context.canceled)
+            {
+                jumpKeyHeld = false;
+            }
+        }
+    }
+
     private AudioSource pickJumpSound() {
         int jumpSoundIndex = -1;
         if (lastJumpSound == -1) {
@@ -156,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovementStateHandler(){
         
         //Sprinting
-        if(grounded && Input.GetKey(sprintKey)){
+        if(grounded && (Input.GetKey(sprintKey) || gamepad.leftStickButton.isPressed)){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
         }
