@@ -64,9 +64,6 @@ public class Platform : PlatformParent
         }
         else
         {
-            Debug.Log("Tempo: " + tempo);
-            Debug.Log("Tempo Time: " + tempoTime[tempo]);
-            Debug.Log("Blink Time: " + blinkDelay[tempo]);
             yield return new WaitForSeconds(tempoTime[tempo] - blinkDelay[tempo]);
             Reappear();
         }

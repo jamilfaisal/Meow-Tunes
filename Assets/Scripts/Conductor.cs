@@ -1,59 +1,83 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Conductor : MonoBehaviour
 {
+    public static Conductor current;
+
+    // 0 is normal, 1 is fast
+    private int _audioPlaying;
+    private AudioClip[] _switchMusic;
+    private Dictionary<AudioClip, AudioClip> _increaseTempo;
+    private Dictionary<AudioClip, AudioClip> _decreaseTempo;
     public AudioSource audioSource;
     public AudioClip songIntroNormal;
     public AudioClip songLoopNormal;
     public AudioClip songIntroFast;
     public AudioClip songLoopFast;
-
-    void Start()
+    
+    private void Awake()
+    {
+        current = this;
+        _switchMusic = new[]
+        {
+            songLoopNormal,
+            songLoopFast
+        };
+        _increaseTempo = new Dictionary<AudioClip, AudioClip>()
+        {
+            {songIntroNormal, songIntroFast},
+            {songLoopNormal, songLoopFast}
+        };
+        _decreaseTempo = new Dictionary<AudioClip, AudioClip>()
+        {
+            {songIntroFast, songIntroNormal},
+            {songLoopFast, songLoopNormal}
+        };
+    }
+    
+    private void Start()
     {
         audioSource.clip = songIntroNormal;
         audioSource.loop = false;
         audioSource.Play();
     }
 
-    private void Update() {
-        if (!audioSource.isPlaying) {
-            if (audioSource.clip == songIntroNormal) {
-                audioSource.clip = songLoopNormal;
-            } else if (audioSource.clip == songIntroFast) {
-                audioSource.clip = songLoopFast;
-            }
-            audioSource.loop = true;
-            audioSource.Play();
-        }
+    private void Update()
+    {
+        if (audioSource.isPlaying) return;
+        SwitchMusicFromIntroToLoop();
+        enabled = false;
     }
 
-    public void increaseTempo() {
-        if (audioSource.clip == songIntroFast || audioSource.clip == songLoopFast) {
-            return;
-        }
-        float audioSourceTimeBeforeSwitching = audioSource.time;
-        if (audioSource.clip == songIntroNormal) {
-            audioSource.clip = songIntroFast;
-        }
-        if (audioSource.clip == songLoopNormal) {
-            audioSource.clip = songLoopFast;
-        }
-        audioSource.time = audioSourceTimeBeforeSwitching;
+    private void SwitchMusicFromIntroToLoop()
+    {
+        audioSource.clip = _switchMusic[_audioPlaying];
+        audioSource.Play();
+        audioSource.loop = true;
     }
 
-    public void decreaseTempo() {
-        if (audioSource.clip == songIntroNormal || audioSource.clip == songLoopNormal) {
+    public void IncreaseTempo() {
+        if (_audioPlaying == 1) {
             return;
         }
-        float audioSourceTimeBeforeSwitching = audioSource.time;
-        if (audioSource.clip == songIntroFast) {
-            audioSource.clip = songIntroNormal;
-        }
-        if (audioSource.clip == songLoopFast) {
-            audioSource.clip = songLoopNormal;
-        }
+        var audioSourceTimeBeforeSwitching = audioSource.time;
+        audioSource.clip = _increaseTempo[audioSource.clip];
         audioSource.time = audioSourceTimeBeforeSwitching;
+        audioSource.Play();
+        _audioPlaying = 1;
     }
+    
+    public void DecreaseTempo() {
+        Debug.Log("here1");
+        if (_audioPlaying == 0) {
+            return;
+        }
+        var audioSourceTimeBeforeSwitching = audioSource.time;
+        audioSource.clip = _decreaseTempo[audioSource.clip];
+        audioSource.time = audioSourceTimeBeforeSwitching;
+        audioSource.Play();
+        _audioPlaying = 0;
+    }
+
 }
