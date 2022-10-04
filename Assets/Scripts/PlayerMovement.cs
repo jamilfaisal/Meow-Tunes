@@ -30,11 +30,12 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
-
+    public float stompForce = 3f;
     public float jumpingGravity;
 
     [Header("Keybinds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode stompKey = KeyCode.Tab;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -136,6 +137,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(Input.GetButtonUp("Jump")){
             jumpKeyHeld = false;
+        } else if (Input.GetKey(stompKey))
+        {
+            Stomp();
         }
     }
 
@@ -225,6 +229,12 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
         }
+    }
+
+    private void Stomp()
+    {
+        rb.velocity = Vector3.zero;
+        rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
     }
 
     private void Jump()
