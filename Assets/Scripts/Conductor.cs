@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class Conductor : MonoBehaviour
     public AudioClip songLoopNormal;
     public AudioClip songIntroFast;
     public AudioClip songLoopFast;
+    private float _currentSongTime; 
+    public event Action SongLooped;
     
     private void Awake()
     {
@@ -41,13 +44,21 @@ public class Conductor : MonoBehaviour
         audioSource.clip = songIntroNormal;
         audioSource.loop = false;
         audioSource.Play();
+        _currentSongTime = audioSource.time;
     }
 
     private void Update()
     {
-        if (audioSource.isPlaying) return;
-        SwitchMusicFromIntroToLoop();
-        enabled = false;
+        if (!audioSource.isPlaying)
+        {
+            SwitchMusicFromIntroToLoop();
+        }
+
+        if (_currentSongTime > audioSource.time && SongLooped != null)
+        {
+            SongLooped();
+        }
+        _currentSongTime = audioSource.time;
     }
 
     private void SwitchMusicFromIntroToLoop()

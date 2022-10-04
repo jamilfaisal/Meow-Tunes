@@ -1,20 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : PlatformParent
+public class Platform : MonoBehaviour
 {
-
-    public bool switchState = true;
-    private bool _state = true;
     private MeshRenderer _renderer;
     private Color _startColor;
     private Color _oldColor;
-    private Color _startColorTransp;
+    private Color _startColorTransparent;
     private Collider _collider;
     private Material _material;
-    
-    void Start()
+    private const float BlinkTime = 0.4511f;
+    private bool _visible = true;
+
+    private void Start()
     {
         
         _renderer = GetComponent<MeshRenderer>();
@@ -25,67 +23,58 @@ public class Platform : PlatformParent
         {
             _collider = GetComponent<MeshCollider>();
         }
-        
-        if (gameObject.CompareTag("Green"))
-        {
-            _state = false;
-            Disappear();
-        }
-        
-    }
-    
-    void Update()
-    {
-        if (switchState)
-        {
-            switchState = false;
-            var coroutine = SwitchState();
-            StartCoroutine(coroutine);
-        }
-        
+
+        PlatformManager.current.BlinkEvent += Blink;
+        PlatformManager.current.SwitchEvent += Switch;
+        if (!gameObject.CompareTag("Green")) return;
+        Disappear();
+
     }
 
-    private IEnumerator SwitchState()
+    private void Blink()
     {
-        var oldState = _state;
-        yield return new WaitForSeconds(blinkDelay[tempo]);
-        
-        // Start blink
-        if (_state)
+        if (_visible == false)
         {
-            for (var i = 0; i < 3; i++)
-            {
-                _material.color = _startColor * 1.5f;
-                yield return new WaitForSeconds(0.1f);
-                _material.color = _startColor;
-                yield return new WaitForSeconds(_blinkTime - 0.1f);
-            }
+            return;
+        }
+        StartCoroutine(BlinkDelay());
+    }
+
+    private IEnumerator BlinkDelay()
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            _material.color = _startColor * 1.5f;
+            yield return new WaitForSeconds(0.1f);
+            _material.color = _startColor;
+            yield return new WaitForSeconds(BlinkTime - 0.1f);
+        }
+    }
+
+    private void Switch()
+    {
+        if (_visible)
+        {
             Disappear();
         }
         else
         {
-            yield return new WaitForSeconds(tempoTime[tempo] - blinkDelay[tempo]);
-            Reappear();
+            Appear();
         }
-        
-
-        _state = !oldState;
-        
-        switchState = true;
-
     }
-    
-    public void Disappear()
+    private void Disappear()
     {
-        Color newColor = _startColor;
+        var newColor = _startColor;
         newColor.a = 0.3f;
         _material.color = newColor; 
         _collider.enabled = false;
+        _visible = false;
     }
 
-    public void Reappear()
+    private void Appear()
     {
         _material.color = _startColor;
         _collider.enabled = true;
+        _visible = true;
     }
 }
