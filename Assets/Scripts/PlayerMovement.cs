@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode stompKey = KeyCode.R;
+    public KeyCode stompKey = KeyCode.Tab;
 
     [Header("Ground Check")]
     public float playerHeight;
