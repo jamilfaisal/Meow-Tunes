@@ -26,9 +26,15 @@ public class Platform : MonoBehaviour
 
         PlatformManager.current.BlinkEvent += Blink;
         PlatformManager.current.SwitchEvent += Switch;
+        PlayerTempo.current.ChangingTempo += StopBlinking;
         if (!gameObject.CompareTag("Green")) return;
         Disappear();
 
+    }
+
+    public void StopBlinking()
+    {
+        StopCoroutine(BlinkDelay());
     }
 
     private void Blink()
