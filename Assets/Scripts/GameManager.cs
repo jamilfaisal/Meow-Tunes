@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     bool gameHasEnded = false;
+    public static bool gameIsPaused = false;
     public GameObject completeLevelUI;
     public GameObject lostLevelUI;
     public GameObject playerGameObject;
@@ -32,17 +33,15 @@ public class GameManager : MonoBehaviour
         if (gameHasEnded == false) {
             gameHasEnded = true;
             _playerMovement.enabled = false;
-            // _playerInput.enabled = false;
             completeLevelUI.SetActive(true);
         }
     }
 
     public void lostLevel() {
         if (gameHasEnded == false) {
-            gameOverSound.Play();
             gameHasEnded = true;
+            gameOverSound.Play();
             _playerMovement.enabled = false;
-            // _playerInput.enabled = false;
             lostLevelUI.SetActive(true);
         }
     }
@@ -51,7 +50,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         gameHasEnded = false;
     }
-
+    
+    
     public void StartLevel()
     {
         if (gameHasEnded)
@@ -60,4 +60,20 @@ public class GameManager : MonoBehaviour
         }
     }
     
+
+    public bool isGamePaused() {
+        return gameIsPaused;
+    }
+
+    public bool hasGameEnded() {
+        return gameHasEnded;
+    }
+
+    public void pauseGame() {
+        gameIsPaused = true;
+    }
+
+    public void resumeGame() {
+        gameIsPaused = false;
+    }
 }
