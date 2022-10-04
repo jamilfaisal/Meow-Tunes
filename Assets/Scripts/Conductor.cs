@@ -69,7 +69,6 @@ public class Conductor : MonoBehaviour
     }
     
     public void DecreaseTempo() {
-        Debug.Log("here1");
         if (_audioPlaying == 0) {
             return;
         }
