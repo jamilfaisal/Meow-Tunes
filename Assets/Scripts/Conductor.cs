@@ -6,12 +6,13 @@ public class Conductor : MonoBehaviour
 {
     public static Conductor current;
 
-    // 0 is normal, 1 is fast
-    private int _audioPlaying;
-    private AudioClip[] _switchMusic;
+    private Dictionary<int, AudioClip> _switchMusic;
     private Dictionary<AudioClip, AudioClip> _increaseTempo;
     private Dictionary<AudioClip, AudioClip> _decreaseTempo;
+    
     public AudioSource audioSource;
+    public AudioClip songIntroSlow;
+    public AudioClip songLoopSlow;
     public AudioClip songIntroNormal;
     public AudioClip songLoopNormal;
     public AudioClip songIntroFast;
@@ -22,20 +23,26 @@ public class Conductor : MonoBehaviour
     private void Awake()
     {
         current = this;
-        _switchMusic = new[]
+        
+        _switchMusic = new Dictionary<int, AudioClip>()
         {
-            songLoopNormal,
-            songLoopFast
+            { -1, songLoopSlow },
+            { 0, songLoopNormal },
+            { 1, songLoopFast }
         };
         _increaseTempo = new Dictionary<AudioClip, AudioClip>()
         {
+            {songIntroSlow, songIntroNormal},
             {songIntroNormal, songIntroFast},
+            {songLoopSlow, songLoopNormal},
             {songLoopNormal, songLoopFast}
         };
         _decreaseTempo = new Dictionary<AudioClip, AudioClip>()
         {
             {songIntroFast, songIntroNormal},
-            {songLoopFast, songLoopNormal}
+            {songIntroNormal, songIntroSlow},
+            {songLoopFast, songLoopNormal},
+            {songLoopNormal, songLoopSlow}
         };
     }
     
@@ -63,31 +70,29 @@ public class Conductor : MonoBehaviour
 
     private void SwitchMusicFromIntroToLoop()
     {
-        audioSource.clip = _switchMusic[_audioPlaying];
+        audioSource.clip = _switchMusic[GameManager.current.GetAudioTempo()];
         audioSource.Play();
         audioSource.loop = true;
     }
 
     public void IncreaseTempo() {
-        if (_audioPlaying == 1) {
+        if (GameManager.current.GetAudioTempo() == 1) {
             return;
         }
         var audioSourceTimeBeforeSwitching = audioSource.time;
         audioSource.clip = _increaseTempo[audioSource.clip];
         audioSource.time = audioSourceTimeBeforeSwitching;
         audioSource.Play();
-        _audioPlaying = 1;
     }
     
     public void DecreaseTempo() {
-        if (_audioPlaying == 0) {
+        if (GameManager.current.GetAudioTempo() == -1) {
             return;
         }
         var audioSourceTimeBeforeSwitching = audioSource.time;
         audioSource.clip = _decreaseTempo[audioSource.clip];
         audioSource.time = audioSourceTimeBeforeSwitching;
         audioSource.Play();
-        _audioPlaying = 0;
     }
 
 }

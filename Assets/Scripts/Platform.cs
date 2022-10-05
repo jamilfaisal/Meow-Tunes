@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour
     private Collider _collider;
     private Material _material;
     private const float BlinkTime = 0.4511f;
+    private const float SlowBlinkTime = 0.9022f;
     private bool _visible = true;
 
     private void Start()
@@ -32,9 +33,10 @@ public class Platform : MonoBehaviour
 
     }
 
-    public void StopBlinking()
+    private void StopBlinking()
     {
-        StopCoroutine(BlinkDelay());
+        StopCoroutine(BlinkDelay(SlowBlinkTime));
+        StopCoroutine(BlinkDelay(BlinkTime));
     }
 
     private void Blink()
@@ -43,17 +45,18 @@ public class Platform : MonoBehaviour
         {
             return;
         }
-        StartCoroutine(BlinkDelay());
+
+        StartCoroutine(GameManager.current.GetAudioTempo() == -1 ? BlinkDelay(SlowBlinkTime) : BlinkDelay(BlinkTime));
     }
 
-    private IEnumerator BlinkDelay()
+    private IEnumerator BlinkDelay(float blinkTime)
     {
         for (var i = 0; i < 3; i++)
         {
             _material.color = _startColor * 1.5f;
             yield return new WaitForSeconds(0.1f);
             _material.color = _startColor;
-            yield return new WaitForSeconds(BlinkTime - 0.1f);
+            yield return new WaitForSeconds(blinkTime - 0.1f);
         }
     }
 

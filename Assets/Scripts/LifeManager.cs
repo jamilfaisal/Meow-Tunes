@@ -20,7 +20,7 @@ public class LifeManager : MonoBehaviour
         playerLives -= 1;
         playerLivesText.text = "x " + playerLives;
         if (playerLives == 0) {
-            gameManager.lostLevel();
+            gameManager.LostLevel();
         }
         else
         {

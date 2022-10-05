@@ -11,7 +11,7 @@ public class EndBox : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            gameManager.wonLevel();
+            gameManager.WonLevel();
         }
     }
 }
