@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class PauseScreen : MonoBehaviour
     public AudioSource walkingSound;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
+    public Gamepad gamepad;
 
 
     private void Start()
     {
         _playerMovementScript = playerMovement.GetComponent<PlayerMovement>();
+        gamepad = Gamepad.current;
     }
 
     void Update()
@@ -30,21 +33,21 @@ public class PauseScreen : MonoBehaviour
             {
                 Pause();
             }
-        }    
+        }
     }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         musicPlayer.Resume();
-        _playerMovementScript.enabled = true;
+        Invoke(nameof(EnableMovement), 0.3f);
         Time.timeScale = 1f;
         gameManager.resumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    private void Pause()
+    public void Pause()
     {
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
@@ -58,9 +61,28 @@ public class PauseScreen : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void PauseOrResumeController()
+    {
+        if (gameManager.hasGameEnded()) return;
+        if (gameManager.isGamePaused())
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();
         Debug.Log("Game is exiting...");
     }
+
+    public void EnableMovement()
+    {
+        _playerMovementScript.enabled = true;
+    }
+
 }

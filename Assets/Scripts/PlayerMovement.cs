@@ -261,7 +261,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Stomp()
+    public void Stomp()
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
