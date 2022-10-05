@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager current;
 
+    public static bool gameIsPaused = false;
     private bool _gameHasEnded;
     public GameObject completeLevelUI;
     public GameObject lostLevelUI;
@@ -61,5 +62,21 @@ public class GameManager : MonoBehaviour
     {
         audioTempo = Math.Max(audioTempo - 1, -1);
 
+    }
+
+    public bool isGamePaused() {
+        return gameIsPaused;
+    }
+
+    public bool hasGameEnded() {
+        return _gameHasEnded;
+    }
+
+    public void pauseGame() {
+        gameIsPaused = true;
+    }
+
+    public void resumeGame() {
+        gameIsPaused = false;
     }
 }
