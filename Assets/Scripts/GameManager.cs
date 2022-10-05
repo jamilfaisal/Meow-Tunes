@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager current;
 
-    public static bool gameIsPaused = false;
+    private static bool _gameIsPaused;
     private bool _gameHasEnded;
     public GameObject completeLevelUI;
     public GameObject lostLevelUI;
@@ -64,19 +64,19 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public bool isGamePaused() {
-        return gameIsPaused;
+    public bool IsGamePaused() {
+        return _gameIsPaused;
     }
 
-    public bool hasGameEnded() {
+    public bool HasGameEnded() {
         return _gameHasEnded;
     }
 
-    public void pauseGame() {
-        gameIsPaused = true;
+    public void PauseGame() {
+        _gameIsPaused = true;
     }
 
-    public void resumeGame() {
-        gameIsPaused = false;
+    public void ResumeGame() {
+        _gameIsPaused = false;
     }
 }

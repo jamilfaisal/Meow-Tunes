@@ -15,6 +15,7 @@ public class PlayerTempo : MonoBehaviour
     public GameObject tempoSlow;
     private void Update()
     {
+        if (GameManager.current.IsGamePaused()) return;
         if (Input.GetKeyDown(KeyCode.E)) {
             ChangingTempo?.Invoke();
             Conductor.current.IncreaseTempo();

@@ -56,6 +56,7 @@ public class Conductor : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.current.IsGamePaused()) return;
         if (!audioSource.isPlaying)
         {
             SwitchMusicFromIntroToLoop();
@@ -95,4 +96,13 @@ public class Conductor : MonoBehaviour
         audioSource.Play();
     }
 
+    public void Pause()
+    {
+        audioSource.Pause();
+    }
+
+    public void Resume()
+    {
+        audioSource.Play();
+    }
 }
