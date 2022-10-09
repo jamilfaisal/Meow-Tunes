@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovementStateHandler(){
         
         //Sprinting
-        if(grounded && (Input.GetKey(sprintKey) || gamepad != null && gamepad.leftStickButton.isPressed)){
+        if(grounded && (Input.GetKey(sprintKey) || gamepad != null && gamepad.rightTrigger.isPressed)){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
         }
