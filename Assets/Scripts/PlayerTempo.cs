@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerTempo : MonoBehaviour
 {
@@ -13,21 +14,6 @@ public class PlayerTempo : MonoBehaviour
     public GameObject tempoFast;
     public GameObject tempoNormal;
     public GameObject tempoSlow;
-    private void Update()
-    {
-        if (GameManager.current.IsGamePaused()) return;
-        if (Input.GetKeyDown(KeyCode.E)) {
-            ChangingTempo?.Invoke();
-            Conductor.current.IncreaseTempo();
-            GameManager.current.IncreaseAudioTempo();
-            UpdateTempoUIImage();
-        } else if (Input.GetKeyDown(KeyCode.Q)) {
-            ChangingTempo?.Invoke();
-            Conductor.current.DecreaseTempo();
-            GameManager.current.DecreaseAudioTempo();
-            UpdateTempoUIImage();
-        }
-    }
 
     private void UpdateTempoUIImage()
     {
@@ -49,5 +35,32 @@ public class PlayerTempo : MonoBehaviour
                 tempoFast.SetActive(true);
                 break;
         }
+    }
+    
+    public void SpeedUp(InputAction.CallbackContext context)
+    {
+        
+            if (context.performed)
+            {
+                if (GameManager.current.IsGamePaused()) return;
+                ChangingTempo?.Invoke();
+                Conductor.current.IncreaseTempo();
+                GameManager.current.IncreaseAudioTempo();
+                UpdateTempoUIImage();
+            }
+        
+    }
+
+    public void SlowDown(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            {
+                if (GameManager.current.IsGamePaused()) return;
+                ChangingTempo?.Invoke();
+                Conductor.current.DecreaseTempo();
+                GameManager.current.DecreaseAudioTempo();
+                UpdateTempoUIImage();
+
+            }
     }
 }
