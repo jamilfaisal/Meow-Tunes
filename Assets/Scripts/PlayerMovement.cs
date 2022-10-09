@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    bool canDoubleJump;
     public float stompForce = 3f;
     public float jumpingGravity;
 
@@ -73,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        canDoubleJump = false;
         
         jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
@@ -127,12 +129,23 @@ public class PlayerMovement : MonoBehaviour
             if(readyToJump && grounded){
 
                 readyToJump = false;
+                canDoubleJump = true;
 
                 Jump();
                 pickJumpSound().Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
 
+            }
+
+            if(canDoubleJump && !grounded){
+
+                canDoubleJump = false;
+
+                Jump();
+                pickJumpSound().Play();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
             }
         }
         else if(Input.GetButtonUp("Jump")){
