@@ -529,7 +529,7 @@
                 {
                     "name": "",
                     "id": "4e27f61b-5097-438e-b4b2-1a41bd3f3e9d",
-                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

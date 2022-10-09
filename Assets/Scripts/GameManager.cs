@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
         current = this;
         _gameHasEnded = false;
         _playerMovement.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update() {

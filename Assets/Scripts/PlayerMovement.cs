@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovementStateHandler(){
         
         //Sprinting
-        if(grounded && (Input.GetKey(sprintKey) || gamepad.leftStickButton.isPressed)){
+        if(grounded && (Input.GetKey(sprintKey) || gamepad != null && gamepad.leftStickButton.isPressed)){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
         }
@@ -212,24 +212,25 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // calculate movement direction
-        
-            Vector2 movementControl = movement.action.ReadValue<Vector2>();
-            Vector3 move = new Vector3(movementControl.x, 0, movementControl.y);
+
+        Vector3 move;
+        Vector2 movementControl = movement.action.ReadValue<Vector2>();
+            move = new Vector3(movementControl.x, 0, movementControl.y);
             move = cameraMainTransform.forward * move.z + cameraMainTransform.right * move.x;
             move.y = 0;
+
             moveDirection = move;
-            
-            
+
+
             // calculate rotation (for controller movement)
-            if (movementControl != Vector2.zero)
+            if (movementControl != Vector2.zero || move != Vector3.zero)
             {
                 float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
                 Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 5f);
             }
-        
 
-        // on slope and not jumping
+            // on slope and not jumping
         if(OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
