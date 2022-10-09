@@ -12,17 +12,19 @@ public class PauseScreen : MonoBehaviour
     public AudioSource walkingSound;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
-    public Gamepad gamepad;
 
 
     private void Start()
     {
         _playerMovementScript = playerMovement.GetComponent<PlayerMovement>();
-        gamepad = Gamepad.current;
     }
 
     void Update()
     {
+        if (Input.GetAxis("Mouse X") != 0 && gameManager.IsGamePaused())
+        {
+            Cursor.visible = true;
+        }
         if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.HasGameEnded())
         {
             if (gameManager.IsGamePaused())
@@ -33,7 +35,7 @@ public class PauseScreen : MonoBehaviour
             {
                 Pause();
             }
-        }
+        } 
     }
 
     public void Resume()
@@ -58,7 +60,6 @@ public class PauseScreen : MonoBehaviour
         // This is because the camera script locks the cursor,
         // so we need to enable it again to be able to click buttons
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void PauseOrResumeController()

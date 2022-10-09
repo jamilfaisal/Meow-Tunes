@@ -385,17 +385,6 @@
                 },
                 {
                     "name": "",
-                    "id": "aa6d0766-d2a5-440b-a17e-183bc999e165",
-                    "path": "<SwitchProControllerHID>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ff7761fe-dbdf-434f-a476-e141dad87662",
                     "path": "<SwitchProControllerHID>/buttonSouth",
                     "interactions": "",
@@ -409,6 +398,17 @@
                     "name": "",
                     "id": "3d2785c1-7df1-45ac-ba8d-ea4051dc27d5",
                     "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e74dd2a-a8cd-448c-a821-ebeb36a6c192",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -506,11 +506,11 @@
                 },
                 {
                     "name": "",
-                    "id": "18f4fdea-01da-4fd1-871e-d2d94a5fb999",
-                    "path": "<SwitchProControllerHID>/buttonWest",
+                    "id": "28c58728-c0ab-48df-8a92-27175f45a256",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Stomp",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -978,6 +978,17 @@
                 },
                 {
                     "name": "",
+                    "id": "664c874f-af99-4ad3-9135-676106b15b45",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
                     "path": "*/{Cancel}",
                     "interactions": "",
@@ -1146,6 +1157,11 @@
                 {
                     "devicePath": "<Gamepad>",
                     "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
