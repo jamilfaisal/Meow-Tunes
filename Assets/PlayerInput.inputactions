@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Start",
-                    "type": "Button",
-                    "id": "30ea9d7d-8c71-4d66-98a7-08c5eb6110ae",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause/Resume",
                     "type": "Button",
                     "id": "1679dafc-65b9-4177-b76e-e478cc1074bd",
@@ -72,6 +63,15 @@
                     "name": "Stomp",
                     "type": "Button",
                     "id": "f7294f5a-8ec4-4b5f-8519-a5ba262943db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "a5f696ce-b781-4df5-8c46-4e6a3025f6fb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -411,17 +411,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6a4b8fd0-bebb-4e94-b46e-05867344b7eb",
-                    "path": "<DualShockGamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c815e1aa-deb8-4d0e-9d86-7d9de8990fab",
                     "path": "<Gamepad>/start",
                     "interactions": "",
@@ -510,7 +499,7 @@
                 },
                 {
                     "name": "",
-                    "id": "8fd595d5-5b10-4d96-ba1e-2602cfa33917",
+                    "id": "27d1997b-326d-4d58-b50e-62164feaeca1",
                     "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
@@ -521,8 +510,19 @@
                 },
                 {
                     "name": "",
-                    "id": "b8d14e08-d4ab-496e-8416-0940f68b34df",
+                    "id": "4e27f61b-5097-438e-b4b2-1a41bd3f3e9d",
                     "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c08eac0-f28d-467d-acf4-9560dfc0ecbc",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

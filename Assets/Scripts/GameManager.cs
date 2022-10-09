@@ -7,12 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager current;
 
-    private static bool _gameIsPaused;
-    private bool _gameHasEnded;
+    private static bool _gameIsPaused = false;
+    private bool _gameHasEnded = false;
     public GameObject completeLevelUI;
     public GameObject lostLevelUI;
     public GameObject playerGameObject;
-    private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
     // -1 is slow, 0 is normal, 1 is fast
@@ -20,13 +19,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        current = this;
-    }
-    
-    private void Start()
-    {
         _playerMovement = playerGameObject.GetComponent<PlayerMovement>();
-        _playerInput = playerGameObject.GetComponent<PlayerInput>();
+        current = this;
+        _gameHasEnded = false;
+        _playerMovement.enabled = true;
     }
 
     private void Update() {
@@ -34,19 +30,19 @@ public class GameManager : MonoBehaviour
             RestartLevel();
         }
     }
-    public void wonLevel() {
+    public void WonLevel() {
         if (_gameHasEnded) return;
         _gameHasEnded = true;
-            _playerMovement.enabled = false;
-            completeLevelUI.SetActive(true);
+        _playerMovement.enabled = false;
+        completeLevelUI.SetActive(true);
     }
 
-    public void lostLevel() {
+    public void LostLevel() {
         if (_gameHasEnded) return;
-            _gameHasEnded = true;
-            gameOverSound.Play();
-            _playerMovement.enabled = false;
-            lostLevelUI.SetActive(true);
+        _gameHasEnded = true;
+        gameOverSound.Play();
+        _playerMovement.enabled = false;
+        lostLevelUI.SetActive(true);
     }
 
     private void RestartLevel() {

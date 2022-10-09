@@ -63,8 +63,8 @@ public class PauseScreen : MonoBehaviour
 
     public void PauseOrResumeController()
     {
-        if (gameManager.hasGameEnded()) return;
-        if (gameManager.isGamePaused())
+        if (gameManager.HasGameEnded()) return;
+        if (gameManager.IsGamePaused())
         {
             Resume();
         }

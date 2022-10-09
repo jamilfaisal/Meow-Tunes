@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 8033697961162981974}
   - component: {fileID: 8033697961162981975}
   - component: {fileID: 8033697961162981968}
-  - component: {fileID: 6466586659138650117}
+  - component: {fileID: 2571783344404323081}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -435,6 +435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45353b9981b7e124dbbbb2d4c4a0ce30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMainTransform: {fileID: 0}
+  movement: {fileID: 0}
   jumpSound1: {fileID: 0}
   jumpSound2: {fileID: 0}
   jumpSound3: {fileID: 0}
@@ -447,8 +449,10 @@ MonoBehaviour:
   maxJumpForce: 15
   jumpCooldown: 0.1
   airMultiplier: 0.8
+  stompForce: 3
   jumpingGravity: 8
   sprintKey: 304
+  stompKey: 9
   playerHeight: 2
   playerWidth: 2
   whatIsGround:
@@ -457,7 +461,7 @@ MonoBehaviour:
   maxSlopeAngle: 40
   orientation: {fileID: 8033697960427997792}
   state: 0
---- !u!114 &6466586659138650117
+--- !u!114 &2571783344404323081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,21 +489,9 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5e445833-9fb8-4278-a1eb-bcf684ea7216
-    m_ActionName: Player/Move[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionName: Player/Move[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ThirdPersonCamera, Assembly-CSharp
-        m_MethodName: MoveCamera
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 5f0317f0-6d93-4a4d-b2b8-f949e64f1a76
     m_ActionName: Player/Look[/DualShock4GamepadHID/rightStick,/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
@@ -507,21 +499,25 @@ MonoBehaviour:
     m_ActionId: da54245a-9a59-4233-b3d8-b411a5a570d0
     m_ActionName: Player/Fire[/DualShock4GamepadHID/rightTrigger,/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8033697961162981968}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: TriggerJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 8a1612b1-0884-4648-8d34-b4617ec95afd
     m_ActionName: Player/Jump[/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 66e084c6-e0bf-4979-91b2-1528865ac011
+    m_ActionName: Player/Sprint[/DualShock4GamepadHID/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30ea9d7d-8c71-4d66-98a7-08c5eb6110ae
+    m_ActionName: Player/Start[/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1679dafc-65b9-4177-b76e-e478cc1074bd
+    m_ActionName: Player/Pause/Resume[/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f7294f5a-8ec4-4b5f-8519-a5ba262943db
+    m_ActionName: Player/Stomp[/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ba25f76b-6452-4aeb-8066-6a6b610f2242
@@ -529,11 +525,11 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 08bae83f-141d-4b5f-b20c-5e32084f6439
-    m_ActionName: UI/Submit[/Keyboard/enter,/DualShock4GamepadHID/buttonSouth]
+    m_ActionName: UI/Submit[/DualShock4GamepadHID/buttonSouth,/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 693c56dc-9325-4bc4-9010-647944a8a7f4
-    m_ActionName: UI/Cancel[/Keyboard/escape,/DualShock4GamepadHID/buttonEast]
+    m_ActionName: UI/Cancel[/DualShock4GamepadHID/buttonEast,/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5212e2d0-0ae7-4f09-8d24-2cd225856253
@@ -562,22 +558,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c7f9e710-6c78-4120-b9a3-f29e460e848c
     m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8033697961162981968}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Sprint
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 66e084c6-e0bf-4979-91b2-1528865ac011
-    m_ActionName: Player/Sprint
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
