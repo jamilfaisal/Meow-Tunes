@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
                 canDoubleJump = false;
 
-                Jump();
+                DoubleJump();
                 pickJumpSound().Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
@@ -258,6 +258,16 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * maxJumpForce, ForceMode.Impulse);
+
+    }
+    private void DoubleJump()
+    {
+        exitingSlope = true;
+        
+        // reset y velocity
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        rb.AddForce(transform.up * (maxJumpForce/2), ForceMode.Impulse);
 
     }
     private void ResetJump()
