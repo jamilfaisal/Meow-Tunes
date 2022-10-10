@@ -1,9 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform cameraMainTransform;
+    [SerializeField]
+    private InputActionReference movement;
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
     public AudioSource jumpSound2;
@@ -31,8 +37,8 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
     public float stompForce = 3f;
+    public Gamepad gamepad;
     public float jumpingGravity;
-
     [Header("Keybinds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode stompKey = KeyCode.Tab;
@@ -73,9 +79,11 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
-        
+        gamepad = Gamepad.current;
+      
         jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
+
 
     private void Update()
     {
@@ -143,6 +151,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void TriggerJump(InputAction.CallbackContext context)
+    {
+        if (!context.started && this.enabled)
+        {
+            jumpKeyHeld = true;
+
+            if(readyToJump && grounded){
+
+                readyToJump = false;
+
+                Jump();
+                pickJumpSound().Play();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+
+            }
+
+            if (context.canceled)
+            {
+                jumpKeyHeld = false;
+            }
+        }
+    }
+
     private AudioSource pickJumpSound() {
         int jumpSoundIndex = -1;
         if (lastJumpSound == -1) {
@@ -160,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovementStateHandler(){
         
         //Sprinting
-        if(grounded && Input.GetKey(sprintKey)){
+        if(grounded && (Input.GetKey(sprintKey) || gamepad != null && gamepad.rightTrigger.isPressed)){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
         }
@@ -180,9 +212,25 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        // on slope and not jumping
+        Vector3 move;
+        Vector2 movementControl = movement.action.ReadValue<Vector2>();
+            move = new Vector3(movementControl.x, 0, movementControl.y);
+            move = cameraMainTransform.forward * move.z + cameraMainTransform.right * move.x;
+            move.y = 0;
+
+            moveDirection = move;
+
+
+            // calculate rotation (for controller movement)
+            if (movementControl != Vector2.zero || move != Vector3.zero)
+            {
+                float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 5f);
+            }
+
+            // on slope and not jumping
         if(OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
@@ -231,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Stomp()
+    public void Stomp()
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
