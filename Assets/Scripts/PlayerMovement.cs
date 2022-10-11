@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
     bool canDoubleJump;
-    bool canSaveJump;
     public float stompForce = 3f;
     public Gamepad gamepad;
     public float jumpingGravity;
@@ -82,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
 
         readyToJump = true;
         canDoubleJump = false;
-        canSaveJump = true;
 
         gamepad = Gamepad.current;
       
@@ -112,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
         {
             landFromJumpSound.Play();
             _justLanded = false;
-            canSaveJump = true;
         }
         
         if (rb.velocity.magnitude > 1 && grounded && !walkingSound.isPlaying) walkingSound.Play();
@@ -142,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
 
                 readyToJump = false;
                 canDoubleJump = true;
-                canSaveJump = false;
 
                 Jump();
                 pickJumpSound().Play();
@@ -151,10 +147,9 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            if((canDoubleJump || canSaveJump) && !grounded){
+            if(canDoubleJump && !grounded){
 
                 canDoubleJump = false;
-                canSaveJump = false;
 
                 HalfJump();
                 pickJumpSound().Play();
@@ -180,12 +175,23 @@ public class PlayerMovement : MonoBehaviour
             if(readyToJump && grounded){
 
                 readyToJump = false;
+                canDoubleJump = true;
 
                 Jump();
                 pickJumpSound().Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
 
+            }
+
+            if(canDoubleJump && !grounded){
+
+                canDoubleJump = false;
+
+                HalfJump();
+                pickJumpSound().Play();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
             }
 
             if (context.canceled)
