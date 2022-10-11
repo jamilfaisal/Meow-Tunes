@@ -45,7 +45,8 @@ public class PlayerTempo : MonoBehaviour
     
     public void SpeedUp(InputAction.CallbackContext context)
     {
-        if (!context.performed || GameManager.current.IsGamePaused() || _tempoOnCooldown) return;
+        if (!context.performed || GameManager.current.IsGamePaused() ||
+            _tempoOnCooldown || GameManager.current.audioTempo == 1) return;
         TriggerTempoCooldown();
         ChangingTempo?.Invoke();
         Conductor.current.IncreaseTempo();
@@ -55,7 +56,8 @@ public class PlayerTempo : MonoBehaviour
 
     public void SlowDown(InputAction.CallbackContext context)
     {
-        if (!context.performed || GameManager.current.IsGamePaused() || _tempoOnCooldown) return;
+        if (!context.performed || GameManager.current.IsGamePaused() ||
+            _tempoOnCooldown || GameManager.current.audioTempo == -1) return;
         TriggerTempoCooldown();
         ChangingTempo?.Invoke();
         Conductor.current.DecreaseTempo();
