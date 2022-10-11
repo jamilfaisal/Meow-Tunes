@@ -181,10 +181,7 @@ public class PlayerMovement : MonoBehaviour
                 pickJumpSound().Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
-
-            }
-
-            if(canDoubleJump && !grounded){
+            } else if (context.performed && canDoubleJump && !grounded){
 
                 canDoubleJump = false;
 
@@ -193,7 +190,6 @@ public class PlayerMovement : MonoBehaviour
 
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
-
             if (context.canceled)
             {
                 jumpKeyHeld = false;
