@@ -58,7 +58,7 @@ public class PlatformManager : MonoBehaviour
 
     private void Update()
     {
-        var audioTempo = GameManager.current.audioTempo;
+        var audioTempo = GameManager.current.GetAudioTempo();
         if (audioTempo is 0 or 1)
         {
             if (Conductor.current.audioSource.time >= _normalAndFastBlinkTempos[CalculateIndex(_blinkIndex, audioTempo)])

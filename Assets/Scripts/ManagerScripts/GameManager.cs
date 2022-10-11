@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -9,13 +8,12 @@ public class GameManager : MonoBehaviour
 
     private static bool _gameIsPaused = false;
     private bool _gameHasEnded = false;
-    public GameObject completeLevelUI;
-    public GameObject lostLevelUI;
+    // -1 is slow, 0 is normal, 1 is fast
+    private int _audioTempo;
+    
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
-    // -1 is slow, 0 is normal, 1 is fast
-    public int audioTempo;
 
     private void Awake()
     {
@@ -35,16 +33,18 @@ public class GameManager : MonoBehaviour
     public void WonLevel() {
         if (_gameHasEnded) return;
         _gameHasEnded = true;
+        TimerManager.current.StopTimer();
         _playerMovement.enabled = false;
-        completeLevelUI.SetActive(true);
+        UIManager.current.WonLevelUI();
     }
 
     public void LostLevel() {
         if (_gameHasEnded) return;
         _gameHasEnded = true;
+        TimerManager.current.StopTimer();
         gameOverSound.Play();
         _playerMovement.enabled = false;
-        lostLevelUI.SetActive(true);
+        UIManager.current.LostLevelUI();
     }
 
     private void RestartLevel() {
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     public int GetAudioTempo()
     {
-        return audioTempo;
+        return _audioTempo;
     }
     
     
@@ -68,12 +68,12 @@ public class GameManager : MonoBehaviour
     
     public void IncreaseAudioTempo()
     {
-        audioTempo = Math.Min(audioTempo + 1, 1); 
+        _audioTempo = Math.Min(_audioTempo + 1, 1); 
     }
 
     public void DecreaseAudioTempo()
     {
-        audioTempo = Math.Max(audioTempo - 1, -1);
+        _audioTempo = Math.Max(_audioTempo - 1, -1);
 
     }
 

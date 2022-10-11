@@ -1,18 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public static TimerManager current;
+
+    private bool _timerActive;
+    private float _currentTime;
+    public TMP_Text currentTimeText;
+    private void Awake()
     {
-        
+        current = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        _currentTime = 0;
+        _timerActive = true;
+    }
+
+    private void Update()
+    {
+        if (_timerActive)
+        {
+            _currentTime += Time.deltaTime;
+            currentTimeText.text = FormatTime();
+        }
+    }
+
+    public void ResumeTimer()
+    {
+        _timerActive = true;
+    }
+
+    public void StopTimer()
+    {
+        _timerActive = false;
+    }
+
+    public string FormatTime()
+    {
+        var time = TimeSpan.FromSeconds(_currentTime);
+        return "Time: " + time.ToString(@"mm':'ss'.'fff");
     }
 }

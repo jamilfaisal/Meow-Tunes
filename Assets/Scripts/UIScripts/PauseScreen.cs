@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -45,12 +41,14 @@ public class PauseScreen : MonoBehaviour
         Invoke(nameof(EnableMovement), 0.3f);
         Time.timeScale = 1f;
         gameManager.ResumeGame();
+        TimerManager.current.ResumeTimer();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     public void Pause()
     {
+        TimerManager.current.StopTimer();
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
         _playerMovementScript.enabled = false;
