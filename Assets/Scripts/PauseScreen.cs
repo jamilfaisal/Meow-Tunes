@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class PauseScreen : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetAxis("Mouse X") != 0 && gameManager.IsGamePaused())
+        {
+            Cursor.visible = true;
+        }
         if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.HasGameEnded())
         {
             if (gameManager.IsGamePaused())
@@ -30,21 +35,21 @@ public class PauseScreen : MonoBehaviour
             {
                 Pause();
             }
-        }    
+        } 
     }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         musicPlayer.Resume();
-        _playerMovementScript.enabled = true;
+        Invoke(nameof(EnableMovement), 0.3f);
         Time.timeScale = 1f;
         gameManager.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    private void Pause()
+    public void Pause()
     {
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
@@ -55,7 +60,19 @@ public class PauseScreen : MonoBehaviour
         // This is because the camera script locks the cursor,
         // so we need to enable it again to be able to click buttons
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+    }
+
+    public void PauseOrResumeController()
+    {
+        if (gameManager.HasGameEnded()) return;
+        if (gameManager.IsGamePaused())
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
     }
 
     public void QuitGame()
@@ -63,4 +80,10 @@ public class PauseScreen : MonoBehaviour
         Application.Quit();
         Debug.Log("Game is exiting...");
     }
+
+    public void EnableMovement()
+    {
+        _playerMovementScript.enabled = true;
+    }
+
 }
