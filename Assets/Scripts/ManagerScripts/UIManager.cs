@@ -20,10 +20,7 @@ public class UIManager : MonoBehaviour
     public void WonLevelUI()
     {
         winLevelScoreText.text = ScoreManager.current.playerScore + " Fish Treats Collected!";
-        if (GameManager.current.timerOn)
-        {
-            winLevelTimeText.text = TimerManager.current.FormatTime();
-        }
+        winLevelTimeText.text = TimerManager.current.FormatTime();
         gameUI.SetActive(false);
         winLevelUI.SetActive(true);
     }
