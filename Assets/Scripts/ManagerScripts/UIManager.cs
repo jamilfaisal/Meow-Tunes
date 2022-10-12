@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text winLevelTimeText;
     public GameObject lostLevelUI;
     public GameObject gameUI;
+    public TMP_Text gameUITimer;
 
     private void Awake()
     {
@@ -19,7 +20,10 @@ public class UIManager : MonoBehaviour
     public void WonLevelUI()
     {
         winLevelScoreText.text = ScoreManager.current.playerScore + " Fish Treats Collected!";
-        winLevelTimeText.text = TimerManager.current.FormatTime();
+        if (GameManager.current.timerOn)
+        {
+            winLevelTimeText.text = TimerManager.current.FormatTime();
+        }
         gameUI.SetActive(false);
         winLevelUI.SetActive(true);
     }
@@ -29,5 +33,14 @@ public class UIManager : MonoBehaviour
         gameUI.SetActive(false);
         lostLevelUI.SetActive(true);
 
+    }
+
+    public void EnableGameUITimer()
+    {
+        gameUITimer.text = TimerManager.current.FormatTime();
+    }
+    public void DisableGameUITimer()
+    {
+        gameUITimer.text = "";
     }
 }

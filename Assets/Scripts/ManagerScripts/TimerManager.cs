@@ -26,7 +26,10 @@ public class TimerManager : MonoBehaviour
         if (_timerActive)
         {
             _currentTime += Time.deltaTime;
-            currentTimeText.text = FormatTime();
+            if (GameManager.current.timerOn)
+            {
+                currentTimeText.text = FormatTime();
+            }
         }
     }
 
@@ -43,6 +46,6 @@ public class TimerManager : MonoBehaviour
     public string FormatTime()
     {
         var time = TimeSpan.FromSeconds(_currentTime);
-        return "Time: " + time.ToString(@"mm':'ss'.'fff");
+        return "Time: " + time.ToString(@"mm':'ss'.'ff");
     }
 }

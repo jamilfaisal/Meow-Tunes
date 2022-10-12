@@ -60,6 +60,18 @@ public class PauseScreen : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    public void EnableDisableTimer(bool currentState)
+    {
+        GameManager.current.timerOn = currentState;
+        if (currentState == false)
+        {
+            UIManager.current.DisableGameUITimer();
+        } else
+        {
+            UIManager.current.EnableGameUITimer();
+        }
+    }
+    
     public void PauseOrResumeController()
     {
         if (gameManager.HasGameEnded()) return;

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private bool _gameHasEnded = false;
     // -1 is slow, 0 is normal, 1 is fast
     private int _audioTempo;
-    
+    public bool timerOn = false;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
