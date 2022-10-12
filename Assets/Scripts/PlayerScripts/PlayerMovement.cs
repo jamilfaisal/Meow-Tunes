@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    bool canDoubleJump;
+    bool canSaveJump;
     public float stompForce = 3f;
     public Gamepad gamepad;
     public float jumpingGravity;
@@ -79,6 +81,9 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        canDoubleJump = false;
+        canSaveJump = true;
+
         gamepad = Gamepad.current;
       
         jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
@@ -107,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         {
             landFromJumpSound.Play();
             _justLanded = false;
+            canSaveJump = true;
         }
         
         if (rb.velocity.magnitude > 1 && grounded && !walkingSound.isPlaying) walkingSound.Play();
@@ -135,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
             if(readyToJump && grounded){
 
                 readyToJump = false;
+                canDoubleJump = true;
+                canSaveJump = false;
 
                 Jump();
                 pickJumpSound().Play();
@@ -142,6 +150,18 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(ResetJump), jumpCooldown);
 
             }
+
+	        if((canDoubleJump || canSaveJump) && !grounded){
+
+                canDoubleJump = false;
+                canSaveJump = false;
+
+                HalfJump();
+                pickJumpSound().Play();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
+
         }
         else if(Input.GetButtonUp("Jump")){
             jumpKeyHeld = false;
@@ -160,14 +180,22 @@ public class PlayerMovement : MonoBehaviour
             if(readyToJump && grounded){
 
                 readyToJump = false;
+                canDoubleJump = true;
 
                 Jump();
                 pickJumpSound().Play();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
+            } else if (context.performed && (canDoubleJump || canSaveJump) && !grounded){
 
+                canDoubleJump = false;
+                canSaveJump = false;
+
+                HalfJump();
+                pickJumpSound().Play();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
             }
-
             if (context.canceled)
             {
                 jumpKeyHeld = false;
@@ -281,6 +309,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stomp()
     {
+        if (grounded) return;
         rb.velocity = Vector3.zero;
         rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
     }
@@ -293,6 +322,16 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * maxJumpForce, ForceMode.Impulse);
+
+    }
+    private void HalfJump()
+    {
+        exitingSlope = true;
+        
+        // reset y velocity
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        rb.AddForce(transform.up * (maxJumpForce/2), ForceMode.Impulse);
 
     }
     private void ResetJump()
