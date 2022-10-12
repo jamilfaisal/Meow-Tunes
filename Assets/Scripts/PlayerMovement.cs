@@ -309,6 +309,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stomp()
     {
+        if (grounded) return;
         rb.velocity = Vector3.zero;
         rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
     }
