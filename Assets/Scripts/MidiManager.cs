@@ -21,7 +21,8 @@ public class MidiManager : MonoBehaviour
 
     public double speed_up_percentage;
     public double slow_down_percentage;
-    public PlatformParent platform;
+    public PlatformParent red_platforms;
+    public PlatformParent green_platforms;
 
     public UnityMainThread UnityMainThread;
 
@@ -84,34 +85,21 @@ public class MidiManager : MonoBehaviour
     {
         foreach (Note note in e.Notes){
             if (platform_appear == note.NoteNumber){
-                // Debug.Log("~~Appear~~");
-                // Debug.Log(note);
                 UnityMainThread.wkr.AddJob(() => {
-                    platform.Appear_Disappear();
+                    red_platforms.Appear_Disappear();
+                    green_platforms.Appear_Disappear();
                 });
             }
             if (platform_blink == note.NoteNumber){
-                // Debug.Log("~~Blink~~");
-                // Debug.Log(note);
                 UnityMainThread.wkr.AddJob(() => {
-                    platform.Blink();
+                    red_platforms.Blink();
+                    green_platforms.Blink();
                 });
             }
             if (platform_move == note.NoteNumber){
-                // Debug.Log("~~Move~~");
-                // Debug.Log(note);
+                //No platform movement yet
             }
         }
         notes_played += 1;
     }
-
-    // private void Update() {
-    //     if(notes_played > 20 && _playback.Speed < 8){
-    //         SpeedUp();
-    //     }
-
-    //     if(notes_played > 50 && _playback.Speed >= 8){
-    //         SlowDown();
-    //     }
-    // }
 }
