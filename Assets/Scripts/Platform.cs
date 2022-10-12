@@ -36,46 +36,56 @@ public class Platform : PlatformParent
     
     void Update()
     {
-        if (switchState)
-        {
-            switchState = false;
-            var coroutine = SwitchState();
-            StartCoroutine(coroutine);
-        }
+        // if (switchState)
+        // {
+        //     switchState = false;
+        //     var coroutine = SwitchState();
+        //     StartCoroutine(coroutine);
+        // }
         
     }
 
-    private IEnumerator SwitchState()
-    {
-        var oldState = _state;
-        yield return new WaitForSeconds(blinkDelay[tempo]);
+    // private IEnumerator SwitchState()
+    // {
+    //     var oldState = _state;
+    //     // yield return new WaitForSeconds(blinkDelay[tempo]);
         
-        // Start blink
+    //     // Start blink
+    //     if (_state)
+    //     {
+    //         for (var i = 0; i < 3; i++)
+    //         {
+    //             _material.color = _startColor * 1.5f;
+    //             yield return new WaitForSeconds(0.1f);
+    //             _material.color = _startColor;
+    //             yield return new WaitForSeconds(_blinkTime - 0.1f);
+    //         }
+    //         Disappear();
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Tempo: " + tempo);
+    //         Debug.Log("Tempo Time: " + tempoTime[tempo]);
+    //         Debug.Log("Blink Time: " + blinkDelay[tempo]);
+    //         yield return new WaitForSeconds(tempoTime[tempo] - blinkDelay[tempo]);
+    //         Reappear();
+    //     }
+        
+
+    //     _state = !oldState;
+        
+    //     switchState = true;
+
+    // }
+
+    public void Appear_Disappear_single()
+    {
         if (_state)
         {
-            for (var i = 0; i < 3; i++)
-            {
-                _material.color = _startColor * 1.5f;
-                yield return new WaitForSeconds(0.1f);
-                _material.color = _startColor;
-                yield return new WaitForSeconds(_blinkTime - 0.1f);
-            }
             Disappear();
-        }
-        else
-        {
-            Debug.Log("Tempo: " + tempo);
-            Debug.Log("Tempo Time: " + tempoTime[tempo]);
-            Debug.Log("Blink Time: " + blinkDelay[tempo]);
-            yield return new WaitForSeconds(tempoTime[tempo] - blinkDelay[tempo]);
+        }else{
             Reappear();
         }
-        
-
-        _state = !oldState;
-        
-        switchState = true;
-
     }
     
     public void Disappear()
@@ -90,5 +100,14 @@ public class Platform : PlatformParent
     {
         _material.color = _startColor;
         _collider.enabled = true;
+    }
+
+    public IEnumerator Blink_single()
+    {
+        if(_state){
+            _material.color = _startColor * 1.5f;
+            yield return new WaitForSeconds(0.1f);
+            _material.color = _startColor;
+        }
     }
 }
