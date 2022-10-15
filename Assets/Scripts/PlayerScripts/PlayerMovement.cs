@@ -218,11 +218,7 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
 
         var movementControl = movement.action.ReadValue<Vector2>();
-        var move = new Vector3(movementControl.x, 0, 0);
-        move = cameraMainTransform.right * move.x;
-        move.y = 0;
-
-        _moveDirection = move;
+        _moveDirection = new Vector3(movementControl.x, 0, 0);;
 
         // on slope and not jumping
         if(OnSlope() && !_exitingSlope)

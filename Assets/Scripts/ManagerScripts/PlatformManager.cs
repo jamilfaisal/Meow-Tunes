@@ -53,7 +53,6 @@ public class PlatformManager : MonoBehaviour
     private void Start()
     {
         Conductor.current.SongLooped += ResetIndices;
-        PlayerTempo.current.ChangingTempo += CalculateIndices;
     }
 
     private void Update()
@@ -130,32 +129,6 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
-    private void CalculateIndices()
-    {
-        var musicTime = Conductor.current.audioSource.time;
-        
-        var minimumIndex = 0;
-        for (var i = 0; i < _slowBlinkTempos.Length; i++)
-        {
-            if (!(musicTime < _slowBlinkTempos[i])) continue;
-            minimumIndex = i;
-            break;
-        }
-        _slowBlinkIndex = minimumIndex;
-        _slowSwitchIndex = minimumIndex;
-
-        minimumIndex = 0;
-        for (var i = 0; i < _normalAndFastBlinkTempos.Length; i++)
-        {
-            if (!(musicTime < _normalAndFastBlinkTempos[i])) continue;
-            minimumIndex = i;
-            break;
-        }
-
-        _blinkIndex = minimumIndex;
-        _switchIndex = minimumIndex;
-    }
-
     private void ResetIndices()
     {
         _blinkIndex = 0;
@@ -164,3 +137,30 @@ public class PlatformManager : MonoBehaviour
         _slowSwitchIndex = 0;
     }
 }
+
+// Archive
+// private void CalculateIndices()
+// {
+//     var musicTime = Conductor.current.audioSource.time;
+//         
+//     var minimumIndex = 0;
+//     for (var i = 0; i < _slowBlinkTempos.Length; i++)
+//     {
+//         if (!(musicTime < _slowBlinkTempos[i])) continue;
+//         minimumIndex = i;
+//         break;
+//     }
+//     _slowBlinkIndex = minimumIndex;
+//     _slowSwitchIndex = minimumIndex;
+//
+//     minimumIndex = 0;
+//     for (var i = 0; i < _normalAndFastBlinkTempos.Length; i++)
+//     {
+//         if (!(musicTime < _normalAndFastBlinkTempos[i])) continue;
+//         minimumIndex = i;
+//         break;
+//     }
+//
+//     _blinkIndex = minimumIndex;
+//     _switchIndex = minimumIndex;
+// }
