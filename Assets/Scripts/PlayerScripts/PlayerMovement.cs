@@ -4,7 +4,6 @@ using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform cameraMainTransform;
     [SerializeField]
     private InputActionReference movement;
     [Header("Sound Effects")]
