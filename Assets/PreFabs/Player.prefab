@@ -381,7 +381,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8033697961162981974}
   - component: {fileID: 8033697961162981975}
-  - component: {fileID: 8033697961162981968}
   - component: {fileID: 2571783344404323081}
   m_Layer: 0
   m_Name: Player
@@ -423,44 +422,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &8033697961162981968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8033697961162981973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45353b9981b7e124dbbbb2d4c4a0ce30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraMainTransform: {fileID: 0}
-  movement: {fileID: 0}
-  jumpSound1: {fileID: 0}
-  jumpSound2: {fileID: 0}
-  jumpSound3: {fileID: 0}
-  jumpSound4: {fileID: 0}
-  landFromJumpSound: {fileID: 0}
-  walkingSound: {fileID: 0}
-  walkSpeed: 6
-  sprintSpeed: 8
-  groundDrag: 4
-  maxJumpForce: 15
-  jumpCooldown: 0.1
-  airMultiplier: 0.8
-  stompForce: 3
-  jumpingGravity: 8
-  sprintKey: 304
-  stompKey: 9
-  playerHeight: 2
-  playerWidth: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  maxSlopeAngle: 40
-  orientation: {fileID: 8033697960427997792}
-  state: 0
 --- !u!114 &2571783344404323081
 MonoBehaviour:
   m_ObjectHideFlags: 0
