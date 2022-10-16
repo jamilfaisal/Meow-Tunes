@@ -1,16 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class LifeManager : MonoBehaviour
 {
+    public static LifeManager current;
+
+    private void Awake()
+    {
+        current = this;
+    }
+
     public int playerLives = 5;
     public TMP_Text playerLivesText;
     public GameManager gameManager;
     public AudioSource respawnSound;
 
-    void Start()
+    private void Start()
     {
         playerLivesText.text = "x " + playerLives;
     }

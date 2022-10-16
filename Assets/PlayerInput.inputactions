@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
-                    "type": "Button",
-                    "id": "66e084c6-e0bf-4979-91b2-1528865ac011",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause/Resume",
                     "type": "Button",
                     "id": "1679dafc-65b9-4177-b76e-e478cc1074bd",
@@ -395,17 +386,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e3e2c125-644a-42e0-b5a7-30a44f5c4929",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
