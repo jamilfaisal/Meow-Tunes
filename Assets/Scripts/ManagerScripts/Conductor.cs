@@ -56,7 +56,8 @@ public class Conductor : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.current.IsGamePaused()) return;
+        if (GameManager.current.IsGamePaused() || GameManager.current.HasGameEnded() 
+                                               || GameManager.current.playerIsDying) return;
         if (!audioSource.isPlaying)
         {
             SwitchMusicFromIntroToLoop();

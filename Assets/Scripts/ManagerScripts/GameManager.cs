@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager current;
 
     private static bool _gameIsPaused;
+    public bool playerIsDying;
     private bool _gameHasEnded;
     // -1 is slow, 0 is normal, 1 is fast
     private int _audioTempo;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void LostLevel() {
         if (_gameHasEnded) return;
         _gameHasEnded = true;
+        Conductor.current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();
