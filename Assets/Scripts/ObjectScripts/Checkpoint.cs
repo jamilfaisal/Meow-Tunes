@@ -10,7 +10,6 @@ public class Checkpoint : MonoBehaviour
         Destroy(gameObject);
         RespawnManager.current.SetMusicTime(Conductor.current.audioSource.time);
         RespawnManager.current.SetRespawnPoint(otherCollider.gameObject.transform.position);
-        RespawnManager.current.SetPlatformIndex();
         checkpointSound.Play();
     }
 }

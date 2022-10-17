@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using System.Text;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
@@ -13,18 +11,16 @@ public class MidiManager : MonoBehaviour
 {
     private Playback _playback;
 
-    private int notes_played;
+    private int _notesPlayed;
 
-    private SevenBitNumber platform_appear;
-    private SevenBitNumber platform_blink;
-    private SevenBitNumber platform_move;
+    private SevenBitNumber _platformSwitch;
+    private SevenBitNumber _platformBlink;
+    private SevenBitNumber _playerMeow;
 
-    public double speed_up_percentage;
-    public double slow_down_percentage;
     // public PlatformParent red_platforms;
     // public PlatformParent green_platforms;
 
-    public UnityMainThread UnityMainThread;
+    // public UnityMainThread UnityMainThread;
 
 
     private void Start()
@@ -33,11 +29,10 @@ public class MidiManager : MonoBehaviour
 
         var trackList = midiFile.GetTrackChunks().ToList();
         
-        // change tracklist number to match the new midi file!
-        platform_appear = (trackList[1].GetNotes().ToList())[0].NoteNumber;
-        platform_blink = (trackList[2].GetNotes().ToList())[0].NoteNumber;
-        platform_move = (trackList[5].GetNotes().ToList())[0].NoteNumber;
-        
+        // change track list number to match the new midi file!
+        _platformSwitch = (trackList[1].GetNotes().ToList())[0].NoteNumber;
+        _platformBlink = (trackList[2].GetNotes().ToList())[0].NoteNumber;
+        _playerMeow = (trackList[3].GetNotes().ToList())[0].NoteNumber;
         
         InitializeFilePlayback(midiFile);
         StartPlayback();
@@ -73,30 +68,20 @@ public class MidiManager : MonoBehaviour
         _playback.Start();
     }
 
-    public void SpeedUp()
-    {
-        _playback.Speed = speed_up_percentage;
-    }
-
-    public void SlowDown()
-    {
-        _playback.Speed = slow_down_percentage;
-    }
-
     private void OnNotesPlaybackStarted(object sender, NotesEventArgs e)
     {
-        foreach (Note note in e.Notes){
-            if (platform_appear == note.NoteNumber){
+        foreach (var note in e.Notes){
+            if (_platformSwitch == note.NoteNumber){
                 UnityMainThread.wkr.AddJob(() => {
                     PlatformManager.current.InvokeSwitch();
                 });
             }
-            if (platform_blink == note.NoteNumber){
+            if (_platformBlink == note.NoteNumber){
                 UnityMainThread.wkr.AddJob(() => {
                     PlatformManager.current.InvokeBlink();
                 });
             }
         }
-        notes_played += 1;
+        _notesPlayed += 1;
     }
 }

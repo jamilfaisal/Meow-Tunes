@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,7 +15,6 @@ public class RespawnManager : MonoBehaviour
     private float _musicTime;
     private int _blinkIndex;
     private int _switchIndex;
-    public event Action RespawnPlayerEvent;
 
     [SerializeField] public GameObject playerCharacter;
     private Rigidbody _playerCharacterRb;
@@ -29,9 +27,7 @@ public class RespawnManager : MonoBehaviour
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
-        RespawnPlayerEvent?.Invoke();
         AdjustMusicTime();
-        AdjustPlatformIndex();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
         Conductor.current.audioSource.Play();
@@ -51,11 +47,6 @@ public class RespawnManager : MonoBehaviour
         _playerCharacterRb.velocity = new Vector3(0,0,1f);
     }
 
-    private void AdjustPlatformIndex()
-    {
-        PlatformManager.current.blinkIndex = _blinkIndex;
-    }
-    
     public void SetRespawnPoint(Vector3 newRespawnPoint) {
         _respawnPointLocation = newRespawnPoint;
     }
@@ -63,10 +54,5 @@ public class RespawnManager : MonoBehaviour
     public void SetMusicTime(float musicTime)
     {
         _musicTime = musicTime;
-    }
-
-    public void SetPlatformIndex()
-    {
-        _blinkIndex = PlatformManager.current.blinkIndex;
     }
 }

@@ -50,7 +50,7 @@ public class PlayerTempo : MonoBehaviour
         
         TriggerTempoCooldown();
         ChangingTempo?.Invoke();
-        Conductor.current.IncreaseTempo();
+        // Conductor.current.IncreaseTempo();
         GameManager.current.IncreaseAudioTempo();
         UpdateTempoUIImage();
     }
@@ -62,7 +62,7 @@ public class PlayerTempo : MonoBehaviour
         
         TriggerTempoCooldown();
         ChangingTempo?.Invoke();
-        Conductor.current.DecreaseTempo();
+        // Conductor.current.DecreaseTempo();
         GameManager.current.DecreaseAudioTempo();
         UpdateTempoUIImage();
     }
