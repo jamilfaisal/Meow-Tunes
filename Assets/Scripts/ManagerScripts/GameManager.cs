@@ -6,11 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager current;
 
-    private static bool _gameIsPaused = false;
-    private bool _gameHasEnded = false;
+    private static bool _gameIsPaused;
+    public bool playerIsDying;
+    private bool _gameHasEnded;
     // -1 is slow, 0 is normal, 1 is fast
     private int _audioTempo;
-    public bool timerOn = false;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     public void WonLevel() {
         if (_gameHasEnded) return;
         _gameHasEnded = true;
-        TimerManager.current.StopTimer();
         _playerMovement.enabled = false;
         UIManager.current.WonLevelUI();
     }
@@ -41,7 +40,7 @@ public class GameManager : MonoBehaviour
     public void LostLevel() {
         if (_gameHasEnded) return;
         _gameHasEnded = true;
-        TimerManager.current.StopTimer();
+        Conductor.current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();

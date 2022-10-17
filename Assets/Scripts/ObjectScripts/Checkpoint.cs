@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    public RespawnManager respawnManager;
     public AudioSource checkpointSound;
     
-    private void OnTriggerEnter(Collider collider) 
+    private void OnTriggerEnter(Collider otherCollider)
     {
-        if (collider.gameObject.tag == "Player")
-        {
-            Destroy(this.gameObject);
-            checkpointSound.Play();
-            respawnManager.setRespawnPoint(collider.gameObject.transform.position);
-        }
+        if (!otherCollider.gameObject.CompareTag("Player")) return;
+        Destroy(gameObject);
+        RespawnManager.current.SetMusicTime(Conductor.current.audioSource.time);
+        RespawnManager.current.SetRespawnPoint(otherCollider.gameObject.transform.position);
+        RespawnManager.current.SetPlatformIndex();
+        checkpointSound.Play();
     }
 }

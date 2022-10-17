@@ -26,27 +26,23 @@ public class Platform : MonoBehaviour
         }
 
         PlatformManager.current.BlinkEvent += Blink;
-        PlatformManager.current.SwitchEvent += Switch;
-        PlayerTempo.current.ChangingTempo += StopBlinking;
+        RespawnManager.current.RespawnPlayerEvent += StopCoroutines;
         if (!gameObject.CompareTag("Green")) return;
         Disappear();
 
-    }
-
-    private void StopBlinking()
-    {
-        StopCoroutine(BlinkDelay(SlowBlinkTime));
-        StopCoroutine(BlinkDelay(BlinkTime));
     }
 
     private void Blink()
     {
         if (_visible == false)
         {
-            return;
+            StartCoroutine(GameManager.current.GetAudioTempo() == -1 ? NoBlinkDelay(SlowBlinkTime) : NoBlinkDelay(BlinkTime));
+        }
+        else
+        {
+            StartCoroutine(GameManager.current.GetAudioTempo() == -1 ? BlinkDelay(SlowBlinkTime) : BlinkDelay(BlinkTime));
         }
 
-        StartCoroutine(GameManager.current.GetAudioTempo() == -1 ? BlinkDelay(SlowBlinkTime) : BlinkDelay(BlinkTime));
     }
 
     private IEnumerator BlinkDelay(float blinkTime)
@@ -58,6 +54,19 @@ public class Platform : MonoBehaviour
             _material.color = _startColor;
             yield return new WaitForSeconds(blinkTime - 0.1f);
         }
+        Switch();
+        yield return null;
+    }
+
+    private IEnumerator NoBlinkDelay(float blinkTime)
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(blinkTime - 0.1f);
+        }
+        Switch();
+        yield return null;
     }
 
     private void Switch()
@@ -85,5 +94,15 @@ public class Platform : MonoBehaviour
         _material.color = _startColor;
         _collider.enabled = true;
         _visible = true;
+    }
+
+    private void StopCoroutines()
+    {
+        StopCoroutine(GameManager.current.GetAudioTempo() == -1
+            ? NoBlinkDelay(SlowBlinkTime)
+            : NoBlinkDelay(BlinkTime));
+        StopCoroutine(GameManager.current.GetAudioTempo() == -1
+            ? BlinkDelay(SlowBlinkTime)
+            : BlinkDelay(BlinkTime));
     }
 }
