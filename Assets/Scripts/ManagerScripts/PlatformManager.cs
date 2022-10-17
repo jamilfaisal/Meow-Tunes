@@ -10,6 +10,7 @@ public class PlatformManager : MonoBehaviour
     private float[] _slowBlinkTempos;
     private float[] _normalAndFastBlinkTempos;
     public event Action BlinkEvent;
+    public event Action SwitchEvent;
 
     private void Awake()
     {
@@ -62,6 +63,16 @@ public class PlatformManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void InvokeBlink()
+    {
+        BlinkEvent?.Invoke();
+    }
+
+    public void InvokeSwitch()
+    {
+        SwitchEvent?.Invoke();
     }
 
     private static int CalculateIndex(int index, int audioTempo)
