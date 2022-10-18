@@ -45,15 +45,11 @@ public class MidiManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("Releasing playback...");
-
         if (_playback != null)
         {
             _playback.NotesPlaybackStarted -= OnNotesPlaybackStarted;
             _playback.Dispose();
         }
-
-        Debug.Log("Playback released.");
     }
 
     private void InitializeFilePlayback(MidiFile midiFile)
@@ -108,5 +104,10 @@ public class MidiManager : MonoBehaviour
     public void AdjustMidiTime(ITimeSpan midiTime)
     {
         _playback.MoveToTime(midiTime);
+    }
+
+    public void RestartLevel()
+    {
+        OnApplicationQuit();
     }
 }

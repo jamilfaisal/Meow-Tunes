@@ -43,7 +43,9 @@ public class GameManager : MonoBehaviour
         UIManager.current.LostLevelUI();
     }
 
-    private void RestartLevel() {
+    private void RestartLevel()
+    {
+        MidiManager.current.RestartLevel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         _gameHasEnded = false;
     }
