@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement current;
+    
     [SerializeField]
     private InputActionReference movement;
     [Header("Sound Effects")]
@@ -61,6 +64,11 @@ public class PlayerMovement : MonoBehaviour
         Air
     }
 
+    private void Awake()
+    {
+        current = this;
+    }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -101,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-        if (_rb.velocity.magnitude <= 0 || !_grounded) walkingSound.Stop();
+        if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
     
     }
 

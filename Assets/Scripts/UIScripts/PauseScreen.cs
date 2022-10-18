@@ -5,7 +5,6 @@ public class PauseScreen : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameManager gameManager;
     public Conductor musicPlayer;
-    public AudioSource walkingSound;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
 
@@ -50,7 +49,7 @@ public class PauseScreen : MonoBehaviour
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
         _playerMovementScript.enabled = false;
-        walkingSound.Stop();
+        PlayerMovement.current.walkingSound.Stop();
         Time.timeScale = 0f;
         gameManager.PauseGame();
         // This is because the camera script locks the cursor,
