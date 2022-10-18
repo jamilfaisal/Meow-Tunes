@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +8,6 @@ public class GameManager : MonoBehaviour
     private static bool _gameIsPaused;
     public bool playerIsDying;
     private bool _gameHasEnded;
-    // -1 is slow, 0 is normal, 1 is fast
-    private int _audioTempo;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
@@ -51,29 +48,12 @@ public class GameManager : MonoBehaviour
         _gameHasEnded = false;
     }
 
-    public int GetAudioTempo()
-    {
-        return _audioTempo;
-    }
-    
-    
     public void StartLevel()
     {
         if (_gameHasEnded)
         {
             RestartLevel();
         }
-    }
-    
-    public void IncreaseAudioTempo()
-    {
-        _audioTempo = Math.Min(_audioTempo + 1, 1); 
-    }
-
-    public void DecreaseAudioTempo()
-    {
-        _audioTempo = Math.Max(_audioTempo - 1, -1);
-
     }
 
     public bool IsGamePaused() {

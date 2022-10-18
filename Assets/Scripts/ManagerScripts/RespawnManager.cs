@@ -1,4 +1,5 @@
 using System.Collections;
+using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 
 
@@ -13,8 +14,7 @@ public class RespawnManager : MonoBehaviour
 
     private Vector3 _respawnPointLocation;
     private float _musicTime;
-    private int _blinkIndex;
-    private int _switchIndex;
+    private ITimeSpan _midiTime;
 
     [SerializeField] public GameObject playerCharacter;
     private Rigidbody _playerCharacterRb;
@@ -23,20 +23,25 @@ public class RespawnManager : MonoBehaviour
     {
         _respawnPointLocation = playerCharacter.transform.position;
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
+        _midiTime = new MetricTimeSpan(0);
     }
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
+        GameManager.current.playerIsDying = true;
         AdjustMusicTime();
+        AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
-        Conductor.current.audioSource.Play();
+        Conductor.current.Resume();
+        MidiManager.current.ResumePlayback();
         GameManager.current.playerIsDying = false;
         yield return null;
     }
 
     private void AdjustMusicTime()
     {
+        Conductor.current.Pause();
         Conductor.current.audioSource.time = _musicTime;
     }
 
@@ -47,6 +52,12 @@ public class RespawnManager : MonoBehaviour
         _playerCharacterRb.velocity = new Vector3(0,0,1f);
     }
 
+    private void AdjustMidiTime()
+    {
+        MidiManager.current.PausePlayback();
+        MidiManager.current.AdjustMidiTime(_midiTime);
+    }
+
     public void SetRespawnPoint(Vector3 newRespawnPoint) {
         _respawnPointLocation = newRespawnPoint;
     }
@@ -54,5 +65,10 @@ public class RespawnManager : MonoBehaviour
     public void SetMusicTime(float musicTime)
     {
         _musicTime = musicTime;
+    }
+
+    public void SetMidiTime(ITimeSpan midiTime)
+    {
+        _midiTime = midiTime;
     }
 }

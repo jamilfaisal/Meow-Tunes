@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Conductor : MonoBehaviour
@@ -34,7 +32,10 @@ public class Conductor : MonoBehaviour
 
     private void SwitchMusicFromIntroToLoop()
     {
-        audioSource.clip = songLoopNormal;
+        if (songLoopNormal != null)
+        {
+            audioSource.clip = songLoopNormal;
+        }
         audioSource.Play();
         audioSource.loop = true;
     }

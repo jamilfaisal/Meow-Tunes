@@ -8,6 +8,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (!otherCollider.gameObject.CompareTag("Player")) return;
         Destroy(gameObject);
+        RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(Conductor.current.audioSource.time);
         RespawnManager.current.SetRespawnPoint(otherCollider.gameObject.transform.position);
         checkpointSound.Play();

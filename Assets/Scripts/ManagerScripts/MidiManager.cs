@@ -22,16 +22,21 @@ public class MidiManager : MonoBehaviour
 
     // public UnityMainThread UnityMainThread;
 
+    public static MidiManager current;
+    
+    private void Awake()
+    {
+        current = this;
+    }
 
     private void Start()
     {
-        var midiFile = MidiFile.Read("./Assets/Audio/Music/Level_One_Music/mus_Fine-Wine-with-Feline_110bpm_v2.mid");
-
+        var midiFile = MidiFile.Read("./Assets/Audio/Music/Feline_Tipsy/mus_Feline-Tipsy_120bpm_arr.mid");
         var trackList = midiFile.GetTrackChunks().ToList();
         
-        // change track list number to match the new midi file!
-        _platformSwitch = (trackList[1].GetNotes().ToList())[0].NoteNumber;
-        _platformBlink = (trackList[2].GetNotes().ToList())[0].NoteNumber;
+        // change track list number to match the midi file!
+        _platformBlink = (trackList[1].GetNotes().ToList())[0].NoteNumber;
+        _platformSwitch = (trackList[2].GetNotes().ToList())[0].NoteNumber;
         _playerMeow = (trackList[3].GetNotes().ToList())[0].NoteNumber;
         
         InitializeFilePlayback(midiFile);
@@ -83,5 +88,25 @@ public class MidiManager : MonoBehaviour
             }
         }
         _notesPlayed += 1;
+    }
+
+    public ITimeSpan GetPlaybackTime()
+    {
+        return _playback.GetCurrentTime(TimeSpanType.Metric);
+    }
+
+    public void ResumePlayback()
+    {
+        _playback.Start();
+    }
+    
+    public void PausePlayback()
+    {
+        _playback.Stop();
+    }
+
+    public void AdjustMidiTime(ITimeSpan midiTime)
+    {
+        _playback.MoveToTime(midiTime);
     }
 }

@@ -26,8 +26,6 @@ public class Respawner : MonoBehaviour
 
     private IEnumerator Respawn()
     {
-        GameManager.current.playerIsDying = true;
-        Conductor.current.Pause();
         yield return respawnManager.RespawnPlayer(_respawnClip.length);
     }
 }
