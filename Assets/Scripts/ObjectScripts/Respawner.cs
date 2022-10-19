@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Respawner : MonoBehaviour
 {
     public RespawnManager respawnManager;
-    public LifeManager lifeManager;
     public AudioSource respawnSound;
     private AudioClip _respawnClip;
 
@@ -15,17 +12,20 @@ public class Respawner : MonoBehaviour
         _respawnClip = respawnSound.clip;
     }
 
-    private void OnTriggerEnter(Collider collider) 
+    private void OnTriggerEnter(Collider otherCollider) 
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (otherCollider.gameObject.CompareTag("Player"))
         {
-            lifeManager.LostLife();
-            Invoke(nameof(Respawn), _respawnClip.length - 5f);
+            LifeManager.current.LostLife();
+            if (LifeManager.current.playerLives != 0)
+            {
+                StartCoroutine(Respawn());
+            }
         }
     }
 
-    private void Respawn()
+    private IEnumerator Respawn()
     {
-        respawnManager.respawnPlayer();
+        yield return respawnManager.RespawnPlayer(_respawnClip.length);
     }
 }

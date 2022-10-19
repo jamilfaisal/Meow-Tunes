@@ -766,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9474e636be7b9a64eb3032e6be6dd070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnManager: {fileID: 0}
+  checkpointSound: {fileID: 0}
 --- !u!65 &2419299994246970648
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
-                    "type": "Button",
-                    "id": "66e084c6-e0bf-4979-91b2-1528865ac011",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause/Resume",
                     "type": "Button",
                     "id": "1679dafc-65b9-4177-b76e-e478cc1074bd",
@@ -75,24 +66,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Speed Up",
-                    "type": "Button",
-                    "id": "7b547b12-6c65-406c-88fe-082d0ac4ed86",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Slow Down",
-                    "type": "Button",
-                    "id": "b111d9a3-10b3-4a93-bc9d-8cd840793e48",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -418,17 +391,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e3e2c125-644a-42e0-b5a7-30a44f5c4929",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c815e1aa-deb8-4d0e-9d86-7d9de8990fab",
                     "path": "<Gamepad>/start",
                     "interactions": "",
@@ -545,61 +507,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "281df20d-937c-47b6-8874-6fe97d4882cc",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Speed Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7dd5b2c4-612b-4df9-ae77-608288793af0",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Speed Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e1d2bb84-efdd-43e4-b9a0-fe10d02ff9fc",
-                    "path": "<DualShockGamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Speed Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "89b26a01-7746-4949-b599-29f4eab215c8",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Slow Down",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9b60bf5d-65a8-44fd-813e-6128a89e2796",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Slow Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

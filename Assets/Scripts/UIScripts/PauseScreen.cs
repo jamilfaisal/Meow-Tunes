@@ -5,7 +5,6 @@ public class PauseScreen : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameManager gameManager;
     public Conductor musicPlayer;
-    public AudioSource walkingSound;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
 
@@ -41,18 +40,16 @@ public class PauseScreen : MonoBehaviour
         Invoke(nameof(EnableMovement), 0.3f);
         Time.timeScale = 1f;
         gameManager.ResumeGame();
-        TimerManager.current.ResumeTimer();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     public void Pause()
     {
-        TimerManager.current.StopTimer();
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
         _playerMovementScript.enabled = false;
-        walkingSound.Stop();
+        PlayerMovement.current.walkingSound.Stop();
         Time.timeScale = 0f;
         gameManager.PauseGame();
         // This is because the camera script locks the cursor,
@@ -60,18 +57,6 @@ public class PauseScreen : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void EnableDisableTimer(bool currentState)
-    {
-        GameManager.current.timerOn = currentState;
-        if (currentState == false)
-        {
-            UIManager.current.DisableGameUITimer();
-        } else
-        {
-            UIManager.current.EnableGameUITimer();
-        }
-    }
-    
     public void PauseOrResumeController()
     {
         if (gameManager.HasGameEnded()) return;

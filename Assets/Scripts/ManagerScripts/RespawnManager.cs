@@ -1,24 +1,74 @@
 using System.Collections;
-using System.Collections.Generic;
+using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 
 
 public class RespawnManager : MonoBehaviour
 {
-    [SerializeField] public Vector3 respawnPoint;
-    [SerializeField] public GameObject playerCharacter;
-    void Start()
+    public static RespawnManager current;
+
+    private void Awake()
     {
-        respawnPoint = playerCharacter.transform.position;
+        current = this;
     }
 
-    public void respawnPlayer() {
-        playerCharacter.transform.position = respawnPoint;
+    private Vector3 _respawnPointLocation;
+    private float _musicTime;
+    private ITimeSpan _midiTime;
+
+    [SerializeField] public GameObject playerCharacter;
+    private Rigidbody _playerCharacterRb;
+
+    private void Start()
+    {
+        _respawnPointLocation = playerCharacter.transform.position;
+        _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
+        _midiTime = new MetricTimeSpan(0);
+    }
+
+    public IEnumerator RespawnPlayer(float respawnClipLength)
+    {
+        GameManager.current.playerIsDying = true;
+        AdjustMusicTime();
+        AdjustMidiTime();
+        yield return new WaitForSeconds(respawnClipLength - 5f);
+        AdjustPlayerPosition();
+        Conductor.current.Resume();
+        MidiManager.current.ResumePlayback();
+        GameManager.current.playerIsDying = false;
+        yield return null;
+    }
+
+    private void AdjustMusicTime()
+    {
+        Conductor.current.Pause();
+        Conductor.current.audioSource.time = _musicTime;
+    }
+
+    private void AdjustPlayerPosition()
+    {
+        playerCharacter.transform.position = _respawnPointLocation;
         playerCharacter.transform.rotation = new Quaternion(0,0,0,0);
-        playerCharacter.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+        _playerCharacterRb.velocity = new Vector3(0,0,1f);
     }
 
-    public void setRespawnPoint(Vector3 newRespawnPoint) {
-        respawnPoint = newRespawnPoint;
+    private void AdjustMidiTime()
+    {
+        MidiManager.current.PausePlayback();
+        MidiManager.current.AdjustMidiTime(_midiTime);
+    }
+
+    public void SetRespawnPoint(Vector3 newRespawnPoint) {
+        _respawnPointLocation = newRespawnPoint;
+    }
+
+    public void SetMusicTime(float musicTime)
+    {
+        _musicTime = musicTime;
+    }
+
+    public void SetMidiTime(ITimeSpan midiTime)
+    {
+        _midiTime = midiTime;
     }
 }
