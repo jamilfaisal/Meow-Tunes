@@ -18,8 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _justLanded;
 
     public AudioSource walkingSound;
-    private bool _isMoving;
-    
+
     [Header("Movement")]
     private float _moveSpeed;
     public float walkSpeed;
@@ -36,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public float stompForce = 3f;
     public float jumpingGravity;
     public KeyCode stompKey = KeyCode.Tab;
+    Vector3 _lastPos;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -100,9 +100,19 @@ public class PlayerMovement : MonoBehaviour
             _canSaveJump = true;
         }
         
+        // Check if player is stuck on the edge of a platform, if so then push them down 
+        if (state == MovementState.Air && transform.position == _lastPos)
+        { 
+            _rb.velocity = Vector3.zero;
+            _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+        }
+        
         if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
         if (_rb.velocity.magnitude <= 0 || !_grounded) walkingSound.Stop();
-    
+
+        _lastPos = transform.position;
+
+
     }
 
     private void FixedUpdate()
