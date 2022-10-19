@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement current;
+    
     [SerializeField]
     private InputActionReference movement;
     [Header("Sound Effects")]
@@ -35,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float stompForce = 3f;
     public float jumpingGravity;
     public KeyCode stompKey = KeyCode.Tab;
-    Vector3 _lastPos;
+    private Vector3 _lastPos;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -59,6 +61,11 @@ public class PlayerMovement : MonoBehaviour
     public enum MovementState {
         Walking,
         Air
+    }
+
+    private void Awake()
+    {
+        current = this;
     }
 
     private void Start()
@@ -108,10 +115,9 @@ public class PlayerMovement : MonoBehaviour
         }
         
         if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-        if (_rb.velocity.magnitude <= 0 || !_grounded) walkingSound.Stop();
+        if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
 
         _lastPos = transform.position;
-
 
     }
 
