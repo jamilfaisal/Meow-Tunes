@@ -4,4 +4,4 @@ Meow Tunes is a rhythmic platformer game about a cat travels through different w
 
 Play for free on itch.io! https://lilvedaes.itch.io/meow-tunes
 
-Full Creative Brief: [Creative Brief.pdf](https://github.com/jamilfaisal/Meow-Tunes/files/9668991/Creative.Brief.pdf)
+Game Design Document: [Meow Tunes Game Design Document.pdf](https://github.com/jamilfaisal/Meow-Tunes/files/9824599/Meow.Tunes.Game.Design.Document.pdf)
