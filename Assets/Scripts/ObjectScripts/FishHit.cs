@@ -1,29 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FishHit : MonoBehaviour
 {
-    public ScoreManager ScoreManager;
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider otherCollider) 
     {
-        ScoreManager = FindObjectOfType<ScoreManager>();
-    }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
-
-    private void OnTriggerEnter(Collider collider) 
-    {
-        if (collider.gameObject.tag == "Player")
+        if (otherCollider.gameObject.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
-            ScoreManager.UpdateScore();
+            Destroy(gameObject);
+            ScoreManager.current.UpdateScore(1);
         }
     }
 }

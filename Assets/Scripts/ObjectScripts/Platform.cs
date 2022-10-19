@@ -15,7 +15,7 @@ public class Platform : MonoBehaviour
     {
         
         _renderer = GetComponent<MeshRenderer>();
-        _material = _renderer.materials[1];
+        _material = _renderer.materials[0];
         _startColor = _material.color;
         _collider = GetComponent<BoxCollider>();
         if (_collider == null)

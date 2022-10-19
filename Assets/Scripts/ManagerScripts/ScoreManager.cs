@@ -18,9 +18,9 @@ public class ScoreManager : MonoBehaviour
         //scoreText = GetComponent<TextMeshProUGUI>();
         scoreText.text = "Score: 0";
     }
-    public void UpdateScore()
+    public void UpdateScore(int score)
     {
-        playerScore += 1;
+        playerScore += score;
         scoreText.text = "Score: " + playerScore;
     }
 }
