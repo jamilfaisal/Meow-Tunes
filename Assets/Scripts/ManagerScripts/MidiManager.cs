@@ -31,7 +31,11 @@ public class MidiManager : MonoBehaviour
 
     private void Start()
     {
-        var midiFile = MidiFile.Read(Application.dataPath + "/StreamingAssets/mus_Feline-Tipsy_120bpm_arr.mid");
+        MidiFile midiFile = null;
+        if (Application.platform == RuntimePlatform.WindowsPlayer)
+             midiFile = MidiFile.Read(Application.dataPath + "/StreamingAssets/mus_Feline-Tipsy_120bpm_arr.mid");
+        if (Application.platform == RuntimePlatform.OSXPlayer)
+            midiFile = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/mus_Feline-Tipsy_120bpm_arr.mid");
         var trackList = midiFile.GetTrackChunks().ToList();
         
         // change track list number to match the midi file!
