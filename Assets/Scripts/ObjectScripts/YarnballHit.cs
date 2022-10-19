@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class FishHit : MonoBehaviour
+public class YarnballHit : MonoBehaviour
 {
     private void OnTriggerEnter(Collider otherCollider) 
     {
         if (otherCollider.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            ScoreManager.current.UpdateScore(1);
+            ScoreManager.current.UpdateScore(5);
         }
     }
 }
