@@ -36,6 +36,7 @@ public class PauseScreen : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        MidiManager.current.ResumePlayback();
         musicPlayer.Resume();
         Invoke(nameof(EnableMovement), 0.3f);
         Time.timeScale = 1f;
@@ -48,6 +49,7 @@ public class PauseScreen : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
+        MidiManager.current.PausePlayback();
         _playerMovementScript.enabled = false;
         PlayerMovement.current.walkingSound.Stop();
         Time.timeScale = 0f;
