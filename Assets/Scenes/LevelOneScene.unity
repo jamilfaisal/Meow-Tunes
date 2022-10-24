@@ -14359,9 +14359,9 @@ MonoBehaviour:
   walkingSound: {fileID: 1370060877}
   walkSpeed: 8
   groundDrag: 4
-  maxJumpForce: 15
-  jumpCooldown: 0
-  airMultiplier: 0.8
+  maxJumpForce: 12
+  jumpCooldown: 0.95
+  airMultiplier: 1
   stompForce: 9
   jumpingGravity: 8
   stompKey: 306
