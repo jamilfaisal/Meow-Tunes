@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         _readyToJump = true;
         //_canDoubleJump = false;
         _canSaveJump = true;
-        Debug.Log("save jump is true in start");
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
@@ -105,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
             landFromJumpSound.Play();
             _justLanded = false;
             _canSaveJump = true;
-            Debug.Log("save jump is true in grounded");
         }
         
         // Check if player is stuck on the edge of a platform, if so then push them down 
@@ -136,7 +134,6 @@ public class PlayerMovement : MonoBehaviour
                 _readyToJump = false;
                 //_canDoubleJump = true;
                 _canSaveJump = false;
-                Debug.Log("save jump is false");
 
                 Jump();
                 PickJumpSound().Play();
@@ -148,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
 
                 //_canDoubleJump = false;
                 _canSaveJump = false;
-                Debug.Log("save jump is false after save jumping");
 
                 HalfJump();
                 PickJumpSound().Play();
