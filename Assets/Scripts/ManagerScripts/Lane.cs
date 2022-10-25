@@ -28,22 +28,12 @@ public class Lane : MonoBehaviour
         {
             if (note.NoteName == noteRestriction)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.midiFile.GetTempoMap());
+                // var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.midiFile.GetTempoMap());
                 
-                timeStamps.Add(new Tuple<int, double>(note.Octave, (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f));
-            }
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (spawnIndex < timeStamps.Count)
-        {
-            if (Conductor.GetAudioSourceTime() >= timeStamps[spawnIndex].Item2 - Conductor.current.noteTime)
-            {
-                Debug.Log(timeStamps[spawnIndex].Item1);
+                // timeStamps.Add(new Tuple<int, double>(note.Octave, (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f));
+
                 float x = 0F;
-                float y = ((int)(timeStamps[spawnIndex].Item1) - 2) * 3.0F;
+                float y = ((int)(note.Octave) - 2) * 3.0F;
                 float z = spawnIndex*z_direction_spacing;
                 Vector3 position = new Vector3(x, y, z);
                 var new_platform = Instantiate(PlatformPrefab);
@@ -51,10 +41,32 @@ public class Lane : MonoBehaviour
                 new_platform.transform.localPosition = position;
                 new_platform.transform.rotation = transform.rotation;
                 platforms.Add(new_platform.GetComponent<Platform>());
-                new_platform.GetComponent<Platform>().assignedTime = (float)timeStamps[spawnIndex].Item2;
+                // new_platform.GetComponent<Platform>().assignedTime = (float)timeStamps[spawnIndex].Item2;
                 spawnIndex++;
             }
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        // if (spawnIndex < timeStamps.Count)
+        // {
+        //     if (Conductor.GetAudioSourceTime() >= timeStamps[spawnIndex].Item2 - Conductor.current.noteTime)
+        //     {
+        //         Debug.Log(timeStamps[spawnIndex].Item1);
+        //         float x = 0F;
+        //         float y = ((int)(timeStamps[spawnIndex].Item1) - 2) * 3.0F;
+        //         float z = spawnIndex*z_direction_spacing;
+        //         Vector3 position = new Vector3(x, y, z);
+        //         var new_platform = Instantiate(PlatformPrefab);
+        //         new_platform.transform.parent = transform;
+        //         new_platform.transform.localPosition = position;
+        //         new_platform.transform.rotation = transform.rotation;
+        //         platforms.Add(new_platform.GetComponent<Platform>());
+        //         new_platform.GetComponent<Platform>().assignedTime = (float)timeStamps[spawnIndex].Item2;
+        //         spawnIndex++;
+        //     }
+        // }
 
         // if (inputIndex < timeStamps.Count)
         // {
