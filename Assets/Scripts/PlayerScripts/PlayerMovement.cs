@@ -103,7 +103,11 @@ public class PlayerMovement : MonoBehaviour
         {
             landFromJumpSound.Play();
             _justLanded = false;
-            _canSaveJump = true;
+        }
+
+        if (_grounded && !_canSaveJump)
+        {
+            Invoke(nameof(ResetJump), jumpCooldown);
         }
         
         // Check if player is stuck on the edge of a platform, if so then push them down 
@@ -133,29 +137,32 @@ public class PlayerMovement : MonoBehaviour
 
                 _readyToJump = false;
                 //_canDoubleJump = true;
-                _canSaveJump = false;
 
                 Jump();
                 PickJumpSound().Play();
-
-                Invoke(nameof(ResetJump), jumpCooldown);
+                
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
             // Commenting out double jump
 	        if(_canSaveJump && !_grounded) { // if((_canDoubleJump || _canSaveJump) && !_grounded){
 
                 //_canDoubleJump = false;
-                _canSaveJump = false;
 
                 HalfJump();
                 PickJumpSound().Play();
 
-                Invoke(nameof(ResetJump), jumpCooldown);
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
         else if (Input.GetKey(stompKey))
         {
             Stomp();
         }
+    }
+
+    public void SetCanSaveJumpFalse()
+    {
+        _canSaveJump = false;
     }
 
     public void TriggerJump(InputAction.CallbackContext context)
@@ -166,12 +173,10 @@ public class PlayerMovement : MonoBehaviour
 
                 _readyToJump = false;
                 //_canDoubleJump = true;
-                _canSaveJump = false;
 
                 Jump();
                 PickJumpSound().Play();
-
-                Invoke(nameof(ResetJump), jumpCooldown);
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             } 
             // Commenting out double jump
             else if (context.performed && _canSaveJump && !_grounded) { //else if (context.performed && (_canDoubleJump || _canSaveJump) && !_grounded){
@@ -181,8 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
                 HalfJump();
                 PickJumpSound().Play();
-
-                Invoke(nameof(ResetJump), jumpCooldown);
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
     }
@@ -288,7 +292,7 @@ public class PlayerMovement : MonoBehaviour
         _exitingSlope = true;
         // reset y velocity
         var velocity = _rb.velocity;
-        velocity = new Vector3(velocity.x, 0f, velocity.z);
+        velocity = new Vector3(0f, 0f, 0f);
         _rb.velocity = velocity;
 
         _rb.AddForce(transform.up * maxJumpForce, ForceMode.Impulse);
@@ -310,6 +314,7 @@ public class PlayerMovement : MonoBehaviour
         _readyToJump = true;
         _exitingSlope = false;
         _justLanded = true;
+        _canSaveJump = true;
     }
 
     private bool OnSlope()
