@@ -11,9 +11,12 @@ public class Platform : MonoBehaviour
     private Material _material;
     private bool _visible = true;
 
+    public float assignedTime;
+    private double timeInstantiated;
+
     private void Start()
     {
-        
+        timeInstantiated = Conductor.GetAudioSourceTime();
         _renderer = GetComponent<MeshRenderer>();
         _material = _renderer.materials[0];
         _startColor = _material.color;
@@ -28,6 +31,15 @@ public class Platform : MonoBehaviour
         if (gameObject.CompareTag("Green")) return;
         Disappear();
     }
+
+    //     private void Update() {
+    //     double timeSinceInstantiated = Conductor.GetAudioSourceTime() - timeInstantiated;
+    //     float t = (float)(timeSinceInstantiated / (Conductor.current.noteTime * 2));
+    //     if (t > 1)
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
 
     private void Blink()
     {
