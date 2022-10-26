@@ -6,14 +6,16 @@ TagManager:
   tags:
   - Green
   - Red
+  - xbox
+  - ps4
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - IgnorePlayer
   - 
   - 
   - Collectables

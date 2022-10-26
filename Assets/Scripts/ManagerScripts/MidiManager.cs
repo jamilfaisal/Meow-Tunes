@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
@@ -32,7 +33,7 @@ public class MidiManager : MonoBehaviour
     private void Start()
     {
         MidiFile midiFile = null;
-        if (Application.platform == RuntimePlatform.WindowsPlayer)
+        if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
              midiFile = MidiFile.Read(Application.dataPath + "/StreamingAssets/mus_Feline-Tipsy_120bpm_arr.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
             midiFile = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/mus_Feline-Tipsy_120bpm_arr.mid");
