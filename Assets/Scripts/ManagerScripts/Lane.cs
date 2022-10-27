@@ -17,7 +17,7 @@ public class Lane : MonoBehaviour
     public double SpawningHeadstartTime = 1;
 
     int spawnIndex = 0; //pre-spawned platforms currently does not increase spawnIndex
-    int inputIndex = 0;
+    // int inputIndex = 0;
 
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
