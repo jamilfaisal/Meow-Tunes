@@ -7,14 +7,16 @@ using UnityEngine;
 public class Lane : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
-    public KeyCode input;
+    // public KeyCode input;
     public GameObject PlatformPrefab;
-    List<Platform> platforms = new List<Platform>();
+    public List<Platform> platforms = new List<Platform>();
     public List<Tuple<int, double>> timeStamps = new List<Tuple<int, double>>();
 
-    public float PlatformSpacing = 100;
 
-    int spawnIndex = 0;
+    public float PlatformSpacing = 100;
+    public double SpawningHeadstartTime = 1;
+
+    int spawnIndex = 0; //pre-spawned platforms currently does not increase spawnIndex
     int inputIndex = 0;
 
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
@@ -25,22 +27,23 @@ public class Lane : MonoBehaviour
             {
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.midiFile_test.GetTempoMap());
 
-                double spawn_time = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
-                
-                timeStamps.Add(new Tuple<int, double>(note.Octave, spawn_time));
+                double spawn_time = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
 
-                /* Pre-spawning platforms before game starts */
-                // float x = 0F;
-                // float y = ((int)note.Octave - 2) * 3.0F;
-                // float z = (float)spawn_time * 10 * z_direction_spacing;
-                // Vector3 position = new Vector3(x, y, z);
-                // var new_platform = Instantiate(PlatformPrefab);
-                // new_platform.transform.parent = transform;
-                // new_platform.transform.localPosition = position;
-                // new_platform.transform.rotation = transform.rotation;
-                // platforms.Add(new_platform.GetComponent<Platform>());
-                // // new_platform.GetComponent<Platform>().assignedTime = (float)timeStamps[spawnIndex].Item2;
-                // spawnIndex++;
+                if ((spawn_time-SpawningHeadstartTime) < 0){
+                    /* Pre-spawning platforms before game starts */
+                    float x = 0F;
+                    float y = ((int)note.Octave - 2) * 3.0F;
+                    float z = (float)spawn_time * PlatformSpacing;
+                    Vector3 position = new Vector3(x, y, z);
+                    var new_platform = Instantiate(PlatformPrefab);
+                    new_platform.transform.parent = transform;
+                    new_platform.transform.localPosition = position;
+                    new_platform.transform.rotation = transform.rotation;
+                    platforms.Add(new_platform.GetComponent<Platform>());
+                }
+                else {
+                    timeStamps.Add(new Tuple<int, double>(note.Octave, spawn_time));
+                }
             }
         }
     }
@@ -49,7 +52,7 @@ public class Lane : MonoBehaviour
     {
         if (spawnIndex < timeStamps.Count)
         {
-            if (Conductor.GetAudioSourceTime() >= timeStamps[spawnIndex].Item2 - Conductor.current.noteTime)
+            if (Conductor.GetAudioSourceTime() >= (timeStamps[spawnIndex].Item2-SpawningHeadstartTime) - Conductor.current.noteTime)
             {
                 /*spawning platforms based on converted time from midifile*/
                 
