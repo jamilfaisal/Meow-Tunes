@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6447306808262255708}
   - component: {fileID: 798546793394303775}
   - component: {fileID: 618576339398591741}
+  - component: {fileID: 2368749739623819958}
   m_Layer: 0
   m_Name: RectanglePlatform
   m_TagString: Untagged
@@ -98,3 +99,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1184800900646581174, guid: 4f705109d89a344448dcb32529a8c76d, type: 3}
+--- !u!114 &2368749739623819958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536477984320006933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b79856163e8d5428557bea1ee2224f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -17,11 +17,6 @@ public class Lane : MonoBehaviour
     int spawnIndex = 0;
     int inputIndex = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
         foreach (var note in array)
@@ -34,7 +29,7 @@ public class Lane : MonoBehaviour
                 
                 timeStamps.Add(new Tuple<int, double>(note.Octave, spawn_time));
 
-                /* Pre-spawning all platforms before game starts */
+                /* Pre-spawning platforms before game starts */
                 // float x = 0F;
                 // float y = ((int)note.Octave - 2) * 3.0F;
                 // float z = (float)spawn_time * 10 * z_direction_spacing;
@@ -67,7 +62,6 @@ public class Lane : MonoBehaviour
                 new_platform.transform.localPosition = position;
                 new_platform.transform.rotation = transform.rotation;
                 platforms.Add(new_platform.GetComponent<Platform>());
-                new_platform.GetComponent<Platform>().assignedTime = (float)timeStamps[spawnIndex].Item2;
                 spawnIndex++;
             }
         }

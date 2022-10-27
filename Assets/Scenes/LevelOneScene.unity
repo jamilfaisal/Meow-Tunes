@@ -4566,8 +4566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 2
   input: 0
-  PlatformPrefab: {fileID: 7940001611975851956, guid: b9672d181822745b4ae0b34a2b6ac556, type: 3}
-  z_direction_spacing: 10
+  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  PlatformSpacing: 100
 --- !u!4 &421045608
 Transform:
   m_ObjectHideFlags: 0
@@ -4965,8 +4965,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 0
   input: 0
-  PlatformPrefab: {fileID: 7940001611975851956, guid: b9672d181822745b4ae0b34a2b6ac556, type: 3}
-  z_direction_spacing: 10
+  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  PlatformSpacing: 100
 --- !u!4 &499185597
 Transform:
   m_ObjectHideFlags: 0
@@ -9258,8 +9258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 4
   input: 0
-  PlatformPrefab: {fileID: 7940001611975851956, guid: b9672d181822745b4ae0b34a2b6ac556, type: 3}
-  z_direction_spacing: 10
+  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  PlatformSpacing: 100
 --- !u!4 &1087421000
 Transform:
   m_ObjectHideFlags: 0
@@ -11663,8 +11663,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 1
   input: 0
-  PlatformPrefab: {fileID: 7940001611975851956, guid: b9672d181822745b4ae0b34a2b6ac556, type: 3}
-  z_direction_spacing: 10
+  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  PlatformSpacing: 100
 --- !u!4 &1476879481
 Transform:
   m_ObjectHideFlags: 0
@@ -13999,8 +13999,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 3
   input: 0
-  PlatformPrefab: {fileID: 7940001611975851956, guid: b9672d181822745b4ae0b34a2b6ac556, type: 3}
-  z_direction_spacing: 10
+  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  PlatformSpacing: 100
 --- !u!4 &1786942749
 Transform:
   m_ObjectHideFlags: 0
