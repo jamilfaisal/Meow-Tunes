@@ -16,6 +16,9 @@ public class Lane : MonoBehaviour
     public float PlatformSpacing = 100;
     public double SpawningHeadstartTime = 1;
 
+    private float x = 0F;
+    private float y, z;
+
     int spawnIndex = 0; //pre-spawned platforms currently does not increase spawnIndex
     // int inputIndex = 0;
 
@@ -31,15 +34,7 @@ public class Lane : MonoBehaviour
 
                 if ((spawn_time-SpawningHeadstartTime) < 0){
                     /* Pre-spawning platforms before game starts */
-                    float x = 0F;
-                    float y = ((int)note.Octave - 2) * 3.0F;
-                    float z = (float)spawn_time * PlatformSpacing;
-                    Vector3 position = new Vector3(x, y, z);
-                    var new_platform = Instantiate(PlatformPrefab);
-                    new_platform.transform.parent = transform;
-                    new_platform.transform.localPosition = position;
-                    new_platform.transform.rotation = transform.rotation;
-                    platforms.Add(new_platform.GetComponent<Platform>());
+                    SpawnPlatform((int)(note.Octave), (float)spawn_time);
                 }
                 else {
                     timeStamps.Add(new Tuple<int, double>(note.Octave, spawn_time));
@@ -55,16 +50,7 @@ public class Lane : MonoBehaviour
             if (Conductor.GetAudioSourceTime() >= (timeStamps[spawnIndex].Item2-SpawningHeadstartTime) - Conductor.current.noteTime)
             {
                 /*spawning platforms based on converted time from midifile*/
-                
-                float x = 0F;
-                float y = ((int)(timeStamps[spawnIndex].Item1) - 2) * 3.0F;
-                float z = (float)(timeStamps[spawnIndex].Item2) * PlatformSpacing;
-                Vector3 position = new Vector3(x, y, z);
-                var new_platform = Instantiate(PlatformPrefab);
-                new_platform.transform.parent = transform;
-                new_platform.transform.localPosition = position;
-                new_platform.transform.rotation = transform.rotation;
-                platforms.Add(new_platform.GetComponent<Platform>());
+                SpawnPlatform((int)(timeStamps[spawnIndex].Item1), (float)(timeStamps[spawnIndex].Item2));
                 spawnIndex++;
             }
         }
@@ -97,6 +83,19 @@ public class Lane : MonoBehaviour
         //     }
         // }       
     
+    }
+
+    private void SpawnPlatform(int octave, float spawn_time)
+    //Improvement: check note velocity to spawn different types of platform
+    {
+        y = (octave - 2) * 3.0F;
+        z = spawn_time * PlatformSpacing;
+        Vector3 position = new Vector3(x, y, z);
+        var new_platform = Instantiate(PlatformPrefab);
+        new_platform.transform.parent = transform;
+        new_platform.transform.localPosition = position;
+        new_platform.transform.rotation = transform.rotation;
+        platforms.Add(new_platform.GetComponent<Platform>());
     }
     // private void Hit()
     // {
