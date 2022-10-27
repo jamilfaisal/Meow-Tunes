@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
@@ -15,6 +16,7 @@ public class MainMenu : MonoBehaviour
     public AudioSource musicLoop;
     public GameObject ps4Prompt;
     public GameObject xboxPrompt;
+    public GameObject pcPrompt;
     private Gamepad _gamepad;
 
     public void Start()
@@ -37,12 +39,19 @@ public class MainMenu : MonoBehaviour
         _gamepad = Gamepad.current;
         switch (_gamepad)
         {
+            case null:
+                ps4Prompt.SetActive(false);
+                xboxPrompt.SetActive(false);
+                pcPrompt.SetActive(true);
+                break;
             case XInputController or SwitchProControllerHID:
                 ps4Prompt.SetActive(false);
+                pcPrompt.SetActive(false);
                 xboxPrompt.SetActive(true);
                 break;
             case DualShockGamepad:
                 xboxPrompt.SetActive(false);
+                pcPrompt.SetActive(false);
                 ps4Prompt.SetActive(true);
                 break;
         }
