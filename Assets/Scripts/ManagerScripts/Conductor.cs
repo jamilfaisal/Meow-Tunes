@@ -1,8 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using Melanchall.DryWetMidi.Common;
+using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.Multimedia;
+using Melanchall.DryWetMidi.Standards;
 using System.IO;
 using UnityEngine.Networking;
 using System;
@@ -15,7 +20,7 @@ public class Conductor : MonoBehaviour
     public AudioClip songIntroNormal;
     public AudioClip songLoopNormal;
 
-    public static MidiFile midiFile;
+    public static MidiFile midiFile_test;
     public float noteTime;
 
     public Lane[] lanes;
@@ -27,16 +32,20 @@ public class Conductor : MonoBehaviour
     
     private void Start()
     {
-        midiFile = null;
+        midiFile_test = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            midiFile = MidiFile.Read(Application.dataPath + "/StreamingAssets/MIDI_test.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/MIDI_test.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            midiFile = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/MIDI_test.mid");
-
-        var notes = midiFile.GetNotes();
+            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/MIDI_test.mid");
+        
+        var notes = midiFile_test.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
+        // Debug.Log(notes.Count);
         notes.CopyTo(array, 0);
-        foreach (var lane in lanes) lane.SetTimeStamps(array);
+        foreach (var lane in lanes){
+            lane.SetTimeStamps(array);
+            // Debug.Log(lane.timeStamps.Count);
+        }
 
         audioSource.clip = songIntroNormal;
         audioSource.loop = false;
