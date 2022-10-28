@@ -55,6 +55,7 @@ public class MainMenu : MonoBehaviour
                 ps4Prompt.SetActive(true);
                 break;
         }
+
     }
 
     public void PlayGame()
