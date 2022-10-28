@@ -1,18 +1,38 @@
+using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Rendering;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public AudioMixer masterAudioMixer;
+    public static SettingsMenu current;
+
+    private void Awake()
+    {
+        current = this;
+    }
+
+    public AudioSource musicIntro;
+    public AudioSource musicLoop;
     public TMP_Text masterAudioTextValue;
+
+    private void Start()
+    {
+        UpdateMusicVolumeText(musicIntro.volume);
+    }
 
     public void SetMasterVolume(float volume)
     {
-        string masterTextValue = Mathf.RoundToInt(volume + 80) + "%";
+        UpdateMusicVolumeText(volume);
+        musicIntro.volume = volume;
+        musicLoop.volume = volume;
+        SavePlayerPrefs();
+    }
+
+    private void UpdateMusicVolumeText(float volume)
+    {
+        var masterTextValue = Mathf.RoundToInt(volume * 100) + "%";
         masterAudioTextValue.text = masterTextValue;
-        masterAudioMixer.SetFloat("musicVolume", volume);
+
     }
 
     public void SetQualitySetting(int optionIndex)
@@ -23,5 +43,26 @@ public class SettingsMenu : MonoBehaviour
     public void SetFullscreen(bool toggleOn)
     {
         Screen.fullScreen = toggleOn;
+    }
+
+    public void LoadPlayerPrefs()
+    {
+        if (PlayerPrefs.HasKey("musicVolume"))
+        {
+            LoadPlayerPrefsMusicVolume();
+        }
+    }
+
+    private void LoadPlayerPrefsMusicVolume()
+    {
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume");
+        musicIntro.volume = musicVolume;
+        musicLoop.volume = musicVolume;
+        UpdateMusicVolumeText(musicVolume);
+    }
+
+    private void SavePlayerPrefs()
+    {
+        PlayerPrefs.SetFloat("musicVolume", musicIntro.volume);
     }
 }

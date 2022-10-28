@@ -2882,7 +2882,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2439177375435623387, guid: bd909ea50efc74a42aab440cc109a433, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5dd5664997341ae47a970ec2e65305b0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3010,7 +3010,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2439177375435623387, guid: bd909ea50efc74a42aab440cc109a433, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7fd000e2c484a9f4797d97ae3d1f991f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3687,10 +3687,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1639030232}
   m_HandleRect: {fileID: 833696382}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.8
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4863,7 +4863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85218f3e7500ce40b73657e369bf9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterAudioMixer: {fileID: 24100000, guid: bd909ea50efc74a42aab440cc109a433, type: 2}
+  musicIntro: {fileID: 1188334878}
+  musicLoop: {fileID: 1216904277}
   masterAudioTextValue: {fileID: 87859360}
 --- !u!1 &1847626824
 GameObject:
