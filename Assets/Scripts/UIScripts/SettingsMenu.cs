@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.ProBuilder;
+using UnityEngine.Rendering;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -19,4 +15,13 @@ public class SettingsMenu : MonoBehaviour
         masterAudioMixer.SetFloat("musicVolume", volume);
     }
 
+    public void SetQualitySetting(int optionIndex)
+    {
+        QualitySettings.SetQualityLevel(optionIndex);
+    }
+
+    public void SetFullscreen(bool toggleOn)
+    {
+        Screen.fullScreen = toggleOn;
+    }
 }
