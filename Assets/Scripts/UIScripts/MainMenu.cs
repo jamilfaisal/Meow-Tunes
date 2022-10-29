@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
@@ -14,9 +15,13 @@ public class MainMenu : MonoBehaviour
     public GameObject pcPrompt;
     private Gamepad _gamepad;
 
+    private void Awake()
+    {
+        SettingsMenu.current.VolumeChanged += SetVolumes;
+    }
+
     public void Start()
     {
-        SettingsMenu.current.LoadPlayerPrefs();
         musicIntro.Play();
         musicLoop.PlayDelayed(musicIntro.clip.length);
         
@@ -53,6 +58,12 @@ public class MainMenu : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void SetVolumes(float musicVolume, float soundEffectVolume)
+    {
+        musicIntro.volume = musicVolume;
+        musicLoop.volume = musicVolume;
     }
 
     public void PlayGame()
