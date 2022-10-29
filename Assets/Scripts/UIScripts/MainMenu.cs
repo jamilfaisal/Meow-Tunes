@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
+        SettingsMenu.current.LoadPlayerPrefs();
         musicIntro.Play();
         musicLoop.PlayDelayed(musicIntro.clip.length);
         
@@ -26,7 +27,6 @@ public class MainMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-        SettingsMenu.current.LoadPlayerPrefs();
 
     }
 
