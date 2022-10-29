@@ -21,7 +21,8 @@ public class Conductor : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.current.IsGamePaused() || GameManager.current.HasGameEnded() 
+        if (GameManager.current.IsGamePaused() || GameManager.current.HasGameEnded()
+                                               || GameManager.current.IsGameRestarting()
                                                || GameManager.current.playerIsDying) return;
         if (!audioSource.isPlaying)
         {

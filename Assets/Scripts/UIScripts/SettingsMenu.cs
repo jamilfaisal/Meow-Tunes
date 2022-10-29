@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,12 +7,13 @@ public class SettingsMenu : MonoBehaviour
 {
     public static SettingsMenu current;
 
+    public event Action<float, float> VolumeChanged; 
+
     private void Awake()
     {
         current = this;
     }
-
-    public AudioSource musicIntro, musicLoop;
+    
     public AudioSource catJump4;
     public GameObject settingsMenu;
     public TMP_Text musicAudioTextValue;
@@ -21,12 +23,16 @@ public class SettingsMenu : MonoBehaviour
     public TMP_Dropdown qualitySettingDropdown;
     public Toggle fullScreenToggle;
 
+    private void Start()
+    {
+        LoadPlayerPrefs();
+    }
+
     public void SetMusicVolume(float volume)
     {
         UpdateMusicVolumeText(volume);
-        musicIntro.volume = volume;
-        musicLoop.volume = volume;
         SavePlayerPrefsMusicVolume(volume);
+        VolumeChanged?.Invoke(musicAudioSlider.value, soundEffectsAudioSlider.value);
     }
 
     public void SetSoundEffectVolume(float volume)
@@ -38,6 +44,7 @@ public class SettingsMenu : MonoBehaviour
             catJump4.Play();
         }
         SavePlayerPrefsSoundEffectVolume(volume);
+        VolumeChanged?.Invoke(musicAudioSlider.value, soundEffectsAudioSlider.value);
     }
 
     public void SetQualitySetting(int optionIndex)
@@ -54,6 +61,10 @@ public class SettingsMenu : MonoBehaviour
 
     public void LoadPlayerPrefs()
     {
+        if (PlayerPrefs.GetInt("firstTime") == 0)
+        {
+            SavePlayerPrefsFirstTime();
+        }
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadPlayerPrefsMusicVolume();
@@ -101,9 +112,8 @@ public class SettingsMenu : MonoBehaviour
     private void LoadPlayerPrefsMusicVolume()
     {
         var musicVolume = PlayerPrefs.GetFloat("musicVolume");
-        musicIntro.volume = musicVolume;
-        musicLoop.volume = musicVolume;
         UpdateMusicVolumeSliderAndText(musicVolume);
+        VolumeChanged?.Invoke(musicAudioSlider.value, soundEffectsAudioSlider.value);
     }
     
     private void SavePlayerPrefsMusicVolume(float volume)
@@ -142,6 +152,16 @@ public class SettingsMenu : MonoBehaviour
     private void SavePlayerPrefsFullscreen(bool fullscreen)
     {
         PlayerPrefs.SetInt("fullscreen", BoolToInt(fullscreen));
+    }
+
+    private void SavePlayerPrefsFirstTime()
+    {
+        PlayerPrefs.SetFloat("musicVolume", 0.8f);
+        PlayerPrefs.SetFloat("soundEffectVolume", 0.3f);
+        PlayerPrefs.SetInt("qualitySetting", 3);
+        PlayerPrefs.SetInt("fullscreen", BoolToInt(true));
+        VolumeChanged?.Invoke(musicAudioSlider.value, soundEffectsAudioSlider.value);
+        PlayerPrefs.SetInt("firstTime", 1);
     }
     
     private int BoolToInt(bool val)
