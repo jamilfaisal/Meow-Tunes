@@ -3,12 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
 {
-    public GameObject pauseMenuUI;
-    public GameObject settingsMenuUI;
+    public GameObject pauseMenuUI, settingsMenuUI;
     public Conductor musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
-
+    public GameObject pauseScreenFirstButton, settingsFirstButton;
 
     private void Start()
     {

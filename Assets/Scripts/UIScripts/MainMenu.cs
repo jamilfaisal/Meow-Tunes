@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Switch;
@@ -8,12 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public AudioSource musicIntro; 
-    public AudioSource musicLoop;
-    public GameObject ps4Prompt;
-    public GameObject xboxPrompt;
-    public GameObject pcPrompt;
+    public AudioSource musicIntro, musicLoop;
+    public GameObject ps4Prompt, xboxPrompt, pcPrompt;
     private Gamepad _gamepad;
+    // First button that is highlighted when player navigates to the main menu
+    public GameObject mainMenuFirstButton, settingsFirstButton;
 
     private void Awake()
     {
@@ -22,6 +21,8 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         musicIntro.Play();
         musicLoop.PlayDelayed(musicIntro.clip.length);
         
@@ -75,5 +76,11 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Game is exiting...");
+    }
+
+    public void OpenSettingsMenu()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 }

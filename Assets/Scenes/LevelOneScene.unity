@@ -920,10 +920,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1279927072}
+    m_SelectOnDown: {fileID: 1892940501}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -3741,6 +3741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85218f3e7500ce40b73657e369bf9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsClosedButton: {fileID: 500627416}
   catJump4: {fileID: 9180474}
   settingsMenu: {fileID: 1314592532}
   musicAudioTextValue: {fileID: 1922961608}
@@ -5441,10 +5442,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 923607485}
+    m_SelectOnDown: {fileID: 1279927072}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -8438,10 +8439,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1892940501}
+    m_SelectOnDown: {fileID: 500627418}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -12659,10 +12660,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 500627418}
+    m_SelectOnDown: {fileID: 80890666}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -12952,7 +12953,7 @@ GameObject:
   - component: {fileID: 1314592535}
   - component: {fileID: 1314592534}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: SettingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14037,6 +14038,8 @@ MonoBehaviour:
   settingsMenuUI: {fileID: 1314592532}
   musicPlayer: {fileID: 1639234537}
   playerMovement: {fileID: 1828724611}
+  pauseScreenFirstButton: {fileID: 1892940499}
+  settingsFirstButton: {fileID: 1602654446}
 --- !u!114 &1452121107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16124,7 +16127,7 @@ GameObject:
   - component: {fileID: 1640638247}
   - component: {fileID: 1640638246}
   m_Layer: 5
-  m_Name: Level
+  m_Name: PauseTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18983,10 +18986,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 80890666}
+    m_SelectOnDown: {fileID: 923607485}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

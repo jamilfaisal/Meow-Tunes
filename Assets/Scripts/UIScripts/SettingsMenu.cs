@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
@@ -8,6 +9,7 @@ public class SettingsMenu : MonoBehaviour
     public static SettingsMenu current;
 
     public event Action<float, float> VolumeChanged; 
+    public GameObject settingsClosedButton;
 
     private void Awake()
     {
@@ -57,6 +59,12 @@ public class SettingsMenu : MonoBehaviour
     {
         Screen.fullScreen = toggleOn;
         SavePlayerPrefsFullscreen(toggleOn);
+    }
+
+    public void BackToMainMenu()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
 
     public void LoadPlayerPrefs()
