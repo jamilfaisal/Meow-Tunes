@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
@@ -83,6 +84,12 @@ public class PauseScreen : MonoBehaviour
         {
             Pause();
         }
+    }
+
+    public void OpenSettingsMenu()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
     public void QuitGame()

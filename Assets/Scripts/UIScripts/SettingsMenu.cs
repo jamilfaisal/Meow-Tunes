@@ -61,7 +61,7 @@ public class SettingsMenu : MonoBehaviour
         SavePlayerPrefsFullscreen(toggleOn);
     }
 
-    public void BackToMainMenu()
+    public void BackToMainMenuOrPauseScreen()
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(settingsClosedButton);

@@ -692,7 +692,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1567226010}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: BackToMainMenu
+        m_MethodName: BackToMainMenuOrPauseScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
