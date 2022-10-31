@@ -23,9 +23,14 @@ public class PauseScreen : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.current.HasGameEnded())
         {
-            if (GameManager.current.IsGamePaused())
+            if (GameManager.current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
             {
                 Resume();
+            } else if (GameManager.current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+            {
+                SettingsMenu.current.BackToMainMenuOrPauseScreen();
+                settingsMenuUI.SetActive(false);
+                pauseMenuUI.SetActive(true);
             }
             else
             {
@@ -49,6 +54,8 @@ public class PauseScreen : MonoBehaviour
 
     public void Pause()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(pauseScreenFirstButton);
         pauseMenuUI.SetActive(true);
         musicPlayer.Pause();
         MidiManager.current.PausePlayback();
