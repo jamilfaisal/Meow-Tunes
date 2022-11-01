@@ -3801,7 +3801,7 @@ MonoBehaviour:
   noteRestriction: 2
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   platforms: []
-  PlatformSpacing: 6
+  PlatformSpacing: 2
   SpawningHeadstartTime: 1
 --- !u!4 &421045608
 Transform:
@@ -4139,7 +4139,7 @@ MonoBehaviour:
   noteRestriction: 0
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   platforms: []
-  PlatformSpacing: 6
+  PlatformSpacing: 2
   SpawningHeadstartTime: 1
 --- !u!4 &499185597
 Transform:
@@ -4149,7 +4149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499185595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.68, y: 25.09, z: -70.81}
+  m_LocalPosition: {x: 43.68, y: 25.09, z: -70.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7775,7 +7775,7 @@ MonoBehaviour:
   noteRestriction: 4
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   platforms: []
-  PlatformSpacing: 6
+  PlatformSpacing: 2
   SpawningHeadstartTime: 1
 --- !u!4 &1087421000
 Transform:
@@ -7785,7 +7785,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087420998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 73.68, y: 25.09, z: -70.81}
+  m_LocalPosition: {x: 63.68, y: 25.09, z: -70.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9894,7 +9894,7 @@ MonoBehaviour:
   noteRestriction: 1
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   platforms: []
-  PlatformSpacing: 6
+  PlatformSpacing: 2
   SpawningHeadstartTime: 1
 --- !u!4 &1476879481
 Transform:
@@ -9904,7 +9904,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476879479}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 43.68, y: 25.09, z: -70.81}
+  m_LocalPosition: {x: 48.68, y: 25.09, z: -70.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11516,7 +11516,7 @@ MonoBehaviour:
   noteRestriction: 3
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   platforms: []
-  PlatformSpacing: 6
+  PlatformSpacing: 2
   SpawningHeadstartTime: 1
 --- !u!4 &1786942749
 Transform:
@@ -11526,7 +11526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786942747}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 63.68, y: 25.09, z: -70.81}
+  m_LocalPosition: {x: 58.68, y: 25.09, z: -70.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

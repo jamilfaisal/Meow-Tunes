@@ -250,11 +250,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // on ground
             case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 50f), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 20f), ForceMode.Force);
                 break;
             // in air
             case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 50f * airMultiplier), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 20f * airMultiplier), ForceMode.Force);
                 break;
         }
         
@@ -266,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 velocity = _rb.velocity;
         // Debug.Log(velocity);
-        velocity.z = 26.8F;
+        velocity.z = 8F;
         _rb.velocity = velocity;
     }
 

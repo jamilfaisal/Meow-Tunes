@@ -26,7 +26,7 @@ public class Conductor : MonoBehaviour
     public Lane[] lanes;
     public PlayerAction[] playerActions;
     public double marginOfError = 0.15;
-    public int inputDelayInMilliseconds;
+    public int inputDelayInMilliseconds = 0; //Delay Time for when the music starts
     private void Awake()
     {
         current = this;

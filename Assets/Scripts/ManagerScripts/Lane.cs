@@ -13,7 +13,7 @@ public class Lane : MonoBehaviour
     public List<Tuple<int, double>> timeStamps = new List<Tuple<int, double>>();
 
 
-    public float PlatformSpacing = 6F; //based on the size of the current neutral platform
+    public float PlatformSpacing = 2F; //based on the size of the current neutral platform
     public double SpawningHeadstartTime = 1;
 
     private float x = 0F;
@@ -91,10 +91,12 @@ public class Lane : MonoBehaviour
     private void SpawnPlatform(int octave, float spawn_time)
     //Improvement: check note velocity to spawn different types of platform
     {
-        y = (octave - 2) * 3.0F;
-        z = (spawn_time / 0.25F) * PlatformSpacing;
-        Vector3 position = new Vector3(x, y, z);
+        // Debug.Log("spawned");
         var new_platform = Instantiate(PlatformPrefab);
+        y = (octave - 2) * 3.0F;
+        z = (spawn_time / 0.25F) * new_platform.GetComponent<Renderer>().bounds.size.z;
+        Vector3 position = new Vector3(x, y, z);
+        // Debug.Log(new_platform.GetComponent<Renderer>().bounds.size);
         new_platform.transform.parent = transform;
         new_platform.transform.localPosition = position;
         new_platform.transform.rotation = transform.rotation;
