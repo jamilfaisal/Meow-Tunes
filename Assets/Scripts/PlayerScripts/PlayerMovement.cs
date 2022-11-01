@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode stompKey = KeyCode.Tab;
     private Vector3 _lastPos;
 
+    [Header("Movement")]
+    public Animator animator;
+
     [Header("Ground Check")]
     public float playerHeight;
     public float playerWidth;
@@ -75,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
         _readyToJump = true;
         //_canDoubleJump = false;
         _canSaveJump = true;
+
+        animator = GetComponent<Animator>();
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
@@ -138,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
                 _readyToJump = false;
                 //_canDoubleJump = true;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 Jump();
                 PickJumpSound().Play();
                 
@@ -148,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
                 //_canDoubleJump = false;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 HalfJump();
                 PickJumpSound().Play();
 
@@ -174,6 +181,7 @@ public class PlayerMovement : MonoBehaviour
                 _readyToJump = false;
                 //_canDoubleJump = true;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 Jump();
                 PickJumpSound().Play();
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
@@ -184,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
                 //_canDoubleJump = false;
                 _canSaveJump = false;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 HalfJump();
                 PickJumpSound().Play();
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
