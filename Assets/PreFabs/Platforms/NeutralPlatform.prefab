@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 5932266023325570660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4533439, y: -0.21520805, z: -1.8393246}
-  m_LocalScale: {x: 3.492812, y: 1, z: 1.6045709}
+  m_LocalScale: {x: 2.5812807, y: 1, z: 0.61308527}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 19
+  m_VersionIndex: 28
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
