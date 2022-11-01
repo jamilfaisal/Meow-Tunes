@@ -13,7 +13,7 @@ public class Lane : MonoBehaviour
     public List<Tuple<int, double>> timeStamps = new List<Tuple<int, double>>();
 
 
-    public float PlatformSpacing = 100;
+    public float PlatformSpacing = 6F; //based on the size of the current neutral platform
     public double SpawningHeadstartTime = 1;
 
     private float x = 0F;
@@ -28,16 +28,19 @@ public class Lane : MonoBehaviour
         {
             if (note.NoteName == noteRestriction)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.midiFile_test.GetTempoMap());
+                //Octave 1 is for player input
+                if (note.Octave != 1){
+                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.midiFile_test.GetTempoMap());
 
-                double spawn_time = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+                    double spawn_time = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
 
-                if ((spawn_time-SpawningHeadstartTime) < 0){
-                    /* Pre-spawning platforms before game starts */
-                    SpawnPlatform((int)(note.Octave), (float)spawn_time);
-                }
-                else {
-                    timeStamps.Add(new Tuple<int, double>(note.Octave, spawn_time));
+                    if ((spawn_time-SpawningHeadstartTime) < 0){
+                        /* Pre-spawning platforms before game starts */
+                        SpawnPlatform((int)(note.Octave), (float)spawn_time);
+                    }
+                    else {
+                        timeStamps.Add(new Tuple<int, double>(note.Octave, spawn_time));
+                    }
                 }
             }
         }
@@ -89,7 +92,7 @@ public class Lane : MonoBehaviour
     //Improvement: check note velocity to spawn different types of platform
     {
         y = (octave - 2) * 3.0F;
-        z = spawn_time * PlatformSpacing;
+        z = (spawn_time / 0.25F) * PlatformSpacing;
         Vector3 position = new Vector3(x, y, z);
         var new_platform = Instantiate(PlatformPrefab);
         new_platform.transform.parent = transform;

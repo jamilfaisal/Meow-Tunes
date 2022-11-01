@@ -233,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
 
         var movementControl = movement.action.ReadValue<Vector2>();
-        _moveDirection = new Vector3(movementControl.x, 0, 1f);
+        _moveDirection = new Vector3(movementControl.x, 0, 0);
 
         // on slope and not jumping
         if(OnSlope() && !_exitingSlope)
@@ -250,11 +250,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // on ground
             case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 10f), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 50f), ForceMode.Force);
                 break;
             // in air
             case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 10f * airMultiplier), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 50f * airMultiplier), ForceMode.Force);
                 break;
         }
         
@@ -263,6 +263,11 @@ public class PlayerMovement : MonoBehaviour
         
         //Turn off Gravity when on slope to avoid unwanted sliding
         _rb.useGravity = !OnSlope();
+
+        Vector3 velocity = _rb.velocity;
+        // Debug.Log(velocity);
+        velocity.z = 26.8F;
+        _rb.velocity = velocity;
     }
 
     private void SpeedControl()

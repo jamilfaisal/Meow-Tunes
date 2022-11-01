@@ -24,7 +24,9 @@ public class Conductor : MonoBehaviour
     public float noteTime;
 
     public Lane[] lanes;
-    public double marginOfError;
+    public PlayerAction[] playerActions;
+    public double marginOfError = 0.15;
+    public int inputDelayInMilliseconds;
     private void Awake()
     {
         current = this;
@@ -34,9 +36,9 @@ public class Conductor : MonoBehaviour
     {
         midiFile_test = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/MIDI_test.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/MIDI_test.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement.mid");
         
         var notes = midiFile_test.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
@@ -45,6 +47,9 @@ public class Conductor : MonoBehaviour
         foreach (var lane in lanes){
             lane.SetTimeStamps(array);
             // Debug.Log(lane.timeStamps.Count);
+        }
+        foreach (var playerAction in playerActions){
+            playerAction.SetTimeStamps(array);
         }
 
         audioSource.clip = songIntroNormal;
