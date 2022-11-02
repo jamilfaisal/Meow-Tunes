@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerAction : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
-    public KeyCode input;
+    public String input;
     public List<double> timeStamps = new List<double>();
     int inputIndex = 0;
     public int PrespawnWarningSeconds = 0;
@@ -44,7 +44,7 @@ public class PlayerAction : MonoBehaviour
                 //     StartCoroutine(ActionWarning());
                 // }
 
-                if (Input.GetKeyDown(input))
+                if (Input.GetButtonDown(input))
                 {
                     if (Math.Abs(audioTime - (timeStamp)) < marginOfError)
                     {

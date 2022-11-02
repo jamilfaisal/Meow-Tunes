@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.20988524, g: 0.41454685, b: 0.821428, a: 1}
+  m_IndirectSpecularColor: {r: 0.20989491, g: 0.41456488, b: 0.82144225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4061,7 +4061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteRestriction: 2
-  input: 32
+  input: Jump
   timeStamps: []
   PrespawnWarningSeconds: 0
 --- !u!4 &163153670 stripped
