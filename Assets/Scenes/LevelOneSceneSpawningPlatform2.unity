@@ -6857,6 +6857,7 @@ MonoBehaviour:
   FishTreatNote: 9
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  CheckpointPrefab: {fileID: 2419299994246970654, guid: da23ecdafce4ae544a2e6102fe268362, type: 3}
   platforms: []
   fishtreats: []
   SpacingSize: 2
@@ -8154,6 +8155,7 @@ MonoBehaviour:
   FishTreatNote: 11
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  CheckpointPrefab: {fileID: 2419299994246970654, guid: da23ecdafce4ae544a2e6102fe268362, type: 3}
   platforms: []
   fishtreats: []
   SpacingSize: 2
@@ -17838,6 +17840,7 @@ MonoBehaviour:
   FishTreatNote: 7
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  CheckpointPrefab: {fileID: 2419299994246970654, guid: da23ecdafce4ae544a2e6102fe268362, type: 3}
   platforms: []
   fishtreats: []
   SpacingSize: 2
@@ -23759,6 +23762,7 @@ MonoBehaviour:
   FishTreatNote: 10
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  CheckpointPrefab: {fileID: 2419299994246970654, guid: da23ecdafce4ae544a2e6102fe268362, type: 3}
   platforms: []
   fishtreats: []
   SpacingSize: 2
@@ -29825,6 +29829,7 @@ MonoBehaviour:
   FishTreatNote: 8
   PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
   FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  CheckpointPrefab: {fileID: 2419299994246970654, guid: da23ecdafce4ae544a2e6102fe268362, type: 3}
   platforms: []
   fishtreats: []
   SpacingSize: 2
