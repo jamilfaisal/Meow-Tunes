@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 246226352112295807}
   - component: {fileID: 246226352112295804}
   - component: {fileID: 246226352112295805}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FishCollectible (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 246226353278803915}
   - component: {fileID: 246226353278803917}
   - component: {fileID: 246226353278803914}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FishTreat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

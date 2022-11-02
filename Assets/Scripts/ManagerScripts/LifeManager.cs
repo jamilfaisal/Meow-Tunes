@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -24,12 +25,16 @@ public class LifeManager : MonoBehaviour
     {
         playerLives -= 1;
         playerLivesText.text = "x " + playerLives;
-        if (playerLives == 0) {
-            gameManager.LostLevel();
-        }
-        else
+        respawnSound.Play();
+        if (playerLives == 0)
         {
-            respawnSound.Play();
+            StartCoroutine(LoseLevel());
         }
     }
+
+    private IEnumerator LoseLevel()
+    {
+        yield return new WaitForSeconds(respawnSound.clip.length - 5f);
+        gameManager.LostLevel();
+    } 
 }
