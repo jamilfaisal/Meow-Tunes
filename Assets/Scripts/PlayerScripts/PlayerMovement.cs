@@ -132,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-<<<<<<< HEAD
         // Debug.Log($"Fixed:{_rb.velocity}");
         if (Time.time > 5){
             MovePlayer();
@@ -143,13 +142,7 @@ public class PlayerMovement : MonoBehaviour
             else{
                 _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
             }
-            if(!_grounded && !_jumpKeyHeld &&Vector3.Dot(_rb.velocity, Vector3.up) > 0){
-                _rb.AddForce(Vector3.down * (30f * _rb.mass));
-            }
         }
-=======
-        MovePlayer();
->>>>>>> 2a8d13251ba543482e21d484c29f141c0257b8f3
     }
 
     private void MyInput()
@@ -267,11 +260,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // on ground
             case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 20f), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f), ForceMode.Force);
                 break;
             // in air
             case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 20f * airMultiplier), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f * airMultiplier), ForceMode.Force);
                 break;
         }
         
