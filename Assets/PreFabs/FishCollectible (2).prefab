@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 246226352112295807}
   - component: {fileID: 246226352112295804}
   - component: {fileID: 246226352112295805}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FishCollectible (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816276279cc4ad949871a41c01ae3a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreManager: {fileID: 0}
 --- !u!114 &246226352112295807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +157,7 @@ GameObject:
   - component: {fileID: 246226353278803915}
   - component: {fileID: 246226353278803917}
   - component: {fileID: 246226353278803914}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FishTreat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +172,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246226353278803912}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.331, z: 0}
+  m_LocalPosition: {x: 0, y: -0.371, z: 0}
   m_LocalScale: {x: 1.66, y: 1.66, z: 1.66}
   m_ConstrainProportionsScale: 0
   m_Children: []

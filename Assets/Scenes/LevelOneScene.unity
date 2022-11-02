@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.20987125, g: 0.41455758, b: 0.82134056, a: 1}
+  m_IndirectSpecularColor: {r: 0.20988524, g: 0.41454685, b: 0.821428, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1639,10 +1639,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
 --- !u!1001 &121682549
@@ -5813,10 +5821,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -6956,10 +6972,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
 --- !u!4 &584331152 stripped
@@ -9048,10 +9072,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -11880,18 +11912,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-      propertyPath: ScoreManager
-      value: 
-      objectReference: {fileID: 19080278}
-    - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.371
-      objectReference: {fileID: 0}
-    - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
 --- !u!4 &1127603589 stripped
@@ -12906,7 +12926,7 @@ GameObject:
   - component: {fileID: 1226331564}
   - component: {fileID: 1226331563}
   - component: {fileID: 1226331566}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Respawner
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -13593,10 +13613,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -15711,10 +15739,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
 --- !u!4 &1542303221 stripped
@@ -17454,10 +17490,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -17703,10 +17747,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -17926,7 +17978,7 @@ GameObject:
   - component: {fileID: 1737906450}
   - component: {fileID: 1737906449}
   - component: {fileID: 1737906452}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Respawner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -18176,10 +18228,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -18884,6 +18944,7 @@ MonoBehaviour:
   stompForce: 9
   jumpingGravity: 24
   stompKey: 306
+  animator: {fileID: 0}
   playerHeight: 2
   playerWidth: 2
   maxSlopeAngle: 40
@@ -18970,7 +19031,7 @@ GameObject:
   - component: {fileID: 1837251852}
   - component: {fileID: 1837251851}
   - component: {fileID: 1837251854}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VerticalRespawner
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -19932,10 +19993,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -20090,10 +20159,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -20995,10 +21072,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishCollectible (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226352112295806, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: ScoreManager
       value: 
       objectReference: {fileID: 19080278}
+    - target: {fileID: 246226353278803912, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 246226353278803915, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.365
@@ -21023,7 +21108,7 @@ GameObject:
   - component: {fileID: 2049620974}
   - component: {fileID: 2049620973}
   - component: {fileID: 2049620976}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Respawner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
