@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Debug.Log($"Update:{_rb.velocity}");
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
         // handle drag
         if (_grounded)
-            _rb.drag = groundDrag;
+            _rb.drag = 0;
         else
             _rb.drag = 0;
 
@@ -131,7 +132,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        // Debug.Log($"Fixed:{_rb.velocity}");
+        if (Time.time > 5){
+            MovePlayer();
+            var velocity = _rb.velocity;
+            if(_grounded){
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8.2F);
+            }
+            else{
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
+            }
+        }
     }
 
     private void MyInput()
@@ -232,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
 
         var movementControl = movement.action.ReadValue<Vector2>();
-        _moveDirection = new Vector3(movementControl.x, 0, 1f);
+        _moveDirection = new Vector3(movementControl.x, 0, 0);
 
         // on slope and not jumping
         if(OnSlope() && !_exitingSlope)
@@ -249,11 +260,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // on ground
             case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 10f), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f), ForceMode.Force);
                 break;
             // in air
             case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 10f * airMultiplier), ForceMode.Force);
+                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f * airMultiplier), ForceMode.Force);
                 break;
         }
         
@@ -262,14 +273,19 @@ public class PlayerMovement : MonoBehaviour
         
         //Turn off Gravity when on slope to avoid unwanted sliding
         _rb.useGravity = !OnSlope();
+
+        Vector3 velocity = _rb.velocity;
+        velocity.z = 8;
+        _rb.velocity = velocity;
     }
 
     private void SpeedControl()
     {
         // limit velocity on slope (except jumping to prevent limiting the jump)
         if(OnSlope() && !_exitingSlope){
+            var velocity = _rb.velocity.normalized * _moveSpeed;
             if(_rb.velocity.magnitude > _moveSpeed)
-                _rb.velocity = _rb.velocity.normalized * _moveSpeed;
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
         }
 
         // limit velocity on ground or air
@@ -281,9 +297,15 @@ public class PlayerMovement : MonoBehaviour
             if(flatVel.magnitude > _moveSpeed)
             {
                 var limitedVel = flatVel.normalized * _moveSpeed;
-                _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+                if (_grounded){
+                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
+                }
+                else{
+                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
+                }
             }
         }
+        // Debug.Log($"Speed:{_rb.velocity}");
     }
 
     public void Stomp()
@@ -340,6 +362,8 @@ public class PlayerMovement : MonoBehaviour
             var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
         }
+
+        // Debug.Log($"Slope:{_rb.velocity}");
 
         return false;
     }

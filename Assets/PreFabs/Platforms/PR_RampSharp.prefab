@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4471432641346387998}
   - component: {fileID: 3332659277862186336}
   - component: {fileID: 4692420726083699692}
+  - component: {fileID: 1985070488728002851}
   m_Layer: 0
   m_Name: PR_RampSharp
   m_TagString: Green
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1985070488728002851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191482970343346723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b79856163e8d5428557bea1ee2224f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
