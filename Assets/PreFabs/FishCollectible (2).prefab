@@ -122,10 +122,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.22057498
-  m_Height: 1.14534
+  m_Radius: 0.4690938
+  m_Height: 1.849411
   m_Direction: 2
-  m_Center: {x: -0.001995802, y: -1.7724959, z: 0.07266998}
+  m_Center: {x: -0.001995802, y: -1.9640927, z: 0.19786835}
 --- !u!95 &246226352112295805
 Animator:
   serializedVersion: 4
@@ -172,8 +172,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246226353278803912}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: -2.3, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 246226352078987800}
