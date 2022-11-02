@@ -15,12 +15,11 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        //scoreText = GetComponent<TextMeshProUGUI>();
-        scoreText.text = "Score: 0";
+        scoreText.text = "0";
     }
     public void UpdateScore(int score)
     {
         playerScore += score;
-        scoreText.text = "Score: " + playerScore;
+        scoreText.text = playerScore.ToString();
     }
 }
