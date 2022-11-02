@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     private static bool _gameIsPaused;
     public bool playerIsDying;
+    private bool _gameIsRestarting;
     private bool _gameHasEnded;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         _playerMovement.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update() {
@@ -44,10 +46,24 @@ public class GameManager : MonoBehaviour
         UIManager.current.LostLevelUI();
     }
 
-    private void RestartLevel()
+    public void RestartLevel()
     {
+        _gameIsRestarting = true;
         MidiManager.current.RestartLevel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+    }
+
+    public void BackToMainMenu()
+    {
+        MidiManager.current.RestartLevel();
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _gameIsRestarting = false;
+        _gameIsPaused = false;
         _gameHasEnded = false;
     }
 
@@ -61,6 +77,11 @@ public class GameManager : MonoBehaviour
 
     public bool IsGamePaused() {
         return _gameIsPaused;
+    }
+
+    public bool IsGameRestarting()
+    {
+        return _gameIsRestarting;
     }
 
     public bool HasGameEnded() {

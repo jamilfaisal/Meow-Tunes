@@ -28,16 +28,18 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
 
     public float maxJumpForce;
-    private bool _jumpKeyHeld;
     public float jumpCooldown;
     public float airMultiplier;
     private bool _readyToJump;
-    private bool _canDoubleJump;
+    //private bool _canDoubleJump;
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
     public KeyCode stompKey = KeyCode.Tab;
     private Vector3 _lastPos;
+
+    [Header("Movement")]
+    public Animator animator;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -74,8 +76,10 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
 
         _readyToJump = true;
-        _canDoubleJump = false;
+        //_canDoubleJump = false;
         _canSaveJump = true;
+
+        animator = GetComponent<Animator>();
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
     }
@@ -105,7 +109,11 @@ public class PlayerMovement : MonoBehaviour
         {
             landFromJumpSound.Play();
             _justLanded = false;
-            _canSaveJump = true;
+        }
+
+        if (_grounded && !_canSaveJump)
+        {
+            Invoke(nameof(ResetJump), jumpCooldown);
         }
         
         // Check if player is stuck on the edge of a platform, if so then push them down 
@@ -124,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+<<<<<<< HEAD
         // Debug.Log($"Fixed:{_rb.velocity}");
         if (Time.time > 5){
             MovePlayer();
@@ -138,75 +147,73 @@ public class PlayerMovement : MonoBehaviour
                 _rb.AddForce(Vector3.down * (30f * _rb.mass));
             }
         }
+=======
+        MovePlayer();
+>>>>>>> 2a8d13251ba543482e21d484c29f141c0257b8f3
     }
 
     private void MyInput()
     {
         // when to jump
         if(Input.GetButtonDown("Jump")){
-            _jumpKeyHeld = true;
-
             if(_readyToJump && _grounded){
 
                 _readyToJump = false;
-                _canDoubleJump = true;
-                _canSaveJump = false;
+                //_canDoubleJump = true;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 Jump();
                 PickJumpSound().Play();
-
-                Invoke(nameof(ResetJump), jumpCooldown);
-
+                
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
+            // Commenting out double jump
+	        if(_canSaveJump && !_grounded) { // if((_canDoubleJump || _canSaveJump) && !_grounded){
 
-	        if((_canDoubleJump || _canSaveJump) && !_grounded){
+                //_canDoubleJump = false;
 
-                _canDoubleJump = false;
-                _canSaveJump = false;
-
+                animator.Play("CatJumpFull", 0, 0f);
                 HalfJump();
                 PickJumpSound().Play();
 
-                Invoke(nameof(ResetJump), jumpCooldown);
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
-
         }
-        else if (Input.GetButtonUp("Jump")){
-            _jumpKeyHeld = false;
-        } else if (Input.GetKey(stompKey))
+        else if (Input.GetKey(stompKey))
         {
             Stomp();
         }
+    }
+
+    public void SetCanSaveJumpFalse()
+    {
+        _canSaveJump = false;
     }
 
     public void TriggerJump(InputAction.CallbackContext context)
     {
         if (!context.started && enabled)
         {
-            _jumpKeyHeld = true;
-
             if(_readyToJump && _grounded){
 
                 _readyToJump = false;
-                _canDoubleJump = true;
+                //_canDoubleJump = true;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 Jump();
                 PickJumpSound().Play();
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
+            } 
+            // Commenting out double jump
+            else if (context.performed && _canSaveJump && !_grounded) { //else if (context.performed && (_canDoubleJump || _canSaveJump) && !_grounded){
 
-                Invoke(nameof(ResetJump), jumpCooldown);
-            } else if (context.performed && (_canDoubleJump || _canSaveJump) && !_grounded){
-
-                _canDoubleJump = false;
+                //_canDoubleJump = false;
                 _canSaveJump = false;
 
+                animator.Play("CatJumpFull", 0, 0f);
                 HalfJump();
                 PickJumpSound().Play();
-
-                Invoke(nameof(ResetJump), jumpCooldown);
-            }
-            if (context.canceled)
-            {
-                _jumpKeyHeld = false;
+                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
     }
@@ -311,21 +318,22 @@ public class PlayerMovement : MonoBehaviour
     public void Stomp()
     {
         if (_grounded) return;
-        _rb.velocity = Vector3.zero;
+        // reset y velocity
+        var velocity = _rb.velocity;
+        velocity = new Vector3(velocity.x, 0f, velocity.z);
+        _rb.velocity = velocity;
         _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
     }
 
     private void Jump()
     {
         _exitingSlope = true;
-        
         // reset y velocity
         var velocity = _rb.velocity;
-        velocity = new Vector3(velocity.x, 0f, velocity.z);
+        velocity = new Vector3(0f, 0f, 0f);
         _rb.velocity = velocity;
 
         _rb.AddForce(transform.up * maxJumpForce, ForceMode.Impulse);
-
     }
     private void HalfJump()
     {
@@ -344,6 +352,7 @@ public class PlayerMovement : MonoBehaviour
         _readyToJump = true;
         _exitingSlope = false;
         _justLanded = true;
+        _canSaveJump = true;
     }
 
     private bool OnSlope()
