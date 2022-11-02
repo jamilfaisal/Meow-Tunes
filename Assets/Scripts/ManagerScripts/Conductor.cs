@@ -42,9 +42,9 @@ public class Conductor : MonoBehaviour
     {
         midiFile_test = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v2.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v13.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v2.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v13.mid");
         
         var notes = midiFile_test.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
