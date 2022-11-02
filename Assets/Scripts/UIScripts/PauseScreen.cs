@@ -1,5 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.Switch;
+using UnityEngine.InputSystem.XInput;
 using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
@@ -15,28 +19,64 @@ public class PauseScreen : MonoBehaviour
         _playerMovementScript = playerMovement.GetComponent<PlayerMovement>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetAxis("Mouse X") != 0 && GameManager.current.IsGamePaused())
+        if (GameManager.current.IsGamePaused())
         {
-            Cursor.visible = true;
+            ShowOrHideCursor();
         }
+        
         if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.current.HasGameEnded())
         {
-            if (GameManager.current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
+            if (GameManager.current.IsGamePaused())
             {
-                Resume();
-            } else if (GameManager.current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
-            {
-                SettingsMenu.current.BackToMainMenuOrPauseScreen();
-                settingsMenuUI.SetActive(false);
-                pauseMenuUI.SetActive(true);
-            }
-            else
-            {
+                if (!settingsMenuUI.activeInHierarchy)
+                {
+                    Resume();
+                }
+                else
+                {
+                    SettingsMenu.current.BackToMainMenuOrPauseScreen();
+                    settingsMenuUI.SetActive(false);
+                    pauseMenuUI.SetActive(true);
+                }
+            } else {
                 Pause();
             }
         } 
+    }
+
+    private void ShowOrHideCursor()
+    {
+        var gamepad = Gamepad.current;
+        var lastUpdated = CheckLastUpdated();
+        if (gamepad == null || lastUpdated == "mouse")
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else if (lastUpdated == "gamepad")
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+    
+    private string CheckLastUpdated()
+    {
+        var gamepadLastUpdateTime = Gamepad.current.lastUpdateTime;
+        var keyboardLastUpdateTime = Keyboard.current.lastUpdateTime;
+        var mouseLastUpdateTime = Mouse.current.lastUpdateTime;
+        if (keyboardLastUpdateTime > gamepadLastUpdateTime && keyboardLastUpdateTime > mouseLastUpdateTime)
+        {
+            return "keyboard";
+        } else if (mouseLastUpdateTime > keyboardLastUpdateTime && mouseLastUpdateTime > gamepadLastUpdateTime)
+        {
+            return "mouse";
+        }
+        else
+        {
+            return "gamepad";
+        }
     }
 
     public void Resume()
@@ -63,9 +103,6 @@ public class PauseScreen : MonoBehaviour
         PlayerMovement.current.walkingSound.Stop();
         Time.timeScale = 0f;
         GameManager.current.PauseGame();
-        // This is because the camera script locks the cursor,
-        // so we need to enable it again to be able to click buttons
-        Cursor.lockState = CursorLockMode.None;
     }
 
     public void Restart()
