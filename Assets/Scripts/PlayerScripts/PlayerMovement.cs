@@ -99,6 +99,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.time > 5)
         {
+            if (GameManager.current.playerIsDying)
+            {
+                //Add some additional gravity to not make the control floaty
+                var velocity = _rb.velocity;
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 2f);
+                _rb.AddForce(Vector3.down * (20 * _rb.mass));
+                return;
+            }
+
+            if (GameManager.current.gameIsEnding)
+            {
+                return;
+            }
             MyInput();
             SpeedControl();
             MovementStateHandler();
