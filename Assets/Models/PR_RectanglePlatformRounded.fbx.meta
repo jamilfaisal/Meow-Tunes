@@ -3,7 +3,12 @@ guid: 776d653cbf5bd4e7f958690691246272
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_MeowTunesTexture
+    second: {fileID: 2100000, guid: 92abc1c98995b0e42b8c8d5dd18d17bb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
