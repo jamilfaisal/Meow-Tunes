@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7832757085075210191}
   - component: {fileID: 1967024678195553076}
   - component: {fileID: 4176028088118069929}
+  - component: {fileID: -7507421638145050805}
   m_Layer: 0
   m_Name: SwirlyPlatform
   m_TagString: Untagged
@@ -98,3 +99,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8760404308955177093, guid: 68c8b22bd06e14f84843aedb69625af8, type: 3}
+--- !u!114 &-7507421638145050805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875789465801534392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b79856163e8d5428557bea1ee2224f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

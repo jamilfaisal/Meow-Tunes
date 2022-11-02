@@ -41,6 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1209371681442295107}
+  - component: {fileID: 4381486240856947894}
   m_Layer: 0
   m_Name: PR_RectanglePlatformRounded
   m_TagString: Untagged
@@ -64,6 +65,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &4381486240856947894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982531132343236601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b79856163e8d5428557bea1ee2224f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2934494649237724689
 GameObject:
   m_ObjectHideFlags: 0
