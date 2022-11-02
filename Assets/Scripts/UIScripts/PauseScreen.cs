@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -23,7 +24,7 @@ public class PauseScreen : MonoBehaviour
     {
         if (GameManager.current.IsGamePaused())
         {
-            ShowOrHideCursor();
+            StartCoroutine(nameof(ShowOrHideCursor));
         }
         
         if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.current.HasGameEnded())
@@ -45,19 +46,21 @@ public class PauseScreen : MonoBehaviour
             }
         } 
     }
-
-    private void ShowOrHideCursor()
-    {
-        var gamepad = Gamepad.current;
-        var lastUpdated = CheckLastUpdated();
-        if (gamepad == null || lastUpdated == "mouse")
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        } else if (lastUpdated == "gamepad")
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+    
+    private IEnumerator ShowOrHideCursor() {
+        for(;;) {
+            var gamepad = Gamepad.current;
+            var lastUpdated = CheckLastUpdated();
+            if (gamepad == null || lastUpdated == "mouse")
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            } else if (lastUpdated == "gamepad")
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }            
+            yield return new WaitForSeconds(0.5f);
         }
     }
     
@@ -78,9 +81,12 @@ public class PauseScreen : MonoBehaviour
             return "gamepad";
         }
     }
+    
+    
 
     public void Resume()
     {
+        StopCoroutine(nameof(ShowOrHideCursor));
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
         MidiManager.current.ResumePlayback();

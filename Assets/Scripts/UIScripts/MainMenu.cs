@@ -27,12 +27,7 @@ public class MainMenu : MonoBehaviour
         musicLoop.PlayDelayed(musicIntro.clip.length);
         
         _gamepad = Gamepad.current;
-
-    }
-
-    public void Update()
-    {
-        PressButtonToSelect();
+        InvokeRepeating("PressButtonToSelect", 0f, 0.5f);
     }
 
     private void PressButtonToSelect()
