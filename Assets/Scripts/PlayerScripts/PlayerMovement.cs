@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -36,7 +37,8 @@ public class PlayerMovement : MonoBehaviour
     public float stompForce = 3f;
     public float jumpingGravity;
     public KeyCode stompKey = KeyCode.Tab;
-    private Vector3 _lastPos;
+    private int counter = 0;
+    private int _lastPosz;
 
     [Header("Movement")]
     public Animator animator;
@@ -58,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
 
     public MovementState state;
+
+    public RespawnManager respawnManager;
+    public AudioSource respawnSound;
+    private AudioClip _respawnClip;
+    private bool _respawning = false;
+    private int _respawning_cooldown = 5;
 
     //Tracking current player's movement
     public enum MovementState {
@@ -82,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
+
+        _respawnClip = respawnSound.clip;
     }
 
 
@@ -95,38 +105,33 @@ public class PlayerMovement : MonoBehaviour
         _grounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastTravelDist * 2),
             sphereCastRadius, Vector3.down, out _, sphereCastTravelDist*2.1f);
         
-        MyInput();
-        SpeedControl();
-        MovementStateHandler();
+        if (Time.time > 5){
+            MyInput();
+            SpeedControl();
+            MovementStateHandler();
 
-        // handle drag
-        if (_grounded)
-            _rb.drag = 0;
-        else
-            _rb.drag = 0;
+            // handle drag
+            if (_grounded)
+                _rb.drag = groundDrag;
+            else
+                _rb.drag = 0;
 
-        if (_justLanded && _grounded)
-        {
-            landFromJumpSound.Play();
-            _justLanded = false;
+            if (_justLanded && _grounded)
+            {
+                landFromJumpSound.Play();
+                _justLanded = false;
+            }
+
+            if (_grounded && !_canSaveJump)
+            {
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
+            
+            if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
+            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
+
+            // _lastPos = transform.position;
         }
-
-        if (_grounded && !_canSaveJump)
-        {
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-        
-        // Check if player is stuck on the edge of a platform, if so then push them down 
-        if (state == MovementState.Air && transform.position == _lastPos)
-        { 
-            _rb.velocity = Vector3.zero;
-            _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
-        }
-        
-        if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-        if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
-
-        _lastPos = transform.position;
 
     }
 
@@ -134,14 +139,43 @@ public class PlayerMovement : MonoBehaviour
     {
         // Debug.Log($"Fixed:{_rb.velocity}");
         if (Time.time > 5){
+            if (counter == 0){
+                _lastPosz = (int)transform.position.z;
+            }
+            if (counter == 12){
+                if ((int)transform.position.z == _lastPosz)
+                {
+                    if (!_respawning){
+                        Debug.Log("stuck!");
+                        LifeManager.current.LostLife();
+                        if (LifeManager.current.playerLives != 0)
+                        {
+                            StartCoroutine(Respawn());
+                        }
+                        _respawning = true;
+                    }
+                    else{
+                        if(_respawning_cooldown > 0){
+                            _respawning_cooldown--;
+                        }
+                        else{
+                            _respawning = false;
+                            _respawning_cooldown = 5;
+                        }
+                    }
+                }
+            }
+            
             MovePlayer();
             var velocity = _rb.velocity;
             if(_grounded){
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 8.2F);
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8.1F);
             }
             else{
                 _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
             }
+            if (counter < 12) counter++;
+            else counter = 0;
         }
     }
 
@@ -298,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 var limitedVel = flatVel.normalized * _moveSpeed;
                 if (_grounded){
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
+                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.1F);
                 }
                 else{
                     _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
@@ -372,6 +406,11 @@ public class PlayerMovement : MonoBehaviour
     {
         //Project the move direction to the slope so that we are not moving into or away from the slope
         return Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal).normalized;
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return respawnManager.RespawnPlayer(_respawnClip.length);
     }
 
 }

@@ -18739,7 +18739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8033697961162981975, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_AngularDrag
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8033697961332958462, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_Layer
@@ -35288,8 +35288,8 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  walkSpeed: 8.9
-  groundDrag: 0
+  walkSpeed: 10
+  groundDrag: 4
   maxJumpForce: 8.1
   jumpCooldown: 0
   airMultiplier: 1
