@@ -23400,7 +23400,7 @@ GameObject:
   - component: {fileID: 1226331564}
   - component: {fileID: 1226331563}
   - component: {fileID: 1226331566}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Respawner
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -35365,7 +35365,7 @@ GameObject:
   - component: {fileID: 1837251852}
   - component: {fileID: 1837251851}
   - component: {fileID: 1837251854}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VerticalRespawner
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
