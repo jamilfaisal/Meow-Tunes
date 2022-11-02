@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,20 +31,25 @@ public class GameManager : MonoBehaviour
         }
     }
     public void WonLevel() {
-        if (_gameHasEnded) return;
-        _gameHasEnded = true;
         _playerMovement.enabled = false;
         UIManager.current.WonLevelUI();
+        StartCoroutine(GameHasEnded());
     }
 
     public void LostLevel() {
-        if (_gameHasEnded) return;
-        _gameHasEnded = true;
         PlayerMovement.current.walkingSound.Stop();
         Conductor.current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();
+        StartCoroutine(GameHasEnded());
+    }
+    
+
+    private IEnumerator GameHasEnded()
+    {
+        yield return new WaitForSeconds(3f);
+        _gameHasEnded = true;
     }
 
     public void RestartLevel()
