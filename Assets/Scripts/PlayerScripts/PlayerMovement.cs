@@ -87,6 +87,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.current.playerIsDying)
+        {
+            var velocity = _rb.velocity;
+            _rb.velocity = new Vector3(0f, velocity.y, 0f);
+            return;
+        }
         // Debug.Log($"Update:{_rb.velocity}");
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
