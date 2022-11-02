@@ -33,8 +33,7 @@ public class ScoreManager : MonoBehaviour
         perfectText.SetActive(true);
         niceText.SetActive(false);
         oopsText.SetActive(false);
-        // StartCoroutine(Delay());
-        // perfectText.SetActive(false);
+        StartCoroutine(DelayPerfect());
     }
 
     public void Miss()
@@ -42,8 +41,7 @@ public class ScoreManager : MonoBehaviour
         perfectText.SetActive(false);
         niceText.SetActive(false);
         oopsText.SetActive(true);
-        // StartCoroutine(Delay());
-        // oopsText.SetActive(false);
+        StartCoroutine(DelayOops());
     }
 
     public void Inaccurate()
@@ -51,12 +49,22 @@ public class ScoreManager : MonoBehaviour
         perfectText.SetActive(false);
         niceText.SetActive(true);
         oopsText.SetActive(false);
-        // StartCoroutine(Delay());
-        // niceText.SetActive(false);
+        StartCoroutine(DelayNice());
     }
     
-    private IEnumerator Delay(){
-        yield return new WaitForSeconds(1f);
+    private IEnumerator DelayPerfect(){
+        yield return new WaitForSeconds(2f);
+        perfectText.SetActive(false);
+    }
+
+    private IEnumerator DelayOops(){
+        yield return new WaitForSeconds(2f);
+        oopsText.SetActive(false);
+    }
+
+    private IEnumerator DelayNice(){
+        yield return new WaitForSeconds(2f);
+        niceText.SetActive(false);
     }
     
 }
