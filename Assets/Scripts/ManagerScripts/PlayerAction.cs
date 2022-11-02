@@ -31,38 +31,40 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputIndex < timeStamps.Count)
+        if (Time.time > 5)
         {
-            double timeStamp = timeStamps[inputIndex];
-            double marginOfError = Conductor.current.marginOfError;
-            double audioTime = Conductor.GetAudioSourceTime() - (Conductor.current.inputDelayInMilliseconds / 1000.0);
-
-            // Only when PreSpawnWarningSeconds > 0
-            // if (Math.Abs(audioTime - timeStamp) < marginOfError){
-            //     StartCoroutine(ActionWarning());
-            // }
-
-            if (Input.GetKeyDown(input))
+            if (inputIndex < timeStamps.Count)
             {
-                if (Math.Abs(audioTime - (timeStamp)) < marginOfError)
+                double timeStamp = timeStamps[inputIndex];
+                double marginOfError = Conductor.current.marginOfError;
+                double audioTime = Conductor.GetAudioSourceTime() - (Conductor.current.inputDelayInMilliseconds / 1000.0);
+
+                // Only when PreSpawnWarningSeconds > 0
+                // if (Math.Abs(audioTime - timeStamp) < marginOfError){
+                //     StartCoroutine(ActionWarning());
+                // }
+
+                if (Input.GetKeyDown(input))
                 {
-                    // Hit();
-                    print($"Hit on {inputIndex} note - time: {timeStamp} audio time {audioTime}");
+                    if (Math.Abs(audioTime - (timeStamp)) < marginOfError)
+                    {
+                        // Hit();
+                        print($"Hit on {inputIndex} note - time: {timeStamp} audio time {audioTime}");
+                        inputIndex++;
+                    }
+                    else
+                    {
+                        print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay - time: {timeStamp} audio time {audioTime}");
+                    }
+                }
+                if (timeStamp + marginOfError <= audioTime)
+                {
+                    // Miss();
+                    print($"Missed {inputIndex} note - time: {timeStamp} audio time {audioTime}");
                     inputIndex++;
                 }
-                // else
-                // {
-                //     print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay - time: {timeStamp} audio time {audioTime}");
-                // }
-            }
-            if (timeStamp + marginOfError <= audioTime)
-            {
-                // Miss();
-                print($"Missed {inputIndex} note - time: {timeStamp} audio time {audioTime}");
-                inputIndex++;
-            }
-        }       
-    
+            }    
+        }   
     }
 
     // IEnumerator ActionWarning()

@@ -72,25 +72,28 @@ public class Lane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (platformSpawnIndex < platformTimeStamps.Count)
+        if(Time.time > 5)
         {
-            if (Conductor.GetAudioSourceTime() >= (platformTimeStamps[platformSpawnIndex].Item3-SpawningHeadstartTime) - Conductor.current.noteTime)
+            if (platformSpawnIndex < platformTimeStamps.Count)
             {
-                /*spawning platforms based on converted time from midifile*/
-                SpawnPlatform((int)(platformTimeStamps[platformSpawnIndex].Item1), platformTimeStamps[platformSpawnIndex].Item2, (float)(platformTimeStamps[platformSpawnIndex].Item3));
-                platformSpawnIndex++;
+                if (Conductor.GetAudioSourceTime() >= (platformTimeStamps[platformSpawnIndex].Item3-SpawningHeadstartTime) - Conductor.current.noteTime)
+                {
+                    /*spawning platforms based on converted time from midifile*/
+                    SpawnPlatform((int)(platformTimeStamps[platformSpawnIndex].Item1), platformTimeStamps[platformSpawnIndex].Item2, (float)(platformTimeStamps[platformSpawnIndex].Item3));
+                    platformSpawnIndex++;
+                }
             }
-        }
 
-        if (fishTreatSpawnIndex < fishTreatTimeStamps.Count)
-        {
-            if (Conductor.GetAudioSourceTime() >= (fishTreatTimeStamps[fishTreatSpawnIndex].Item2-SpawningHeadstartTime) - Conductor.current.noteTime)
+            if (fishTreatSpawnIndex < fishTreatTimeStamps.Count)
             {
-                /*spawning platforms based on converted time from midifile*/
-                SpawnFishTreat((int)(fishTreatTimeStamps[fishTreatSpawnIndex].Item1), (float)(fishTreatTimeStamps[fishTreatSpawnIndex].Item2));
-                fishTreatSpawnIndex++;
-            }
-        }  
+                if (Conductor.GetAudioSourceTime() >= (fishTreatTimeStamps[fishTreatSpawnIndex].Item2-SpawningHeadstartTime) - Conductor.current.noteTime)
+                {
+                    /*spawning platforms based on converted time from midifile*/
+                    SpawnFishTreat((int)(fishTreatTimeStamps[fishTreatSpawnIndex].Item1), (float)(fishTreatTimeStamps[fishTreatSpawnIndex].Item2));
+                    fishTreatSpawnIndex++;
+                }
+            }  
+        }
     }
 
     private void SpawnPlatform(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawn_time)
@@ -101,7 +104,7 @@ public class Lane : MonoBehaviour
         y = (octave - 2) * 1.5F;
         z = (spawn_time / 0.25F) * SpacingSize;
         Vector3 position = new Vector3(x, y, z);
-        // Debug.Log(spawn_time);
+        // Debug.Log(new_platform.GetComponent<Renderer>().bounds.size);
         new_platform.transform.parent = transform;
         new_platform.transform.localPosition = position;
         new_platform.transform.rotation = transform.rotation;

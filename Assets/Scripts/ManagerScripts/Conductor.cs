@@ -31,8 +31,10 @@ public class Conductor : MonoBehaviour
 
     public Lane[] lanes;
     public PlayerAction[] playerActions;
-    public double marginOfError = 0.15;
+    public double marginOfError = 0.3;
     public int inputDelayInMilliseconds = 0; //Delay Time for when the music starts
+
+    private bool audioPlayed = false;
     private void Awake()
     {
         current = this;
@@ -63,22 +65,25 @@ public class Conductor : MonoBehaviour
         
         // secPerBeat = 60f / songBpm;
         // dspSongTime = (float)AudioSettings.dspTime;
-        
-        audioSource.Play();
     }
 
     private void Update()
     {
         // songPosition = (float)(AudioSettings.dspTime - dspSongTime);
         // songPositionInBeats = songPosition / secPerBeat;
-
+        if (Time.time > 5 && !audioPlayed)
+        {
+            Debug.Log("played!");
+            audioSource.Play();
+            audioPlayed = true;
+        }
         if (GameManager.current.IsGamePaused() || GameManager.current.HasGameEnded() 
                                                || GameManager.current.playerIsDying) return;
-        if (!audioSource.isPlaying)
-        {
-            SwitchMusicFromIntroToLoop();
-            enabled = false;
-        }
+        // if (!audioSource.isPlaying)
+        // {
+        //     SwitchMusicFromIntroToLoop();
+        //     enabled = false;
+        // }
     }
 
     private void SwitchMusicFromIntroToLoop()

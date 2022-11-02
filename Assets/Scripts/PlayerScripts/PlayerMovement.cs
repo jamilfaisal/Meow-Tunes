@@ -83,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Debug.Log($"Update:{_rb.velocity}");
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -96,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
         // handle drag
         if (_grounded)
-            _rb.drag = groundDrag;
+            _rb.drag = 0;
         else
             _rb.drag = 0;
 
@@ -123,10 +124,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
-
-        if(!_grounded && !_jumpKeyHeld &&Vector3.Dot(_rb.velocity, Vector3.up) > 0){
-            _rb.AddForce(Vector3.down * (30f * _rb.mass));
+        // Debug.Log($"Fixed:{_rb.velocity}");
+        if (Time.time > 5){
+            MovePlayer();
+            var velocity = _rb.velocity;
+            if(_grounded){
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8.2F);
+            }
+            else{
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
+            }
+            if(!_grounded && !_jumpKeyHeld &&Vector3.Dot(_rb.velocity, Vector3.up) > 0){
+                _rb.AddForce(Vector3.down * (30f * _rb.mass));
+            }
         }
     }
 
@@ -265,8 +275,7 @@ public class PlayerMovement : MonoBehaviour
         _rb.useGravity = !OnSlope();
 
         Vector3 velocity = _rb.velocity;
-        // Debug.Log(velocity);
-        velocity.z = 8F;
+        velocity.z = 8;
         _rb.velocity = velocity;
     }
 
@@ -274,8 +283,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // limit velocity on slope (except jumping to prevent limiting the jump)
         if(OnSlope() && !_exitingSlope){
+            var velocity = _rb.velocity.normalized * _moveSpeed;
             if(_rb.velocity.magnitude > _moveSpeed)
-                _rb.velocity = _rb.velocity.normalized * _moveSpeed;
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
         }
 
         // limit velocity on ground or air
@@ -287,9 +297,15 @@ public class PlayerMovement : MonoBehaviour
             if(flatVel.magnitude > _moveSpeed)
             {
                 var limitedVel = flatVel.normalized * _moveSpeed;
-                _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+                if (_grounded){
+                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
+                }
+                else{
+                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
+                }
             }
         }
+        // Debug.Log($"Speed:{_rb.velocity}");
     }
 
     public void Stomp()
@@ -344,6 +360,8 @@ public class PlayerMovement : MonoBehaviour
             var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
         }
+
+        // Debug.Log($"Slope:{_rb.velocity}");
 
         return false;
     }
