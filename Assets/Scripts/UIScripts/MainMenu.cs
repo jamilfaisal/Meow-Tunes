@@ -28,37 +28,68 @@ public class MainMenu : MonoBehaviour
         
         _gamepad = Gamepad.current;
 
-        if (_gamepad != null)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
     }
 
     public void Update()
     {
-        
-        _gamepad = Gamepad.current;
-        switch (_gamepad)
-        {
-            case null:
-                ps4Prompt.SetActive(false);
-                xboxPrompt.SetActive(false);
-                pcPrompt.SetActive(true);
-                break;
-            case XInputController or SwitchProControllerHID:
-                ps4Prompt.SetActive(false);
-                pcPrompt.SetActive(false);
-                xboxPrompt.SetActive(true);
-                break;
-            case DualShockGamepad:
-                xboxPrompt.SetActive(false);
-                pcPrompt.SetActive(false);
-                ps4Prompt.SetActive(true);
-                break;
-        }
+        PressButtonToSelect();
+    }
 
+    private void PressButtonToSelect()
+    {
+        _gamepad = Gamepad.current;
+        var lastUpdated = CheckLastUpdated();
+        if (_gamepad == null || lastUpdated == "mouse")
+        {
+            ps4Prompt.SetActive(false);
+            xboxPrompt.SetActive(false);
+            pcPrompt.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else if (lastUpdated == "keyboard")
+        {
+            ps4Prompt.SetActive(false);
+            xboxPrompt.SetActive(false);
+            pcPrompt.SetActive(true);
+        }
+        else
+        {
+            switch (_gamepad)
+            {
+                case XInputController or SwitchProControllerHID:
+                    ps4Prompt.SetActive(false);
+                    pcPrompt.SetActive(false);
+                    xboxPrompt.SetActive(true);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    break;
+                case DualShockGamepad:
+                    xboxPrompt.SetActive(false);
+                    pcPrompt.SetActive(false);
+                    ps4Prompt.SetActive(true);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    break;
+            }
+        }
+    }
+
+    private string CheckLastUpdated()
+    {
+        var gamepadLastUpdateTime = Gamepad.current.lastUpdateTime;
+        var keyboardLastUpdateTime = Keyboard.current.lastUpdateTime;
+        var mouseLastUpdateTime = Mouse.current.lastUpdateTime;
+        if (keyboardLastUpdateTime > gamepadLastUpdateTime && keyboardLastUpdateTime > mouseLastUpdateTime)
+        {
+            return "keyboard";
+        } else if (mouseLastUpdateTime > keyboardLastUpdateTime && mouseLastUpdateTime > gamepadLastUpdateTime)
+        {
+            return "mouse";
+        }
+        else
+        {
+            return "gamepad";
+        }
     }
 
     private void SetVolumes(float musicVolume, float soundEffectVolume)
