@@ -20,6 +20,12 @@ public class Conductor : MonoBehaviour
     public AudioClip songIntroNormal;
     public AudioClip songLoopNormal;
 
+    // public float songBpm = 120;
+    // public float secPerBeat;
+    // public float songPosition;
+    // public float songPositionInBeats;
+    // public float dspSongTime;
+
     public static MidiFile midiFile_test;
     public float noteTime;
 
@@ -36,9 +42,9 @@ public class Conductor : MonoBehaviour
     {
         midiFile_test = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v2.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement.mid");
+            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v2.mid");
         
         var notes = midiFile_test.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
@@ -54,11 +60,18 @@ public class Conductor : MonoBehaviour
 
         audioSource.clip = songIntroNormal;
         audioSource.loop = false;
+        
+        // secPerBeat = 60f / songBpm;
+        // dspSongTime = (float)AudioSettings.dspTime;
+        
         audioSource.Play();
     }
 
     private void Update()
     {
+        // songPosition = (float)(AudioSettings.dspTime - dspSongTime);
+        // songPositionInBeats = songPosition / secPerBeat;
+
         if (GameManager.current.IsGamePaused() || GameManager.current.HasGameEnded() 
                                                || GameManager.current.playerIsDying) return;
         if (!audioSource.isPlaying)
@@ -91,5 +104,6 @@ public class Conductor : MonoBehaviour
     public static double GetAudioSourceTime()
     {
         return (double)current.audioSource.timeSamples / current.audioSource.clip.frequency;
+        // return (double)current.songPosition;
     }
 }
