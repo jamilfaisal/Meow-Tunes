@@ -53,17 +53,17 @@ public class ScoreManager : MonoBehaviour
     }
     
     private IEnumerator DelayPerfect(){
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         perfectText.SetActive(false);
     }
 
     private IEnumerator DelayOops(){
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         oopsText.SetActive(false);
     }
 
     private IEnumerator DelayNice(){
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         niceText.SetActive(false);
     }
     
