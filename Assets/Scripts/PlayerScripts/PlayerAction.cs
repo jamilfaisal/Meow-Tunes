@@ -19,7 +19,7 @@ public class PlayerAction : MonoBehaviour
             if (note.Octave == 1){
                 if (note.NoteName == noteRestriction)
                 {
-                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.midiFile_test.GetTempoMap());
+                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.MidiFileTest.GetTempoMap());
                     double spawn_time = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
                     
                     timeStamps.Add(spawn_time - PrespawnWarningSeconds);

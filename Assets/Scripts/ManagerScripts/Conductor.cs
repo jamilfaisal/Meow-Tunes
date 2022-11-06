@@ -1,16 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using Melanchall.DryWetMidi.Common;
-using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using Melanchall.DryWetMidi.Multimedia;
-using Melanchall.DryWetMidi.Standards;
-using System.IO;
-using UnityEngine.Networking;
-using System;
 
 public class Conductor : MonoBehaviour
 {
@@ -18,7 +8,6 @@ public class Conductor : MonoBehaviour
     
     public AudioSource audioSource;
     public AudioClip songIntroNormal;
-    public AudioClip songLoopNormal;
 
     // public float songBpm = 120;
     // public float secPerBeat;
@@ -26,15 +15,15 @@ public class Conductor : MonoBehaviour
     // public float songPositionInBeats;
     // public float dspSongTime;
 
-    public static MidiFile midiFile_test;
+    public static MidiFile MidiFileTest;
     public float noteTime;
 
     public Lane[] lanes;
     public PlayerAction[] playerActions;
     public double marginOfError = 0.3;
-    public int inputDelayInMilliseconds = 0; //Delay Time for when the music starts
+    public int inputDelayInMilliseconds; //Delay Time for when the music starts
 
-    private bool audioPlayed = false;
+    private bool _audioPlayed;
     private void Awake()
     {
         current = this;
@@ -42,17 +31,18 @@ public class Conductor : MonoBehaviour
     
     private void Start()
     {
-        midiFile_test = null;
+        MidiFileTest = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v13.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v13.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            midiFile_test = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v13.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v13.mid");
         
-        var notes = midiFile_test.GetNotes();
-        var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
+        var notes = MidiFileTest.GetNotes();
+        var array = new Note[notes.Count];
         // Debug.Log(notes.Count);
         notes.CopyTo(array, 0);
         foreach (var lane in lanes){
+            lane.SpawnPlatforms(array);
             lane.SetTimeStamps(array);
             // Debug.Log(lane.timeStamps.Count);
         }
@@ -71,30 +61,23 @@ public class Conductor : MonoBehaviour
     {
         // songPosition = (float)(AudioSettings.dspTime - dspSongTime);
         // songPositionInBeats = songPosition / secPerBeat;
-        if (Time.time > 5 && !audioPlayed)
+        if (Time.time > 5 && !_audioPlayed)
         {
             Debug.Log("played!");
             audioSource.Play();
-            audioPlayed = true;
+            _audioPlayed = true;
         }
-        if (GameManager.current.IsGamePaused() || GameManager.current.HasGameEnded() 
-                                               || GameManager.current.playerIsDying) return;
-        // if (!audioSource.isPlaying)
-        // {
-        //     SwitchMusicFromIntroToLoop();
-        //     enabled = false;
-        // }
     }
 
-    private void SwitchMusicFromIntroToLoop()
-    {
-        if (songLoopNormal != null)
-        {
-            audioSource.clip = songLoopNormal;
-        }
-        audioSource.Play();
-        audioSource.loop = true;
-    }
+    // private void SwitchMusicFromIntroToLoop()
+    // {
+    //     if (songLoopNormal != null)
+    //     {
+    //         audioSource.clip = songLoopNormal;
+    //     }
+    //     audioSource.Play();
+    //     audioSource.loop = true;
+    // }
 
     public void Pause()
     {
@@ -109,6 +92,5 @@ public class Conductor : MonoBehaviour
     public static double GetAudioSourceTime()
     {
         return (double)current.audioSource.timeSamples / current.audioSource.clip.frequency;
-        // return (double)current.songPosition;
     }
 }
