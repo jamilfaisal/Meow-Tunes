@@ -11,6 +11,7 @@ public class PlayerAction : MonoBehaviour
     public List<double> timeStamps = new List<double>();
     int inputIndex = 0;
     public int PrespawnWarningSeconds = 0;
+    public ScoreManager scoreManager;
 
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
@@ -48,18 +49,19 @@ public class PlayerAction : MonoBehaviour
                 {
                     if (Math.Abs(audioTime - (timeStamp)) < marginOfError)
                     {
-                        // Hit();
+                        Hit();
                         print($"Hit on {inputIndex} note - time: {timeStamp} audio time {audioTime}");
                         inputIndex++;
                     }
                     else
                     {
+                        Inaccurate();
                         print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay - time: {timeStamp} audio time {audioTime}");
                     }
                 }
                 if (timeStamp + marginOfError <= audioTime)
                 {
-                    // Miss();
+                    Miss();
                     print($"Missed {inputIndex} note - time: {timeStamp} audio time {audioTime}");
                     inputIndex++;
                 }
@@ -72,12 +74,17 @@ public class PlayerAction : MonoBehaviour
 
     // }
 
-    // private void Hit()
-    // {
-    //     ScoreManager.Hit();
-    // }
-    // private void Miss()
-    // {
-    //     ScoreManager.Miss();
-    // }
+    private void Hit()
+    {
+        scoreManager.Hit();
+    }
+    private void Miss()
+    {
+        scoreManager.Miss();
+    }
+    
+    private void Inaccurate()
+    {
+        scoreManager.Inaccurate();
+    }
 }
