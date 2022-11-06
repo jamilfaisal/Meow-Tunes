@@ -32,18 +32,14 @@ public class GameManager : MonoBehaviour
         }
     }
     public void WonLevel() {
-        if (_gameHasEnded) return;
         gameIsEnding = false;
-        _gameHasEnded = true;
         _playerMovement.enabled = false;
         UIManager.current.WonLevelUI();
         StartCoroutine(GameHasEnded());
     }
 
     public void LostLevel() {
-        if (_gameHasEnded) return;
         gameIsEnding = false;
-        _gameHasEnded = true;
         PlayerMovement.current.walkingSound.Stop();
         Conductor.current.audioSource.Pause();
         gameOverSound.Play();
