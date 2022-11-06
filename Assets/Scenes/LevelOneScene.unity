@@ -738,15 +738,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlatformNote: 0
-  FishTreatNote: 7
-  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
-  FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-  CheckpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platformNote: 0
+  fishTreatNote: 7
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  SpacingSize: 2
-  SpawningHeadstartTime: 1
+  spacingSize: 2
+  spawningHeadstartTime: 1
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -3873,15 +3873,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlatformNote: 2
-  FishTreatNote: 9
-  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
-  FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-  CheckpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platformNote: 2
+  fishTreatNote: 9
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  SpacingSize: 2
-  SpawningHeadstartTime: 1
+  spacingSize: 2
+  spawningHeadstartTime: 1
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -30990,15 +30990,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlatformNote: 3
-  FishTreatNote: 10
-  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
-  FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-  CheckpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platformNote: 3
+  fishTreatNote: 10
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  SpacingSize: 2
-  SpawningHeadstartTime: 1
+  spacingSize: 2
+  spawningHeadstartTime: 1
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -32384,15 +32384,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlatformNote: 1
-  FishTreatNote: 8
-  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
-  FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-  CheckpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platformNote: 1
+  fishTreatNote: 8
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  SpacingSize: 2
-  SpawningHeadstartTime: 1
+  spacingSize: 2
+  spawningHeadstartTime: 1
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -41275,15 +41275,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlatformNote: 4
-  FishTreatNote: 11
-  PlatformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
-  FishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
-  CheckpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platformNote: 4
+  fishTreatNote: 11
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  SpacingSize: 2
-  SpawningHeadstartTime: 1
+  spacingSize: 2
+  spawningHeadstartTime: 1
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0
