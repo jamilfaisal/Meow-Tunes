@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Switch;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.XInput;
 using UnityEngine.SceneManagement;
 
@@ -11,12 +12,15 @@ public class MainMenu : MonoBehaviour
     public AudioSource musicIntro, musicLoop;
     public GameObject ps4Prompt, xboxPrompt, pcPrompt;
     private Gamepad _gamepad;
+    public PlayerInput playerInput;
+    private string _lastUpdated;
     // First button that is highlighted when player navigates to the main menu
     public GameObject mainMenuFirstButton, settingsFirstButton;
 
     private void Awake()
     {
         SettingsMenu.current.VolumeChanged += SetVolumes;
+        CheckIfPlayerUsingController();
     }
 
     public void Start()
@@ -26,26 +30,46 @@ public class MainMenu : MonoBehaviour
         musicIntro.Play();
         musicLoop.PlayDelayed(musicIntro.clip.length);
         
-        _gamepad = Gamepad.current;
-        InvokeRepeating("PressButtonToSelect", 0f, 0.5f);
+        InvokeRepeating(nameof(PressButtonToSelect), 0f, 0.5f);
+    }
+    
+
+    private void CheckIfPlayerUsingController()
+    {
+        CheckLastUpdated();
+        InputUser.onChange += (_, change, _) =>
+        {
+            if (change is InputUserChange.ControlSchemeChanged)
+            {
+                CheckLastUpdated();
+            }
+        };
+    }
+
+    private void CheckLastUpdated()
+    {
+        Debug.Log(playerInput == null);
+        if (playerInput.currentControlScheme.ToLower().Contains("gamepad") ||
+            playerInput.currentControlScheme.ToLower().Contains("joystick"))
+        {
+            _lastUpdated = "gamepad";
+        }
+        else
+        {
+            _lastUpdated = "keyboard";
+        }
     }
 
     private void PressButtonToSelect()
     {
         _gamepad = Gamepad.current;
-        var lastUpdated = CheckLastUpdated();
-        if (_gamepad == null || lastUpdated == "mouse")
+        if (_lastUpdated == "keyboard")
         {
             ps4Prompt.SetActive(false);
             xboxPrompt.SetActive(false);
             pcPrompt.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-        } else if (lastUpdated == "keyboard")
-        {
-            ps4Prompt.SetActive(false);
-            xboxPrompt.SetActive(false);
-            pcPrompt.SetActive(true);
         }
         else
         {
@@ -66,24 +90,6 @@ public class MainMenu : MonoBehaviour
                     Cursor.visible = false;
                     break;
             }
-        }
-    }
-
-    private string CheckLastUpdated()
-    {
-        var gamepadLastUpdateTime = Gamepad.current.lastUpdateTime;
-        var keyboardLastUpdateTime = Keyboard.current.lastUpdateTime;
-        var mouseLastUpdateTime = Mouse.current.lastUpdateTime;
-        if (keyboardLastUpdateTime > gamepadLastUpdateTime && keyboardLastUpdateTime > mouseLastUpdateTime)
-        {
-            return "keyboard";
-        } else if (mouseLastUpdateTime > keyboardLastUpdateTime && mouseLastUpdateTime > gamepadLastUpdateTime)
-        {
-            return "mouse";
-        }
-        else
-        {
-            return "gamepad";
         }
     }
 
