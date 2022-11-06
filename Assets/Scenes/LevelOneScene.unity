@@ -746,7 +746,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  spawningHeadstartTime: 1
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -3881,7 +3880,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  spawningHeadstartTime: 1
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -30998,7 +30996,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  spawningHeadstartTime: 1
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -32392,7 +32389,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  spawningHeadstartTime: 1
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -41283,7 +41279,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  spawningHeadstartTime: 1
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0
