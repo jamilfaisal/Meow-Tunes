@@ -33,7 +33,7 @@ public class Lane : MonoBehaviour
             if (note.NoteName != platformNote || note.Octave == 1) continue;
 
             var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.MidiFileTest.GetTempoMap());
+                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
 
             var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
                              (double)metricTimeSpan.Milliseconds / 1000f);
@@ -46,7 +46,7 @@ public class Lane : MonoBehaviour
         {
             //Octave 1 is for player input
             if (note.NoteName != fishTreatNote || note.Octave == 1) continue;
-            var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.MidiFileTest.GetTempoMap());
+            var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
 
             var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
 
@@ -65,7 +65,7 @@ public class Lane : MonoBehaviour
         if (Time.time < 5) return;
         if (_fishTreatSpawnIndex < _fishTreatTimeStamps.Count)
         {
-            if (Conductor.GetAudioSourceTime() >= (_fishTreatTimeStamps[_fishTreatSpawnIndex].Item2-spawningHeadstartTime) - Conductor.current.noteTime)
+            if (MusicPlayer.GetAudioSourceTime() >= (_fishTreatTimeStamps[_fishTreatSpawnIndex].Item2-spawningHeadstartTime) - MusicPlayer.current.noteTime)
             {
                 /*spawning platforms based on converted time from midifile*/
                 SpawnFishTreat(_fishTreatTimeStamps[_fishTreatSpawnIndex].Item1, (float)(_fishTreatTimeStamps[_fishTreatSpawnIndex].Item2));

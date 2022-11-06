@@ -33,7 +33,7 @@ public class RespawnManager : MonoBehaviour
         AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
-        Conductor.current.Resume();
+        MusicPlayer.current.Resume();
         MidiManager.current.ResumePlayback();
         GameManager.current.playerIsDying = false;
         yield return null;
@@ -41,8 +41,8 @@ public class RespawnManager : MonoBehaviour
 
     private void AdjustMusicTime()
     {
-        Conductor.current.Pause();
-        Conductor.current.audioSource.time = _musicTime;
+        MusicPlayer.current.Pause();
+        MusicPlayer.current.audioSource.time = _musicTime;
     }
 
     private void AdjustPlayerPosition()

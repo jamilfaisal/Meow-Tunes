@@ -19,7 +19,7 @@ public class PlayerAction : MonoBehaviour
             if (note.Octave == 1){
                 if (note.NoteName == noteRestriction)
                 {
-                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, Conductor.MidiFileTest.GetTempoMap());
+                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
                     double spawn_time = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
                     
                     timeStamps.Add(spawn_time - PrespawnWarningSeconds);
@@ -36,8 +36,8 @@ public class PlayerAction : MonoBehaviour
             if (inputIndex < timeStamps.Count)
             {
                 double timeStamp = timeStamps[inputIndex];
-                double marginOfError = Conductor.current.marginOfError;
-                double audioTime = Conductor.GetAudioSourceTime() - (Conductor.current.inputDelayInMilliseconds / 1000.0);
+                double marginOfError = MusicPlayer.current.marginOfError;
+                double audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
                 // Only when PreSpawnWarningSeconds > 0
                 // if (Math.Abs(audioTime - timeStamp) < marginOfError){

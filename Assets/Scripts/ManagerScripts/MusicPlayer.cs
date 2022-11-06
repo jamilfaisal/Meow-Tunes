@@ -2,9 +2,9 @@ using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 
-public class Conductor : MonoBehaviour
+public class MusicPlayer : MonoBehaviour
 {
-    public static Conductor current;
+    public static MusicPlayer current;
     
     public AudioSource audioSource;
     public AudioClip songIntroNormal;
