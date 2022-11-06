@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool playerIsDying;
     private bool _gameIsRestarting;
     private bool _gameHasEnded;
+    public bool gameIsEnding;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
@@ -31,12 +32,18 @@ public class GameManager : MonoBehaviour
         }
     }
     public void WonLevel() {
+        if (_gameHasEnded) return;
+        gameIsEnding = false;
+        _gameHasEnded = true;
         _playerMovement.enabled = false;
         UIManager.current.WonLevelUI();
         StartCoroutine(GameHasEnded());
     }
 
     public void LostLevel() {
+        if (_gameHasEnded) return;
+        gameIsEnding = false;
+        _gameHasEnded = true;
         PlayerMovement.current.walkingSound.Stop();
         Conductor.current.audioSource.Pause();
         gameOverSound.Play();
@@ -70,6 +77,7 @@ public class GameManager : MonoBehaviour
     {
         _gameIsRestarting = false;
         _gameIsPaused = false;
+        gameIsEnding = false;
         _gameHasEnded = false;
     }
 

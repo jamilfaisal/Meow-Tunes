@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     private float _moveSpeed;
-    public float walkSpeed;
+    public float leftRightWalkSpeed;
+    public float forwardWalkSpeed;
 
     public float groundDrag;
 
@@ -82,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
+        _rb.drag = groundDrag;
     }
 
 
@@ -100,40 +102,50 @@ public class PlayerMovement : MonoBehaviour
         var sphereCastTravelDist = playerHeight * 0.5f - playerWidth * 0.5f + 0.3f;
         _grounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastTravelDist * 2),
             sphereCastRadius, Vector3.down, out _, sphereCastTravelDist*2.1f);
-        
-        MyInput();
-        SpeedControl();
-        MovementStateHandler();
 
-        // handle drag
-        if (_grounded)
-            _rb.drag = 0;
-        else
-            _rb.drag = 0;
-
-        if (_justLanded && _grounded)
+        if (Time.time > 5)
         {
-            landFromJumpSound.Play();
-            _justLanded = false;
-        }
+            if (GameManager.current.playerIsDying)
+            {
+                //Add some additional gravity to not make the control floaty
+                var velocity = _rb.velocity;
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 2f);
+                _rb.AddForce(Vector3.down * (20 * _rb.mass));
+                return;
+            }
 
-        if (_grounded && !_canSaveJump)
-        {
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
+            if (GameManager.current.gameIsEnding)
+            {
+                return;
+            }
+            MyInput();
+            SpeedControl();
+            MovementStateHandler();
+            _rb.drag = groundDrag;
+
+            if (_justLanded && _grounded)
+            {
+                landFromJumpSound.Play();
+                _justLanded = false;
+            }
+
+            if (_grounded && !_canSaveJump)
+            {
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
         
-        // Check if player is stuck on the edge of a platform, if so then push them down 
-        if (state == MovementState.Air && transform.position == _lastPos)
-        { 
-            _rb.velocity = Vector3.zero;
-            _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
-        }
+            // Check if player is stuck on the edge of a platform, if so then push them down 
+            if (state == MovementState.Air && transform.position == _lastPos)
+            { 
+                _rb.velocity = Vector3.zero;
+                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+            }
         
-        if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-        if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
+            if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
+            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
 
-        _lastPos = transform.position;
-
+            _lastPos = transform.position;
+        }
     }
 
     private void FixedUpdate()
@@ -143,10 +155,10 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer();
             var velocity = _rb.velocity;
             if(_grounded){
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 8.2F);
+                _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
             }
             else{
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
+                _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
             }
         }
     }
@@ -236,7 +248,7 @@ public class PlayerMovement : MonoBehaviour
         //Walking
         if (_grounded){
             state = MovementState.Walking;
-            _moveSpeed = walkSpeed;
+            _moveSpeed = leftRightWalkSpeed;
         }
         //in air
         else{
