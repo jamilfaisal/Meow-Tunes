@@ -13,7 +13,6 @@ public class MainMenu : MonoBehaviour
     public GameObject ps4Prompt, xboxPrompt, pcPrompt;
     private Gamepad _gamepad;
     public PlayerInput playerInput;
-    private string _lastUpdated;
     // First button that is highlighted when player navigates to the main menu
     public GameObject mainMenuFirstButton, settingsFirstButton;
 
@@ -30,40 +29,38 @@ public class MainMenu : MonoBehaviour
         musicIntro.Play();
         musicLoop.PlayDelayed(musicIntro.clip.length);
         
-        InvokeRepeating(nameof(PressButtonToSelect), 0f, 0.5f);
     }
     
 
     private void CheckIfPlayerUsingController()
     {
-        CheckLastUpdated();
+        PressButtonToSelect(CheckLastUpdated());
         InputUser.onChange += (_, change, _) =>
         {
             if (change is InputUserChange.ControlSchemeChanged)
             {
-                CheckLastUpdated();
+                PressButtonToSelect(CheckLastUpdated());
             }
         };
     }
 
-    private void CheckLastUpdated()
+    private string CheckLastUpdated()
     {
-        Debug.Log(playerInput == null);
         if (playerInput.currentControlScheme.ToLower().Contains("gamepad") ||
             playerInput.currentControlScheme.ToLower().Contains("joystick"))
         {
-            _lastUpdated = "gamepad";
+            return "gamepad";
         }
         else
         {
-            _lastUpdated = "keyboard";
+            return "keyboard";
         }
     }
 
-    private void PressButtonToSelect()
+    private void PressButtonToSelect(string lastUpdated)
     {
         _gamepad = Gamepad.current;
-        if (_lastUpdated == "keyboard")
+        if (lastUpdated == "keyboard")
         {
             ps4Prompt.SetActive(false);
             xboxPrompt.SetActive(false);

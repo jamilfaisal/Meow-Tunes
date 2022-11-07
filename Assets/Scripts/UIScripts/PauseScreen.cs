@@ -1,11 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.DualShock;
-using UnityEngine.InputSystem.Switch;
-using UnityEngine.InputSystem.XInput;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.Users;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -13,7 +9,36 @@ public class PauseScreen : MonoBehaviour
     public Conductor musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
+    public PlayerInput playerInput;
+    private string _lastUpdated;
     public GameObject pauseScreenFirstButton, settingsFirstButton;
+
+    private void Awake()
+    {
+        CheckIfPlayerUsingController();
+    }
+    
+    private void CheckIfPlayerUsingController()
+    {
+        ShowOrHideCursor(CheckLastUpdated());
+        InputUser.onChange += (_, change, _) =>
+        {
+            if (change is InputUserChange.ControlSchemeChanged)
+            {
+                ShowOrHideCursor(CheckLastUpdated());
+            }
+        };
+    }
+    
+    private string CheckLastUpdated()
+    {
+        if (playerInput.currentControlScheme.ToLower().Contains("gamepad") ||
+            playerInput.currentControlScheme.ToLower().Contains("joystick"))
+        {
+            return "gamepad";
+        }
+        return "keyboard";
+    }
 
     private void Start()
     {
@@ -22,11 +47,6 @@ public class PauseScreen : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.current.IsGamePaused())
-        {
-            StartCoroutine(nameof(ShowOrHideCursor));
-        }
-        
         if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.current.HasGameEnded())
         {
             if (GameManager.current.IsGamePaused())
@@ -47,46 +67,21 @@ public class PauseScreen : MonoBehaviour
         } 
     }
     
-    private IEnumerator ShowOrHideCursor() {
-        for(;;) {
-            var gamepad = Gamepad.current;
-            var lastUpdated = CheckLastUpdated();
-            if (gamepad == null || lastUpdated == "mouse")
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            } else if (lastUpdated == "gamepad")
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }            
-            yield return new WaitForSeconds(0.5f);
-        }
+    private void ShowOrHideCursor(string lastUpdated) {
+        if (lastUpdated == "keyboard")
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else if (lastUpdated == "gamepad")
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }            
     }
-    
-    private string CheckLastUpdated()
-    {
-        var gamepadLastUpdateTime = Gamepad.current.lastUpdateTime;
-        var keyboardLastUpdateTime = Keyboard.current.lastUpdateTime;
-        var mouseLastUpdateTime = Mouse.current.lastUpdateTime;
-        if (keyboardLastUpdateTime > gamepadLastUpdateTime && keyboardLastUpdateTime > mouseLastUpdateTime)
-        {
-            return "keyboard";
-        } else if (mouseLastUpdateTime > keyboardLastUpdateTime && mouseLastUpdateTime > gamepadLastUpdateTime)
-        {
-            return "mouse";
-        }
-        else
-        {
-            return "gamepad";
-        }
-    }
-    
-    
+
 
     public void Resume()
     {
-        StopCoroutine(nameof(ShowOrHideCursor));
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
         MidiManager.current.ResumePlayback();
@@ -98,7 +93,7 @@ public class PauseScreen : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void Pause()
+    private void Pause()
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(pauseScreenFirstButton);
