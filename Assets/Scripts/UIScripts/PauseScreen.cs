@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PauseScreen : MonoBehaviour
 {
     public GameObject pauseMenuUI, settingsMenuUI;
-    public Conductor musicPlayer;
+    public MusicPlayer musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
     public GameObject pauseScreenFirstButton, settingsFirstButton;
