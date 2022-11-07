@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     public void LostLevel() {
         gameIsEnding = false;
         PlayerMovement.current.walkingSound.Stop();
-        Conductor.current.audioSource.Pause();
+        MusicPlayer.current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();
