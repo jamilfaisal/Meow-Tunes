@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public int playerScore;
+    public int maximumPlayerScore;
     public TMP_Text scoreText;
     public GameObject oopsText;
     public GameObject niceText;
