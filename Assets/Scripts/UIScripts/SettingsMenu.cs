@@ -132,7 +132,8 @@ public class SettingsMenu : MonoBehaviour
     private void LoadPlayerPrefsSoundEffectsVolume()
     {
         var soundEffectVolume = PlayerPrefs.GetFloat("soundEffectVolume");
-        UpdateSoundEffectVolumeSliderAndText(soundEffectVolume);    
+        UpdateSoundEffectVolumeSliderAndText(soundEffectVolume); 
+        VolumeChanged?.Invoke(musicAudioSlider.value, soundEffectsAudioSlider.value);
     }
 
     private void SavePlayerPrefsSoundEffectVolume(float volume)
@@ -164,8 +165,8 @@ public class SettingsMenu : MonoBehaviour
 
     private void SavePlayerPrefsFirstTime()
     {
-        PlayerPrefs.SetFloat("musicVolume", 0.8f);
-        PlayerPrefs.SetFloat("soundEffectVolume", 0.3f);
+        PlayerPrefs.SetFloat("musicVolume", 0.5f);
+        PlayerPrefs.SetFloat("soundEffectVolume", 0.15f);
         PlayerPrefs.SetInt("qualitySetting", 3);
         PlayerPrefs.SetInt("fullscreen", BoolToInt(true));
         VolumeChanged?.Invoke(musicAudioSlider.value, soundEffectsAudioSlider.value);
