@@ -21,12 +21,12 @@ public class ScoreManager : MonoBehaviour
     
     private void Start()
     {
-        scoreText.text = "0";
+        scoreText.text = "x 0";
     }
     public void UpdateScore(int score)
     {
         playerScore += score;
-        scoreText.text = playerScore.ToString();
+        scoreText.text = "x " + playerScore;
     }
 
     public void Hit()
