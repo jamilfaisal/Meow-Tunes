@@ -21,8 +21,8 @@ public class MusicManager : MonoBehaviour
         jump2.volume = soundEffectVolume;
         jump3.volume = soundEffectVolume;
         jump4.volume = soundEffectVolume;
-        landJump.volume = soundEffectVolume;
-        catWalking.volume = soundEffectVolume;
+        landJump.volume = soundEffectVolume / 3;
+        catWalking.volume = soundEffectVolume / 3;
         reachedCheckpoint.volume = soundEffectVolume;
         catRespawn.volume = soundEffectVolume;
     }
