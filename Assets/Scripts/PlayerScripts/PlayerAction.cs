@@ -1,8 +1,6 @@
 using Melanchall.DryWetMidi.Interaction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -55,17 +53,7 @@ public class PlayerAction : MonoBehaviour
 
                 if (Input.GetKeyDown(input))
                 {
-                    if (Math.Abs(_audioTime - (_timeStamp)) < _marginOfError)
-                    {
-                        Hit();
-                        print($"Hit on {_inputIndex} note - time: {_timeStamp} audio time {_audioTime}");
-                        _inputIndex++;
-                    }
-                    else
-                    {
-                        Inaccurate();
-                        print($"Hit inaccurate on {_inputIndex} note with {Math.Abs(_audioTime - _timeStamp)} delay - time: {_timeStamp} audio time {_audioTime}");
-                    }
+                    GetAccuracy();
                 }
                 if (_timeStamp + _marginOfError <= _audioTime)
                 {
@@ -76,11 +64,22 @@ public class PlayerAction : MonoBehaviour
             }    
         }   
     }
+    
 
-    // IEnumerator ActionWarning()
-    // {
-
-    // }
+    private void GetAccuracy()
+    {
+        if (Math.Abs(_audioTime - (_timeStamp)) < _marginOfError)
+        {
+            Hit();
+            print($"Hit on {_inputIndex} note - time: {_timeStamp} audio time {_audioTime}");
+            _inputIndex++;
+        }
+        else
+        {
+            Inaccurate();
+            print($"Hit inaccurate on {_inputIndex} note with {Math.Abs(_audioTime - _timeStamp)} delay - time: {_timeStamp} audio time {_audioTime}");
+        }
+    }
 
     private void Hit()
     {
@@ -105,18 +104,7 @@ public class PlayerAction : MonoBehaviour
             {
                 if (_inputIndex < timeStamps.Count)
                 {
-                    if (Math.Abs(_audioTime - (_timeStamp)) < _marginOfError)
-                    {
-                        Hit();
-                        print($"Hit on {_inputIndex} note - time: {_timeStamp} audio time {_audioTime}");
-                        _inputIndex++;
-                    }
-                    else
-                    {
-                        Inaccurate();
-                        print(
-                            $"Hit inaccurate on {_inputIndex} note with {Math.Abs(_audioTime - _timeStamp)} delay - time: {_timeStamp} audio time {_audioTime}");
-                    }
+                    GetAccuracy();
                 }
             }
         }
