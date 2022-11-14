@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -95,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector3(0f, velocity.y, 0f);
             return;
         }
-        // Debug.Log($"Update:{_rb.velocity}");
+
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -119,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
             MyInput();
-            SpeedControl();
+            // SpeedControl();
             MovementStateHandler();
             _rb.drag = groundDrag;
 
@@ -150,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Debug.Log($"Fixed:{_rb.velocity}");
         if (Time.time > 5){
             MovePlayer();
             var velocity = _rb.velocity;
@@ -261,30 +261,47 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
 
         var movementControl = movement.action.ReadValue<Vector2>();
-        _moveDirection = new Vector3(movementControl.x, 0, 0);
-
-        // on slope and not jumping
-        if(OnSlope() && !_exitingSlope)
-        {
-            _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
-
-            //Prevents weird jumping motion due to no gravity on slope
-            if(_rb.velocity.y > 0){
-                _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
+        if(movementControl.x > 0){
+            //right
+            Vector3 desiredPosition = _rb.transform.position;
+            desiredPosition.x = desiredPosition.x + 5;
+            desiredPosition.z = desiredPosition.z + forwardWalkSpeed * 1f;
+            StartCoroutine(SideMovement(_rb.transform.position, desiredPosition, 1f));
+            Debug.Log(_rb.position);
+        }
+        else if (movementControl.x < 0){
+            //left
+            Vector3 desiredPosition = _rb.transform.position;
+            desiredPosition.x = desiredPosition.x - 5;
+            desiredPosition.z = desiredPosition.z + forwardWalkSpeed * 1f;
+            StartCoroutine(SideMovement(_rb.transform.position, desiredPosition, 1f));
+            Debug.Log(_rb.position);
         }
 
-        switch (_grounded)
-        {
-            // on ground
-            case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f), ForceMode.Force);
-                break;
-            // in air
-            case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f * airMultiplier), ForceMode.Force);
-                break;
-        }
+        _moveDirection = new Vector3(0, 0, 0);
+
+        // // on slope and not jumping
+        // if(OnSlope() && !_exitingSlope)
+        // {
+        //     _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
+
+        //     //Prevents weird jumping motion due to no gravity on slope
+        //     if(_rb.velocity.y > 0){
+        //         _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        //     }
+        // }
+
+        // switch (_grounded)
+        // {
+        //     // on ground
+        //     case true:
+        //         _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f), ForceMode.Force);
+        //         break;
+        //     // in air
+        //     case false:
+        //         _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f * airMultiplier), ForceMode.Force);
+        //         break;
+        // }
         
         //Add some additional gravity to not make the control floaty
         _rb.AddForce(Vector3.down * (jumpingGravity * _rb.mass));
@@ -293,38 +310,47 @@ public class PlayerMovement : MonoBehaviour
         _rb.useGravity = !OnSlope();
 
         Vector3 velocity = _rb.velocity;
-        velocity.z = 8;
+        velocity.z = forwardWalkSpeed;
         _rb.velocity = velocity;
     }
 
-    private void SpeedControl()
-    {
-        // limit velocity on slope (except jumping to prevent limiting the jump)
-        if(OnSlope() && !_exitingSlope){
-            var velocity = _rb.velocity.normalized * _moveSpeed;
-            if(_rb.velocity.magnitude > _moveSpeed)
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
-        }
+    IEnumerator SideMovement(Vector3 startPos, Vector3 endPos, float duration){
+        float timeElapsed = 0f;
 
-        // limit velocity on ground or air
-        else{
-            var velocity = _rb.velocity;
-            var flatVel = new Vector3(velocity.x, 0f, velocity.z);
-
-            // limit velocity if needed
-            if(flatVel.magnitude > _moveSpeed)
-            {
-                var limitedVel = flatVel.normalized * _moveSpeed;
-                if (_grounded){
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
-                }
-                else{
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
-                }
-            }
+        while(timeElapsed < duration){
+            _rb.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed/duration);
+            yield return new WaitForEndOfFrame();
+            timeElapsed += Time.fixedDeltaTime;
         }
-        // Debug.Log($"Speed:{_rb.velocity}");
     }
+
+    // private void SpeedControl()
+    // {
+    //     // limit velocity on slope (except jumping to prevent limiting the jump)
+    //     if(OnSlope() && !_exitingSlope){
+    //         var velocity = _rb.velocity.normalized * _moveSpeed;
+    //         if(_rb.velocity.magnitude > _moveSpeed)
+    //             _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
+    //     }
+
+    //     // limit velocity on ground or air
+    //     else{
+    //         var velocity = _rb.velocity;
+    //         var flatVel = new Vector3(velocity.x, 0f, velocity.z);
+
+    //         // limit velocity if needed
+    //         if(flatVel.magnitude > _moveSpeed)
+    //         {
+    //             var limitedVel = flatVel.normalized * _moveSpeed;
+    //             if (_grounded){
+    //                 _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
+    //             }
+    //             else{
+    //                 _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
+    //             }
+    //         }
+    //     }
+    // }
 
     public void Stomp()
     {
@@ -380,8 +406,6 @@ public class PlayerMovement : MonoBehaviour
             var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
         }
-
-        // Debug.Log($"Slope:{_rb.velocity}");
 
         return false;
     }

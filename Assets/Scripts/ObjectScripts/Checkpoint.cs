@@ -3,7 +3,6 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public AudioSource checkpointSound;
-    // public AudioClip checkpointSound;
 
     private void Awake()
     {
@@ -19,6 +18,5 @@ public class Checkpoint : MonoBehaviour
         RespawnManager.current.SetRespawnPoint(otherCollider.gameObject.transform.position);
 
         checkpointSound.Play();
-        // AudioSource.PlayClipAtPoint(checkpointSound, this.gameObject.transform.position);
     }
 }
