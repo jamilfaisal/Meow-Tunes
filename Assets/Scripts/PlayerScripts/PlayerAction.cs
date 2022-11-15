@@ -1,6 +1,5 @@
 using Melanchall.DryWetMidi.Interaction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,70 +8,59 @@ public class PlayerAction : MonoBehaviour
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public KeyCode input;
     public List<double> timeStamps = new List<double>();
-    int inputIndex = 0;
-    public int PrespawnWarningSeconds = 0;
+    private int _inputIndex;
+    public int prespawnWarningSeconds;
     public ScoreManager scoreManager;
 
-    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
+    public void SetTimeStamps(IEnumerable<Note> array)
     {
         foreach (var note in array)
         {
-            if (note.Octave == 1){
-                if (note.NoteName == noteRestriction)
-                {
-                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
-                    double spawn_time = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+            if (note.Octave == 1 && note.NoteName == noteRestriction){
+                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+                var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
                     
-                    timeStamps.Add(spawn_time - PrespawnWarningSeconds);
-                }
+                timeStamps.Add(spawnTime - prespawnWarningSeconds);
             }
         }
     }
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Time.time > 5)
+        if (Time.time > 5 && !GameManager.current.IsGamePaused() && _inputIndex < timeStamps.Count)
         {
-            if (inputIndex < timeStamps.Count)
+            double timeStamp = timeStamps[_inputIndex];
+            double marginOfError = MusicPlayer.current.marginOfError;
+            double audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+
+            // Only when PreSpawnWarningSeconds > 0
+            // if (Math.Abs(audioTime - timeStamp) < marginOfError){
+            //     StartCoroutine(ActionWarning());
+            // }
+
+            if (Input.GetKeyDown(input))
             {
-                double timeStamp = timeStamps[inputIndex];
-                double marginOfError = MusicPlayer.current.marginOfError;
-                double audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
-
-                // Only when PreSpawnWarningSeconds > 0
-                // if (Math.Abs(audioTime - timeStamp) < marginOfError){
-                //     StartCoroutine(ActionWarning());
-                // }
-
-                if (Input.GetKeyDown(input))
+                if (Math.Abs(audioTime - (timeStamp)) < marginOfError)
                 {
-                    if (Math.Abs(audioTime - (timeStamp)) < marginOfError)
-                    {
-                        Hit();
-                        print($"Hit on {inputIndex} note - time: {timeStamp} audio time {audioTime}");
-                        inputIndex++;
-                    }
-                    else
-                    {
-                        Inaccurate();
-                        print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay - time: {timeStamp} audio time {audioTime}");
-                    }
+                    Hit();
+                    print($"Hit on {_inputIndex} note - time: {timeStamp} audio time {audioTime}");
+                    _inputIndex++;
                 }
-                if (timeStamp + marginOfError <= audioTime)
+                else
                 {
-                    Miss();
-                    print($"Missed {inputIndex} note - time: {timeStamp} audio time {audioTime}");
-                    inputIndex++;
+                    Inaccurate();
+                    print($"Hit inaccurate on {_inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay - time: {timeStamp} audio time {audioTime}");
                 }
-            }    
+            }
+            if (timeStamp + marginOfError <= audioTime)
+            {
+                Miss();
+                print($"Missed {_inputIndex} note - time: {timeStamp} audio time {audioTime}");
+                _inputIndex++;
+            }
         }   
     }
-
-    // IEnumerator ActionWarning()
-    // {
-
-    // }
 
     private void Hit()
     {

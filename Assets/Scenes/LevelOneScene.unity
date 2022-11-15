@@ -4078,7 +4078,7 @@ MonoBehaviour:
   noteRestriction: 2
   input: 32
   timeStamps: []
-  PrespawnWarningSeconds: 0
+  prespawnWarningSeconds: 0
   scoreManager: {fileID: 19080278}
 --- !u!4 &163153670 stripped
 Transform:
