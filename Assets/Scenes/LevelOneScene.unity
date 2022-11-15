@@ -8378,7 +8378,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: cc6b32aa6922b9845ad2dfdba15274d8, type: 3}
+      objectReference: {fileID: 8300000, guid: fa565674ea9f5a849abc4b9226f5c6c8, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -8426,7 +8426,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: cc6b32aa6922b9845ad2dfdba15274d8, type: 3}
+      objectReference: {fileID: 8300000, guid: fa565674ea9f5a849abc4b9226f5c6c8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &386900369
