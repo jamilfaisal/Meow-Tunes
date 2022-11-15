@@ -17903,6 +17903,8 @@ MonoBehaviour:
   playerLivesText: {fileID: 2734344}
   gameManager: {fileID: 1683089409}
   respawnSound: {fileID: 1209738616}
+  Player: {fileID: 1828724611}
+  animator: {fileID: 0}
 --- !u!1 &916079427
 GameObject:
   m_ObjectHideFlags: 0

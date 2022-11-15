@@ -14,9 +14,12 @@ public class GameManager : MonoBehaviour
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
+    
+    public Animator animator;
 
     private void Awake()
     {
+        animator = playerGameObject.GetComponent<Animator>();
         _playerMovement = playerGameObject.GetComponent<PlayerMovement>();
         current = this;
         _gameHasEnded = false;
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public void WonLevel() {
+        animator.Play("CatCelebrating", 0, 0f);
         gameIsEnding = false;
         _playerMovement.enabled = false;
         UIManager.current.WonLevelUI();
