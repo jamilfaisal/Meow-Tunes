@@ -9,6 +9,7 @@ TagManager:
   - xbox
   - ps4
   - pc
+  - checkpointSound
   layers:
   - Default
   - TransparentFX
