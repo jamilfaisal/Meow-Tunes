@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
@@ -10,8 +11,17 @@ public class Checkpoint : MonoBehaviour
     {
         Player = GameObject.Find("Player");
         animator = Player.GetComponent<Animator>();
+        var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
+        if (checkpointSoundGameObject != null)
+        {
+            checkpointSound = checkpointSoundGameObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            throw new Exception("No gameobject with checkpointSound tag in the scene");
+        }
     }
-    
+
     private void OnTriggerEnter(Collider otherCollider)
     {
         if (!otherCollider.gameObject.CompareTag("Player")) return;
