@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     private RaycastHit _slopeHit;
-    private bool _exitingSlope;
+    // private bool _exitingSlope;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -206,12 +206,12 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
-        else if (Input.GetKey(leftKey)){
+        else if (Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") < 0){
             if (_canMoveSideway && current_lane>0){
                 SideMovement(_rb.transform.position, true);
             }
         }
-        else if (Input.GetKey(rightKey)){
+        else if (Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") > 0){
             if (_canMoveSideway && current_lane<4){
                 SideMovement(_rb.transform.position, false);
             }
@@ -345,7 +345,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        _exitingSlope = true;
+        // _exitingSlope = true;
         // reset y velocity
         var velocity = _rb.velocity;
         velocity = new Vector3(0f, 0f, 0f);
@@ -355,7 +355,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HalfJump()
     {
-        _exitingSlope = true;
+        // _exitingSlope = true;
         
         // reset y velocity
         var velocity = _rb.velocity;
@@ -368,7 +368,7 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         _readyToJump = true;
-        _exitingSlope = false;
+        // _exitingSlope = false;
         _justLanded = true;
         _canSaveJump = true;
     }
