@@ -15,8 +15,6 @@ public class Lane : MonoBehaviour
     
     public float spacingSize = 2F; //based on the size of the current neutral platform
 
-    public int laneNumber;
-
     private const float X = 0F;
     private float _y, _z;
 
@@ -63,7 +61,6 @@ public class Lane : MonoBehaviour
             position = new Vector3(1, _y, _z);
             newCheckpoint.transform.localPosition = position;
             newCheckpoint.transform.rotation = transform.rotation;
-            newCheckpoint.GetComponent<Checkpoint>().laneNumber = laneNumber;
         }
     }
 

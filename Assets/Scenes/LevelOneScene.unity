@@ -747,7 +747,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  laneNumber: 4
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -3882,7 +3881,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  laneNumber: 2
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -13447,7 +13445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869aaf4cc73c69409d9d6b8d851f80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnLane: 0
   playerCharacter: {fileID: 1828724611}
 --- !u!4 &650949133 stripped
 Transform:
@@ -31024,7 +31021,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  laneNumber: 1
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -32418,7 +32414,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  laneNumber: 3
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -35883,24 +35878,15 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
+  leftRightWalkSpeed: 11
   forwardWalkSpeed: 8.75
-  sideMovementTime: 0.4
-  sideMovementZDirectionDifference: 0.1
-  lane_positions:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  current_lane: 0
   groundDrag: 4
   maxJumpForce: 16
   jumpCooldown: 0
+  airMultiplier: 1
   stompForce: 9
   jumpingGravity: 16
   stompKey: 306
-  leftKey: 97
-  rightKey: 100
   animator: {fileID: 0}
   playerHeight: 2
   playerWidth: 2
@@ -41352,7 +41338,6 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
-  laneNumber: 0
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0
