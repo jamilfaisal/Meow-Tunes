@@ -58,14 +58,14 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         _gameIsRestarting = true;
-        MidiManager.current.RestartLevel();
+        //MidiManager.current.RestartLevel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }
 
     public void BackToMainMenu()
     {
-        MidiManager.current.RestartLevel();
+        //MidiManager.current.RestartLevel();
         SceneManager.LoadScene("MainMenuScene");
     }
 

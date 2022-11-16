@@ -30,11 +30,11 @@ public class RespawnManager : MonoBehaviour
     {
         GameManager.current.playerIsDying = true;
         AdjustMusicTime();
-        AdjustMidiTime();
+        //AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
         MusicPlayer.current.Resume();
-        MidiManager.current.ResumePlayback();
+        //MidiManager.current.ResumePlayback();
         GameManager.current.playerIsDying = false;
         yield return null;
     }
@@ -52,11 +52,11 @@ public class RespawnManager : MonoBehaviour
         _playerCharacterRb.velocity = new Vector3(0,0,1f);
     }
 
-    private void AdjustMidiTime()
-    {
-        MidiManager.current.PausePlayback();
-        MidiManager.current.AdjustMidiTime(_midiTime);
-    }
+    // private void AdjustMidiTime()
+    // {
+    //     MidiManager.current.PausePlayback();
+    //     MidiManager.current.AdjustMidiTime(_midiTime);
+    // }
 
     public void SetRespawnPoint(Vector3 newRespawnPoint) {
         _respawnPointLocation = newRespawnPoint;

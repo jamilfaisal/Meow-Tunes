@@ -48,16 +48,14 @@ public class PlayerAction : MonoBehaviour
             _marginOfError = MusicPlayer.current.marginOfError;
             _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
-            // if(!_ableToBlink && _audioTime > _previousBlink + blinkCooldown){
-            //     print("Can Blink!");
-            //     _ableToBlink = true;
-            // }
+            if(!_ableToBlink && _audioTime > _previousBlink + blinkCooldown){
+                _ableToBlink = true;
+            }
 
             if (_timeStamp - blinkOffset <= _audioTime && _timeStamp > _audioTime){
-                // Blink();
-                // _ableToBlink = false;
-                // _previousBlink = _audioTime;
-                print("blink");
+                Blink();
+                _ableToBlink = false;
+                _previousBlink = _audioTime;
             }
 
             if (Input.GetKeyDown(input))
