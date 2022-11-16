@@ -228,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void triggerMove(InputAction.CallbackContext context){
-        if (!context.started && enabled){
+        if (enabled && Time.time > 5){
             if (context.ReadValue<Vector2>().x < 0 && _canMoveSideway && current_lane>0){
                 _canMoveSideway = false;
                 
@@ -249,15 +249,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    // public void triggerRight(InputAction.CallbackContext context){
-    //     if (!context.started && enabled){
-    //         if (_canMoveSideway && current_lane<4){
-    //             SideMovement(_rb.transform.position, false);
-    //         }
-    //     }
-    // }
-
     public void TriggerJump(InputAction.CallbackContext context)
     {
         if (!context.started && enabled)
