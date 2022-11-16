@@ -206,12 +206,12 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
-        else if (Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") < 0){
+        else if (Input.GetKey(leftKey)){
             if (_canMoveSideway && current_lane>0){
                 SideMovement(_rb.transform.position, true);
             }
         }
-        else if (Input.GetButton("Horizontal") && Input.GetAxisRaw("Horizontal") > 0){
+        else if (Input.GetKey(rightKey)){
             if (_canMoveSideway && current_lane<4){
                 SideMovement(_rb.transform.position, false);
             }
@@ -226,6 +226,37 @@ public class PlayerMovement : MonoBehaviour
     {
         _canSaveJump = false;
     }
+
+    public void triggerMove(InputAction.CallbackContext context){
+        if (!context.started && enabled){
+            if (context.ReadValue<Vector2>().x < 0 && _canMoveSideway && current_lane>0){
+                _canMoveSideway = false;
+                
+                current_lane -= 1;
+                Vector3 desiredPosition = _rb.transform.position;
+                desiredPosition.x = lane_positions[current_lane];
+                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
+                StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
+            }
+            else if (context.ReadValue<Vector2>().x > 0 && _canMoveSideway && current_lane<4){
+                _canMoveSideway = false;
+                
+                current_lane += 1;
+                Vector3 desiredPosition = _rb.transform.position;
+                desiredPosition.x = lane_positions[current_lane];
+                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
+                StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
+            }
+        }
+    }
+
+    // public void triggerRight(InputAction.CallbackContext context){
+    //     if (!context.started && enabled){
+    //         if (_canMoveSideway && current_lane<4){
+    //             SideMovement(_rb.transform.position, false);
+    //         }
+    //     }
+    // }
 
     public void TriggerJump(InputAction.CallbackContext context)
     {
