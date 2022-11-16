@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PauseScreen : MonoBehaviour
 {
     public GameObject pauseMenuUI, settingsMenuUI;
-    public Conductor musicPlayer;
+    public MusicPlayer musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
     public GameObject pauseScreenFirstButton, settingsFirstButton;
@@ -44,7 +44,10 @@ public class PauseScreen : MonoBehaviour
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
         MidiManager.current.ResumePlayback();
-        musicPlayer.Resume();
+        if (Time.time > 5)
+        {
+            musicPlayer.Resume();
+        }
         Invoke(nameof(EnableMovement), 0.3f);
         Time.timeScale = 1f;
         GameManager.current.ResumeGame();

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool playerIsDying;
     private bool _gameIsRestarting;
     private bool _gameHasEnded;
+    public bool gameIsEnding;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
     public AudioSource gameOverSound;
@@ -30,20 +32,27 @@ public class GameManager : MonoBehaviour
         }
     }
     public void WonLevel() {
-        if (_gameHasEnded) return;
-        _gameHasEnded = true;
+        gameIsEnding = false;
         _playerMovement.enabled = false;
         UIManager.current.WonLevelUI();
+        StartCoroutine(GameHasEnded());
     }
 
     public void LostLevel() {
-        if (_gameHasEnded) return;
-        _gameHasEnded = true;
+        gameIsEnding = false;
         PlayerMovement.current.walkingSound.Stop();
-        Conductor.current.audioSource.Pause();
+        MusicPlayer.current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();
+        StartCoroutine(GameHasEnded());
+    }
+    
+
+    private IEnumerator GameHasEnded()
+    {
+        yield return new WaitForSeconds(3f);
+        _gameHasEnded = true;
     }
 
     public void RestartLevel()
@@ -64,6 +73,7 @@ public class GameManager : MonoBehaviour
     {
         _gameIsRestarting = false;
         _gameIsPaused = false;
+        gameIsEnding = false;
         _gameHasEnded = false;
     }
 
