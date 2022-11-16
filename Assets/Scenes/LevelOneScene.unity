@@ -747,6 +747,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
+  laneNumber: 4
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -3881,6 +3882,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
+  laneNumber: 2
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -13444,6 +13446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869aaf4cc73c69409d9d6b8d851f80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnLane: 0
   playerCharacter: {fileID: 1828724611}
 --- !u!4 &650949133 stripped
 Transform:
@@ -31036,6 +31039,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
+  laneNumber: 1
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -32429,6 +32433,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
+  laneNumber: 3
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -41357,6 +41362,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   spacingSize: 2
+  laneNumber: 0
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0
