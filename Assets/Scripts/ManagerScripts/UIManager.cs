@@ -18,8 +18,8 @@ public class UIManager : MonoBehaviour
     public void WonLevelUI()
     {
         // Text Example: Collected 87/100 Fish Treats!
-        winLevelScoreText.text = "Collected " + ScoreManager.current.playerScore +
-                                 "/" + ScoreManager.current.maximumPlayerScore + " Fish Treats!";
+        winLevelScoreText.text = "Collected " + ScoreManager.current.playerFishScore +
+                                 "/" + ScoreManager.current.maximumFishScore + " Fish Treats!";
         gameUI.SetActive(false);
         winLevelUI.SetActive(true);
     }

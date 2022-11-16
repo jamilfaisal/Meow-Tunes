@@ -669,7 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19080279}
-  - component: {fileID: 19080278}
+  - component: {fileID: 19080280}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -677,7 +677,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &19080278
+--- !u!4 &19080279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19080277}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5457513, y: 27.842506, z: -0.23536968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 761166639}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19080280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -695,21 +710,6 @@ MonoBehaviour:
   oopsText: {fileID: 1176826839}
   niceText: {fileID: 1250987266}
   perfectText: {fileID: 1890584991}
---- !u!4 &19080279
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19080277}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.5457513, y: 27.842506, z: -0.23536968}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 761166639}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &22304589
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,7 +4079,6 @@ MonoBehaviour:
   input: 32
   timeStamps: []
   prespawnWarningSeconds: 0
-  scoreManager: {fileID: 19080278}
 --- !u!4 &163153670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3056460009553671807, guid: fe7eb7ddd9b2347d888e29c686015885, type: 3}
@@ -28204,7 +28203,7 @@ GameObject:
   - component: {fileID: 1439928184}
   - component: {fileID: 1439928183}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: FishScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
