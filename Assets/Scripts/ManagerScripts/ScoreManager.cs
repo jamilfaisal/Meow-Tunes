@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public int playerScore;
+    public int maximumPlayerScore;
     public TMP_Text scoreText;
     public GameObject oopsText;
     public GameObject niceText;
@@ -20,12 +21,12 @@ public class ScoreManager : MonoBehaviour
     
     private void Start()
     {
-        scoreText.text = "0";
+        scoreText.text = "x 0";
     }
     public void UpdateScore(int score)
     {
         playerScore += score;
-        scoreText.text = playerScore.ToString();
+        scoreText.text = "x " + playerScore;
     }
 
     public void Hit()
