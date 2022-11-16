@@ -8,11 +8,13 @@ public class PauseScreen : MonoBehaviour
     public MusicPlayer musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
+    private CountdownManager _countdownManager;
     public GameObject pauseScreenFirstButton, settingsFirstButton;
 
     private void Start()
     {
         _playerMovementScript = playerMovement.GetComponent<PlayerMovement>();
+        _countdownManager = gameObject.GetComponent<CountdownManager>();
     }
 
     void Update()
@@ -25,7 +27,9 @@ public class PauseScreen : MonoBehaviour
         {
             if (GameManager.current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
             {
-                Resume();
+                _countdownManager.SetCountdown(5f);
+                Time.timeScale = 1f;
+                Invoke(nameof(Resume), 5f);
             } else if (GameManager.current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
             {
                 SettingsMenu.current.BackToMainMenuOrPauseScreen();
@@ -88,7 +92,8 @@ public class PauseScreen : MonoBehaviour
         if (GameManager.current.HasGameEnded()) return;
         if (GameManager.current.IsGamePaused())
         {
-            Resume();
+            _countdownManager.SetCountdown(5f);
+            Invoke(nameof(Resume), 5f);
         }
         else
         {
