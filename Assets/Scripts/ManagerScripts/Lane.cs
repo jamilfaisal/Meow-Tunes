@@ -36,7 +36,7 @@ public class Lane : MonoBehaviour
             }
             if (note.NoteName == fishTreatNote)
             {
-                ScoreManager.current.maximumPlayerScore += 1;
+                ScoreManager.current.maximumFishScore += 1;
                 SpawnFishTreat(note.Octave, (float)spawnTime);
             }
         }
