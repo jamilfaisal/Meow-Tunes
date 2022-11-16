@@ -207,13 +207,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else if (Input.GetKey(leftKey)){
-            print(_canMoveSideway && current_lane>0);
             if (_canMoveSideway && current_lane>0){
                 SideMovement(_rb.transform.position, true);
             }
         }
         else if (Input.GetKey(rightKey)){
-            print(_canMoveSideway && current_lane<4);
             if (_canMoveSideway && current_lane<4){
                 SideMovement(_rb.transform.position, false);
             }
