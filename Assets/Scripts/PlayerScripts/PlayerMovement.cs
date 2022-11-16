@@ -234,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
                 
                 current_lane -= 1;
                 Vector3 desiredPosition = _rb.transform.position;
-                desiredPosition.x = lane_positions[current_lane];
+                desiredPosition.x = lane_positions[current_lane] - 0.2f;
                 desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
                 StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
             }
@@ -243,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
                 
                 current_lane += 1;
                 Vector3 desiredPosition = _rb.transform.position;
-                desiredPosition.x = lane_positions[current_lane];
+                desiredPosition.x = lane_positions[current_lane] + 0.2f;
                 desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
                 StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
             }

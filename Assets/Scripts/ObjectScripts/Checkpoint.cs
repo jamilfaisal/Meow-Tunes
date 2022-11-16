@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
         catRspawnOffsetX = 1f;
         catRspawnOffsetY = 5f;
-        catRspawnOffsetZ = 0.5f;
+        catRspawnOffsetZ = 0.7f;
         if (checkpointSoundGameObject != null)
         {
             checkpointSound = checkpointSoundGameObject.GetComponent<AudioSource>();
