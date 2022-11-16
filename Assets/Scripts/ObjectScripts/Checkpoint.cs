@@ -4,6 +4,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public AudioSource checkpointSound;
+    public int laneNumber;
 
     private void Start()
     {
@@ -17,14 +18,15 @@ public class Checkpoint : MonoBehaviour
             throw new Exception("No gameobject with checkpointSound tag in the scene");
         }
     }
-
+    
     private void OnTriggerEnter(Collider otherCollider)
     {
         if (!otherCollider.gameObject.CompareTag("Player")) return;
         Destroy(gameObject);
         RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(MusicPlayer.current.audioSource.time);
-        RespawnManager.current.SetRespawnPoint(otherCollider.gameObject.transform.position);
+        RespawnManager.current.SetRespawnPoint(otherCollider.gameObject.transform.position, laneNumber);
+
         checkpointSound.Play();
     }
 }
