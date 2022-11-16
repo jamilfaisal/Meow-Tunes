@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -22,24 +23,31 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource walkingSound;
 
     [Header("Movement")]
-    private float _moveSpeed;
-    public float leftRightWalkSpeed;
+    // private float _moveSpeed;
+    // public float leftRightWalkSpeed;
     public float forwardWalkSpeed;
+    public float sideMovementTime;
+    public float sideMovementZDirectionDifference;
+    public float[] lane_positions;
+    public int current_lane;
+    private bool _canMoveSideway;
 
     public float groundDrag;
 
     public float maxJumpForce;
     public float jumpCooldown;
-    public float airMultiplier;
+    // public float airMultiplier;
     private bool _readyToJump;
     //private bool _canDoubleJump;
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
-    public KeyCode stompKey = KeyCode.Tab;
+    public KeyCode stompKey;
+    public KeyCode leftKey;
+    public KeyCode rightKey;
     private Vector3 _lastPos;
 
-    [Header("Movement")]
+    [Header("Movement Animation")]
     public Animator animator;
 
     [Header("Ground Check")]
@@ -75,6 +83,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
+        
+        //Set lane positions for side movements
+        current_lane = 2;
+        lane_positions = new float[5];
+        lane_positions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
+        lane_positions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
+        lane_positions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
+        lane_positions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
+        lane_positions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
+        _canMoveSideway = true;
 
         _readyToJump = true;
         //_canDoubleJump = false;
@@ -95,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector3(0f, velocity.y, 0f);
             return;
         }
-        // Debug.Log($"Update:{_rb.velocity}");
+
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -119,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
             MyInput();
-            SpeedControl();
             MovementStateHandler();
             _rb.drag = groundDrag;
 
@@ -150,16 +167,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Debug.Log($"Fixed:{_rb.velocity}");
         if (Time.time > 5){
             MovePlayer();
-            var velocity = _rb.velocity;
-            if(_grounded){
-                _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
-            }
-            else{
-                _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
-            }
+            // var velocity = _rb.velocity;
+            // if(_grounded){
+            //     _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
+            // }
+            // else{
+            //     _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
+            // }
         }
     }
 
@@ -188,6 +204,16 @@ public class PlayerMovement : MonoBehaviour
                 PickJumpSound().Play();
 
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
+            }
+        }
+        else if (Input.GetKey(leftKey)){
+            if (_canMoveSideway && current_lane>0){
+                SideMovement(_rb.transform.position, true);
+            }
+        }
+        else if (Input.GetKey(rightKey)){
+            if (_canMoveSideway && current_lane<4){
+                SideMovement(_rb.transform.position, false);
             }
         }
         else if (Input.GetKey(stompKey))
@@ -270,7 +296,6 @@ public class PlayerMovement : MonoBehaviour
         //Walking
         if (_grounded){
             state = MovementState.Walking;
-            _moveSpeed = leftRightWalkSpeed;
         }
         //in air
         else{
@@ -281,71 +306,53 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // calculate movement direction
-
-        var movementControl = movement.action.ReadValue<Vector2>();
-        _moveDirection = new Vector3(movementControl.x, 0, 0);
+        // _moveDirection = new Vector3(0, 0, 0);
 
         // on slope and not jumping
-        if(OnSlope() && !_exitingSlope)
-        {
-            _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
+        // if(OnSlope() && !_exitingSlope)
+        // {
+        //     _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
 
-            //Prevents weird jumping motion due to no gravity on slope
-            if(_rb.velocity.y > 0){
-                _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
-        }
-
-        switch (_grounded)
-        {
-            // on ground
-            case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f), ForceMode.Force);
-                break;
-            // in air
-            case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f * airMultiplier), ForceMode.Force);
-                break;
-        }
+        //     //Prevents weird jumping motion due to no gravity on slope
+        //     if(_rb.velocity.y > 0){
+        //         _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        //     }
+        // }
         
         //Add some additional gravity to not make the control floaty
         _rb.AddForce(Vector3.down * (jumpingGravity * _rb.mass));
         
         //Turn off Gravity when on slope to avoid unwanted sliding
-        _rb.useGravity = !OnSlope();
+        // _rb.useGravity = !OnSlope();
 
         Vector3 velocity = _rb.velocity;
-        velocity.z = 8;
+        velocity.z = forwardWalkSpeed;
         _rb.velocity = velocity;
     }
 
-    private void SpeedControl()
-    {
-        // limit velocity on slope (except jumping to prevent limiting the jump)
-        if(OnSlope() && !_exitingSlope){
-            var velocity = _rb.velocity.normalized * _moveSpeed;
-            if(_rb.velocity.magnitude > _moveSpeed)
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
+    private void SideMovement(Vector3 startPos, bool left){
+        _canMoveSideway = false;
+        if (left){
+            current_lane -= 1;
         }
-
-        // limit velocity on ground or air
-        else{
-            var velocity = _rb.velocity;
-            var flatVel = new Vector3(velocity.x, 0f, velocity.z);
-
-            // limit velocity if needed
-            if(flatVel.magnitude > _moveSpeed)
-            {
-                var limitedVel = flatVel.normalized * _moveSpeed;
-                if (_grounded){
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
-                }
-                else{
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
-                }
-            }
+        else {
+            current_lane += 1;
         }
-        // Debug.Log($"Speed:{_rb.velocity}");
+        Vector3 desiredPosition = _rb.transform.position;
+        desiredPosition.x = lane_positions[current_lane];
+        desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
+        StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
+    }
+
+    IEnumerator MoveSide(Vector3 startPos, Vector3 endPos, float duration){
+        float timeElapsed = 0f;
+
+        while(timeElapsed < duration){
+            _rb.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed/duration);
+            yield return new WaitForEndOfFrame();
+            timeElapsed += Time.fixedDeltaTime;
+        }
+        _canMoveSideway = true;
     }
 
     public void Stomp()
@@ -388,30 +395,28 @@ public class PlayerMovement : MonoBehaviour
         _canSaveJump = true;
     }
 
-    private bool OnSlope()
-    {   
-        //Possible Extension: Check going up or down slope to change speed base on that
+    // private bool OnSlope()
+    // {   
+    //     //Possible Extension: Check going up or down slope to change speed base on that
 
-        //Increase the length of the ray a bit to make sure we are hitting the slope 
-        // (may need to change based on ramp slope)
-        const float rayExtension = 0.3f;
+    //     //Increase the length of the ray a bit to make sure we are hitting the slope 
+    //     // (may need to change based on ramp slope)
+    //     const float rayExtension = 0.3f;
 
-        // slopeHit stores the information of the object the ray hits
-        if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight * 0.5f + rayExtension))
-        {
-            var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
-        }
+    //     // slopeHit stores the information of the object the ray hits
+    //     if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight * 0.5f + rayExtension))
+    //     {
+    //         var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
+    //         return angle < maxSlopeAngle && angle != 0;
+    //     }
 
-        // Debug.Log($"Slope:{_rb.velocity}");
+    //     return false;
+    // }
 
-        return false;
-    }
-
-    private Vector3 GetSlopeMoveDirection()
-    {
-        //Project the move direction to the slope so that we are not moving into or away from the slope
-        return Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal).normalized;
-    }
+    // private Vector3 GetSlopeMoveDirection()
+    // {
+    //     //Project the move direction to the slope so that we are not moving into or away from the slope
+    //     return Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal).normalized;
+    // }
 
 }
