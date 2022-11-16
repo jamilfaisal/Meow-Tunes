@@ -12,8 +12,10 @@ public class ScoreManager : MonoBehaviour
         current = this;
     }
 
+    public int playerAccuracyScore;
     public int playerFishScore;
     public int maximumFishScore;
+    public TMP_Text accuracyScoreText;
     public TMP_Text fishScoreText;
     public GameObject oopsText;
     public GameObject niceText;
@@ -21,6 +23,7 @@ public class ScoreManager : MonoBehaviour
     
     private void Start()
     {
+        accuracyScoreText.text = "Meowsic Score: 0";
         fishScoreText.text = "x 0";
     }
     public void UpdateScore(int score)
@@ -31,6 +34,8 @@ public class ScoreManager : MonoBehaviour
 
     public void Hit()
     {
+        playerAccuracyScore += 100;
+        accuracyScoreText.text = "Meowsic Score: " + playerAccuracyScore;
         perfectText.SetActive(true);
         niceText.SetActive(false);
         oopsText.SetActive(false);
@@ -47,6 +52,8 @@ public class ScoreManager : MonoBehaviour
 
     public void Inaccurate()
     {
+        playerAccuracyScore += 50;
+        accuracyScoreText.text = "Meowsic Score: " + playerAccuracyScore;
         perfectText.SetActive(false);
         niceText.SetActive(true);
         oopsText.SetActive(false);
