@@ -1,5 +1,4 @@
 using Melanchall.DryWetMidi.Interaction;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +36,7 @@ public class Lane : MonoBehaviour
             if (note.NoteName == fishTreatNote)
             {
                 ScoreManager.current.maximumFishScore += 1;
-                SpawnFishTreat(note.Octave, (float)spawnTime);
+                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime);
             }
         }
     }
@@ -64,12 +63,16 @@ public class Lane : MonoBehaviour
         }
     }
 
-    private void SpawnFishTreat(int octave, float spawnTime)
+    private void SpawnFishTreat(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawnTime)
     {
         // Debug.Log("spawned");
         var newFishtreat = Instantiate(fishTreatPrefab, transform, true);
         _y = (octave - 2) * 1.5F + 3;
-        _z = (spawnTime / 0.25F) * spacingSize - 1;
+        if (velocity == (Melanchall.DryWetMidi.Common.SevenBitNumber)120)
+        {
+            _y += 2f;
+        }
+        _z = (spawnTime / 0.25F) * spacingSize - 3.5f;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
         newFishtreat.transform.localPosition = position;
