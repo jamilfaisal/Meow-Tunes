@@ -33,9 +33,9 @@ public class MusicPlayer : MonoBehaviour
     {
         MidiFileTest = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v17.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v18.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v17.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v18.mid");
         
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
