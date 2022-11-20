@@ -1,4 +1,6 @@
+using System.Threading;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -9,6 +11,11 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField]
     private InputActionReference movement;
+    private float audioDeltaTime;
+    private List<float> audioDeltaTimeList = new List<float>();
+    private float audioTimeLastFrame;
+    private int framesToSmooth = 8;
+
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
     public AudioSource jumpSound2;
@@ -24,13 +31,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     // private float _moveSpeed;
-    // public float leftRightWalkSpeed;
+    public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
-    public float sideMovementTime;
-    public float sideMovementZDirectionDifference;
+    public float sideMovementZOffset;
     public float[] lane_positions;
     public int current_lane;
-    private bool _canMoveSideway;
+    // private bool _canMoveSideway;
+    private bool _movingSideway;
+    // private bool _left;
 
     public float groundDrag;
 
@@ -92,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         lane_positions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
         lane_positions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
         lane_positions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
-        _canMoveSideway = true;
+        _movingSideway = false;
 
         _readyToJump = true;
         //_canDoubleJump = false;
@@ -102,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
         _rb.drag = groundDrag;
+
+        audioTimeLastFrame = 0f;
     }
 
 
@@ -123,6 +133,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.time > 5)
         {
+            if (audioDeltaTimeList.Count < framesToSmooth){
+                audioDeltaTime = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
+            }
+
             if (GameManager.current.playerIsDying)
             {
                 //Add some additional gravity to not make the control floaty
@@ -137,6 +151,22 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
             MyInput();
+            
+            if (_movingSideway){
+                var step =  (sidewayWalkSpeed) * audioDeltaTime;
+                Vector3 desiredPosition = _rb.transform.position;
+                desiredPosition.x = lane_positions[current_lane];
+                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
+                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * estimatedTime;
+                _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
+
+                if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
+                    var newPos = _rb.transform.position;
+                    newPos.x = desiredPosition.x;
+                    _rb.transform.position = newPos;
+                    _movingSideway = false;
+                }
+            }
             MovementStateHandler();
             _rb.drag = groundDrag;
 
@@ -169,14 +199,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Time.time > 5){
             MovePlayer();
-            // var velocity = _rb.velocity;
-            // if(_grounded){
-            //     _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
-            // }
-            // else{
-            //     _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
-            // }
         }
+    }
+
+    void LateUpdate()
+    {
+        // Add the deltaTime this frame to a list
+        float deltaThisFrame = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
+        audioDeltaTimeList.Add(deltaThisFrame);
+        audioTimeLastFrame = MusicPlayer.current.audioSource.time;
+        // If the list is too large, remove the oldest value
+        if (audioDeltaTimeList.Count > framesToSmooth)
+        {
+            audioDeltaTimeList.RemoveAt(0);
+        }
+        // Get the average of all values in the list
+        float average = 0;
+        foreach (float delta in audioDeltaTimeList)
+        {
+            average += delta;
+        }
+        audioDeltaTime = average / audioDeltaTimeList.Count;
     }
 
     private void MyInput()
@@ -206,16 +249,6 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
-        else if (Input.GetKey(leftKey)){
-            if (_canMoveSideway && current_lane>0){
-                SideMovement(_rb.transform.position, true);
-            }
-        }
-        else if (Input.GetKey(rightKey)){
-            if (_canMoveSideway && current_lane<4){
-                SideMovement(_rb.transform.position, false);
-            }
-        }
         else if (Input.GetKey(stompKey))
         {
             Stomp();
@@ -229,23 +262,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void triggerMove(InputAction.CallbackContext context){
         if (enabled && Time.time > 5){
-            if (context.ReadValue<Vector2>().x < 0 && _canMoveSideway && current_lane>0){
-                _canMoveSideway = false;
-                
+            if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && current_lane>0){
+                _movingSideway = true;
                 current_lane -= 1;
-                Vector3 desiredPosition = _rb.transform.position;
-                desiredPosition.x = lane_positions[current_lane] - 0.2f;
-                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
-                StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
             }
-            else if (context.ReadValue<Vector2>().x > 0 && _canMoveSideway && current_lane<4){
-                _canMoveSideway = false;
-                
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && current_lane<4){
+                _movingSideway = true;
                 current_lane += 1;
-                Vector3 desiredPosition = _rb.transform.position;
-                desiredPosition.x = lane_positions[current_lane] + 0.2f;
-                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
-                StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
             }
         }
     }
@@ -330,30 +353,30 @@ public class PlayerMovement : MonoBehaviour
         _rb.velocity = velocity;
     }
 
-    private void SideMovement(Vector3 startPos, bool left){
-        _canMoveSideway = false;
-        if (left){
-            current_lane -= 1;
-        }
-        else {
-            current_lane += 1;
-        }
-        Vector3 desiredPosition = _rb.transform.position;
-        desiredPosition.x = lane_positions[current_lane];
-        desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZDirectionDifference);
-        StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
-    }
+    // private void SideMovement(Vector3 startPos, bool left){
+    //     _canMoveSideway = false;
+    //     if (left){
+    //         current_lane -= 1;
+    //     }
+    //     else {
+    //         current_lane += 1;
+    //     }
+    //     Vector3 desiredPosition = _rb.transform.position;
+    //     desiredPosition.x = lane_positions[current_lane];
+    //     desiredPosition.z = desiredPosition.z + forwardWalkSpeed * (sideMovementTime - sideMovementZOffset);
+    //     StartCoroutine(MoveSide(_rb.transform.position, desiredPosition, sideMovementTime));
+    // }
 
-    IEnumerator MoveSide(Vector3 startPos, Vector3 endPos, float duration){
-        float timeElapsed = 0f;
+    // IEnumerator MoveSide(Vector3 startPos, Vector3 endPos, float duration){
+    //     float timeElapsed = 0f;
 
-        while(timeElapsed < duration){
-            _rb.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed/duration);
-            yield return new WaitForEndOfFrame();
-            timeElapsed += Time.fixedDeltaTime;
-        }
-        _canMoveSideway = true;
-    }
+    //     while(timeElapsed < duration){
+    //         _rb.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed/duration);
+    //         yield return new WaitForEndOfFrame();
+    //         timeElapsed += Time.fixedDeltaTime;
+    //     }
+    //     _canMoveSideway = true;
+    // }
 
     public void Stomp()
     {
