@@ -7,15 +7,15 @@ using UnityEngine.InputSystem;
 public class PlayerAction : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
-    public KeyCode input;
+    // public KeyCode input;
     public List<double> timeStamps = new List<double>();
-    private int _inputIndex;
+    protected int _inputIndex;
     public int prespawnWarningSeconds;
-    private double _timeStamp;
-    private double _marginOfError;
-    private double _audioTime;
+    protected double _timeStamp;
+    protected double _marginOfError;
+    protected double _audioTime;
 
-    public void SetTimeStamps(IEnumerable<Note> array)
+    public virtual void SetTimeStamps(IEnumerable<Note> array)
     {
         foreach (var note in array)
         {
@@ -32,7 +32,7 @@ public class PlayerAction : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    protected virtual void Update()
     {
         if (Time.time > 5 && !GameManager.current.IsGamePaused() && _inputIndex < timeStamps.Count)
         {
@@ -40,10 +40,10 @@ public class PlayerAction : MonoBehaviour
             _marginOfError = MusicPlayer.current.marginOfError;
             _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
-            if (Input.GetKeyDown(input))
-            {
-                GetAccuracy();
-            }
+            // if (Input.GetKeyDown(input))
+            // {
+            //     GetAccuracy();
+            // }
 
             if (_timeStamp + _marginOfError <= _audioTime)
             {
@@ -55,7 +55,7 @@ public class PlayerAction : MonoBehaviour
     }
 
 
-    private void GetAccuracy()
+    protected void GetAccuracy()
     {
         if (Math.Abs(_audioTime - (_timeStamp)) < _marginOfError)
         {
@@ -71,22 +71,22 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    private void Hit()
+    protected void Hit()
     {
         ScoreManager.current.Hit();
     }
 
-    private void Miss()
+    protected void Miss()
     {
         ScoreManager.current.Miss();
     }
 
-    private void Inaccurate()
+    protected void Inaccurate()
     {
         ScoreManager.current.Inaccurate();
     }
 
-    public void TriggerScoreCalculation(InputAction.CallbackContext context)
+    public virtual void TriggerScoreCalculation(InputAction.CallbackContext context)
     {
         if (context.performed && Time.time > 5 && !GameManager.current.IsGamePaused() && _inputIndex < timeStamps.Count)
         {

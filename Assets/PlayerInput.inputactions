@@ -446,6 +446,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8376709b-eb0d-4217-bdbd-d55442eaa5d4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c815e1aa-deb8-4d0e-9d86-7d9de8990fab",
                     "path": "<Gamepad>/start",
                     "interactions": "",
