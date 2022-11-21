@@ -6,6 +6,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
+    public static PlayerAction current;
+
+    private void Awake()
+    {
+        current = this;
+    }
+
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public KeyCode input;
     public List<double> timeStamps = new List<double>();
@@ -38,7 +45,7 @@ public class PlayerAction : MonoBehaviour
         {
             _timeStamp = timeStamps[_inputIndex];
             _marginOfError = MusicPlayer.current.marginOfError;
-            _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+            _audioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
             if (Input.GetKeyDown(input))
             {
@@ -69,6 +76,11 @@ public class PlayerAction : MonoBehaviour
             print(
                 $"Hit inaccurate on {_inputIndex} note with {Math.Abs(_audioTime - _timeStamp)} delay - time: {_timeStamp} audio time {_audioTime}");
         }
+    }
+    
+    public double GetNextTimestamp()
+    {
+        return timeStamps[_inputIndex];
     }
 
     private void Hit()

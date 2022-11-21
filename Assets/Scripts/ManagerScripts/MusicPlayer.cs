@@ -88,7 +88,7 @@ public class MusicPlayer : MonoBehaviour
         audioSource.Play();
     }
 
-    public static double GetAudioSourceTime()
+    public double GetAudioSourceTime()
     {
         return (double)current.audioSource.timeSamples / current.audioSource.clip.frequency;
     }
