@@ -6,12 +6,14 @@ public class PlayerHop : MonoBehaviour
     private Rigidbody _rb;
     private Vector3 _startPos;
     private bool _hopping;
+    private double _marginOfError;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _startPos = transform.position;
         _hopping = false;
+        _marginOfError = MusicPlayer.current.marginOfError;
     }
 
     private void Update()
@@ -21,7 +23,7 @@ public class PlayerHop : MonoBehaviour
             transform.position = _startPos;
             _hopping = false;
         }
-        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - PlayerAction.current.GetNextTimestamp()) < 0.3f)
+        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - PlayerAction.Current.GetNextTimestamp()) < _marginOfError)
         {
             Hop();
         }

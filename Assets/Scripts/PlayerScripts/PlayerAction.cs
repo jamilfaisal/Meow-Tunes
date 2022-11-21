@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
-    public static PlayerAction current;
+    public static PlayerAction Current;
 
     private void Awake()
     {
-        current = this;
+        Current = this;
     }
 
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
@@ -21,6 +21,11 @@ public class PlayerAction : MonoBehaviour
     private double _timeStamp;
     private double _marginOfError;
     private double _audioTime;
+
+    private void Start()
+    {
+        _marginOfError = MusicPlayer.current.marginOfError;
+    }
 
     public void SetTimeStamps(IEnumerable<Note> array)
     {
@@ -44,7 +49,6 @@ public class PlayerAction : MonoBehaviour
         if (Time.time > 5 && !GameManager.current.IsGamePaused() && _inputIndex < timeStamps.Count)
         {
             _timeStamp = timeStamps[_inputIndex];
-            _marginOfError = MusicPlayer.current.marginOfError;
             _audioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
             if (Input.GetKeyDown(input))
@@ -80,7 +84,11 @@ public class PlayerAction : MonoBehaviour
     
     public double GetNextTimestamp()
     {
-        return timeStamps[_inputIndex];
+        if (_inputIndex < timeStamps.Count)
+        {
+            return timeStamps[_inputIndex];
+        }
+        return 999;
     }
 
     private void Hit()
