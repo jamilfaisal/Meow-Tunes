@@ -26,7 +26,7 @@ public class PlayerSideAction : PlayerAction
         if (Time.time > 5 && !GameManager.current.IsGamePaused())
         {
             _marginOfError = MusicPlayer.current.marginOfError;
-            _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+            _audioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
             if (_inputIndex < timeStamps.Count){
                 _timeStamp = timeStamps[_inputIndex];
                 _inputIndex = CheckMiss(_inputIndex, _timeStamp);

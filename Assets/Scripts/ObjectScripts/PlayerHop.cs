@@ -23,7 +23,7 @@ public class PlayerHop : MonoBehaviour
             _rb.velocity = new Vector3(0, 0, 0);
             _hopping = false;
         }
-        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - PlayerAction.Current.GetNextTimestamp(_hopIndex)) < 0.05f)
+        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - PlayerAction.Current.GetNextTimestamp(_hopIndex)) < 0.1f)
         {
             Hop();
         }
