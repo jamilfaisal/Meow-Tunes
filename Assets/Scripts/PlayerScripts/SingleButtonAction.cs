@@ -23,7 +23,7 @@ public class SingleButtonAction : PlayerAction
             _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
             _timeStamp = timeStamps[_inputIndex];
             
-            _inputIndex = CheckMiss(_inputIndex, timeStamps, _timeStamp);
+            _inputIndex = CheckMiss(_inputIndex, _timeStamp);
         }
     }
     public override void TriggerScoreCalculation(InputAction.CallbackContext context)

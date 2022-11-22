@@ -49,7 +49,7 @@ public abstract class PlayerAction : MonoBehaviour
         return cur_timeStamps;
     }
 
-    protected int CheckMiss(int inputIndex, List<double> cur_timeStamps, double cur_timeStamp){
+    protected int CheckMiss(int inputIndex, double cur_timeStamp){
 
             if (cur_timeStamp + _marginOfError <= _audioTime)
             {
@@ -60,17 +60,17 @@ public abstract class PlayerAction : MonoBehaviour
         return inputIndex;
     }
 
-    protected void Hit()
+    private void Hit()
     {
         ScoreManager.current.Hit();
     }
 
-    protected void Miss()
+    private void Miss()
     {
         ScoreManager.current.Miss();
     }
 
-    protected void Inaccurate()
+    private void Inaccurate()
     {
         ScoreManager.current.Inaccurate();
     }
