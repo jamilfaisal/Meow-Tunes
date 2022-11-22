@@ -13,7 +13,7 @@ public class Checkpoint : MonoBehaviour
     private void Start()
     {
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
-        catRspawnOffsetX = 1f;
+        catRspawnOffsetX = 0.6f;
         catRspawnOffsetY = 5f;
         catRspawnOffsetZ = 0.7f;
         if (checkpointSoundGameObject != null)
