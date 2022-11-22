@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _justLanded;
 
     public AudioSource walkingSound;
-    public AudioSource teleportSound;
 
     [Header("Movement")]
     public float sidewayWalkSpeed;
@@ -50,8 +49,6 @@ public class PlayerMovement : MonoBehaviour
     public float stompForce = 3f;
     public float jumpingGravity;
     public KeyCode stompKey;
-    private Vector3 _lastPos;
-
     [Header("Movement Animation")]
     public Animator animator;
 
@@ -70,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _moveDirection;
     private Rigidbody _rb;
-    private Vector3 _initPos;
 
     public MovementState state;
 
@@ -89,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
-        _initPos = transform.position;
         
         //Set lane positions for side movements
         current_lane = 2;
@@ -189,8 +184,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
             if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
-
-            _lastPos = transform.position;
         }
     }
 
@@ -305,14 +298,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    public void SyncPlayerPosToMusicTime()
-    {
-        Vector3 syncedPosition = _initPos;
-        syncedPosition.x = lane_positions[current_lane];
-        syncedPosition.z = (float) (8 * MusicPlayer.current.GetAudioSourceTime() + _initPos.z);
-        teleportSound.Play();
-        transform.position = syncedPosition;
-    }
 
     private AudioSource PickJumpSound() {
         int jumpSoundIndex;

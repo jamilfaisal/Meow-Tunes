@@ -22,7 +22,7 @@ public abstract class Platform : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            PlayerMovement.current.SyncPlayerPosToMusicTime();
+            PlayerSyncPosition.Current.SyncPlayerPosToMusicTime(transform.position.y);
     }
 
     //     private void Update() {
