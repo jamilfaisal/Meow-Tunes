@@ -1,17 +1,13 @@
-using System;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager current;
-
     private void Awake()
     {
-        current = this;
         SettingsMenu.current.VolumeChanged += SetVolumes;
     }
     public AudioSource music, gameOver;
-    public AudioSource jump1, jump2, jump3, jump4, landJump, catWalking, reachedCheckpoint, catRespawn;
+    public AudioSource jump1, jump2, jump3, jump4, landJump, catWalking, reachedCheckpoint, catRespawn, catTeleport;
     private void SetVolumes(float musicVolume, float soundEffectVolume)
     {
         music.volume = musicVolume;
@@ -25,5 +21,6 @@ public class MusicManager : MonoBehaviour
         catWalking.volume = soundEffectVolume / 3;
         reachedCheckpoint.volume = soundEffectVolume;
         catRespawn.volume = soundEffectVolume;
+        catTeleport.volume = soundEffectVolume;
     }
 }
