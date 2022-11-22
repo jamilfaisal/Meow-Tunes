@@ -29,11 +29,11 @@ public class PlayerSideAction : PlayerAction
             _audioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
             if (_inputIndex < timeStamps.Count){
                 _timeStamp = timeStamps[_inputIndex];
-                _inputIndex = CheckMiss(_inputIndex, timeStamps, _timeStamp);
+                _inputIndex = CheckMiss(_inputIndex, _timeStamp);
             }
             else if (_inputIndexRight < timeStampsRight.Count){
                 _timeStampRight = timeStampsRight[_inputIndexRight];
-                _inputIndexRight = CheckMiss(_inputIndexRight, timeStampsRight, _timeStampRight);
+                _inputIndexRight = CheckMiss(_inputIndexRight, _timeStampRight);
             }
         }
     }
