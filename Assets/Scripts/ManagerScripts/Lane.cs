@@ -51,6 +51,14 @@ public class Lane : MonoBehaviour
         var position = new Vector3(X, _y, _z);
         newPlatform.transform.localPosition = position;
         newPlatform.transform.rotation = transform.rotation;
+
+        Color alteredColor = new Color();
+        alteredColor.r = newPlatform.GetComponent<Renderer>().material.color.r;
+        alteredColor.g = newPlatform.GetComponent<Renderer>().material.color.g;
+        alteredColor.b = newPlatform.GetComponent<Renderer>().material.color.b + (_y/50);
+
+        newPlatform.GetComponent<Renderer>().material.color = alteredColor;
+
         platforms.Add(newPlatform.GetComponent<Platform>());
 
         if (velocity == (Melanchall.DryWetMidi.Common.SevenBitNumber)83){
