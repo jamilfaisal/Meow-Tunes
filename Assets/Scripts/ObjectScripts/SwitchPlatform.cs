@@ -49,14 +49,14 @@ public class SwitchPlatform : Platform
         var newColor = _startColor;
         newColor.a = 0.3f;
         _material.color = newColor; 
-        _collider.enabled = false;
+        _meshCollider.enabled = false;
         _visible = false;
     }
 
     private void Appear()
     {
         _material.color = _startColor;
-        _collider.enabled = true;
+        _meshCollider.enabled = true;
         _visible = true;
     }
 }

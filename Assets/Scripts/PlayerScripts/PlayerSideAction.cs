@@ -46,7 +46,7 @@ public class PlayerSideAction : PlayerAction
             _timeStamp = timeStamps[_inputIndex];
             _timeStamp2 = timeStamps2[_inputIndex2];
             _marginOfError = MusicPlayer.current.marginOfError;
-            _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+            _audioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
             if (_timeStamp + _marginOfError <= _audioTime)
             {

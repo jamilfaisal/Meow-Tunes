@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _justLanded;
 
     public AudioSource walkingSound;
+    public AudioSource teleportSound;
 
     [Header("Movement")]
     // private float _moveSpeed;
@@ -73,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _moveDirection;
     private Rigidbody _rb;
+    private Vector3 _initPos;
 
     public MovementState state;
 
@@ -91,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
+        _initPos = transform.position;
         
         //Set lane positions for side movements
         current_lane = 2;
@@ -180,14 +181,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
-        
-            // Check if player is stuck on the edge of a platform, if so then push them down 
-            if (state == MovementState.Air && transform.position == _lastPos)
-            { 
-                _rb.velocity = Vector3.zero;
-                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
-            }
-        
+
             if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
             if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
 
@@ -254,6 +248,45 @@ public class PlayerMovement : MonoBehaviour
             Stomp();
         }
     }
+    
+    private void MovePlayer()
+    {
+        // calculate movement direction
+        // _moveDirection = new Vector3(0, 0, 0);
+
+        // on slope and not jumping
+        // if(OnSlope() && !_exitingSlope)
+        // {
+        //     _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
+
+        //     //Prevents weird jumping motion due to no gravity on slope
+        //     if(_rb.velocity.y > 0){
+        //         _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        //     }
+        // }
+        
+        //Add some additional gravity to not make the control floaty
+        _rb.AddForce(Vector3.down * (jumpingGravity * _rb.mass));
+        
+        //Turn off Gravity when on slope to avoid unwanted sliding
+        // _rb.useGravity = !OnSlope();
+
+        Vector3 velocity = _rb.velocity;
+        velocity.z = forwardWalkSpeed;
+        _rb.velocity = velocity;
+    }
+    
+    private void MovementStateHandler(){
+        
+        //Walking
+        if (_grounded){
+            state = MovementState.Walking;
+        }
+        //in air
+        else{
+            state = MovementState.Air;
+        }
+    }
 
     public void SetCanSaveJumpFalse()
     {
@@ -299,6 +332,15 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    
+    public void SyncPlayerPosToMusicTime()
+    {
+        Vector3 syncedPosition = _initPos;
+        syncedPosition.x = lane_positions[current_lane];
+        syncedPosition.z = (float) (8 * MusicPlayer.current.GetAudioSourceTime() + _initPos.z);
+        teleportSound.Play();
+        transform.position = syncedPosition;
+    }
 
     private AudioSource PickJumpSound() {
         int jumpSoundIndex;
@@ -312,45 +354,6 @@ public class PlayerMovement : MonoBehaviour
         }
         _lastJumpSound = jumpSoundIndex;
         return _jumpSounds[jumpSoundIndex];
-    }
-
-    private void MovementStateHandler(){
-        
-        //Walking
-        if (_grounded){
-            state = MovementState.Walking;
-        }
-        //in air
-        else{
-            state = MovementState.Air;
-        }
-    }
-
-    private void MovePlayer()
-    {
-        // calculate movement direction
-        // _moveDirection = new Vector3(0, 0, 0);
-
-        // on slope and not jumping
-        // if(OnSlope() && !_exitingSlope)
-        // {
-        //     _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
-
-        //     //Prevents weird jumping motion due to no gravity on slope
-        //     if(_rb.velocity.y > 0){
-        //         _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-        //     }
-        // }
-        
-        //Add some additional gravity to not make the control floaty
-        _rb.AddForce(Vector3.down * (jumpingGravity * _rb.mass));
-        
-        //Turn off Gravity when on slope to avoid unwanted sliding
-        // _rb.useGravity = !OnSlope();
-
-        Vector3 velocity = _rb.velocity;
-        velocity.z = forwardWalkSpeed;
-        _rb.velocity = velocity;
     }
 
     // private void SideMovement(Vector3 startPos, bool left){

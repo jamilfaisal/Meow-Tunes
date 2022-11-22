@@ -1,11 +1,11 @@
-using System.Collections;
+using System;
 using UnityEngine;
 
 public abstract class Platform : MonoBehaviour
 {
     protected MeshRenderer _renderer;
     protected Color _startColor;
-    protected Collider _collider;
+    protected Collider _meshCollider;
     protected Material _material;
 
     // protected double timeInstantiated; //may be used for destroy platform if needed
@@ -16,11 +16,13 @@ public abstract class Platform : MonoBehaviour
         _renderer = GetComponent<MeshRenderer>();
         _material = _renderer.materials[0];
         _startColor = _material.color;
-        _collider = GetComponent<BoxCollider>();
-        if (_collider == null)
-        {
-            _collider = GetComponent<MeshCollider>();
-        }
+        _meshCollider = GetComponent<MeshCollider>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            PlayerMovement.current.SyncPlayerPosToMusicTime();
     }
 
     //     private void Update() {
