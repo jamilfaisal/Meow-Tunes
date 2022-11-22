@@ -29,11 +29,7 @@ public class PlayerSyncPosition : MonoBehaviour
 
     public void SyncPlayerPosToMusicTime(float platformPositionY)
     {
-        // For some reason, the sound plays when the scene starts. Hacky way to avoid this
-        if (Time.time > 5)
-        {
-            teleportSound.Play();
-        }
-        transform.position = GetPlayerPosMusicTimeSyncedPosition(platformPositionY + 1f);
+        teleportSound.Play();
+        transform.position = GetPlayerPosMusicTimeSyncedPosition(platformPositionY);
     }
 }

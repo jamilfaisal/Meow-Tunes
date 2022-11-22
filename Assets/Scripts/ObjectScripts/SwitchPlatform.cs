@@ -27,9 +27,9 @@ public class SwitchPlatform : Platform
 
     private IEnumerator BlinkDelay()
     {
-        _material.color = _startColor * 1.5f;
+        Material.color = StartColor * 1.5f;
         yield return new WaitForSeconds(0.1f);
-        _material.color = _startColor;
+        Material.color = StartColor;
         yield return null;
     }
 
@@ -46,17 +46,17 @@ public class SwitchPlatform : Platform
     }
     private void Disappear()
     {
-        var newColor = _startColor;
+        var newColor = StartColor;
         newColor.a = 0.3f;
-        _material.color = newColor; 
-        _meshCollider.enabled = false;
+        Material.color = newColor; 
+        MeshCollider.enabled = false;
         _visible = false;
     }
 
     private void Appear()
     {
-        _material.color = _startColor;
-        _meshCollider.enabled = true;
+        Material.color = StartColor;
+        MeshCollider.enabled = true;
         _visible = true;
     }
 }
