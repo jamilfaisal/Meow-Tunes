@@ -82,11 +82,11 @@ public class PlayerAction : MonoBehaviour
         }
     }
     
-    public double GetNextTimestamp()
+    public double GetNextTimestamp(int index)
     {
-        if (_inputIndex < timeStamps.Count)
+        if (index < timeStamps.Count)
         {
-            return timeStamps[_inputIndex];
+            return timeStamps[index];
         }
         return 999;
     }

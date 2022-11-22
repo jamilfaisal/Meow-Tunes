@@ -6,14 +6,13 @@ public class PlayerHop : MonoBehaviour
     private Rigidbody _rb;
     private Vector3 _startPos;
     private bool _hopping;
-    private double _marginOfError;
+    private int _hopIndex;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _startPos = transform.position;
         _hopping = false;
-        _marginOfError = MusicPlayer.current.marginOfError;
     }
 
     private void Update()
@@ -21,9 +20,10 @@ public class PlayerHop : MonoBehaviour
         if (transform.position.y < _startPos.y)
         {
             transform.position = _startPos;
+            _rb.velocity = new Vector3(0, 0, 0);
             _hopping = false;
         }
-        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - PlayerAction.Current.GetNextTimestamp()) < _marginOfError)
+        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - PlayerAction.Current.GetNextTimestamp(_hopIndex)) < 0.05f)
         {
             Hop();
         }
@@ -34,12 +34,13 @@ public class PlayerHop : MonoBehaviour
         _rb.AddForce(Vector3.down * (PlayerMovement.current.jumpingGravity * _rb.mass));
     }
 
-    private void Hop()
+    public void Hop()
     {
         if (_hopping == false)
         {
             _hopping = true;
             _rb.AddForce(transform.up * PlayerMovement.current.maxJumpForce, ForceMode.Impulse);
+            _hopIndex++;
         }
     }
     
