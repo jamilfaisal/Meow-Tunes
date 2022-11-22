@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAction : MonoBehaviour
+public abstract class PlayerAction : MonoBehaviour
 {
     public static PlayerAction Current;
 
@@ -14,72 +14,62 @@ public class PlayerAction : MonoBehaviour
     }
 
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
-    public KeyCode input;
     public List<double> timeStamps = new List<double>();
-    private int _inputIndex;
+    protected int _inputIndex;
     public int prespawnWarningSeconds;
-    private double _timeStamp;
-    private double _marginOfError;
-    private double _audioTime;
+    protected double _timeStamp;
+    protected double _marginOfError;
+    protected double _audioTime;
 
     private void Start()
     {
         _marginOfError = MusicPlayer.current.marginOfError;
     }
 
-    public void SetTimeStamps(IEnumerable<Note> array)
-    {
-        foreach (var note in array)
-        {
-            if (note.Octave == 1 && note.NoteName == noteRestriction)
-            {
-                var metricTimeSpan =
-                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
-                var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
-                                 (double)metricTimeSpan.Milliseconds / 1000f);
-
-                timeStamps.Add(spawnTime - prespawnWarningSeconds);
-            }
-        }
-    }
+    public abstract void SetTimeStamps(IEnumerable<Note> array);
 
     // Update is called once per frame
-    private void Update()
+    public abstract void Update();
+
+    protected int GetAccuracy(double timeStamp, int inputIndex)
     {
-        if (Time.time > 5 && !GameManager.current.IsGamePaused() && _inputIndex < timeStamps.Count)
-        {
-            _timeStamp = timeStamps[_inputIndex];
-            _audioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
-
-            if (Input.GetKeyDown(input))
-            {
-                GetAccuracy();
-            }
-
-            if (_timeStamp + _marginOfError <= _audioTime)
-            {
-                Miss();
-                print($"Missed {_inputIndex} note - time: {_timeStamp} audio time {_audioTime}");
-                _inputIndex++;
-            }
-        }
-    }
-
-
-    private void GetAccuracy()
-    {
-        if (Math.Abs(_audioTime - (_timeStamp)) < _marginOfError)
+        if (Math.Abs(_audioTime - (timeStamp)) < _marginOfError)
         {
             Hit();
-            print($"Hit on {_inputIndex} note - time: {_timeStamp} audio time {_audioTime}");
-            _inputIndex++;
+            print($"Hit on {inputIndex} note - time: {timeStamp} audio time {_audioTime}");
+            inputIndex++;
         }
         else
         {
             Inaccurate();
             print(
-                $"Hit inaccurate on {_inputIndex} note with {Math.Abs(_audioTime - _timeStamp)} delay - time: {_timeStamp} audio time {_audioTime}");
+                $"Hit inaccurate on {inputIndex} note with {Math.Abs(_audioTime - timeStamp)} delay - time: {timeStamp} audio time {_audioTime}");
         }
+        return inputIndex;
+    }
+
+    protected List<double> AddNoteToTimeStamp(Note cur_note, Melanchall.DryWetMidi.MusicTheory.NoteName cur_noteRestriction, List<double> cur_timeStamps){
+        if (cur_note.Octave == 1 && cur_note.NoteName == cur_noteRestriction)
+        {
+            var metricTimeSpan =
+                TimeConverter.ConvertTo<MetricTimeSpan>(cur_note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+            var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                (double)metricTimeSpan.Milliseconds / 1000f);
+
+            cur_timeStamps.Add(spawnTime - prespawnWarningSeconds);
+        }
+        return cur_timeStamps;
+    }
+
+    protected int CheckMiss(int inputIndex, double cur_timeStamp){
+
+            if (cur_timeStamp + _marginOfError <= _audioTime)
+            {
+                Miss();
+                print($"Missed {inputIndex} note - time: {cur_timeStamp} audio time {_audioTime}");
+                inputIndex++;
+            }
+        return inputIndex;
     }
     
     public double GetNextTimestamp(int index)
@@ -106,11 +96,5 @@ public class PlayerAction : MonoBehaviour
         ScoreManager.current.Inaccurate();
     }
 
-    public void TriggerScoreCalculation(InputAction.CallbackContext context)
-    {
-        if (context.performed && Time.time > 5 && !GameManager.current.IsGamePaused() && _inputIndex < timeStamps.Count)
-        {
-            GetAccuracy();
-        }
-    }
+    public abstract void TriggerScoreCalculation(InputAction.CallbackContext context);
 }

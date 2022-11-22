@@ -15,6 +15,8 @@ public class Lane : MonoBehaviour
     
     public float spacingSize = 2F; //based on the size of the current neutral platform
 
+    public int laneNumber;
+
     private const float X = 0F;
     private float _y, _z;
 
@@ -56,11 +58,12 @@ public class Lane : MonoBehaviour
         if (velocity == (Melanchall.DryWetMidi.Common.SevenBitNumber)83){
             //Checkpoint
             var newCheckpoint = Instantiate(checkpointPrefab, transform, true);
-            _y = (octave - 2) * 1.5F - 3;
+            _y = (octave - 2) * 1.5F - 1.8F;
             _z = (spawnTime / 0.25F) * spacingSize;
-            position = new Vector3(1, _y, _z);
+            position = new Vector3(0.6F, _y, _z);
             newCheckpoint.transform.localPosition = position;
             newCheckpoint.transform.rotation = transform.rotation;
+            newCheckpoint.GetComponent<Checkpoint>().laneNumber = laneNumber;
         }
     }
 
