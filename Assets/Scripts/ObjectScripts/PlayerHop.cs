@@ -31,7 +31,8 @@ public class PlayerHop : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.AddForce(Vector3.down * (PlayerMovement.current.jumpingGravity * _rb.mass));
+        _rb.AddForce(Vector3.down * ((PlayerMovement.current.jumpingGravity + 5.5f) * _rb.mass));
+
     }
 
     private void Hop()
