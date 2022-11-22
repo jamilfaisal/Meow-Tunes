@@ -6,23 +6,19 @@ public class Checkpoint : MonoBehaviour
     public AudioSource checkpointSound;
     public int laneNumber;
 
-    private float catRspawnOffsetX;
-    private float catRspawnOffsetY;
-    private float catRspawnOffsetZ;
+    private float _catRspawnOffsetY;
 
     private void Start()
     {
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
-        catRspawnOffsetX = 0.6f;
-        catRspawnOffsetY = 5f;
-        catRspawnOffsetZ = 0.7f;
+        _catRspawnOffsetY = 2f;
         if (checkpointSoundGameObject != null)
         {
             checkpointSound = checkpointSoundGameObject.GetComponent<AudioSource>();
         }
         else
         {
-            throw new Exception("No gameobject with checkpointSound tag in the scene");
+            throw new Exception("No game object with checkpointSound tag in the scene");
         }
     }
     
@@ -32,12 +28,9 @@ public class Checkpoint : MonoBehaviour
         Destroy(gameObject);
         RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(MusicPlayer.current.audioSource.time);
-        var position = transform.position;
-        position.y += catRspawnOffsetY;
-        position.x -= catRspawnOffsetX;
-        position.z -= catRspawnOffsetZ;
-        RespawnManager.current.SetRespawnPoint(position, laneNumber);
-
+        RespawnManager.current.SetRespawnPoint(
+            PlayerSyncPosition.Current.GetPlayerPosMusicTimeSyncedPosition(transform.position.y + _catRspawnOffsetY),
+            laneNumber);
         checkpointSound.Play();
     }
 }

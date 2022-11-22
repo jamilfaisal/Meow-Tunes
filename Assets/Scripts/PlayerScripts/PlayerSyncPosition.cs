@@ -17,15 +17,23 @@ public class PlayerSyncPosition : MonoBehaviour
         _initPos = transform.position;
     }
 
-    public void SyncPlayerPosToMusicTime(float platformPositionY)
+    public Vector3 GetPlayerPosMusicTimeSyncedPosition(float yValue)
     {
-        var syncedPosition = new Vector3
+        return new Vector3
         {
             x = PlayerMovement.current.lane_positions[PlayerMovement.current.current_lane],
-            y = platformPositionY + 1f,
+            y = yValue,
             z = (float) (8 * MusicPlayer.current.GetAudioSourceTime() + _initPos.z)
         };
-        teleportSound.Play();
-        transform.position = syncedPosition;
+    }
+
+    public void SyncPlayerPosToMusicTime(float platformPositionY)
+    {
+        // For some reason, the sound plays when the scene starts. Hacky way to avoid this
+        if (Time.time > 5)
+        {
+            teleportSound.Play();
+        }
+        transform.position = GetPlayerPosMusicTimeSyncedPosition(platformPositionY + 1f);
     }
 }
