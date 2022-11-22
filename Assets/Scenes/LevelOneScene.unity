@@ -36734,7 +36734,7 @@ MonoBehaviour:
   leftRightWalkSpeed: 11
   forwardWalkSpeed: 8.75
   groundDrag: 4
-  maxJumpForce: 16
+  maxJumpForce: 18
   jumpCooldown: 0
   airMultiplier: 1
   stompForce: 9

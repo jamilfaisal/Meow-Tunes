@@ -46,7 +46,7 @@ public class Lane : MonoBehaviour
     //TODO: Check note velocity to spawn different types of platform
     {
         var newPlatform = Instantiate(platformPrefab, transform, true);
-        _y = (octave - 2) * 1.5F;
+        _y = (octave - 2) * 2F;
         _z = (spawnTime / 0.25F) * spacingSize;
         var position = new Vector3(X, _y, _z);
         newPlatform.transform.localPosition = position;
@@ -56,7 +56,7 @@ public class Lane : MonoBehaviour
         if (velocity == (Melanchall.DryWetMidi.Common.SevenBitNumber)83){
             //Checkpoint
             var newCheckpoint = Instantiate(checkpointPrefab, transform, true);
-            _y = (octave - 2) * 1.5F - 3;
+            _y = (octave - 2) * 2F - 3;
             _z = (spawnTime / 0.25F) * spacingSize;
             position = new Vector3(1, _y, _z);
             newCheckpoint.transform.localPosition = position;
@@ -68,7 +68,7 @@ public class Lane : MonoBehaviour
     {
         // Debug.Log("spawned");
         var newFishtreat = Instantiate(fishTreatPrefab, transform, true);
-        _y = (octave - 2) * 1.5F + 3;
+        _y = (octave - 2) * 2F + 3;
         _z = (spawnTime / 0.25F) * spacingSize - 1;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
