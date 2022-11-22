@@ -16219,8 +16219,8 @@ MonoBehaviour:
   noteRestriction: 3
   timeStamps: []
   prespawnWarningSeconds: 0
-  noteRestriction2: 1
-  timeStamps2: []
+  noteRestrictionRight: 1
+  timeStampsRight: []
 --- !u!1001 &838261769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35997,7 +35997,7 @@ MonoBehaviour:
   walkingSound: {fileID: 1370060877}
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
-  sideMovementZOffset: 6
+  sideMovementZOffset: 11
   lane_positions: []
   current_lane: 0
   groundDrag: 4
@@ -36006,8 +36006,6 @@ MonoBehaviour:
   stompForce: 9
   jumpingGravity: 16
   stompKey: 306
-  leftKey: 97
-  rightKey: 100
   animator: {fileID: 0}
   playerHeight: 2
   playerWidth: 2
