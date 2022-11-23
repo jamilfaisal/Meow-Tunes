@@ -10,12 +10,28 @@ public class Checkpoint : MonoBehaviour
 
     private float _catRspawnOffsetY;
 
+    public ScoreManager scoreManager;
+    private int playerFishScore;
+    private int playerAccuracyScore;
+
+    private int inputIndexSBA; // Single Button Action
+    private int inputIndexPSA; // Player Side Action
+    private int inputIndexRightPSA; // PSA Input index right
+
     private void Start()
     {
         Player = GameObject.Find("Player");
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         animator = Player.GetComponent<Animator>();
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
+
+        playerFishScore = scoreManager.GetPlayerFishScore();
+        playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
+        inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
+        inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
+        inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
         _catRspawnOffsetY = 3f;
+        
         if (checkpointSoundGameObject != null)
         {
             checkpointSound = checkpointSoundGameObject.GetComponent<AudioSource>();
@@ -34,6 +50,19 @@ public class Checkpoint : MonoBehaviour
         Destroy(gameObject);
         RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(MusicPlayer.current.audioSource.time);
+
+        playerFishScore = scoreManager.GetPlayerFishScore();
+        RespawnManager.current.SetPlayerFishScore(playerFishScore);
+        playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
+        RespawnManager.current.SetPlayerAccuracyScore(playerAccuracyScore);
+
+        inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
+        RespawnManager.current.SetInputIndexSBA(inputIndexSBA);
+        inputIndexPSA = SingleButtonAction.Current.GetInputIndex();
+        RespawnManager.current.SetInputIndexPSA(inputIndexPSA);
+        inputIndexRightPSA = SingleButtonAction.Current.GetInputIndex();
+        RespawnManager.current.SetInputIndexRightPSA(inputIndexRightPSA);
+
         RespawnManager.current.SetRespawnPoint(
             PlayerSyncPosition.Current.GetPlayerPosMusicTimeSyncedPosition(transform.position.y + _catRspawnOffsetY),
             laneNumber);

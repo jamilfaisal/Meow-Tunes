@@ -11,6 +11,16 @@ public class SingleButtonAction : PlayerAction
     {
         Current = this;
     }
+
+    public int GetInputIndex()
+    {
+        return InputIndex;
+    }
+
+    public void SetInputIndex(int inputI)
+    {
+        InputIndex = inputI;
+    }
     
     public override void SetTimeStamps(IEnumerable<Note> array)
     {

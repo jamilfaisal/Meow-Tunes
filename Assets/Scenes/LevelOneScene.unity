@@ -16085,6 +16085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnLane: 0
   playerCharacter: {fileID: 1828724611}
+  scoreManager: {fileID: 19080280}
 --- !u!4 &650949133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}

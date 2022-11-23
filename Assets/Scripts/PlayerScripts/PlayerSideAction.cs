@@ -5,10 +5,37 @@ using UnityEngine.InputSystem;
 
 public class PlayerSideAction : PlayerAction
 {
+    public static PlayerSideAction Current;
+
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestrictionRight;
     public List<double> timeStampsRight = new List<double>();
     private int _inputIndexRight;
     private double _timeStampRight;
+
+    private void Awake()
+    {
+        Current = this;
+    }
+
+    public int GetInputIndex()
+    {
+        return InputIndex;
+    }
+
+    public void SetInputIndex(int inputI)
+    {
+        InputIndex = inputI;
+    }
+
+    public int GetInputIndexRight()
+    {
+        return _inputIndexRight;
+    }
+
+    public void SetInputIndexRight(int inputIR)
+    {
+        _inputIndexRight = inputIR;
+    }
 
     public override void SetTimeStamps(IEnumerable<Note> array)
     {
