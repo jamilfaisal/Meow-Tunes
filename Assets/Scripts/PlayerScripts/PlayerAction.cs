@@ -15,7 +15,7 @@ public abstract class PlayerAction : MonoBehaviour
     protected bool _ableToBlink;
     protected int InputIndex;
     public int prespawnWarningSeconds;
-    protected double TimeStamp;
+    public double TimeStamp;
     protected double MarginOfError;
     protected double AudioTime;
 
@@ -29,13 +29,18 @@ public abstract class PlayerAction : MonoBehaviour
     // Update is called once per frame
     public abstract void Update();
 
-    protected (bool ableToBlink, double previousBlink) CheckBlink(Color blinkColor, double timeStamp, bool ableToBlink, double previousBlink){
+    protected (bool ableToBlink, double previousBlink) CheckBlink(Color blinkColor, Color otherBlinkColor, double timeStamp, double otherTimeStamp, bool ableToBlink, double previousBlink){
         if(!ableToBlink && AudioTime > previousBlink + blinkCooldown){
                 ableToBlink = true;
             }
 
         if (timeStamp - blinkOffset <= AudioTime && timeStamp > AudioTime){
-            Blink(blinkColor);
+            if (otherTimeStamp == timeStamp){
+                Blink(otherBlinkColor);
+            }
+            else{
+                Blink(blinkColor);
+            }
             ableToBlink = false;
             previousBlink = AudioTime;
         }

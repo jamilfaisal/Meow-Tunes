@@ -36,8 +36,8 @@ public class PlayerSideAction : PlayerAction
             MarginOfError = MusicPlayer.current.marginOfError;
             AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
 
-            (_ableToBlink, _previousBlink) = CheckBlink(blinkColorLeft, TimeStamp, _ableToBlink, _previousBlink);
-            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(blinkColorRight, _timeStampRight, _ableToBlinkRight, _previousBlinkRight);
+            (_ableToBlink, _previousBlink) = CheckBlink(blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, _ableToBlink, _previousBlink);
+            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
             
             if (InputIndex < timeStamps.Count){
                 TimeStamp = timeStamps[InputIndex];

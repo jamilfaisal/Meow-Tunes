@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SingleButtonAction : PlayerAction
 {
-    private Color blinkColor;
+    public Color blinkColor;
     public static SingleButtonAction Current;
 
     private void Awake()
@@ -34,7 +34,7 @@ public class SingleButtonAction : PlayerAction
             AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
             TimeStamp = timeStamps[InputIndex];
 
-            (_ableToBlink, _previousBlink) = CheckBlink(blinkColor, TimeStamp, _ableToBlink, _previousBlink);
+            (_ableToBlink, _previousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  _ableToBlink, _previousBlink);
             
             InputIndex = CheckMiss(InputIndex, TimeStamp);
         }
