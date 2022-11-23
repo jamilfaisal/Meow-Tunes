@@ -12,25 +12,30 @@ public class ScoreManager : MonoBehaviour
         current = this;
     }
 
-    public int playerScore;
-    public int maximumPlayerScore;
-    public TMP_Text scoreText;
+    public int playerAccuracyScore;
+    public int playerFishScore;
+    public int maximumFishScore;
+    public TMP_Text accuracyScoreText;
+    public TMP_Text fishScoreText;
     public GameObject oopsText;
     public GameObject niceText;
     public GameObject perfectText;
     
     private void Start()
     {
-        scoreText.text = "x 0";
+        accuracyScoreText.text = "x 0";
+        fishScoreText.text = "x 0";
     }
     public void UpdateScore(int score)
     {
-        playerScore += score;
-        scoreText.text = "x " + playerScore;
+        playerFishScore += score;
+        fishScoreText.text = "x " + playerFishScore;
     }
 
     public void Hit()
     {
+        playerAccuracyScore += 100;
+        accuracyScoreText.text = "x " + playerAccuracyScore.ToString("n0");
         perfectText.SetActive(true);
         niceText.SetActive(false);
         oopsText.SetActive(false);
@@ -47,6 +52,8 @@ public class ScoreManager : MonoBehaviour
 
     public void Inaccurate()
     {
+        playerAccuracyScore += 50;
+        accuracyScoreText.text = "x " + playerAccuracyScore.ToString("n0");
         perfectText.SetActive(false);
         niceText.SetActive(true);
         oopsText.SetActive(false);
