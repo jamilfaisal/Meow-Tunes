@@ -44,7 +44,7 @@ public class PauseScreen : MonoBehaviour
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
         MidiManager.current.ResumePlayback();
-        if (Time.time > 5)
+        if (Time.timeSinceLevelLoad > 5)
         {
             musicPlayer.Resume();
         }

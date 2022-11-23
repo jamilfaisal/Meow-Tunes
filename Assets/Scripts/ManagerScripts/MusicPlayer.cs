@@ -33,9 +33,9 @@ public class MusicPlayer : MonoBehaviour
     {
         MidiFileTest = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v18.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v19.mid");
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v18.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v19.mid");
         
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
@@ -60,7 +60,7 @@ public class MusicPlayer : MonoBehaviour
     {
         // songPosition = (float)(AudioSettings.dspTime - dspSongTime);
         // songPositionInBeats = songPosition / secPerBeat;
-        if (Time.time > 5 && !_audioPlayed)
+        if (Time.timeSinceLevelLoad > 5 && !_audioPlayed)
         {
             Debug.Log("played!");
             audioSource.Play();
