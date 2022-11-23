@@ -9,21 +9,43 @@ public abstract class PlayerAction : MonoBehaviour
     
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public List<double> timeStamps = new List<double>();
+    public double blinkOffset;
+    public double blinkCooldown;
+    protected double _previousBlink;
+    protected bool _ableToBlink;
     protected int InputIndex;
     public int prespawnWarningSeconds;
-    protected double TimeStamp;
+    public double TimeStamp;
     protected double MarginOfError;
     protected double AudioTime;
 
-    private void Start()
-    {
+    private void Start() {
         MarginOfError = MusicPlayer.current.marginOfError;
+        _ableToBlink = true;
     }
 
     public abstract void SetTimeStamps(IEnumerable<Note> array);
 
     // Update is called once per frame
     public abstract void Update();
+
+    protected (bool ableToBlink, double previousBlink) CheckBlink(Color blinkColor, Color otherBlinkColor, double timeStamp, double otherTimeStamp, bool ableToBlink, double previousBlink){
+        if(!ableToBlink && AudioTime > previousBlink + blinkCooldown){
+                ableToBlink = true;
+            }
+
+        if (timeStamp - blinkOffset <= AudioTime && timeStamp > AudioTime){
+            if (otherTimeStamp == timeStamp){
+                Blink(otherBlinkColor);
+            }
+            else{
+                Blink(blinkColor);
+            }
+            ableToBlink = false;
+            previousBlink = AudioTime;
+        }
+        return (ableToBlink, previousBlink);
+    }
 
     protected int GetAccuracy(double timeStamp, int inputIndex)
     {
@@ -79,6 +101,11 @@ public abstract class PlayerAction : MonoBehaviour
     private void Inaccurate()
     {
         ScoreManager.current.Inaccurate();
+    }
+
+    private void Blink(Color blinkColor)
+    {
+        PlatformManager.current.InvokeBlink(blinkColor);
     }
 
     public abstract void TriggerScoreCalculation(InputAction.CallbackContext context);

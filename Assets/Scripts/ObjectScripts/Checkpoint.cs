@@ -48,7 +48,7 @@ public class Checkpoint : MonoBehaviour
         // TODO: Add revised checkpoint animation
         //animator.Play("CatCheckpointCycle", 0, 0f);
         Destroy(gameObject);
-        RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
+        //RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(MusicPlayer.current.audioSource.time);
 
         playerFishScore = scoreManager.GetPlayerFishScore();

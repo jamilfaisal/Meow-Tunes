@@ -52,7 +52,7 @@ public class RespawnManager : MonoBehaviour
         
         // Reset values
         AdjustMusicTime();
-        AdjustMidiTime();
+        //AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
         scoreManager.SetAndUpdateFishScore(_playerFishScore);
@@ -63,8 +63,7 @@ public class RespawnManager : MonoBehaviour
 
         // Reset music related values
         MusicPlayer.current.Resume();
-        MidiManager.current.ResumePlayback();
-
+        //MidiManager.current.ResumePlayback();
         GameManager.current.playerIsDying = false;
         yield return null;
     }
@@ -83,11 +82,11 @@ public class RespawnManager : MonoBehaviour
         _playerCharacterMovement.current_lane = respawnLane;
     }
 
-    private void AdjustMidiTime()
-    {
-        MidiManager.current.PausePlayback();
-        MidiManager.current.AdjustMidiTime(_midiTime);
-    }
+    // private void AdjustMidiTime()
+    // {
+    //     MidiManager.current.PausePlayback();
+    //     MidiManager.current.AdjustMidiTime(_midiTime);
+    // }
 
     public void SetRespawnPoint(Vector3 newRespawnPoint, int newRespawnLane) {
         _respawnPointLocation = newRespawnPoint;

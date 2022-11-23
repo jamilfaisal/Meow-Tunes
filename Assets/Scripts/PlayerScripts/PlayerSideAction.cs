@@ -9,12 +9,21 @@ public class PlayerSideAction : PlayerAction
 
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestrictionRight;
     public List<double> timeStampsRight = new List<double>();
-    private int _inputIndexRight;
+    public int _inputIndexRight;
     private double _timeStampRight;
+    protected double _previousBlinkRight;
+    protected bool _ableToBlinkRight;
+    private Color blinkColorLeft;
+    private Color blinkColorRight;
 
     private void Awake()
     {
         Current = this;
+    }
+
+    private void Start() {
+        blinkColorLeft = new Color(1f, 0.83f, 0f); //Yellow
+        blinkColorRight = new Color(0.47f, 0.31f, 0.66f); //Purple
     }
 
     public int GetInputIndex()
@@ -53,11 +62,15 @@ public class PlayerSideAction : PlayerAction
         {
             MarginOfError = MusicPlayer.current.marginOfError;
             AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+
+            (_ableToBlink, _previousBlink) = CheckBlink(blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, _ableToBlink, _previousBlink);
+            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
+            
             if (InputIndex < timeStamps.Count){
                 TimeStamp = timeStamps[InputIndex];
                 InputIndex = CheckMiss(InputIndex, TimeStamp);
             }
-            else if (_inputIndexRight < timeStampsRight.Count){
+            if (_inputIndexRight < timeStampsRight.Count){
                 _timeStampRight = timeStampsRight[_inputIndexRight];
                 _inputIndexRight = CheckMiss(_inputIndexRight, _timeStampRight);
             }
@@ -77,10 +90,10 @@ public class PlayerSideAction : PlayerAction
     {
         if (Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused())
         {
-            if (context.ReadValue<Vector2>().x < 0 && InputIndex < timeStamps.Count){
+            if (context.performed && context.ReadValue<Vector2>().x == -1 && InputIndex < timeStamps.Count){
                 GetAccuracySide(true);
             }
-            else if (context.ReadValue<Vector2>().x > 0 && _inputIndexRight < timeStampsRight.Count){
+            else if (context.performed && context.ReadValue<Vector2>().x == 1 && _inputIndexRight < timeStampsRight.Count){
                 GetAccuracySide(false);
             }
         }
