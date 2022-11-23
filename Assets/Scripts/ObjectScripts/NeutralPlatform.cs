@@ -19,9 +19,9 @@ public class NeutralPlatform : Platform
 
     private IEnumerator BlinkDelay(Color blinkColor)
     {
-        _material.color = blinkColor * 1.4f;
+        Material.color = blinkColor * 1.4f;
         yield return new WaitForSeconds(_blinkWaitTime*2);
-        _material.color = _startColor;
+        Material.color = StartColor;
         yield return null;
     }
 
