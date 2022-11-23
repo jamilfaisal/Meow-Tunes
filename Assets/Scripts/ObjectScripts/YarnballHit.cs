@@ -7,7 +7,7 @@ public class YarnballHit : MonoBehaviour
         if (otherCollider.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            ScoreManager.current.UpdateScore(5);
+            ScoreManager.current.UpdateFishScore(5);
         }
     }
 }

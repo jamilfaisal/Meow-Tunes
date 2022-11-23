@@ -17,19 +17,19 @@ public class SwitchPlatform : Platform
         Disappear();
     }
 
-    private void Blink()
+    private void Blink(Color blinkColor)
     {
         if (_visible)
         {
-            StartCoroutine( BlinkDelay());
+            StartCoroutine(BlinkDelay());
         }
     }
 
     private IEnumerator BlinkDelay()
     {
-        _material.color = _startColor * 1.5f;
+        Material.color = StartColor * 1.5f;
         yield return new WaitForSeconds(0.1f);
-        _material.color = _startColor;
+        Material.color = StartColor;
         yield return null;
     }
 
@@ -46,17 +46,17 @@ public class SwitchPlatform : Platform
     }
     private void Disappear()
     {
-        var newColor = _startColor;
+        var newColor = StartColor;
         newColor.a = 0.3f;
-        _material.color = newColor; 
-        _collider.enabled = false;
+        Material.color = newColor; 
+        MeshCollider.enabled = false;
         _visible = false;
     }
 
     private void Appear()
     {
-        _material.color = _startColor;
-        _collider.enabled = true;
+        Material.color = StartColor;
+        MeshCollider.enabled = true;
         _visible = true;
     }
 }

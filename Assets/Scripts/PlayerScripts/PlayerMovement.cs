@@ -1,3 +1,7 @@
+using System;
+using System.Threading;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -8,6 +12,11 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField]
     private InputActionReference movement;
+    private float audioDeltaTime;
+    private List<float> audioDeltaTimeList = new List<float>();
+    private float audioTimeLastFrame;
+    private int framesToSmooth = 8;
+
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
     public AudioSource jumpSound2;
@@ -22,24 +31,26 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource walkingSound;
 
     [Header("Movement")]
-    private float _moveSpeed;
-    public float leftRightWalkSpeed;
+    public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
+    public float sideMovementZOffset;
+    public float[] lane_positions;
+    public int current_lane;
+    private bool _movingSideway;
+    private bool _movePlayerEnabled;
 
     public float groundDrag;
 
     public float maxJumpForce;
     public float jumpCooldown;
-    public float airMultiplier;
+    // public float airMultiplier;
     private bool _readyToJump;
     //private bool _canDoubleJump;
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
-    public KeyCode stompKey = KeyCode.Tab;
-    private Vector3 _lastPos;
-
-    [Header("Movement")]
+    public KeyCode stompKey;
+    [Header("Movement Animation")]
     public Animator animator;
 
     [Header("Ground Check")]
@@ -50,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     private RaycastHit _slopeHit;
-    private bool _exitingSlope;
+    // private bool _exitingSlope;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -75,6 +86,17 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
+        
+        //Set lane positions for side movements
+        current_lane = 2;
+        lane_positions = new float[5];
+        lane_positions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
+        lane_positions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
+        lane_positions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
+        lane_positions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
+        lane_positions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
+        _movingSideway = false;
+        _movePlayerEnabled = true;
 
         _readyToJump = true;
         //_canDoubleJump = false;
@@ -84,6 +106,8 @@ public class PlayerMovement : MonoBehaviour
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
         _rb.drag = groundDrag;
+
+        audioTimeLastFrame = 0f;
     }
 
 
@@ -95,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector3(0f, velocity.y, 0f);
             return;
         }
-        // Debug.Log($"Update:{_rb.velocity}");
+
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -103,8 +127,12 @@ public class PlayerMovement : MonoBehaviour
         _grounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastTravelDist * 2),
             sphereCastRadius, Vector3.down, out _, sphereCastTravelDist*2.1f);
 
-        if (Time.time > 5)
+        if (Time.timeSinceLevelLoad > 5)
         {
+            if (audioDeltaTimeList.Count < framesToSmooth){
+                audioDeltaTime = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
+            }
+
             if (GameManager.current.playerIsDying)
             {
                 //Add some additional gravity to not make the control floaty
@@ -119,7 +147,29 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
             MyInput();
-            SpeedControl();
+            
+            if (_movingSideway){
+                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * audioDeltaTime;
+                Vector3 desiredPosition = _rb.transform.position;
+                desiredPosition.x = lane_positions[current_lane];
+                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
+                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * estimatedTime;
+                desiredPosition.y = desiredPosition.y + _rb.velocity.y * estimatedTime;
+                _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
+
+                if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
+                    var newPos = _rb.transform.position;
+                    newPos.x = desiredPosition.x;
+                    newPos.y = newPos.y + _rb.velocity.y * Time.deltaTime;
+                    _rb.transform.position = newPos;
+                    _movingSideway = false;
+                    
+                    //may be used to solve jump-while-moving-sideway-bug
+                    // if (!_readyToJump && _rb.velocity.y > 0){
+                    //     _rb.AddForce(transform.up * _rb.velocity.y*2, ForceMode.Impulse);
+                    // }
+                }
+            }
             MovementStateHandler();
             _rb.drag = groundDrag;
 
@@ -133,34 +183,43 @@ public class PlayerMovement : MonoBehaviour
             {
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
-        
-            // Check if player is stuck on the edge of a platform, if so then push them down 
-            if (state == MovementState.Air && transform.position == _lastPos)
-            { 
-                _rb.velocity = Vector3.zero;
-                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
-            }
-        
+
             if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
             if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
-
-            _lastPos = transform.position;
         }
     }
 
     private void FixedUpdate()
     {
-        // Debug.Log($"Fixed:{_rb.velocity}");
-        if (Time.time > 5){
+        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
             MovePlayer();
-            var velocity = _rb.velocity;
-            if(_grounded){
-                _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
-            }
-            else{
-                _rb.velocity = new Vector3(velocity.x, velocity.y, forwardWalkSpeed);
+            //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
+            if (_rb.velocity.y < -6f){
+                var tempVelo = _rb.velocity;
+                tempVelo.y = -6f;
+                _rb.velocity = tempVelo;
             }
         }
+    }
+
+    void LateUpdate()
+    {
+        // Add the deltaTime this frame to a list
+        float deltaThisFrame = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
+        audioDeltaTimeList.Add(deltaThisFrame);
+        audioTimeLastFrame = MusicPlayer.current.audioSource.time;
+        // If the list is too large, remove the oldest value
+        if (audioDeltaTimeList.Count > framesToSmooth)
+        {
+            audioDeltaTimeList.RemoveAt(0);
+        }
+        // Get the average of all values in the list
+        float average = 0;
+        foreach (float delta in audioDeltaTimeList)
+        {
+            average += delta;
+        }
+        audioDeltaTime = average / audioDeltaTimeList.Count;
     }
 
     private void MyInput()
@@ -201,6 +260,30 @@ public class PlayerMovement : MonoBehaviour
         _canSaveJump = false;
     }
 
+    public void SetMovePlayerEnabledFalse()
+    {
+        _movePlayerEnabled = false;
+    }
+
+    public void SetMovePlayerEnabledTrue()
+    {
+        _movePlayerEnabled = true;
+    }
+
+    public void triggerMove(InputAction.CallbackContext context){
+        if (enabled && Time.timeSinceLevelLoad > 5){
+            if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && current_lane>0){
+                animator.Play("CatSideJump", 0, 0f);
+                _movingSideway = true;
+                current_lane -= 1;
+            }
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && current_lane<4){
+                animator.Play("CatSideJump", 0, 0f);
+                _movingSideway = true;
+                current_lane += 1;
+            }
+        }
+    }
     public void TriggerJump(InputAction.CallbackContext context)
     {
         if (!context.started && enabled)
@@ -228,6 +311,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    
 
     private AudioSource PickJumpSound() {
         int jumpSoundIndex;
@@ -248,7 +332,6 @@ public class PlayerMovement : MonoBehaviour
         //Walking
         if (_grounded){
             state = MovementState.Walking;
-            _moveSpeed = leftRightWalkSpeed;
         }
         //in air
         else{
@@ -259,71 +342,28 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // calculate movement direction
-
-        var movementControl = movement.action.ReadValue<Vector2>();
-        _moveDirection = new Vector3(movementControl.x, 0, 0);
+        // _moveDirection = new Vector3(0, 0, 0);
 
         // on slope and not jumping
-        if(OnSlope() && !_exitingSlope)
-        {
-            _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
+        // if(OnSlope() && !_exitingSlope)
+        // {
+        //     _rb.AddForce(GetSlopeMoveDirection() * (_moveSpeed * 20f), ForceMode.Force);
 
-            //Prevents weird jumping motion due to no gravity on slope
-            if(_rb.velocity.y > 0){
-                _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
-        }
-
-        switch (_grounded)
-        {
-            // on ground
-            case true:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f), ForceMode.Force);
-                break;
-            // in air
-            case false:
-                _rb.AddForce(_moveDirection.normalized * (_moveSpeed * 15f * airMultiplier), ForceMode.Force);
-                break;
-        }
+        //     //Prevents weird jumping motion due to no gravity on slope
+        //     if(_rb.velocity.y > 0){
+        //         _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        //     }
+        // }
         
         //Add some additional gravity to not make the control floaty
         _rb.AddForce(Vector3.down * (jumpingGravity * _rb.mass));
         
         //Turn off Gravity when on slope to avoid unwanted sliding
-        _rb.useGravity = !OnSlope();
+        // _rb.useGravity = !OnSlope();
 
         Vector3 velocity = _rb.velocity;
-        velocity.z = 8;
+        velocity.z = forwardWalkSpeed;
         _rb.velocity = velocity;
-    }
-
-    private void SpeedControl()
-    {
-        // limit velocity on slope (except jumping to prevent limiting the jump)
-        if(OnSlope() && !_exitingSlope){
-            var velocity = _rb.velocity.normalized * _moveSpeed;
-            if(_rb.velocity.magnitude > _moveSpeed)
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 8);
-        }
-
-        // limit velocity on ground or air
-        else{
-            var velocity = _rb.velocity;
-            var flatVel = new Vector3(velocity.x, 0f, velocity.z);
-
-            // limit velocity if needed
-            if(flatVel.magnitude > _moveSpeed)
-            {
-                var limitedVel = flatVel.normalized * _moveSpeed;
-                if (_grounded){
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8.2F);
-                }
-                else{
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, 8);
-                }
-            }
-        }
-        // Debug.Log($"Speed:{_rb.velocity}");
     }
 
     public void Stomp()
@@ -338,7 +378,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        _exitingSlope = true;
+        // _exitingSlope = true;
         // reset y velocity
         var velocity = _rb.velocity;
         velocity = new Vector3(0f, 0f, 0f);
@@ -348,7 +388,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HalfJump()
     {
-        _exitingSlope = true;
+        // _exitingSlope = true;
         
         // reset y velocity
         var velocity = _rb.velocity;
@@ -361,35 +401,33 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         _readyToJump = true;
-        _exitingSlope = false;
+        // _exitingSlope = false;
         _justLanded = true;
         _canSaveJump = true;
     }
 
-    private bool OnSlope()
-    {   
-        //Possible Extension: Check going up or down slope to change speed base on that
+    // private bool OnSlope()
+    // {   
+    //     //Possible Extension: Check going up or down slope to change speed base on that
 
-        //Increase the length of the ray a bit to make sure we are hitting the slope 
-        // (may need to change based on ramp slope)
-        const float rayExtension = 0.3f;
+    //     //Increase the length of the ray a bit to make sure we are hitting the slope 
+    //     // (may need to change based on ramp slope)
+    //     const float rayExtension = 0.3f;
 
-        // slopeHit stores the information of the object the ray hits
-        if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight * 0.5f + rayExtension))
-        {
-            var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
-        }
+    //     // slopeHit stores the information of the object the ray hits
+    //     if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight * 0.5f + rayExtension))
+    //     {
+    //         var angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
+    //         return angle < maxSlopeAngle && angle != 0;
+    //     }
 
-        // Debug.Log($"Slope:{_rb.velocity}");
+    //     return false;
+    // }
 
-        return false;
-    }
-
-    private Vector3 GetSlopeMoveDirection()
-    {
-        //Project the move direction to the slope so that we are not moving into or away from the slope
-        return Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal).normalized;
-    }
+    // private Vector3 GetSlopeMoveDirection()
+    // {
+    //     //Project the move direction to the slope so that we are not moving into or away from the slope
+    //     return Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal).normalized;
+    // }
 
 }

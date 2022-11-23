@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 798546793394303775}
   - component: {fileID: 618576339398591741}
   - component: {fileID: 2368749739623819958}
+  - component: {fileID: 3746799725729931961}
   m_Layer: 0
   m_Name: RectanglePlatform
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5536477984320006933}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.53, y: -3.62, z: -17.32}
-  m_LocalScale: {x: 1.381395, y: 1, z: 4.339904}
+  m_LocalScale: {x: 0.828837, y: 1, z: 4.339904}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,3 +112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b79856163e8d5428557bea1ee2224f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3746799725729931961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536477984320006933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.621358, y: 0.33584213, z: 0.0071228305}
+  m_Center: {x: -0.00007881729, y: 0.17186332, z: -0.9245289}

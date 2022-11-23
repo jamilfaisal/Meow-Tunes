@@ -3,7 +3,10 @@ guid: 9474e636be7b9a64eb3032e6be6dd070
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - checkpointSound: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - animator: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

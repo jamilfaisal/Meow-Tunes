@@ -15,14 +15,18 @@ public class LifeManager : MonoBehaviour
     public TMP_Text playerLivesText;
     public GameManager gameManager;
     public AudioSource respawnSound;
+    public GameObject Player;
+    public Animator animator;
 
     private void Start()
     {
         playerLivesText.text = "x " + playerLives;
+        animator = Player.GetComponent<Animator>();
     }
 
     public void LostLife()
     {
+        animator.Play("CatFalling", 0, 0f);
         playerLives -= 1;
         playerLivesText.text = "x " + playerLives;
         respawnSound.Play();
