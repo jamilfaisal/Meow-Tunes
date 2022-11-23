@@ -8,9 +8,7 @@ public class Checkpoint : MonoBehaviour
     public Animator animator;
     public int laneNumber;
 
-    private float catRspawnOffsetX;
-    private float catRspawnOffsetY;
-    private float catRspawnOffsetZ;
+    private float _catRspawnOffsetY;
 
     public ScoreManager scoreManager;
     private int playerFishScore;
@@ -26,21 +24,23 @@ public class Checkpoint : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         animator = Player.GetComponent<Animator>();
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
+
         playerFishScore = scoreManager.GetPlayerFishScore();
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
         catRspawnOffsetX = 0.6f;
-        catRspawnOffsetY = 5f;
+        catRspawnOffsetY = 3f;
         catRspawnOffsetZ = 0.7f;
+        
         if (checkpointSoundGameObject != null)
         {
             checkpointSound = checkpointSoundGameObject.GetComponent<AudioSource>();
         }
         else
         {
-            throw new Exception("No gameobject with checkpointSound tag in the scene");
+            throw new Exception("No game object with checkpointSound tag in the scene");
         }
     }
     
@@ -69,8 +69,11 @@ public class Checkpoint : MonoBehaviour
         position.y += catRspawnOffsetY;
         position.x -= catRspawnOffsetX;
         position.z -= catRspawnOffsetZ;
-        RespawnManager.current.SetRespawnPoint(position, laneNumber);
 
+        RespawnManager.current.SetRespawnPoint(
+            PlayerSyncPosition.Current.GetPlayerPosMusicTimeSyncedPosition(transform.position.y + _catRspawnOffsetY),
+            laneNumber);
+            
         checkpointSound.Play();
     }
 }
