@@ -4163,7 +4163,7 @@ MonoBehaviour:
   noteRestriction: 2
   timeStamps: []
   blinkOffset: 0.05
-  blinkCooldown: 0.25
+  blinkCooldown: 0.125
   prespawnWarningSeconds: 0
 --- !u!4 &163153670 stripped
 Transform:
@@ -16651,10 +16651,11 @@ MonoBehaviour:
   noteRestriction: 3
   timeStamps: []
   blinkOffset: 0.05
-  blinkCooldown: 0.25
+  blinkCooldown: 0.125
   prespawnWarningSeconds: 0
   noteRestrictionRight: 1
   timeStampsRight: []
+  _inputIndexRight: 0
 --- !u!1001 &838261769
 PrefabInstance:
   m_ObjectHideFlags: 0
