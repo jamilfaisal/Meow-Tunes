@@ -1,5 +1,4 @@
 using Melanchall.DryWetMidi.Interaction;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,11 +24,11 @@ public class PlayerSideAction : PlayerAction
     {
         if (Time.time > 5 && !GameManager.current.IsGamePaused())
         {
-            _marginOfError = MusicPlayer.current.marginOfError;
-            _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
-            if (_inputIndex < timeStamps.Count){
-                _timeStamp = timeStamps[_inputIndex];
-                _inputIndex = CheckMiss(_inputIndex, _timeStamp);
+            MarginOfError = MusicPlayer.current.marginOfError;
+            AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+            if (InputIndex < timeStamps.Count){
+                TimeStamp = timeStamps[InputIndex];
+                InputIndex = CheckMiss(InputIndex, TimeStamp);
             }
             else if (_inputIndexRight < timeStampsRight.Count){
                 _timeStampRight = timeStampsRight[_inputIndexRight];
@@ -37,11 +36,11 @@ public class PlayerSideAction : PlayerAction
             }
         }
     }
-    
-    protected void GetAccuracySide(bool left)
+
+    private void GetAccuracySide(bool left)
     {
         if (left){
-            _inputIndex = GetAccuracy( _timeStamp, _inputIndex);
+            InputIndex = GetAccuracy( TimeStamp, InputIndex);
         }else{
             _inputIndexRight = GetAccuracy( _timeStampRight, _inputIndexRight);
         }
@@ -51,7 +50,7 @@ public class PlayerSideAction : PlayerAction
     {
         if (Time.time > 5 && !GameManager.current.IsGamePaused())
         {
-            if (context.ReadValue<Vector2>().x < 0 && _inputIndex < timeStamps.Count){
+            if (context.ReadValue<Vector2>().x < 0 && InputIndex < timeStamps.Count){
                 GetAccuracySide(true);
             }
             else if (context.ReadValue<Vector2>().x > 0 && _inputIndexRight < timeStampsRight.Count){
