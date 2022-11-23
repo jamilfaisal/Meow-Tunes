@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float[] lane_positions;
     public int current_lane;
     private bool _movingSideway;
+    private bool _movePlayerEnabled;
 
     public float groundDrag;
 
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         lane_positions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
         lane_positions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
         _movingSideway = false;
+        _movePlayerEnabled = true;
 
         _readyToJump = true;
         //_canDoubleJump = false;
@@ -200,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Time.time > 5){
+        if (Time.time > 5 && _movePlayerEnabled){
             MovePlayer();
             //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
             if (_rb.velocity.y < -6f){
@@ -267,6 +269,16 @@ public class PlayerMovement : MonoBehaviour
     public void SetCanSaveJumpFalse()
     {
         _canSaveJump = false;
+    }
+
+    public void SetMovePlayerEnabledFalse()
+    {
+        _movePlayerEnabled = false;
+    }
+
+    public void SetMovePlayerEnabledTrue()
+    {
+        _movePlayerEnabled = true;
     }
 
     public void triggerMove(InputAction.CallbackContext context){
