@@ -8,7 +8,7 @@ public class PlayerSideAction : PlayerAction
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestrictionRight;
     public List<double> timeStampsRight = new List<double>();
-    private int _inputIndexRight;
+    public int _inputIndexRight;
     private double _timeStampRight;
     protected double _previousBlinkRight;
     protected bool _ableToBlinkRight;
@@ -44,7 +44,7 @@ public class PlayerSideAction : PlayerAction
                 _timeStamp = timeStamps[_inputIndex];
                 _inputIndex = CheckMiss(_inputIndex, _timeStamp);
             }
-            else if (_inputIndexRight < timeStampsRight.Count){
+            if (_inputIndexRight < timeStampsRight.Count){
                 _timeStampRight = timeStampsRight[_inputIndexRight];
                 _inputIndexRight = CheckMiss(_inputIndexRight, _timeStampRight);
             }
@@ -64,10 +64,10 @@ public class PlayerSideAction : PlayerAction
     {
         if (Time.time > 5 && !GameManager.current.IsGamePaused())
         {
-            if (context.ReadValue<Vector2>().x < 0 && _inputIndex < timeStamps.Count){
+            if (context.performed && context.ReadValue<Vector2>().x == -1 && _inputIndex < timeStamps.Count){
                 GetAccuracySide(true);
             }
-            else if (context.ReadValue<Vector2>().x > 0 && _inputIndexRight < timeStampsRight.Count){
+            else if (context.performed && context.ReadValue<Vector2>().x == 1 && _inputIndexRight < timeStampsRight.Count){
                 GetAccuracySide(false);
             }
         }

@@ -4162,8 +4162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 2
   timeStamps: []
-  blinkOffset: 0.5
-  blinkCooldown: 0.75
+  blinkOffset: 0.05
+  blinkCooldown: 0.25
   prespawnWarningSeconds: 0
 --- !u!4 &163153670 stripped
 Transform:
@@ -16650,8 +16650,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 3
   timeStamps: []
-  blinkOffset: 0.5
-  blinkCooldown: 0.75
+  blinkOffset: 0.05
+  blinkCooldown: 0.25
   prespawnWarningSeconds: 0
   noteRestrictionRight: 1
   timeStampsRight: []
