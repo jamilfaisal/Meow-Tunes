@@ -21,6 +21,9 @@ public class RespawnManager : MonoBehaviour
     private Rigidbody _playerCharacterRb;
     private PlayerMovement _playerCharacterMovement;
 
+    public ScoreManager scoreManager;
+    private int _playerAccuracyScore;
+
     private void Start()
     {
         _respawnPointLocation = playerCharacter.transform.position;
@@ -28,6 +31,7 @@ public class RespawnManager : MonoBehaviour
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
         _playerCharacterMovement = playerCharacter.GetComponent<PlayerMovement>();
         _midiTime = new MetricTimeSpan(0);
+        _playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
     }
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
@@ -37,6 +41,7 @@ public class RespawnManager : MonoBehaviour
         AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
+        scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
         MusicPlayer.current.Resume();
         MidiManager.current.ResumePlayback();
         GameManager.current.playerIsDying = false;
@@ -76,5 +81,10 @@ public class RespawnManager : MonoBehaviour
     public void SetMidiTime(ITimeSpan midiTime)
     {
         _midiTime = midiTime;
+    }
+
+    public void SetPlayerAccuracyScore(int score)
+    {
+        _playerAccuracyScore = score;
     }
 }

@@ -15957,6 +15957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnLane: 0
   playerCharacter: {fileID: 1828724611}
+  scoreManager: {fileID: 19080280}
 --- !u!4 &650949133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
@@ -40171,7 +40172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7.082611, y: -0.27409363}
+  m_AnchoredPosition: {x: 7.0826416, y: -0.2741089}
   m_SizeDelta: {x: -233.1828, y: -61.3102}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1634169150

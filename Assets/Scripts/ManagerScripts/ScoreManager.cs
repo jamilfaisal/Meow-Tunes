@@ -23,9 +23,12 @@ public class ScoreManager : MonoBehaviour
     
     private void Start()
     {
+        playerAccuracyScore = 0;
+        playerFishScore = 0;
         accuracyScoreText.text = "x 0";
         fishScoreText.text = "x 0";
     }
+
     public void UpdateScore(int score)
     {
         playerFishScore += score;
@@ -75,4 +78,14 @@ public class ScoreManager : MonoBehaviour
         niceText.SetActive(false);
     }
     
+    public void SetAndUpdatePlayerAccuracyScore(int score)
+    {
+        playerAccuracyScore = score;
+        accuracyScoreText.text = "x " + playerAccuracyScore.ToString("n0");
+    }
+
+    public int GetPlayerAccuracyScore()
+    {
+        return playerAccuracyScore;
+    }
 }

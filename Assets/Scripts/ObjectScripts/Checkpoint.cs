@@ -12,11 +12,16 @@ public class Checkpoint : MonoBehaviour
     private float catRspawnOffsetY;
     private float catRspawnOffsetZ;
 
+    public ScoreManager scoreManager;
+    private int playerAccuracyScore;
+
     private void Start()
     {
         Player = GameObject.Find("Player");
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         animator = Player.GetComponent<Animator>();
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
+        playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         catRspawnOffsetX = 0.6f;
         catRspawnOffsetY = 5f;
         catRspawnOffsetZ = 0.7f;
@@ -38,6 +43,10 @@ public class Checkpoint : MonoBehaviour
         Destroy(gameObject);
         RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(MusicPlayer.current.audioSource.time);
+
+        playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
+        RespawnManager.current.SetPlayerAccuracyScore(playerAccuracyScore);
+
         var position = transform.position;
         position.y += catRspawnOffsetY;
         position.x -= catRspawnOffsetX;
