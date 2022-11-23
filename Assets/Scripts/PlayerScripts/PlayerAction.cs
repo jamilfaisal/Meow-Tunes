@@ -6,19 +6,21 @@ using UnityEngine.InputSystem;
 
 public abstract class PlayerAction : MonoBehaviour
 {
+    
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public List<double> timeStamps = new List<double>();
     public double blinkOffset;
     public double blinkCooldown;
     protected double _previousBlink;
     protected bool _ableToBlink;
-    protected int _inputIndex;
+    protected int InputIndex;
     public int prespawnWarningSeconds;
-    protected double _timeStamp;
-    protected double _marginOfError;
-    protected double _audioTime;
+    protected double TimeStamp;
+    protected double MarginOfError;
+    protected double AudioTime;
 
     private void Start() {
+        MarginOfError = MusicPlayer.current.marginOfError;
         _ableToBlink = true;
     }
 
@@ -28,56 +30,56 @@ public abstract class PlayerAction : MonoBehaviour
     public abstract void Update();
 
     protected (bool ableToBlink, double previousBlink) CheckBlink(Color blinkColor, double timeStamp, bool ableToBlink, double previousBlink){
-        if(!ableToBlink && _audioTime > previousBlink + blinkCooldown){
+        if(!ableToBlink && AudioTime > previousBlink + blinkCooldown){
                 ableToBlink = true;
             }
 
-        if (timeStamp - blinkOffset <= _audioTime && timeStamp > _audioTime){
+        if (timeStamp - blinkOffset <= AudioTime && timeStamp > AudioTime){
             Blink(blinkColor);
             ableToBlink = false;
-            previousBlink = _audioTime;
+            previousBlink = AudioTime;
         }
         return (ableToBlink, previousBlink);
     }
 
     protected int GetAccuracy(double timeStamp, int inputIndex)
-    {   
-        if (Math.Abs(_audioTime - (timeStamp)) < _marginOfError)
+    {
+        if (Math.Abs(AudioTime - (timeStamp)) < MarginOfError)
         {
             Hit();
-            print($"Hit on {inputIndex} note - time: {timeStamp} audio time {_audioTime}");
+            print($"Hit on {inputIndex} note - time: {timeStamp} audio time {AudioTime}");
             inputIndex++;
         }
         else
         {
             Inaccurate();
             print(
-                $"Hit inaccurate on {inputIndex} note with {Math.Abs(_audioTime - timeStamp)} delay - time: {timeStamp} audio time {_audioTime}");
+                $"Hit inaccurate on {inputIndex} note with {Math.Abs(AudioTime - timeStamp)} delay - time: {timeStamp} audio time {AudioTime}");
         }
         return inputIndex;
     }
 
-    protected List<double> AddNoteToTimeStamp(Note cur_note, Melanchall.DryWetMidi.MusicTheory.NoteName cur_noteRestriction, List<double> cur_timeStamps){
-        if (cur_note.Octave == 1 && cur_note.NoteName == cur_noteRestriction)
+    protected List<double> AddNoteToTimeStamp(Note curNote, Melanchall.DryWetMidi.MusicTheory.NoteName curNoteRestriction, List<double> curTimeStamps){
+        if (curNote.Octave == 1 && curNote.NoteName == curNoteRestriction)
         {
             var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(cur_note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+                TimeConverter.ConvertTo<MetricTimeSpan>(curNote.Time, MusicPlayer.MidiFileTest.GetTempoMap());
             var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
                                 (double)metricTimeSpan.Milliseconds / 1000f);
 
-            cur_timeStamps.Add(spawnTime - prespawnWarningSeconds);
+            curTimeStamps.Add(spawnTime - prespawnWarningSeconds);
         }
-        return cur_timeStamps;
+        return curTimeStamps;
     }
 
-    protected int CheckMiss(int inputIndex, double cur_timeStamp){
+    protected int CheckMiss(int inputIndex, double curTimeStamp) {
 
-            if (cur_timeStamp + _marginOfError <= _audioTime)
-            {
-                Miss();
-                print($"Missed {inputIndex} note - time: {cur_timeStamp} audio time {_audioTime}");
-                inputIndex++;
-            }
+        if (curTimeStamp + MarginOfError <= AudioTime)
+        {
+            Miss();
+            print($"Missed {inputIndex} note - time: {curTimeStamp} audio time {AudioTime}");
+            inputIndex++;
+        }
         return inputIndex;
     }
 
