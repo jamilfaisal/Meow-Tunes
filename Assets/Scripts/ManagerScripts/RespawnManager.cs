@@ -25,6 +25,10 @@ public class RespawnManager : MonoBehaviour
     private int _playerFishScore;
     private int _playerAccuracyScore;
 
+    private int _inputIndexSBA; // Single Button Action
+    private int _inputIndexPSA; // Player Side Action
+    private int _inputIndexRightPSA; // PSA Input index right
+
     private void Start()
     {
         _respawnPointLocation = playerCharacter.transform.position;
@@ -34,6 +38,9 @@ public class RespawnManager : MonoBehaviour
         _midiTime = new MetricTimeSpan(0);
         _playerFishScore = scoreManager.GetPlayerFishScore();
         _playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
+        _inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
+        _inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
+        _inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
     }
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
@@ -46,6 +53,9 @@ public class RespawnManager : MonoBehaviour
         AdjustPlayerPosition();
         scoreManager.SetAndUpdateFishScore(_playerFishScore);
         scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
+        SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
+        PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
+        PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
 
         // Reset Fish Treats on the lanes
         MusicPlayer.current.ResetAllFishTreats();
@@ -101,5 +111,20 @@ public class RespawnManager : MonoBehaviour
     public void SetPlayerAccuracyScore(int score)
     {
         _playerAccuracyScore = score;
+    }
+
+    public void SetInputIndexSBA(int inputI)
+    {
+        _inputIndexSBA = inputI;
+    }
+
+    public void SetInputIndexPSA(int inputI)
+    {
+        _inputIndexPSA = inputI;
+    }
+
+    public void SetInputIndexRightPSA(int inputIR)
+    {
+        _inputIndexRightPSA = inputIR;
     }
 }

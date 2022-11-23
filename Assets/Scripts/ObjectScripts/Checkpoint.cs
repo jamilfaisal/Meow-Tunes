@@ -16,6 +16,10 @@ public class Checkpoint : MonoBehaviour
     private int playerFishScore;
     private int playerAccuracyScore;
 
+    private int inputIndexSBA; // Single Button Action
+    private int inputIndexPSA; // Player Side Action
+    private int inputIndexRightPSA; // PSA Input index right
+
     private void Start()
     {
         Player = GameObject.Find("Player");
@@ -24,6 +28,9 @@ public class Checkpoint : MonoBehaviour
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
         playerFishScore = scoreManager.GetPlayerFishScore();
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
+        inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
+        inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
+        inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
         catRspawnOffsetX = 0.6f;
         catRspawnOffsetY = 5f;
         catRspawnOffsetZ = 0.7f;
@@ -50,6 +57,13 @@ public class Checkpoint : MonoBehaviour
         RespawnManager.current.SetPlayerFishScore(playerFishScore);
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         RespawnManager.current.SetPlayerAccuracyScore(playerAccuracyScore);
+
+        inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
+        RespawnManager.current.SetInputIndexSBA(inputIndexSBA);
+        inputIndexPSA = SingleButtonAction.Current.GetInputIndex();
+        RespawnManager.current.SetInputIndexPSA(inputIndexPSA);
+        inputIndexRightPSA = SingleButtonAction.Current.GetInputIndex();
+        RespawnManager.current.SetInputIndexRightPSA(inputIndexRightPSA);
 
         var position = transform.position;
         position.y += catRspawnOffsetY;
