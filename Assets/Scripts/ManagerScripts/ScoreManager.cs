@@ -29,10 +29,32 @@ public class ScoreManager : MonoBehaviour
         fishScoreText.text = "x 0";
     }
 
-    public void UpdateScore(int score)
+    public int GetPlayerFishScore()
+    {
+        return playerFishScore;
+    }
+
+    public int GetPlayerAccuracyScore()
+    {
+        return playerAccuracyScore;
+    }
+
+    public void UpdateFishScore(int score)
     {
         playerFishScore += score;
         fishScoreText.text = "x " + playerFishScore;
+    }
+
+    public void SetAndUpdateFishScore(int score)
+    {
+        playerFishScore = score;
+        fishScoreText.text = "x " + playerFishScore;
+    }
+    
+    public void SetAndUpdatePlayerAccuracyScore(int score)
+    {
+        playerAccuracyScore = score;
+        accuracyScoreText.text = "x " + playerAccuracyScore.ToString("n0");
     }
 
     public void Hit()
@@ -76,16 +98,5 @@ public class ScoreManager : MonoBehaviour
     private IEnumerator DelayNice(){
         yield return new WaitForSeconds(1f);
         niceText.SetActive(false);
-    }
-    
-    public void SetAndUpdatePlayerAccuracyScore(int score)
-    {
-        playerAccuracyScore = score;
-        accuracyScoreText.text = "x " + playerAccuracyScore.ToString("n0");
-    }
-
-    public int GetPlayerAccuracyScore()
-    {
-        return playerAccuracyScore;
     }
 }

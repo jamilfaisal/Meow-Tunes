@@ -22,6 +22,7 @@ public class RespawnManager : MonoBehaviour
     private PlayerMovement _playerCharacterMovement;
 
     public ScoreManager scoreManager;
+    private int _playerFishScore;
     private int _playerAccuracyScore;
 
     private void Start()
@@ -31,6 +32,7 @@ public class RespawnManager : MonoBehaviour
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
         _playerCharacterMovement = playerCharacter.GetComponent<PlayerMovement>();
         _midiTime = new MetricTimeSpan(0);
+        _playerFishScore = scoreManager.GetPlayerFishScore();
         _playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
     }
 
@@ -42,6 +44,7 @@ public class RespawnManager : MonoBehaviour
         AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
+        scoreManager.SetAndUpdateFishScore(_playerFishScore);
         scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
 
         // Reset Fish Treats on the lanes
@@ -88,6 +91,11 @@ public class RespawnManager : MonoBehaviour
     public void SetMidiTime(ITimeSpan midiTime)
     {
         _midiTime = midiTime;
+    }
+
+    public void SetPlayerFishScore(int score)
+    {
+        _playerFishScore = score;
     }
 
     public void SetPlayerAccuracyScore(int score)

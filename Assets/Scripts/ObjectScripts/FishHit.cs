@@ -7,7 +7,7 @@ public class FishHit : MonoBehaviour
         if (otherCollider.gameObject.CompareTag("Player"))
         {
             DestroyFishTreat();
-            ScoreManager.current.UpdateScore(1);
+            ScoreManager.current.UpdateFishScore(1);
         }
     }
 

@@ -13,6 +13,7 @@ public class Checkpoint : MonoBehaviour
     private float catRspawnOffsetZ;
 
     public ScoreManager scoreManager;
+    private int playerFishScore;
     private int playerAccuracyScore;
 
     private void Start()
@@ -21,6 +22,7 @@ public class Checkpoint : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         animator = Player.GetComponent<Animator>();
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
+        playerFishScore = scoreManager.GetPlayerFishScore();
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         catRspawnOffsetX = 0.6f;
         catRspawnOffsetY = 5f;
@@ -44,6 +46,8 @@ public class Checkpoint : MonoBehaviour
         RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
         RespawnManager.current.SetMusicTime(MusicPlayer.current.audioSource.time);
 
+        playerFishScore = scoreManager.GetPlayerFishScore();
+        RespawnManager.current.SetPlayerFishScore(playerFishScore);
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         RespawnManager.current.SetPlayerAccuracyScore(playerAccuracyScore);
 
