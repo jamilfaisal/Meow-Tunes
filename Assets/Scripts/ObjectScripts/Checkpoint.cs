@@ -33,6 +33,7 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerEnter(Collider otherCollider)
     {
         if (!otherCollider.gameObject.CompareTag("Player")) return;
+        // TODO: Add revised checkpoint animation
         //animator.Play("CatCheckpointCycle", 0, 0f);
         Destroy(gameObject);
         RespawnManager.current.SetMidiTime(MidiManager.current.GetPlaybackTime());
