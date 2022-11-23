@@ -50,8 +50,6 @@ public class PlayerMovement : MonoBehaviour
     public float stompForce = 3f;
     public float jumpingGravity;
     public KeyCode stompKey;
-    private Vector3 _lastPos;
-
     [Header("Movement Animation")]
     public Animator animator;
 
@@ -185,18 +183,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
-        
-            // Check if player is stuck on the edge of a platform, if so then push them down 
-            if (state == MovementState.Air && transform.position == _lastPos)
-            { 
-                _rb.velocity = Vector3.zero;
-                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
-            }
-        
+
             if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
             if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
-
-            _lastPos = transform.position;
         }
     }
 
@@ -322,6 +311,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    
 
     private AudioSource PickJumpSound() {
         int jumpSoundIndex;

@@ -1,34 +1,24 @@
-using System.Collections;
 using UnityEngine;
 
 public abstract class Platform : MonoBehaviour
 {
-    protected MeshRenderer _renderer;
-    protected Color _startColor;
-    protected Collider _collider;
-    protected Material _material;
-
-    // protected double timeInstantiated; //may be used for destroy platform if needed
-
+    private MeshRenderer _renderer;
+    protected Color StartColor;
+    protected Collider MeshCollider;
+    protected Material Material;
+    
     protected virtual void Start()
     {
         // timeInstantiated = Conductor.GetAudioSourceTime();
         _renderer = GetComponent<MeshRenderer>();
-        _material = _renderer.materials[0];
-        _startColor = _material.color;
-        _collider = GetComponent<BoxCollider>();
-        if (_collider == null)
-        {
-            _collider = GetComponent<MeshCollider>();
-        }
+        Material = _renderer.materials[0];
+        StartColor = Material.color;
+        MeshCollider = GetComponent<MeshCollider>();
     }
 
-    //     private void Update() {
-    //     double timeSinceInstantiated = Conductor.GetAudioSourceTime() - timeInstantiated;
-    //     float t = (float)(timeSinceInstantiated / (Conductor.current.noteTime * 2));
-    //     if (t > 1)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !GameManager.current.playerIsDying && Time.time > 1)
+            PlayerSyncPosition.Current.SyncPlayerPosToMusicTime(transform.position.y  + 1f);
+    }
 }
