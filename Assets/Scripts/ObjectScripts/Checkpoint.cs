@@ -30,9 +30,7 @@ public class Checkpoint : MonoBehaviour
         inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
-        catRspawnOffsetX = 0.6f;
-        catRspawnOffsetY = 3f;
-        catRspawnOffsetZ = 0.7f;
+        _catRspawnOffsetY = 3f;
         
         if (checkpointSoundGameObject != null)
         {
@@ -65,15 +63,9 @@ public class Checkpoint : MonoBehaviour
         inputIndexRightPSA = SingleButtonAction.Current.GetInputIndex();
         RespawnManager.current.SetInputIndexRightPSA(inputIndexRightPSA);
 
-        var position = transform.position;
-        position.y += catRspawnOffsetY;
-        position.x -= catRspawnOffsetX;
-        position.z -= catRspawnOffsetZ;
-
         RespawnManager.current.SetRespawnPoint(
             PlayerSyncPosition.Current.GetPlayerPosMusicTimeSyncedPosition(transform.position.y + _catRspawnOffsetY),
             laneNumber);
-            
         checkpointSound.Play();
     }
 }
