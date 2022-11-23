@@ -14,7 +14,7 @@ public class BeatHop : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time > 5f)
+        if (Time.timeSinceLevelLoad > 5f)
         {
             transform.position = new Vector3(_initialPosition.x,
                 Mathf.Sin(Time.time * Frequency * 2*Mathf.PI) * Amplitude + _initialPosition.y,

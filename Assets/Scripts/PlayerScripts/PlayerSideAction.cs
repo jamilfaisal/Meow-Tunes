@@ -22,7 +22,7 @@ public class PlayerSideAction : PlayerAction
     // Update is called once per frame
     public override void Update()
     {
-        if (Time.time > 5 && !GameManager.current.IsGamePaused())
+        if (Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused())
         {
             MarginOfError = MusicPlayer.current.marginOfError;
             AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
@@ -48,7 +48,7 @@ public class PlayerSideAction : PlayerAction
     
     public override void TriggerScoreCalculation(InputAction.CallbackContext context)
     {
-        if (Time.time > 5 && !GameManager.current.IsGamePaused())
+        if (Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused())
         {
             if (context.ReadValue<Vector2>().x < 0 && InputIndex < timeStamps.Count){
                 GetAccuracySide(true);
