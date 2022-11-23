@@ -15,6 +15,8 @@ public class Lane : MonoBehaviour
     
     public float spacingSize = 2F; //based on the size of the current neutral platform
 
+    public int laneNumber;
+
     private const float X = 0F;
     private float _y, _z;
 
@@ -36,7 +38,7 @@ public class Lane : MonoBehaviour
             }
             if (note.NoteName == fishTreatNote)
             {
-                ScoreManager.current.maximumPlayerScore += 1;
+                ScoreManager.current.maximumFishScore += 1;
                 SpawnFishTreat(note.Octave, (float)spawnTime);
             }
         }
@@ -46,21 +48,30 @@ public class Lane : MonoBehaviour
     //TODO: Check note velocity to spawn different types of platform
     {
         var newPlatform = Instantiate(platformPrefab, transform, true);
-        _y = (octave - 2) * 1.5F;
+        _y = (octave - 2) * 2F;
         _z = (spawnTime / 0.25F) * spacingSize;
         var position = new Vector3(X, _y, _z);
         newPlatform.transform.localPosition = position;
         newPlatform.transform.rotation = transform.rotation;
+
+        Color alteredColor = new Color();
+        alteredColor.r = newPlatform.GetComponent<Renderer>().material.color.r;
+        alteredColor.g = newPlatform.GetComponent<Renderer>().material.color.g;
+        alteredColor.b = newPlatform.GetComponent<Renderer>().material.color.b + (_y/50);
+
+        newPlatform.GetComponent<Renderer>().material.color = alteredColor;
+
         platforms.Add(newPlatform.GetComponent<Platform>());
 
         if (velocity == (Melanchall.DryWetMidi.Common.SevenBitNumber)83){
             //Checkpoint
             var newCheckpoint = Instantiate(checkpointPrefab, transform, true);
-            _y = (octave - 2) * 1.5F - 3;
+            _y = (octave - 2) * 2F - 1.8F;
             _z = (spawnTime / 0.25F) * spacingSize;
-            position = new Vector3(1, _y, _z);
+            position = new Vector3(0.6F, _y, _z);
             newCheckpoint.transform.localPosition = position;
             newCheckpoint.transform.rotation = transform.rotation;
+            newCheckpoint.GetComponent<Checkpoint>().laneNumber = laneNumber;
         }
     }
 
@@ -68,7 +79,7 @@ public class Lane : MonoBehaviour
     {
         // Debug.Log("spawned");
         var newFishtreat = Instantiate(fishTreatPrefab, transform, true);
-        _y = (octave - 2) * 1.5F + 3;
+        _y = (octave - 2) * 2F + 3;
         _z = (spawnTime / 0.25F) * spacingSize - 1;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
