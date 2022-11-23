@@ -90,4 +90,31 @@ public class Lane : MonoBehaviour
         newFishtreat.transform.rotation = transform.rotation;
         fishtreats.Add(newFishtreat.GetComponent<FishHit>());
     }
+
+    public void RespawnAllFishTreats(IEnumerable<Note> array)
+    {
+        foreach (var note in array)
+        {
+            var metricTimeSpan =
+                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+            var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                             (double)metricTimeSpan.Milliseconds / 1000f);
+            if (note.NoteName == fishTreatNote)
+            {
+                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime);
+            }
+        }
+    }
+
+    public void DestroyAllFishTreats()
+    {
+        foreach (var fishHit in fishtreats)
+        {
+            // Check it is not NULL
+            if (fishHit)
+            {
+                fishHit.DestroyFishTreat();
+            }
+        }
+    }
 }

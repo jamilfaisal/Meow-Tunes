@@ -37,13 +37,20 @@ public class RespawnManager : MonoBehaviour
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
         GameManager.current.playerIsDying = true;
+        // Reset values
         AdjustMusicTime();
         AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
         AdjustPlayerPosition();
         scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
+
+        // Reset Fish Treats on the lanes
+        MusicPlayer.current.ResetAllFishTreats();
+
+        // Reset music related values
         MusicPlayer.current.Resume();
         MidiManager.current.ResumePlayback();
+
         GameManager.current.playerIsDying = false;
         yield return null;
     }

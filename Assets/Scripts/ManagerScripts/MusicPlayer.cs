@@ -92,4 +92,16 @@ public class MusicPlayer : MonoBehaviour
     {
         return (double)current.audioSource.timeSamples / current.audioSource.clip.frequency;
     }
+
+    public void ResetAllFishTreats()
+    {
+        var notes = MidiFileTest.GetNotes();
+        var array = new Note[notes.Count];
+        // Debug.Log(notes.Count);
+        notes.CopyTo(array, 0);
+        foreach (var lane in lanes){
+            lane.DestroyAllFishTreats();
+            lane.RespawnAllFishTreats(array);
+        }
+    }
 }
