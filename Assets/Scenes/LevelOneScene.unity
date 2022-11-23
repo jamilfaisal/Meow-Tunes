@@ -39747,6 +39747,7 @@ MonoBehaviour:
   catWalking: {fileID: 1370060877}
   reachedCheckpoint: {fileID: 1174596371}
   catRespawn: {fileID: 1209738616}
+  countdownSound: {fileID: 573348226}
 --- !u!1 &1653993249
 GameObject:
   m_ObjectHideFlags: 0
