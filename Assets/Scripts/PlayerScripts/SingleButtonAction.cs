@@ -17,6 +17,16 @@ public class SingleButtonAction : PlayerAction
         blinkColor = new Color(0.41f, 0.63f, 0.13f); //Green
     }
 
+    public int GetInputIndex()
+    {
+        return InputIndex;
+    }
+
+    public void SetInputIndex(int inputI)
+    {
+        InputIndex = inputI;
+    }
+    
     public override void SetTimeStamps(IEnumerable<Note> array)
     {
         foreach (var note in array)
