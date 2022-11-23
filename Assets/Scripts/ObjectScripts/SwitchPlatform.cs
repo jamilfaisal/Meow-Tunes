@@ -17,11 +17,11 @@ public class SwitchPlatform : Platform
         Disappear();
     }
 
-    private void Blink()
+    private void Blink(Color blinkColor)
     {
         if (_visible)
         {
-            StartCoroutine( BlinkDelay());
+            StartCoroutine(BlinkDelay());
         }
     }
 

@@ -4163,7 +4163,7 @@ MonoBehaviour:
   noteRestriction: 2
   timeStamps: []
   blinkOffset: 0.5
-  blinkCooldown: 0.5
+  blinkCooldown: 0.75
   prespawnWarningSeconds: 0
 --- !u!4 &163153670 stripped
 Transform:
@@ -16634,7 +16634,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &835656001
 MonoBehaviour:
@@ -16650,6 +16650,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteRestriction: 3
   timeStamps: []
+  blinkOffset: 0.5
+  blinkCooldown: 0.75
   prespawnWarningSeconds: 0
   noteRestrictionRight: 1
   timeStampsRight: []

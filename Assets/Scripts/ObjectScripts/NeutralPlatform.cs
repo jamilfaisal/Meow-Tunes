@@ -3,27 +3,27 @@ using UnityEngine;
 
 public class NeutralPlatform : Platform
 {
+    private float _blinkWaitTime;
     protected override void Start()
     {
         base.Start();
+
+        _blinkWaitTime = 0.125f;
         
         PlatformManager.current.BlinkEvent += Blink;
     }
-    private void Blink()
+    private void Blink(Color blinkColor)
     {
-        StartCoroutine(BlinkDelay());
+        StartCoroutine(BlinkDelay(blinkColor));
     }
 
-    private IEnumerator BlinkDelay()
+    private IEnumerator BlinkDelay(Color blinkColor)
     {
-        _material.color = _startColor * 1.5f;
-        yield return new WaitForSeconds(0.125f);
+        _material.color = blinkColor;
+        yield return new WaitForSeconds(_blinkWaitTime*4);
+        _material.color = blinkColor * 1.2f;
+        yield return new WaitForSeconds(_blinkWaitTime*4);
         _material.color = _startColor;
-        yield return new WaitForSeconds(0.125f);
-        _material.color = _startColor * 1.5f;
-        yield return new WaitForSeconds(0.125f);
-        _material.color = _startColor;
-        yield return new WaitForSeconds(0.125f);
         yield return null;
     }
 

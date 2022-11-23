@@ -10,7 +10,16 @@ public class PlayerSideAction : PlayerAction
     public List<double> timeStampsRight = new List<double>();
     private int _inputIndexRight;
     private double _timeStampRight;
+    protected double _previousBlinkRight;
+    protected bool _ableToBlinkRight;
+    private Color blinkColorLeft;
+    private Color blinkColorRight;
 
+
+    private void Start() {
+        blinkColorLeft = new Color(1f, 0.83f, 0f); //Yellow
+        blinkColorRight = new Color(0.47f, 0.31f, 0.66f); //Purple
+    }
     public override void SetTimeStamps(IEnumerable<Note> array)
     {
         foreach (var note in array)
@@ -27,6 +36,10 @@ public class PlayerSideAction : PlayerAction
         {
             _marginOfError = MusicPlayer.current.marginOfError;
             _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+
+            (_ableToBlink, _previousBlink) = CheckBlink(blinkColorLeft, _timeStamp, _ableToBlink, _previousBlink);
+            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(blinkColorRight, _timeStampRight, _ableToBlinkRight, _previousBlinkRight);
+            
             if (_inputIndex < timeStamps.Count){
                 _timeStamp = timeStamps[_inputIndex];
                 _inputIndex = CheckMiss(_inputIndex, _timeStamp);

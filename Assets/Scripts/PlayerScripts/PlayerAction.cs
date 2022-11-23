@@ -25,16 +25,19 @@ public abstract class PlayerAction : MonoBehaviour
     public abstract void SetTimeStamps(IEnumerable<Note> array);
 
     // Update is called once per frame
-    public abstract void Update(){
-        if(!_ableToBlink && _audioTime > _previousBlink + blinkCooldown){
-                _ableToBlink = true;
+    public abstract void Update();
+
+    protected (bool ableToBlink, double previousBlink) CheckBlink(Color blinkColor, double timeStamp, bool ableToBlink, double previousBlink){
+        if(!ableToBlink && _audioTime > previousBlink + blinkCooldown){
+                ableToBlink = true;
             }
 
-        if (_timeStamp - blinkOffset <= _audioTime && _timeStamp > _audioTime){
-            Blink();
-            _ableToBlink = false;
-            _previousBlink = _audioTime;
+        if (timeStamp - blinkOffset <= _audioTime && timeStamp > _audioTime){
+            Blink(blinkColor);
+            ableToBlink = false;
+            previousBlink = _audioTime;
         }
+        return (ableToBlink, previousBlink);
     }
 
     protected int GetAccuracy(double timeStamp, int inputIndex)
@@ -91,6 +94,11 @@ public abstract class PlayerAction : MonoBehaviour
     private void Inaccurate()
     {
         ScoreManager.current.Inaccurate();
+    }
+
+    private void Blink(Color blinkColor)
+    {
+        PlatformManager.current.InvokeBlink(blinkColor);
     }
 
     public abstract void TriggerScoreCalculation(InputAction.CallbackContext context);

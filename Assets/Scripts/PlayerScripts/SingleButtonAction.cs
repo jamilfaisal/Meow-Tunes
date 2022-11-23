@@ -6,6 +6,11 @@ using UnityEngine.InputSystem;
 
 public class SingleButtonAction : PlayerAction
 {
+    private Color blinkColor;
+
+    private void Start() {
+        blinkColor = new Color(0.41f, 0.63f, 0.13f); //Green
+    }
     public override void SetTimeStamps(IEnumerable<Note> array)
     {
         foreach (var note in array)
@@ -22,6 +27,8 @@ public class SingleButtonAction : PlayerAction
             _marginOfError = MusicPlayer.current.marginOfError;
             _audioTime = MusicPlayer.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
             _timeStamp = timeStamps[_inputIndex];
+
+            (_ableToBlink, _previousBlink) = CheckBlink(blinkColor, _timeStamp, _ableToBlink, _previousBlink);
             
             _inputIndex = CheckMiss(_inputIndex, _timeStamp);
         }
