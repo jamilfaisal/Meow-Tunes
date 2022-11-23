@@ -10,7 +10,7 @@ public class SettingsMenu : MonoBehaviour
 
     public event Action<float, float> VolumeChanged; 
     public GameObject settingsClosedButton;
-
+    public GameObject controlBackButton;
     private void Awake()
     {
         current = this;
@@ -65,6 +65,12 @@ public class SettingsMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(settingsClosedButton);
+    }
+    
+    public void OpenControlsScreen()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(controlBackButton);
     }
 
     public void LoadPlayerPrefs()
