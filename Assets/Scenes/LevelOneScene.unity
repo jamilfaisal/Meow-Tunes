@@ -11977,11 +11977,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20
+      value: 20.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -887.8
+      value: -908.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21541,7 +21541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918350844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 20.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43557,7 +43557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837251849}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 61.23, y: 10, z: -893.27}
+  m_LocalPosition: {x: 61.23, y: 20.35, z: -914.42}
   m_LocalScale: {x: 515.1, y: 2, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48782,14 +48782,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085041016}
-  m_LocalRotation: {x: 0.4314446, y: -0, z: -0, w: 0.9021395}
-  m_LocalPosition: {x: 53.9, y: 56.2, z: 981}
+  m_LocalRotation: {x: 0.35510695, y: 0, z: 0, w: 0.9348257}
+  m_LocalPosition: {x: 53.9, y: 53.18, z: 986.8}
   m_LocalScale: {x: 491.29, y: 569.21, z: 491.28998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1671229018}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 51.119, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 41.6, y: 0, z: 0}
 --- !u!114 &2085041018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48822,9 +48822,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 172.9
+  m_Intensity: 1909
   m_Range: 42.3
-  m_SpotAngle: 28.599607
+  m_SpotAngle: 25.217457
   m_InnerSpotAngle: 0
   m_CookieSize: 10
   m_Shadows:
