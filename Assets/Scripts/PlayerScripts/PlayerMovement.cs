@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float[] lane_positions;
     public int current_lane;
     private bool _movingSideway;
+    private bool _movePlayerEnabled;
 
     public float groundDrag;
 
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         lane_positions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
         lane_positions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
         _movingSideway = false;
+        _movePlayerEnabled = true;
 
         _readyToJump = true;
         //_canDoubleJump = false;
@@ -200,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Time.timeSinceLevelLoad > 5){
+        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
             MovePlayer();
             //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
             if (_rb.velocity.y < -6f){
@@ -269,13 +271,25 @@ public class PlayerMovement : MonoBehaviour
         _canSaveJump = false;
     }
 
+    public void SetMovePlayerEnabledFalse()
+    {
+        _movePlayerEnabled = false;
+    }
+
+    public void SetMovePlayerEnabledTrue()
+    {
+        _movePlayerEnabled = true;
+    }
+
     public void triggerMove(InputAction.CallbackContext context){
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && current_lane>0){
+                animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 current_lane -= 1;
             }
             else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && current_lane<4){
+                animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 current_lane += 1;
             }

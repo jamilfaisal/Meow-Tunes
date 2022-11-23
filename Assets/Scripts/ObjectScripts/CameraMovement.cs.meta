@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: 9474e636be7b9a64eb3032e6be6dd070
+guid: 01c8555ca046d2446a40cb8a53018577
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - checkpointSound: {instanceID: 0}
-  - Player: {instanceID: 0}
-  - animator: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
