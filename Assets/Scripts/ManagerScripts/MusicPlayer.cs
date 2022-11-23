@@ -60,7 +60,7 @@ public class MusicPlayer : MonoBehaviour
     {
         // songPosition = (float)(AudioSettings.dspTime - dspSongTime);
         // songPositionInBeats = songPosition / secPerBeat;
-        if (Time.time > 5 && !_audioPlayed)
+        if (Time.timeSinceLevelLoad > 5 && !_audioPlayed)
         {
             Debug.Log("played!");
             audioSource.Play();

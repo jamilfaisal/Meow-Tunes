@@ -1,22 +1,40 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
     public class CountdownManager: MonoBehaviour
     {
-        public float countdown = 5f;
+        public float countdown;
         public TMP_Text countdownText;
         public GameObject countdownUI;
+        public AudioSource countdownSound;
+        private bool _shouldCountTime;
+        private bool _soundPlayed;
+
+        private void Start()
+        {
+            _shouldCountTime = SceneManager.GetActiveScene().name != "MainMenuScene";
+            countdown = 5f;
+        }
         
         private void Update()
         {
-            if (countdown <= 0)
+            if ( _shouldCountTime && !_soundPlayed)
             {
-                countdownUI.SetActive(false);
+                countdownSound.Play();
+                _soundPlayed = true;
             }
-            else
+            
+            if (_shouldCountTime && countdown > 0)
             {
                 countdown -= Time.deltaTime;
                 countdownText.text = (countdown).ToString("0");
+            }
+            else
+            {
+                countdownSound.Stop();
+                countdownUI.SetActive(false);
             }
         }
 
