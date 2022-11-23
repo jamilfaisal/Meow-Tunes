@@ -21517,7 +21517,7 @@ MonoBehaviour:
   respawnSound: {fileID: 1209738616}
   Player: {fileID: 1828724611}
   animator: {fileID: 0}
---- !u!1 &916079427
+--- !u!1 &918350844
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40049,7 +40049,7 @@ MonoBehaviour:
   playerGameObject: {fileID: 1828724611}
   gameOverSound: {fileID: 1352363780}
   animator: {fileID: 0}
---- !u!1001 &1689381357
+--- !u!1 &1686999640
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
