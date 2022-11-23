@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         _grounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastTravelDist * 2),
             sphereCastRadius, Vector3.down, out _, sphereCastTravelDist*2.1f);
 
-        if (Time.time > 5)
+        if (Time.timeSinceLevelLoad > 5)
         {
             if (audioDeltaTimeList.Count < framesToSmooth){
                 audioDeltaTime = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Time.time > 5 && _movePlayerEnabled){
+        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
             MovePlayer();
             //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
             if (_rb.velocity.y < -6f){
@@ -282,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void triggerMove(InputAction.CallbackContext context){
-        if (enabled && Time.time > 5){
+        if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && current_lane>0){
                 animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
