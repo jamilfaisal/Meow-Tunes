@@ -46,6 +46,10 @@ public class RespawnManager : MonoBehaviour
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
         GameManager.current.playerIsDying = true;
+
+        // Reset Fish Treats on the lanes
+        MusicPlayer.current.ResetAllFishTreats();
+        
         // Reset values
         AdjustMusicTime();
         AdjustMidiTime();
@@ -56,9 +60,6 @@ public class RespawnManager : MonoBehaviour
         SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
         PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
         PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
-
-        // Reset Fish Treats on the lanes
-        MusicPlayer.current.ResetAllFishTreats();
 
         // Reset music related values
         MusicPlayer.current.Resume();
