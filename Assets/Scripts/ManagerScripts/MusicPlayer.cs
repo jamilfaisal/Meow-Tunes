@@ -1,6 +1,7 @@
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class MusicPlayer : MonoBehaviour
 
     public static MidiFile MidiFileTest;
     public float noteTime;
+    private string MidiFileName;
 
     public Lane[] lanes;
     public PlayerAction[] playerActions;
@@ -31,11 +33,17 @@ public class MusicPlayer : MonoBehaviour
     
     private void Start()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
         MidiFileTest = null;
+        if (currentScene.name == "TutorialScene")
+            MidiFileName = "HipHop MIDI 10.mid";
+        if (currentScene.name == "LevelOneScene")
+            MidiFileName = "full_arrangement_v19.mid";
+        
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v19.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/" + MidiFileName);
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v19.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/" + MidiFileName);
         
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
