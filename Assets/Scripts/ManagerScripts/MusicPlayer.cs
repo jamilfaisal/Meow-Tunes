@@ -36,7 +36,7 @@ public class MusicPlayer : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         MidiFileTest = null;
         if (currentScene.name == "TutorialScene")
-            MidiFileName = "HipHop MIDI 10.mid";
+            MidiFileName = "HipHop MIDI 15.mid";
         if (currentScene.name == "LevelOneScene")
             MidiFileName = "full_arrangement_v19.mid";
         
