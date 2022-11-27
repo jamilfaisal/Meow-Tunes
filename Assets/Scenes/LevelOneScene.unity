@@ -531,7 +531,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a35282a0af4adfc4990a252c56e2a503, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d6b7dce69e483f549874f4d7e28d5d38, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
@@ -4255,6 +4255,8 @@ MonoBehaviour:
   blinkOffset: 0.25
   blinkCooldown: 0.125
   prespawnWarningSeconds: 0
+  TimeStamp: 0
+  blinkColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &166547148
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,7 +5117,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9e9b15ee7b61c304db64eb10abc7e91a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c4e38d4b8e405824695841ead3c02374, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
@@ -8014,7 +8016,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 059b4616124bac54e9e9700aec49383e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5ed7da6aa1532c04a9a2a5b65ad821b1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
@@ -20601,6 +20603,7 @@ MonoBehaviour:
   blinkOffset: 0.25
   blinkCooldown: 0.125
   prespawnWarningSeconds: 0
+  TimeStamp: 0
   noteRestrictionRight: 1
   timeStampsRight: []
   _inputIndexRight: 0
@@ -44932,7 +44935,7 @@ MonoBehaviour:
   walkingSound: {fileID: 1370060877}
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
-  sideMovementZOffset: 4
+  sideMovementZOffset: 12
   lane_positions: []
   current_lane: 0
   groundDrag: 4
@@ -47269,7 +47272,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 562d5fb9181b03f4f97e9645ca46733e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: edf68dbf2be56a9439286761ff7abea5, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
