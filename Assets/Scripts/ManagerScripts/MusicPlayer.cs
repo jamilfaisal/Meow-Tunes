@@ -16,7 +16,7 @@ public class MusicPlayer : MonoBehaviour
     // public float songPositionInBeats;
     // public float dspSongTime;
 
-    public static MidiFile MidiFileTest;
+    public MidiFile MidiFileTest;
     public float bpm;
 
     public string midiFileName;

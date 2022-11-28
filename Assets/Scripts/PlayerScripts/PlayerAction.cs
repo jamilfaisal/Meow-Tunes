@@ -63,9 +63,9 @@ public abstract class PlayerAction : MonoBehaviour
         if (curNote.Octave == 1 && curNote.NoteName == curNoteRestriction)
         {
             var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(curNote.Time, MusicPlayer.MidiFileTest.GetTempoMap());
-            var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
-                                (double)metricTimeSpan.Milliseconds / 1000f);
+                TimeConverter.ConvertTo<MetricTimeSpan>(curNote.Time, MusicPlayer.Current.MidiFileTest.GetTempoMap());
+            var spawnTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                (double)metricTimeSpan.Milliseconds / 1000f;
 
             curTimeStamps.Add(spawnTime - prespawnWarningSeconds);
         }

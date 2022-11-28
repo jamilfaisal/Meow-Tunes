@@ -876,7 +876,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 4
-  spacingSize: 2.4
+  spacingSize: 1.6666666
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -4055,7 +4055,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 2
-  spacingSize: 2.4
+  spacingSize: 1.6666666
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -9732,7 +9732,7 @@ PrefabInstance:
       objectReference: {fileID: 1316515968}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: HipHopping_MIDI_100bpm.mid
+      value: hiphop_midi_100bpm_cubase.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
@@ -38259,7 +38259,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 1
-  spacingSize: 2.4
+  spacingSize: 1.6666666
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -39770,7 +39770,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 3
-  spacingSize: 2.4
+  spacingSize: 1.6666666
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -44811,8 +44811,8 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  sidewayWalkSpeed: 10.8
-  forwardWalkSpeed: 8.8
+  sidewayWalkSpeed: 8.3
+  forwardWalkSpeed: 6.3
   sideMovementZOffset: 4
   lanePositions: []
   currentLane: 0
@@ -44820,7 +44820,7 @@ MonoBehaviour:
   maxJumpForce: 18
   jumpCooldown: 0
   stompForce: 9
-  jumpingGravity: 21
+  jumpingGravity: 30
   stompKey: 306
   animator: {fileID: 0}
   playerHeight: 2
@@ -51053,7 +51053,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 0
-  spacingSize: 2.4
+  spacingSize: 1.6666666
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0
