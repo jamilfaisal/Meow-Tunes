@@ -23,7 +23,7 @@ public class PlayerSyncPosition : MonoBehaviour
         {
             x = PlayerMovement.Current.lanePositions[PlayerMovement.Current.currentLane],
             y = yValue,
-            z = (float) (8 * MusicPlayer.Current.GetAudioSourceTime() + _initPos.z)
+            z = (float) ((PlayerMovement.Current.forwardWalkSpeed - 0.8f) * MusicPlayer.Current.GetAudioSourceTime() + _initPos.z)
         };
     }
 
