@@ -57,6 +57,10 @@ public class PauseScreen : MonoBehaviour
 
     public void Pause()
     {
+        if (CountdownManager.Current.countingDown)
+        {
+            return;
+        }
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(pauseScreenFirstButton);
         pauseMenuUI.SetActive(true);
