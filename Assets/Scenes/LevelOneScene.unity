@@ -876,6 +876,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 4
+  spacingSize: 2
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -4054,6 +4055,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 2
+  spacingSize: 2
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -38390,6 +38392,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 1
+  spacingSize: 2
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -39901,6 +39904,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 3
+  spacingSize: 2
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -51183,6 +51187,7 @@ MonoBehaviour:
   platforms: []
   fishtreats: []
   laneNumber: 0
+  spacingSize: 2
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0
