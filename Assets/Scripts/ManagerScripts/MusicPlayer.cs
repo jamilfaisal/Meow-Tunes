@@ -4,7 +4,7 @@ using Melanchall.DryWetMidi.Interaction;
 
 public class MusicPlayer : MonoBehaviour
 {
-    public static MusicPlayer current;
+    public static MusicPlayer Current;
     
     public AudioSource audioSource;
     public AudioClip songIntroNormal;
@@ -16,8 +16,9 @@ public class MusicPlayer : MonoBehaviour
     // public float dspSongTime;
 
     public static MidiFile MidiFileTest;
-    public float noteTime;
+    public float bpm;
 
+    public string midiFileName;
     public Lane[] lanes;
     public PlayerAction[] playerActions;
     public double marginOfError = 0.3;
@@ -26,16 +27,16 @@ public class MusicPlayer : MonoBehaviour
     private bool _audioPlayed;
     private void Awake()
     {
-        current = this;
+        Current = this;
     }
     
     private void Start()
     {
         MidiFileTest = null;
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/full_arrangement_v19.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/" + midiFileName);
         if (Application.platform == RuntimePlatform.OSXPlayer)
-            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/full_arrangement_v19.mid");
+            MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/" + midiFileName);
         
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
@@ -90,7 +91,7 @@ public class MusicPlayer : MonoBehaviour
 
     public double GetAudioSourceTime()
     {
-        return (double)current.audioSource.timeSamples / current.audioSource.clip.frequency;
+        return (double)Current.audioSource.timeSamples / Current.audioSource.clip.frequency;
     }
 
     public void ResetAllFishTreats()

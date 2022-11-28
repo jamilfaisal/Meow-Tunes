@@ -14,10 +14,15 @@ public class Lane : MonoBehaviour
     
     public float spacingSize = 2F; //based on the size of the current neutral platform
 
+    private float _oneEighthofBeat;
     public int laneNumber;
 
     private const float X = 0F;
     private float _y, _z;
+
+    private void Start() {
+        _oneEighthofBeat = (1 / (MusicPlayer.Current.bpm / 60f)) / 2;
+    }
 
     public void SpawnPlatformsAndFishTreats(IEnumerable<Note> array)
     {
@@ -48,15 +53,17 @@ public class Lane : MonoBehaviour
     {
         var newPlatform = Instantiate(platformPrefab, transform, true);
         _y = (octave - 2) * 2F;
-        _z = (spawnTime / 0.25F) * spacingSize;
+        _z = (spawnTime / _oneEighthofBeat) * spacingSize;
         var position = new Vector3(X, _y, _z);
         newPlatform.transform.localPosition = position;
         newPlatform.transform.rotation = transform.rotation;
 
-        Color alteredColor = new Color();
-        alteredColor.r = newPlatform.GetComponent<Renderer>().material.color.r;
-        alteredColor.g = newPlatform.GetComponent<Renderer>().material.color.g;
-        alteredColor.b = newPlatform.GetComponent<Renderer>().material.color.b + (_y/50);
+        var alteredColor = new Color
+        {
+            r = newPlatform.GetComponent<Renderer>().material.color.r,
+            g = newPlatform.GetComponent<Renderer>().material.color.g,
+            b = newPlatform.GetComponent<Renderer>().material.color.b + (_y/50)
+        };
 
         newPlatform.GetComponent<Renderer>().material.color = alteredColor;
 
@@ -66,7 +73,7 @@ public class Lane : MonoBehaviour
             //Checkpoint
             var newCheckpoint = Instantiate(checkpointPrefab, transform, true);
             _y = (octave - 2) * 2F - 1.8F;
-            _z = (spawnTime / 0.25F) * spacingSize;
+            _z = (spawnTime / _oneEighthofBeat) * spacingSize;
             position = new Vector3(0.6F, _y, _z);
             newCheckpoint.transform.localPosition = position;
             newCheckpoint.transform.rotation = transform.rotation;
