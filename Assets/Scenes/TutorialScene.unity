@@ -875,8 +875,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 4
+  spacingSize: 2
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -4054,8 +4054,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 2
+  spacingSize: 2
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -9716,6 +9716,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: bpm
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: noteTime
       value: 5
       objectReference: {fileID: 0}
@@ -9727,6 +9731,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1316515968}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: midiFileName
+      value: HipHop MIDI 4.mid
+      objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
       value: 
@@ -9750,7 +9758,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: 44ef9c3d5f4634f41b93648701e18332, type: 3}
+      objectReference: {fileID: 8300000, guid: 01faaaaea10dc1c4e8eafc3d94c36a15, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -9798,7 +9806,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: eaa0440d65c56544bbe986f208e0bdc8, type: 3}
+      objectReference: {fileID: 8300000, guid: 01faaaaea10dc1c4e8eafc3d94c36a15, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &392895228
@@ -20606,7 +20614,7 @@ MonoBehaviour:
   TimeStamp: 0
   noteRestrictionRight: 1
   timeStampsRight: []
-  _inputIndexRight: 0
+  inputIndexRight: 0
 --- !u!1 &837080058
 GameObject:
   m_ObjectHideFlags: 0
@@ -38379,8 +38387,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 1
+  spacingSize: 2
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -39891,8 +39899,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 3
+  spacingSize: 2
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -44934,10 +44942,10 @@ MonoBehaviour:
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
   sidewayWalkSpeed: 10.8
-  forwardWalkSpeed: 8.8
+  forwardWalkSpeed: 7.3333
   sideMovementZOffset: 4
-  lane_positions: []
-  current_lane: 0
+  lanePositions: []
+  currentLane: 0
   groundDrag: 4
   maxJumpForce: 18
   jumpCooldown: 0
@@ -51174,8 +51182,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 0
+  spacingSize: 2
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0

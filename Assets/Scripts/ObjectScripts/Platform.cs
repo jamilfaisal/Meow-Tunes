@@ -18,7 +18,7 @@ public abstract class Platform : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !GameManager.current.playerIsDying && Time.time > 1)
+        if (other.CompareTag("Player") && !GameManager.Current.playerIsDying && Time.time > 1)
             PlayerSyncPosition.Current.SyncPlayerPosToMusicTime(transform.position.y  + 1f);
     }
 }

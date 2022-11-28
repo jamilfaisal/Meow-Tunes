@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,14 +5,14 @@ using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement current;
+    public static PlayerMovement Current;
     
     [SerializeField]
     private InputActionReference movement;
-    private float audioDeltaTime;
-    private List<float> audioDeltaTimeList = new List<float>();
-    private float audioTimeLastFrame;
-    private int framesToSmooth = 8;
+    private float _audioDeltaTime;
+    private readonly List<float> _audioDeltaTimeList = new List<float>();
+    private float _audioTimeLastFrame;
+    private const int FramesToSmooth = 8;
 
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
@@ -34,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float sideMovementZOffset;
-    public float[] lane_positions;
-    public int current_lane;
+    public float[] lanePositions;
+    public int currentLane;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
 
@@ -79,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        current = this;
+        Current = this;
     }
 
     private void Start()
@@ -88,13 +85,13 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        current_lane = 2;
-        lane_positions = new float[5];
-        lane_positions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
-        lane_positions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
-        lane_positions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
-        lane_positions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
-        lane_positions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
+        currentLane = 2;
+        lanePositions = new float[5];
+        lanePositions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
+        lanePositions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
+        lanePositions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
+        lanePositions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
+        lanePositions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
         _movingSideway = false;
         _movePlayerEnabled = true;
 
@@ -107,13 +104,13 @@ public class PlayerMovement : MonoBehaviour
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
         _rb.drag = groundDrag;
 
-        audioTimeLastFrame = 0f;
+        _audioTimeLastFrame = 0f;
     }
 
 
     private void Update()
     {
-        if (GameManager.current.playerIsDying)
+        if (GameManager.Current.playerIsDying)
         {
             var velocity = _rb.velocity;
             _rb.velocity = new Vector3(0f, velocity.y, 0f);
@@ -129,11 +126,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.timeSinceLevelLoad > 5)
         {
-            if (audioDeltaTimeList.Count < framesToSmooth){
-                audioDeltaTime = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
+            if (_audioDeltaTimeList.Count < FramesToSmooth){
+                _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
             }
 
-            if (GameManager.current.playerIsDying)
+            if (GameManager.Current.playerIsDying)
             {
                 //Add some additional gravity to not make the control floaty
                 var velocity = _rb.velocity;
@@ -142,19 +139,19 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
-            if (GameManager.current.gameIsEnding)
+            if (GameManager.Current.gameIsEnding)
             {
                 return;
             }
             MyInput();
             
             if (_movingSideway){
-                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * audioDeltaTime;
+                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
                 Vector3 desiredPosition = _rb.transform.position;
-                desiredPosition.x = lane_positions[current_lane];
+                desiredPosition.x = lanePositions[currentLane];
                 var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
-                desiredPosition.z = desiredPosition.z + forwardWalkSpeed * estimatedTime;
-                desiredPosition.y = desiredPosition.y + _rb.velocity.y * estimatedTime;
+                desiredPosition.z += forwardWalkSpeed * estimatedTime;
+                desiredPosition.y += _rb.velocity.y * estimatedTime;
                 _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
 
                 if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
@@ -185,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.current.HasGameEnded()) walkingSound.Stop();
+            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.Current.HasGameEnded()) walkingSound.Stop();
         }
     }
 
@@ -205,21 +202,21 @@ public class PlayerMovement : MonoBehaviour
     void LateUpdate()
     {
         // Add the deltaTime this frame to a list
-        float deltaThisFrame = MusicPlayer.current.audioSource.time - audioTimeLastFrame;
-        audioDeltaTimeList.Add(deltaThisFrame);
-        audioTimeLastFrame = MusicPlayer.current.audioSource.time;
+        float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
+        _audioDeltaTimeList.Add(deltaThisFrame);
+        _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
         // If the list is too large, remove the oldest value
-        if (audioDeltaTimeList.Count > framesToSmooth)
+        if (_audioDeltaTimeList.Count > FramesToSmooth)
         {
-            audioDeltaTimeList.RemoveAt(0);
+            _audioDeltaTimeList.RemoveAt(0);
         }
         // Get the average of all values in the list
         float average = 0;
-        foreach (float delta in audioDeltaTimeList)
+        foreach (float delta in _audioDeltaTimeList)
         {
             average += delta;
         }
-        audioDeltaTime = average / audioDeltaTimeList.Count;
+        _audioDeltaTime = average / _audioDeltaTimeList.Count;
     }
 
     private void MyInput()
@@ -272,15 +269,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void triggerMove(InputAction.CallbackContext context){
         if (enabled && Time.timeSinceLevelLoad > 5){
-            if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && current_lane>0){
+            if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
                 animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
-                current_lane -= 1;
+                currentLane -= 1;
             }
-            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && current_lane<4){
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<4){
                 animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
-                current_lane += 1;
+                currentLane += 1;
             }
         }
     }
@@ -327,16 +324,10 @@ public class PlayerMovement : MonoBehaviour
         return _jumpSounds[jumpSoundIndex];
     }
 
-    private void MovementStateHandler(){
-        
+    private void MovementStateHandler()
+    {
         //Walking
-        if (_grounded){
-            state = MovementState.Walking;
-        }
-        //in air
-        else{
-            state = MovementState.Air;
-        }
+        state = _grounded ? MovementState.Walking : MovementState.Air;
     }
 
     private void MovePlayer()
@@ -380,8 +371,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // _exitingSlope = true;
         // reset y velocity
-        var velocity = _rb.velocity;
-        velocity = new Vector3(0f, 0f, 0f);
+        var velocity = new Vector3(0f, 0f, 0f);
         _rb.velocity = velocity;
 
         _rb.AddForce(transform.up * maxJumpForce, ForceMode.Impulse);
