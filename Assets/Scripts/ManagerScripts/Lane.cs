@@ -12,13 +12,12 @@ public class Lane : MonoBehaviour
     public List<Platform> platforms = new List<Platform>();
     public List<FishHit> fishtreats = new List<FishHit>();
     
-    public float spacingSize = 2F; //based on the size of the current neutral platform
     public int laneNumber;
 
     private const float X = 0F;
     private float _y, _z;
 
-    public void SpawnPlatformsAndFishTreats(IEnumerable<Note> array, float bpm)
+    public void SpawnPlatformsAndFishTreats(IEnumerable<Note> array, float bpm, float spacingSize)
     {
         var oneEighthofBeat = (1 / (bpm / 60f)) / 2;
         foreach (var note in array)
@@ -33,18 +32,18 @@ public class Lane : MonoBehaviour
                              (double)metricTimeSpan.Milliseconds / 1000f);
             if (note.NoteName == platformNote) {
                 /* Pre-spawning platforms before game starts */
-                SpawnPlatform(note.Octave, note.Velocity, (float)spawnTime, oneEighthofBeat);
+                SpawnPlatform(note.Octave, note.Velocity, (float)spawnTime, oneEighthofBeat, spacingSize);
             }
             if (note.NoteName == fishTreatNote)
             {
                 ScoreManager.current.maximumFishScore += 1;
-                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime);
+                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime, spacingSize);
             }
         }
     }
 
     private void SpawnPlatform(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawnTime,
-            float oneEighthofBeat)
+            float oneEighthofBeat, float spacingSize)
     //TODO: Check note velocity to spawn different types of platform
     {
         var newPlatform = Instantiate(platformPrefab, transform, true);
@@ -77,7 +76,8 @@ public class Lane : MonoBehaviour
         }
     }
 
-    private void SpawnFishTreat(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawnTime)
+    private void SpawnFishTreat(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawnTime,
+        float spacingSize)
     {
         // Debug.Log("spawned");
         var newFishtreat = Instantiate(fishTreatPrefab, transform, true);
@@ -94,7 +94,7 @@ public class Lane : MonoBehaviour
         fishtreats.Add(newFishtreat.GetComponent<FishHit>());
     }
 
-    public void RespawnAllFishTreats(IEnumerable<Note> array)
+    public void RespawnAllFishTreats(IEnumerable<Note> array, float spacingSize)
     {
         foreach (var note in array)
         {
@@ -104,7 +104,7 @@ public class Lane : MonoBehaviour
                              (double)metricTimeSpan.Milliseconds / 1000f);
             if (note.NoteName == fishTreatNote)
             {
-                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime);
+                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime, spacingSize);
             }
         }
     }

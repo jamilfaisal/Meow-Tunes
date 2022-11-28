@@ -17,6 +17,7 @@ public class MusicPlayer : MonoBehaviour
 
     public static MidiFile MidiFileTest;
     public float bpm;
+    public float spacingSize; //based on the size of the current neutral platform
 
     public string midiFileName;
     public Lane[] lanes;
@@ -43,7 +44,7 @@ public class MusicPlayer : MonoBehaviour
         // Debug.Log(notes.Count);
         notes.CopyTo(array, 0);
         foreach (var lane in lanes){
-            lane.SpawnPlatformsAndFishTreats(array, bpm);
+            lane.SpawnPlatformsAndFishTreats(array, bpm, spacingSize);
             // Debug.Log(lane.timeStamps.Count);
         }
         foreach (var playerAction in playerActions){
@@ -102,7 +103,7 @@ public class MusicPlayer : MonoBehaviour
         notes.CopyTo(array, 0);
         foreach (var lane in lanes){
             lane.DestroyAllFishTreats();
-            lane.RespawnAllFishTreats(array);
+            lane.RespawnAllFishTreats(array, spacingSize);
         }
     }
 }

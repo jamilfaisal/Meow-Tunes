@@ -875,7 +875,6 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 4
 --- !u!4 &22304591
 Transform:
@@ -4054,7 +4053,6 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 2
 --- !u!4 &160308260
 Transform:
@@ -9731,6 +9729,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1316515968}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: spacingSize
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
       value: full_arrangement_v19.mid
@@ -38387,7 +38389,6 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 1
 --- !u!4 &1563533518
 Transform:
@@ -39899,7 +39900,6 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 3
 --- !u!4 &1626550414
 Transform:
@@ -51182,7 +51182,6 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 0
 --- !u!4 &2122082842
 Transform:
