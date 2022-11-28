@@ -38,20 +38,20 @@ public class SingleButtonAction : PlayerAction
     // Update is called once per frame
     public override void Update()
     {   
-        if (Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused() && InputIndex < timeStamps.Count)
+        if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused() && InputIndex < timeStamps.Count)
         {
-            MarginOfError = MusicPlayer.current.marginOfError;
-            AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+            MarginOfError = MusicPlayer.Current.marginOfError;
+            AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
             TimeStamp = timeStamps[InputIndex];
 
-            (_ableToBlink, _previousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  _ableToBlink, _previousBlink);
+            (AbleToBlink, PreviousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  AbleToBlink, PreviousBlink);
             
             InputIndex = CheckMiss(InputIndex, TimeStamp);
         }
     }
     public override void TriggerScoreCalculation(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused() && InputIndex < timeStamps.Count)
+        if (context.performed && Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused() && InputIndex < timeStamps.Count)
         {
             InputIndex = GetAccuracy(TimeStamp, InputIndex);
         }

@@ -21,9 +21,9 @@ public class PlayerSyncPosition : MonoBehaviour
     {
         return new Vector3
         {
-            x = PlayerMovement.current.lane_positions[PlayerMovement.current.current_lane],
+            x = PlayerMovement.Current.lanePositions[PlayerMovement.Current.currentLane],
             y = yValue,
-            z = (float) (8 * MusicPlayer.current.GetAudioSourceTime() + _initPos.z)
+            z = (float) (8 * MusicPlayer.Current.GetAudioSourceTime() + _initPos.z)
         };
     }
 
