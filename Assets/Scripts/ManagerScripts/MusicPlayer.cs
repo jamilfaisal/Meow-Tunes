@@ -43,7 +43,7 @@ public class MusicPlayer : MonoBehaviour
         // Debug.Log(notes.Count);
         notes.CopyTo(array, 0);
         foreach (var lane in lanes){
-            lane.SpawnPlatformsAndFishTreats(array);
+            lane.SpawnPlatformsAndFishTreats(array, bpm);
             // Debug.Log(lane.timeStamps.Count);
         }
         foreach (var playerAction in playerActions){
