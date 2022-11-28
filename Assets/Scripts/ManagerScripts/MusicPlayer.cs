@@ -37,7 +37,7 @@ public class MusicPlayer : MonoBehaviour
             MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/" + midiFileName);
         if (Application.platform == RuntimePlatform.OSXPlayer)
             MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/" + midiFileName);
-        
+        Debug.Log("BPM of midi file is: " + MidiFileTest.GetTempoMap().GetTempoAtTime(new MetricTimeSpan(1)).BeatsPerMinute);
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
         // Debug.Log(notes.Count);
