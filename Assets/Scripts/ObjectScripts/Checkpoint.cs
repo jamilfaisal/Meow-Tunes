@@ -67,7 +67,7 @@ public class Checkpoint : MonoBehaviour
         RespawnManager.Current.SetInputIndexRightPSA(inputIndexRightPSA);
 
         hopIndex = PlayerHop.Current.GetHopIndex();
-        RespawnManager.current.SetHopIndex(hopIndex);
+        RespawnManager.Current.SetHopIndex(hopIndex);
 
         RespawnManager.Current.SetRespawnPoint(
             PlayerSyncPosition.Current.GetPlayerPosMusicTimeSyncedPosition(transform.position.y + _catRspawnOffsetY),
