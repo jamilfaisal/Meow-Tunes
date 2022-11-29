@@ -875,8 +875,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 4
+  spacingSize: 2
 --- !u!4 &22304591
 Transform:
   m_ObjectHideFlags: 0
@@ -4054,8 +4054,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 2
+  spacingSize: 2
 --- !u!4 &160308260
 Transform:
   m_ObjectHideFlags: 0
@@ -9716,6 +9716,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: bpm
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: noteTime
       value: 5
       objectReference: {fileID: 0}
@@ -9727,6 +9731,14 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1316515968}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: spacingSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: midiFileName
+      value: full_arrangement_v19.mid
+      objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
       value: 
@@ -20606,7 +20618,7 @@ MonoBehaviour:
   TimeStamp: 0
   noteRestrictionRight: 1
   timeStampsRight: []
-  _inputIndexRight: 0
+  inputIndexRight: 0
 --- !u!1 &837080058
 GameObject:
   m_ObjectHideFlags: 0
@@ -38378,8 +38390,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 1
+  spacingSize: 2
 --- !u!4 &1563533518
 Transform:
   m_ObjectHideFlags: 0
@@ -39890,8 +39902,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 3
+  spacingSize: 2
 --- !u!4 &1626550414
 Transform:
   m_ObjectHideFlags: 0
@@ -44934,9 +44946,9 @@ MonoBehaviour:
   walkingSound: {fileID: 1370060877}
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
-  sideMovementZOffset: 12
-  lane_positions: []
-  current_lane: 0
+  sideMovementZOffset: 4
+  lanePositions: []
+  currentLane: 0
   groundDrag: 4
   maxJumpForce: 18
   jumpCooldown: 0
@@ -51174,8 +51186,8 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  spacingSize: 2
   laneNumber: 0
+  spacingSize: 2
 --- !u!4 &2122082842
 Transform:
   m_ObjectHideFlags: 0

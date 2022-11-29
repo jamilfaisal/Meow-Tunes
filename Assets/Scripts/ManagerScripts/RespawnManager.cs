@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class RespawnManager : MonoBehaviour
 {
-    public static RespawnManager current;
+    public static RespawnManager Current;
 
     private void Awake()
     {
-        current = this;
+        Current = this;
     }
 
     private Vector3 _respawnPointLocation;
     public int respawnLane;
     private float _musicTime;
-    private ITimeSpan _midiTime;
 
     [SerializeField] public GameObject playerCharacter;
     private Rigidbody _playerCharacterRb;
@@ -35,7 +34,6 @@ public class RespawnManager : MonoBehaviour
         respawnLane = 2;
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
         _playerCharacterMovement = playerCharacter.GetComponent<PlayerMovement>();
-        _midiTime = new MetricTimeSpan(0);
         _playerFishScore = scoreManager.GetPlayerFishScore();
         _playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         _inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
@@ -45,10 +43,10 @@ public class RespawnManager : MonoBehaviour
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
-        GameManager.current.playerIsDying = true;
+        GameManager.Current.playerIsDying = true;
 
         // Reset Fish Treats on the lanes
-        MusicPlayer.current.ResetAllFishTreats();
+        MusicPlayer.Current.ResetAllFishTreats();
         
         // Reset values
         AdjustMusicTime();
@@ -62,16 +60,16 @@ public class RespawnManager : MonoBehaviour
         PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
 
         // Reset music related values
-        MusicPlayer.current.Resume();
+        MusicPlayer.Current.Resume();
         //MidiManager.current.ResumePlayback();
-        GameManager.current.playerIsDying = false;
+        GameManager.Current.playerIsDying = false;
         yield return null;
     }
 
     private void AdjustMusicTime()
     {
-        MusicPlayer.current.Pause();
-        MusicPlayer.current.audioSource.time = _musicTime;
+        MusicPlayer.Current.Pause();
+        MusicPlayer.Current.audioSource.time = _musicTime;
     }
 
     private void AdjustPlayerPosition()
@@ -79,7 +77,7 @@ public class RespawnManager : MonoBehaviour
         playerCharacter.transform.position = _respawnPointLocation;
         playerCharacter.transform.rotation = new Quaternion(0,0,0,0);
         _playerCharacterRb.velocity = new Vector3(0,0,1f);
-        _playerCharacterMovement.current_lane = respawnLane;
+        _playerCharacterMovement.currentLane = respawnLane;
     }
 
     // private void AdjustMidiTime()
@@ -100,7 +98,6 @@ public class RespawnManager : MonoBehaviour
 
     public void SetMidiTime(ITimeSpan midiTime)
     {
-        _midiTime = midiTime;
     }
 
     public void SetPlayerFishScore(int score)

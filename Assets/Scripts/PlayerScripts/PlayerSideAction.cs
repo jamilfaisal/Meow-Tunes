@@ -9,12 +9,12 @@ public class PlayerSideAction : PlayerAction
 
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestrictionRight;
     public List<double> timeStampsRight = new List<double>();
-    public int _inputIndexRight;
+    public int inputIndexRight;
     private double _timeStampRight;
-    protected double _previousBlinkRight;
-    protected bool _ableToBlinkRight;
-    private Color blinkColorLeft;
-    private Color blinkColorRight;
+    private double _previousBlinkRight;
+    private bool _ableToBlinkRight;
+    private Color _blinkColorLeft;
+    private Color _blinkColorRight;
 
     private void Awake()
     {
@@ -22,8 +22,8 @@ public class PlayerSideAction : PlayerAction
     }
 
     private void Start() {
-        blinkColorLeft = new Color(1f, 0.83f, 0f); //Yellow
-        blinkColorRight = new Color(0.47f, 0.31f, 0.66f); //Purple
+        _blinkColorLeft = new Color(1f, 0.83f, 0f); //Yellow
+        _blinkColorRight = new Color(0.47f, 0.31f, 0.66f); //Purple
     }
 
     public int GetInputIndex()
@@ -38,12 +38,12 @@ public class PlayerSideAction : PlayerAction
 
     public int GetInputIndexRight()
     {
-        return _inputIndexRight;
+        return inputIndexRight;
     }
 
     public void SetInputIndexRight(int inputIR)
     {
-        _inputIndexRight = inputIR;
+        inputIndexRight = inputIR;
     }
 
     public override void SetTimeStamps(IEnumerable<Note> array)
@@ -58,21 +58,21 @@ public class PlayerSideAction : PlayerAction
     // Update is called once per frame
     public override void Update()
     {
-        if (Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused())
+        if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused())
         {
-            MarginOfError = MusicPlayer.current.marginOfError;
-            AudioTime = MusicPlayer.current.GetAudioSourceTime() - (MusicPlayer.current.inputDelayInMilliseconds / 1000.0);
+            MarginOfError = MusicPlayer.Current.marginOfError;
+            AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
 
-            (_ableToBlink, _previousBlink) = CheckBlink(blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, _ableToBlink, _previousBlink);
-            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
+            (AbleToBlink, PreviousBlink) = CheckBlink(_blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, AbleToBlink, PreviousBlink);
+            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(_blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
             
             if (InputIndex < timeStamps.Count){
                 TimeStamp = timeStamps[InputIndex];
                 InputIndex = CheckMiss(InputIndex, TimeStamp);
             }
-            if (_inputIndexRight < timeStampsRight.Count){
-                _timeStampRight = timeStampsRight[_inputIndexRight];
-                _inputIndexRight = CheckMiss(_inputIndexRight, _timeStampRight);
+            if (inputIndexRight < timeStampsRight.Count){
+                _timeStampRight = timeStampsRight[inputIndexRight];
+                inputIndexRight = CheckMiss(inputIndexRight, _timeStampRight);
             }
         }
     }
@@ -82,18 +82,18 @@ public class PlayerSideAction : PlayerAction
         if (left){
             InputIndex = GetAccuracy( TimeStamp, InputIndex);
         }else{
-            _inputIndexRight = GetAccuracy( _timeStampRight, _inputIndexRight);
+            inputIndexRight = GetAccuracy( _timeStampRight, inputIndexRight);
         }
     }
     
     public override void TriggerScoreCalculation(InputAction.CallbackContext context)
     {
-        if (Time.timeSinceLevelLoad > 5 && !GameManager.current.IsGamePaused())
+        if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused())
         {
             if (context.performed && context.ReadValue<Vector2>().x == -1 && InputIndex < timeStamps.Count){
                 GetAccuracySide(true);
             }
-            else if (context.performed && context.ReadValue<Vector2>().x == 1 && _inputIndexRight < timeStampsRight.Count){
+            else if (context.performed && context.ReadValue<Vector2>().x == 1 && inputIndexRight < timeStampsRight.Count){
                 GetAccuracySide(false);
             }
         }
