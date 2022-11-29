@@ -1,24 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraMovement : MonoBehaviour
 {
-    private CinemachineVirtualCamera cinemachineVirtualCamera;
+    private CinemachineVirtualCamera _cinemachineVirtualCamera;
     public GameObject playerGameObject;
-    private float speed = 2.5f;
-    private Vector3 lookAtPoint;
+    private const float Speed = 2.5f;
     private bool _playCameraRotateAnimation;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
-        cinemachineVirtualCamera.m_Follow = playerGameObject.transform;
+        _cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+        _cinemachineVirtualCamera.m_Follow = playerGameObject.transform;
 
-        lookAtPoint = playerGameObject.transform.position;
         _playCameraRotateAnimation = false;
     }
 
@@ -26,18 +22,18 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         if (_playCameraRotateAnimation) {
-            cinemachineVirtualCamera.m_Follow = null;
-            cinemachineVirtualCamera.m_LookAt = playerGameObject.transform;
-            float rotationAroundYAxis = -10 * Time.deltaTime * speed; // camera moves horizontally
-            float rotationAroundXAxis = -5 * Time.deltaTime * speed; // camera moves vertically
+            _cinemachineVirtualCamera.m_Follow = null;
+            _cinemachineVirtualCamera.m_LookAt = playerGameObject.transform;
+            float rotationAroundYAxis = -10 * Time.deltaTime * Speed; // camera moves horizontally
+            float rotationAroundXAxis = -5 * Time.deltaTime * Speed; // camera moves vertically
             
             transform.Rotate(new Vector3(1, 0, 0), rotationAroundXAxis);
             transform.Rotate(new Vector3(0, 1, 0), rotationAroundYAxis, Space.World);
             
-            transform.Translate(new Vector3(1, -1, 2) * Time.deltaTime * speed, Space.World);
+            transform.Translate(new Vector3(1, -1, 2) * (Time.deltaTime * Speed), Space.World);
         } else {
-            cinemachineVirtualCamera.m_Follow = playerGameObject.transform;
-            cinemachineVirtualCamera.m_LookAt = null;
+            _cinemachineVirtualCamera.m_Follow = playerGameObject.transform;
+            _cinemachineVirtualCamera.m_LookAt = null;
         }
     }
 
