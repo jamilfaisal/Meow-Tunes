@@ -10,7 +10,7 @@ public class BeatHop : MonoBehaviour
         Current = this;
     }
 
-    private const float Amplitude = 0.4f;
+    private const float Amplitude = -0.4f;
     private Vector3 _initialPosition;
     private float _frequency = 1f;
 
@@ -29,7 +29,7 @@ public class BeatHop : MonoBehaviour
         if (Time.timeSinceLevelLoad > 5f)
         {
             transform.position = new Vector3(_initialPosition.x,
-                Mathf.Sin(Time.time * _frequency * 2*Mathf.PI) * Amplitude + _initialPosition.y,
+                Mathf.Cos(Time.time * _frequency * 2*Mathf.PI) * Amplitude + _initialPosition.y,
                 _initialPosition.z);
         }
     }
