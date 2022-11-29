@@ -13,6 +13,7 @@ public class Lane : MonoBehaviour
     public List<FishHit> fishtreats = new List<FishHit>();
     
     public int laneNumber;
+    private float _oneEighthofBeat;
     public float spacingSize; //based on the size of the current neutral platform
     
     private const float X = 0F;
@@ -20,7 +21,7 @@ public class Lane : MonoBehaviour
 
     public void SpawnPlatformsAndFishTreats(IEnumerable<Note> array, float bpm)
     {
-        var oneEighthofBeat = (1 / (bpm / 60f)) / 2;
+        _oneEighthofBeat = 1 / (bpm / 60f) / 2;
         foreach (var note in array)
         {
             //Octave 1 is for player input
@@ -33,12 +34,12 @@ public class Lane : MonoBehaviour
                              (double)metricTimeSpan.Milliseconds / 1000f);
             if (note.NoteName == platformNote) {
                 /* Pre-spawning platforms before game starts */
-                SpawnPlatform(note.Octave, note.Velocity, (float)spawnTime, oneEighthofBeat);
+                SpawnPlatform(note.Octave, note.Velocity, (float)spawnTime, _oneEighthofBeat);
             }
             if (note.NoteName == fishTreatNote)
             {
                 ScoreManager.current.maximumFishScore += 1;
-                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime);
+                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime, _oneEighthofBeat);
             }
         }
     }
@@ -77,7 +78,8 @@ public class Lane : MonoBehaviour
         }
     }
 
-    private void SpawnFishTreat(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawnTime)
+    private void SpawnFishTreat(int octave, Melanchall.DryWetMidi.Common.SevenBitNumber velocity, float spawnTime,
+        float oneEighthofBeat)
     {
         // Debug.Log("spawned");
         var newFishtreat = Instantiate(fishTreatPrefab, transform, true);
@@ -86,7 +88,7 @@ public class Lane : MonoBehaviour
         {
             _y += 2f;
         }
-        _z = (spawnTime / 0.25F) * spacingSize - 3.5f;
+        _z = (spawnTime / oneEighthofBeat) * spacingSize - 3.5f;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
         newFishtreat.transform.localPosition = position;
@@ -96,6 +98,7 @@ public class Lane : MonoBehaviour
 
     public void RespawnAllFishTreats(IEnumerable<Note> array)
     {
+        _oneEighthofBeat = 1 / (MusicPlayer.Current.bpm / 60f) / 2;
         foreach (var note in array)
         {
             var metricTimeSpan =
@@ -104,7 +107,7 @@ public class Lane : MonoBehaviour
                              (double)metricTimeSpan.Milliseconds / 1000f);
             if (note.NoteName == fishTreatNote)
             {
-                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime);
+                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime, _oneEighthofBeat);
             }
         }
     }
