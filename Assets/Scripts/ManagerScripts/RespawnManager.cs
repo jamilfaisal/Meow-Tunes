@@ -29,6 +29,8 @@ public class RespawnManager : MonoBehaviour
     private int _inputIndexPSA; // Player Side Action
     private int _inputIndexRightPSA; // PSA Input index right
 
+    private int _hopIndex;
+
     private void Start()
     {
         _respawnPointLocation = playerCharacter.transform.position;
@@ -41,6 +43,7 @@ public class RespawnManager : MonoBehaviour
         _inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         _inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         _inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
+        _hopIndex = PlayerHop.Current.GetHopIndex();
     }
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
@@ -60,6 +63,7 @@ public class RespawnManager : MonoBehaviour
         SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
         PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
         PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
+        PlayerHop.Current.SetHopIndex(_hopIndex);
 
         // Reset music related values
         MusicPlayer.current.Resume();
@@ -126,5 +130,10 @@ public class RespawnManager : MonoBehaviour
     public void SetInputIndexRightPSA(int inputIR)
     {
         _inputIndexRightPSA = inputIR;
+    }
+
+    public void SetHopIndex(int hopI)
+    {
+        _hopIndex = hopI;
     }
 }
