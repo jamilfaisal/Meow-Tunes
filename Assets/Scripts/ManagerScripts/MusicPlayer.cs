@@ -21,7 +21,8 @@ public class MusicPlayer : MonoBehaviour
     public string midiFileName;
     public Lane[] lanes;
     public PlayerAction[] playerActions;
-    public double marginOfError = 0.3;
+    public double perfectMarginOfError;
+    public double niceMarginOfError;
     public int inputDelayInMilliseconds; //Delay Time for when the music starts
 
     private bool _audioPlayed;

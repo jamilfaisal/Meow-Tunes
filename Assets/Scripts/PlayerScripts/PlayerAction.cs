@@ -16,11 +16,13 @@ public abstract class PlayerAction : MonoBehaviour
     protected int InputIndex;
     public int prespawnWarningSeconds;
     public double TimeStamp;
-    protected double MarginOfError;
+    protected double PerfectMarginOfError;
+    protected double NiceMarginOfError;
     protected double AudioTime;
 
-    private void Start() {
-        MarginOfError = MusicPlayer.Current.marginOfError;
+    protected virtual void Start() {
+        PerfectMarginOfError = MusicPlayer.Current.perfectMarginOfError;
+        NiceMarginOfError = MusicPlayer.Current.niceMarginOfError;
         AbleToBlink = true;
     }
 
@@ -44,17 +46,28 @@ public abstract class PlayerAction : MonoBehaviour
 
     protected int GetAccuracy(double timeStamp, int inputIndex)
     {
-        if (Math.Abs(AudioTime - (timeStamp)) < MarginOfError)
+        if (Math.Abs(AudioTime - (timeStamp)) < PerfectMarginOfError)
         {
+            //Perfect
             Hit();
             print($"Hit on {inputIndex} note - time: {timeStamp} audio time {AudioTime}");
             inputIndex++;
         }
-        else
+        else if (Math.Abs(AudioTime - (timeStamp)) < NiceMarginOfError)
         {
+            //Nice
             Inaccurate();
             print(
                 $"Hit inaccurate on {inputIndex} note with {Math.Abs(AudioTime - timeStamp)} delay - time: {timeStamp} audio time {AudioTime}");
+        }
+        else{
+            //Oops
+            Miss();
+            print($"Missed {inputIndex} note - time: {timeStamp} audio time {AudioTime}");
+
+            if(AudioTime - timeStamp > NiceMarginOfError){
+                inputIndex++;
+            }
         }
         return inputIndex;
     }
@@ -74,7 +87,7 @@ public abstract class PlayerAction : MonoBehaviour
 
     protected int CheckMiss(int inputIndex, double curTimeStamp) {
 
-        if (curTimeStamp + MarginOfError <= AudioTime)
+        if (curTimeStamp + NiceMarginOfError <= AudioTime)
         {
             Miss();
             print($"Missed {inputIndex} note - time: {curTimeStamp} audio time {AudioTime}");
