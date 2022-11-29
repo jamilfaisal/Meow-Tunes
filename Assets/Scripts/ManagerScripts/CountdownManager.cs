@@ -9,38 +9,55 @@ using UnityEngine.SceneManagement;
         public TMP_Text countdownText;
         public GameObject countdownUI;
         public AudioSource countdownSound;
-        private bool _shouldCountTime;
+        public bool shouldCountTime;
         private bool _soundPlayed;
+        private bool _gameStart;
+        
 
         private void Start()
         {
-            _shouldCountTime = SceneManager.GetActiveScene().name != "MainMenuScene";
+            shouldCountTime = SceneManager.GetActiveScene().name != "MainMenuScene";
             countdown = 5f;
+            _gameStart = true;
         }
         
         private void Update()
         {
-            if ( _shouldCountTime && !_soundPlayed)
+            if ( shouldCountTime && !_soundPlayed)
             {
                 countdownSound.Play();
                 _soundPlayed = true;
             }
             
-            if (_shouldCountTime && countdown > 0)
+            if (shouldCountTime && countdown > 0)
             {
-                countdown -= Time.deltaTime;
+                if (_gameStart) SubstractTime();
+                else SubstractUnscaledTime();
                 countdownText.text = (countdown).ToString("0");
             }
             else
             {
                 countdownSound.Stop();
                 countdownUI.SetActive(false);
+                _soundPlayed = false;
+                _gameStart = false;
             }
         }
 
-        public void SetCountdown(float time)
+        public void SetCountdown()
         {
-            countdown = time;
+            countdown = 5f;
+            shouldCountTime = true;
             countdownUI.SetActive(true);
+        }
+
+        private void SubstractTime()
+        {
+            countdown -= Time.deltaTime;
+        }
+        
+        private void SubstractUnscaledTime()
+        {
+            countdown -= Time.unscaledDeltaTime;
         }
     }

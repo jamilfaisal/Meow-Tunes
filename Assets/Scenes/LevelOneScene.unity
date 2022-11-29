@@ -18426,6 +18426,7 @@ Transform:
   - {fileID: 326870768}
   - {fileID: 162775318}
   - {fileID: 835656000}
+  - {fileID: 1233843108}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29472,6 +29473,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228252117}
   m_Mesh: {fileID: -4066096883847726243, guid: 0288e9c17803a4ce7b822ad3c5728f54, type: 3}
+--- !u!1 &1233843107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233843108}
+  - component: {fileID: 1233843109}
+  m_Layer: 0
+  m_Name: CountdownManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233843108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233843107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 761166639}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1233843109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233843107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed1fce5178664f0db59144537c01a56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countdown: 5
+  countdownText: {fileID: 1533188171}
+  countdownUI: {fileID: 363486406}
+  countdownSound: {fileID: 573348226}
+  shouldCountTime: 0
 --- !u!1001 &1233974252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35535,7 +35585,6 @@ GameObject:
   - component: {fileID: 1452121108}
   - component: {fileID: 1452121107}
   - component: {fileID: 1452121106}
-  - component: {fileID: 1452121110}
   - component: {fileID: 1452121111}
   m_Layer: 5
   m_Name: Canvas
@@ -35586,6 +35635,7 @@ MonoBehaviour:
   settingsMenuUI: {fileID: 400491125}
   musicPlayer: {fileID: 1316515969}
   playerMovement: {fileID: 1828724611}
+  countdownManager: {fileID: 1233843109}
   pauseScreenFirstButton: {fileID: 1892940499}
   settingsFirstButton: {fileID: 1193405365}
 --- !u!114 &1452121107
@@ -35649,22 +35699,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1452121110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1452121104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed1fce5178664f0db59144537c01a56c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  countdown: 5
-  countdownText: {fileID: 1533188171}
-  countdownUI: {fileID: 363486406}
-  countdownSound: {fileID: 573348226}
 --- !u!114 &1452121111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41438,6 +41472,7 @@ MonoBehaviour:
   gameIsEnding: 0
   playerGameObject: {fileID: 1828724611}
   gameOverSound: {fileID: 1352363780}
+  countdownManager: {fileID: 0}
 --- !u!1 &1686999640
 GameObject:
   m_ObjectHideFlags: 0
@@ -44937,6 +44972,7 @@ MonoBehaviour:
   sideMovementZOffset: 12
   lane_positions: []
   current_lane: 0
+  CountdownManager: {fileID: 1233843109}
   groundDrag: 4
   maxJumpForce: 18
   jumpCooldown: 0

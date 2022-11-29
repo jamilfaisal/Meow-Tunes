@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -8,6 +10,7 @@ public class PauseScreen : MonoBehaviour
     public MusicPlayer musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
+    public CountdownManager countdownManager;
     public GameObject pauseScreenFirstButton, settingsFirstButton;
 
     private void Start()
@@ -43,13 +46,20 @@ public class PauseScreen : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
-        //MidiManager.current.ResumePlayback();
+        countdownManager.SetCountdown();
+        StartCoroutine(ResumeAfterCountdown());
+    }
+
+    public IEnumerator ResumeAfterCountdown()
+    {
+        yield return new WaitForSecondsRealtime(5);
+            
+        Time.timeScale = 1f;
         if (Time.time > 5)
         {
             musicPlayer.Resume();
         }
-        Invoke(nameof(EnableMovement), 0.3f);
-        Time.timeScale = 1f;
+        EnableMovement();
         GameManager.current.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -86,7 +96,7 @@ public class PauseScreen : MonoBehaviour
     public void PauseOrResumeController()
     {
         if (GameManager.current.HasGameEnded()) return;
-        if (GameManager.current.IsGamePaused())
+        if (GameManager.current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
         {
             Resume();
         }
