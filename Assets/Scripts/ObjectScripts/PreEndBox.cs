@@ -23,8 +23,9 @@ public class PreEndBox : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            // Stop Player Forward Movement
+            // Stop Player Forward Movement and Input Checking
             _playerMovement.SetMovePlayerEnabledFalse();
+            _playerMovement.SetPlayerInputEnabledFalse();
 
             // Play animation and trigger camera change
             _cameraMovement.SetPlayCameraRotateAnimationTrue();
@@ -32,6 +33,7 @@ public class PreEndBox : MonoBehaviour
 
             // Resume player Forward movement after wait
             StartCoroutine(WaitThenEnableMovePlayer());
+            StartCoroutine(WaitThenEnablePlayerInput());
             StartCoroutine(WaitThenDisablePlayCameraRotate());
         }
     }
@@ -40,6 +42,12 @@ public class PreEndBox : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         _playerMovement.SetMovePlayerEnabledTrue();
+    }
+
+    IEnumerator WaitThenEnablePlayerInput()
+    {
+        yield return new WaitForSeconds(4);
+        _playerMovement.SetPlayerInputEnabledTrue();
     }
 
     IEnumerator WaitThenDisablePlayCameraRotate()
