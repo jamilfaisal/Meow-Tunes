@@ -18,6 +18,8 @@ public class Checkpoint : MonoBehaviour
     private int inputIndexPSA; // Player Side Action
     private int inputIndexRightPSA; // PSA Input index right
 
+    private int hopIndex;
+
     private void Start()
     {
         Player = GameObject.Find("Player");
@@ -30,6 +32,7 @@ public class Checkpoint : MonoBehaviour
         inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
+        hopIndex = PlayerHop.Current.GetHopIndex();
         _catRspawnOffsetY = 3f;
         
         if (checkpointSoundGameObject != null)
@@ -62,6 +65,9 @@ public class Checkpoint : MonoBehaviour
         RespawnManager.Current.SetInputIndexPSA(inputIndexPSA);
         inputIndexRightPSA = SingleButtonAction.Current.GetInputIndex();
         RespawnManager.Current.SetInputIndexRightPSA(inputIndexRightPSA);
+
+        hopIndex = PlayerHop.Current.GetHopIndex();
+        RespawnManager.Current.SetHopIndex(hopIndex);
 
         RespawnManager.Current.SetRespawnPoint(
             PlayerSyncPosition.Current.GetPlayerPosMusicTimeSyncedPosition(transform.position.y + _catRspawnOffsetY),
