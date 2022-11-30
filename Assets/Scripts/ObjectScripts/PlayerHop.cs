@@ -3,16 +3,33 @@ using UnityEngine;
 
 public class PlayerHop : MonoBehaviour
 {
+    public static PlayerHop Current;
+
     private Rigidbody _rb;
     private Vector3 _startPos;
     private bool _hopping;
     private int _hopIndex;
+
+    private void Awake()
+    {
+        Current = this;
+    }
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _startPos = transform.position;
         _hopping = false;
+    }
+
+    public int GetHopIndex()
+    {
+        return _hopIndex;
+    }
+
+    public void SetHopIndex(int hopI)
+    {
+        _hopIndex = hopI;
     }
 
     private void Update()
@@ -23,7 +40,7 @@ public class PlayerHop : MonoBehaviour
             _rb.velocity = new Vector3(0, 0, 0);
             _hopping = false;
         }
-        if (Math.Abs(MusicPlayer.current.GetAudioSourceTime() - SingleButtonAction.Current.GetNextTimestamp(_hopIndex)) < 0.1f)
+        if (Math.Abs(MusicPlayer.Current.GetAudioSourceTime() - SingleButtonAction.Current.GetNextTimestamp(_hopIndex)) < 0.1f)
         {
             Hop();
         }
@@ -31,7 +48,7 @@ public class PlayerHop : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.AddForce(Vector3.down * ((PlayerMovement.current.jumpingGravity + 5.5f) * _rb.mass));
+        _rb.AddForce(Vector3.down * ((PlayerMovement.Current.jumpingGravity + 5.5f) * _rb.mass));
 
     }
 
@@ -40,7 +57,7 @@ public class PlayerHop : MonoBehaviour
         if (_hopping == false)
         {
             _hopping = true;
-            _rb.AddForce(transform.up * PlayerMovement.current.maxJumpForce, ForceMode.Impulse);
+            _rb.AddForce(transform.up * PlayerMovement.Current.maxJumpForce, ForceMode.Impulse);
             _hopIndex++;
         }
     }

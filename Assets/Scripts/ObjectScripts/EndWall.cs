@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EndWall : MonoBehaviour
@@ -8,7 +6,7 @@ public class EndWall : MonoBehaviour
     {
         if (otherCollider.gameObject.CompareTag("Player"))
         {
-            GameManager.current.gameIsEnding = true;
+            GameManager.Current.gameIsEnding = true;
         }
     }
 }

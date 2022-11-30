@@ -11,8 +11,8 @@ public abstract class PlayerAction : MonoBehaviour
     public List<double> timeStamps = new List<double>();
     public double blinkOffset;
     public double blinkCooldown;
-    protected double _previousBlink;
-    protected bool _ableToBlink;
+    protected double PreviousBlink;
+    protected bool AbleToBlink;
     protected int InputIndex;
     public int prespawnWarningSeconds;
     public double TimeStamp;
@@ -20,8 +20,8 @@ public abstract class PlayerAction : MonoBehaviour
     protected double AudioTime;
 
     private void Start() {
-        MarginOfError = MusicPlayer.current.marginOfError;
-        _ableToBlink = true;
+        MarginOfError = MusicPlayer.Current.marginOfError;
+        AbleToBlink = true;
     }
 
     public abstract void SetTimeStamps(IEnumerable<Note> array);
@@ -32,15 +32,10 @@ public abstract class PlayerAction : MonoBehaviour
     protected (bool ableToBlink, double previousBlink) CheckBlink(Color blinkColor, Color otherBlinkColor, double timeStamp, double otherTimeStamp, bool ableToBlink, double previousBlink){
         if(!ableToBlink && AudioTime > previousBlink + blinkCooldown){
                 ableToBlink = true;
-            }
+        }
 
         if (timeStamp - blinkOffset <= AudioTime && timeStamp > AudioTime){
-            if (otherTimeStamp == timeStamp){
-                Blink(otherBlinkColor);
-            }
-            else{
-                Blink(blinkColor);
-            }
+            Blink(otherTimeStamp == timeStamp ? otherBlinkColor : blinkColor);
             ableToBlink = false;
             previousBlink = AudioTime;
         }

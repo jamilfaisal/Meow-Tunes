@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager current;
+    public static GameManager Current;
 
     private static bool _gameIsPaused;
     public bool playerIsDying;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _playerMovement = playerGameObject.GetComponent<PlayerMovement>();
-        current = this;
+        Current = this;
         _gameHasEnded = false;
         _playerMovement.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
 
     public void LostLevel() {
         gameIsEnding = false;
-        PlayerMovement.current.walkingSound.Stop();
-        MusicPlayer.current.audioSource.Pause();
+        PlayerMovement.Current.walkingSound.Stop();
+        MusicPlayer.Current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();
