@@ -59,6 +59,7 @@ public abstract class PlayerAction : MonoBehaviour
             Inaccurate();
             print(
                 $"Hit inaccurate on {inputIndex} note with {Math.Abs(AudioTime - timeStamp)} delay - time: {timeStamp} audio time {AudioTime}");
+            inputIndex++;
         }
         else{
             //Oops
