@@ -52,13 +52,19 @@ public class RespawnManager : MonoBehaviour
         AdjustMusicTime();
         //AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
+        // StartCoroutine(RespawnPlayerAfterCountdown());
         AdjustPlayerPosition();
+        _playerCharacterMovement.enabled = false;
+        PlayerMovement.Current.walkingSound.Stop();
+        CountdownManager.Current.SetCountdown(3f);
+        yield return new WaitForSeconds(3f);
         scoreManager.SetAndUpdateFishScore(_playerFishScore);
         scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
         SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
         PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
         PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
 
+        _playerCharacterMovement.enabled = true;
         // Reset music related values
         MusicPlayer.Current.Resume();
         //MidiManager.current.ResumePlayback();
@@ -123,5 +129,10 @@ public class RespawnManager : MonoBehaviour
     public void SetInputIndexRightPSA(int inputIR)
     {
         _inputIndexRightPSA = inputIR;
+    }
+
+    public IEnumerator RespawnPlayerAfterCountdown()
+    {
+        yield return new WaitForSecondsRealtime(3);
     }
 }

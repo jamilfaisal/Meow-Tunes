@@ -55,9 +55,9 @@ using UnityEngine.SceneManagement;
             }
         }
 
-        public void SetCountdown()
+        public void SetCountdown(float time)
         {
-            countdown = 5f;
+            countdown = time;
             shouldCountTime = true;
             countdownUI.SetActive(true);
         }

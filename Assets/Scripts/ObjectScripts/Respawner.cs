@@ -19,6 +19,7 @@ public class Respawner : MonoBehaviour
             LifeManager.current.LostLife();
             if (LifeManager.current.playerLives != 0)
             {
+                // CountdownManager.Current.SetCountdown(3f);
                 StartCoroutine(Respawn());
             }
         }
@@ -26,6 +27,7 @@ public class Respawner : MonoBehaviour
 
     private IEnumerator Respawn()
     {
+        // yield return new WaitForSecondsRealtime(3f);
         yield return respawnManager.RespawnPlayer(_respawnClip.length);
     }
 }

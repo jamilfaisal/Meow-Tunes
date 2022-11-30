@@ -43,13 +43,14 @@ public class PauseScreen : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
-        CountdownManager.current.SetCountdown();
+        CountdownManager.Current.SetCountdown(5f);
         StartCoroutine(ResumeAfterCountdown());
     }
 
     public IEnumerator ResumeAfterCountdown()
     {
         yield return new WaitForSecondsRealtime(5);
+        musicPlayer.Resume();
         Time.timeScale = 1f;
         EnableMovement();
         GameManager.Current.ResumeGame();
