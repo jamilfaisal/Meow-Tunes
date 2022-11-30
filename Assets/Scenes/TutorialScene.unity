@@ -9757,7 +9757,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: 01faaaaea10dc1c4e8eafc3d94c36a15, type: 3}
+      objectReference: {fileID: 8300000, guid: e7bd9360cf88ef444bba87f4570230e3, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -9805,7 +9805,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 01faaaaea10dc1c4e8eafc3d94c36a15, type: 3}
+      objectReference: {fileID: 8300000, guid: e7bd9360cf88ef444bba87f4570230e3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &392895228
@@ -35541,6 +35541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1fce5178664f0db59144537c01a56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countingDown: 0
   countdown: 5
   countdownText: {fileID: 1533188171}
   countdownUI: {fileID: 363486406}
