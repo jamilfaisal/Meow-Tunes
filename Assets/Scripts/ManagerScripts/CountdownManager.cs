@@ -41,7 +41,7 @@ using UnityEngine.SceneManagement;
 
                 if (countdown > 0)
                 {
-                    SubtractTime(_gameStart);
+                    SubtractTime();
                     countdownText.text = (countdown).ToString("0");
                 }
                 else
@@ -51,6 +51,7 @@ using UnityEngine.SceneManagement;
                     _soundPlayed = false;
                     _gameStart = false;
                     countingDown = false;
+                    shouldCountTime = false;
                 }
             }
         }
@@ -62,7 +63,7 @@ using UnityEngine.SceneManagement;
             countdownUI.SetActive(true);
         }
         
-        private void SubtractTime(bool gameStart) {
-            countdown -= gameStart ? Time.deltaTime : Time.unscaledDeltaTime;
+        private void SubtractTime() {
+            countdown -= _gameStart ? Time.deltaTime : Time.unscaledDeltaTime;
         }
     }
