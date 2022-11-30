@@ -3,16 +3,33 @@ using UnityEngine;
 
 public class PlayerHop : MonoBehaviour
 {
+    public static PlayerHop Current;
+
     private Rigidbody _rb;
     private Vector3 _startPos;
     private bool _hopping;
     private int _hopIndex;
+
+    private void Awake()
+    {
+        Current = this;
+    }
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _startPos = transform.position;
         _hopping = false;
+    }
+
+    public int GetHopIndex()
+    {
+        return _hopIndex;
+    }
+
+    public void SetHopIndex(int hopI)
+    {
+        _hopIndex = hopI;
     }
 
     private void Update()
