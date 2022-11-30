@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -10,7 +8,6 @@ public class PauseScreen : MonoBehaviour
     public MusicPlayer musicPlayer;
     public GameObject playerMovement;
     private PlayerMovement _playerMovementScript;
-    public CountdownManager countdownManager;
     public GameObject pauseScreenFirstButton, settingsFirstButton;
 
     private void Start()
@@ -46,19 +43,14 @@ public class PauseScreen : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
-        countdownManager.SetCountdown();
+        CountdownManager.current.SetCountdown();
         StartCoroutine(ResumeAfterCountdown());
     }
 
     public IEnumerator ResumeAfterCountdown()
     {
         yield return new WaitForSecondsRealtime(5);
-            
         Time.timeScale = 1f;
-        if (Time.time > 5)
-        {
-            musicPlayer.Resume();
-        }
         EnableMovement();
         GameManager.current.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked;
@@ -67,15 +59,15 @@ public class PauseScreen : MonoBehaviour
 
     public void Pause()
     {
+        musicPlayer.Pause();
+        _playerMovementScript.enabled = false;
+        PlayerMovement.current.walkingSound.Stop();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(pauseScreenFirstButton);
         pauseMenuUI.SetActive(true);
-        musicPlayer.Pause();
         //MidiManager.current.PausePlayback();
-        _playerMovementScript.enabled = false;
-        PlayerMovement.current.walkingSound.Stop();
-        Time.timeScale = 0f;
         GameManager.current.PauseGame();
+        Time.timeScale = 0f;
         // This is because the camera script locks the cursor,
         // so we need to enable it again to be able to click buttons
         Cursor.lockState = CursorLockMode.None;

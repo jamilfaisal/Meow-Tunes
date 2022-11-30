@@ -12,35 +12,42 @@ using UnityEngine.SceneManagement;
         public bool shouldCountTime;
         private bool _soundPlayed;
         private bool _gameStart;
-        
+        public static CountdownManager current;
+
+        private void Awake()
+        {
+            current = this;
+        }
 
         private void Start()
         {
-            shouldCountTime = SceneManager.GetActiveScene().name != "MainMenuScene";
+            shouldCountTime = true;
             countdown = 5f;
             _gameStart = true;
         }
         
         private void Update()
         {
-            if ( shouldCountTime && !_soundPlayed)
+            if (shouldCountTime)
             {
-                countdownSound.Play();
-                _soundPlayed = true;
-            }
-            
-            if (shouldCountTime && countdown > 0)
-            {
-                if (_gameStart) SubstractTime();
-                else SubstractUnscaledTime();
-                countdownText.text = (countdown).ToString("0");
-            }
-            else
-            {
-                countdownSound.Stop();
-                countdownUI.SetActive(false);
-                _soundPlayed = false;
-                _gameStart = false;
+                if (!_soundPlayed)
+                {
+                    countdownSound.Play();
+                    _soundPlayed = true;
+                }
+
+                if (countdown > 0)
+                {
+                    SubtractTime(_gameStart);
+                    countdownText.text = (countdown).ToString("0");
+                }
+                else
+                {
+                    countdownSound.Stop();
+                    countdownUI.SetActive(false);
+                    _soundPlayed = false;
+                    _gameStart = false;
+                }
             }
         }
 
@@ -50,14 +57,8 @@ using UnityEngine.SceneManagement;
             shouldCountTime = true;
             countdownUI.SetActive(true);
         }
-
-        private void SubstractTime()
-        {
-            countdown -= Time.deltaTime;
-        }
         
-        private void SubstractUnscaledTime()
-        {
-            countdown -= Time.unscaledDeltaTime;
+        private void SubtractTime(bool gameStart) {
+            countdown -= gameStart ? Time.deltaTime : Time.unscaledDeltaTime;
         }
     }
