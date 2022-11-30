@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
-    public float sideMovementZOffset;
+    // public float sideMovementZOffset;
     public float[] lanePositions;
     public int currentLane;
     private bool _movingSideway;
@@ -143,21 +143,32 @@ public class PlayerMovement : MonoBehaviour
             {
                 return;
             }
+
+            if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
+            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.Current.HasGameEnded()) walkingSound.Stop();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
+
             MyInput();
             
             if (_movingSideway){
                 var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
                 Vector3 desiredPosition = _rb.transform.position;
                 desiredPosition.x = lanePositions[currentLane];
-                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
-                desiredPosition.z += forwardWalkSpeed * estimatedTime;
+                // var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
+                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / sidewayWalkSpeed;
+                desiredPosition.z += forwardWalkSpeed * estimatedTime * Time.fixedDeltaTime;
                 desiredPosition.y += _rb.velocity.y * estimatedTime;
                 _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
 
                 if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
                     var newPos = _rb.transform.position;
                     newPos.x = desiredPosition.x;
-                    newPos.y = newPos.y + _rb.velocity.y * Time.deltaTime;
+                    // newPos.y = newPos.y + _rb.velocity.y * Time.deltaTime;
                     _rb.transform.position = newPos;
                     _movingSideway = false;
                     
@@ -181,14 +192,6 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
 
-            if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.Current.HasGameEnded()) walkingSound.Stop();
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
             MovePlayer();
             //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
             if (_rb.velocity.y < -6f){

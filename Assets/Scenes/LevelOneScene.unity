@@ -44979,7 +44979,6 @@ MonoBehaviour:
   walkingSound: {fileID: 1370060877}
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
-  sideMovementZOffset: 4
   lanePositions: []
   currentLane: 0
   groundDrag: 4
