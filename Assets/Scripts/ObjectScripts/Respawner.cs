@@ -14,7 +14,7 @@ public class Respawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherCollider) 
     {
-        if (otherCollider.gameObject.CompareTag("Player") && !GameManager.current.playerIsDying)
+        if (otherCollider.gameObject.CompareTag("Player") && !GameManager.Current.playerIsDying)
         {
             LifeManager.current.LostLife();
             if (LifeManager.current.playerLives != 0)

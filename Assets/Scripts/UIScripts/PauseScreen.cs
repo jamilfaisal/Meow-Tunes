@@ -17,16 +17,16 @@ public class PauseScreen : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetAxis("Mouse X") != 0 && GameManager.current.IsGamePaused())
+        if (Input.GetAxis("Mouse X") != 0 && GameManager.Current.IsGamePaused())
         {
             Cursor.visible = true;
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.current.HasGameEnded())
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.Current.HasGameEnded())
         {
-            if (GameManager.current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
+            if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
             {
                 Resume();
-            } else if (GameManager.current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+            } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
             {
                 SettingsMenu.current.BackToMainMenuOrPauseScreen();
                 settingsMenuUI.SetActive(false);
@@ -52,21 +52,25 @@ public class PauseScreen : MonoBehaviour
         yield return new WaitForSecondsRealtime(5);
         Time.timeScale = 1f;
         EnableMovement();
-        GameManager.current.ResumeGame();
+        GameManager.Current.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     public void Pause()
     {
+        if (CountdownManager.Current.countingDown)
+        {
+            return;
+        }
         musicPlayer.Pause();
         _playerMovementScript.enabled = false;
-        PlayerMovement.current.walkingSound.Stop();
+        PlayerMovement.Current.walkingSound.Stop();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(pauseScreenFirstButton);
         pauseMenuUI.SetActive(true);
         //MidiManager.current.PausePlayback();
-        GameManager.current.PauseGame();
+        GameManager.Current.PauseGame();
         Time.timeScale = 0f;
         // This is because the camera script locks the cursor,
         // so we need to enable it again to be able to click buttons
@@ -78,17 +82,17 @@ public class PauseScreen : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        GameManager.current.RestartLevel();
+        GameManager.Current.RestartLevel();
     }
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        GameManager.current.BackToMainMenu();
+        GameManager.Current.BackToMainMenu();
     }
     public void PauseOrResumeController()
     {
-        if (GameManager.current.HasGameEnded()) return;
-        if (GameManager.current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+        if (GameManager.Current.HasGameEnded()) return;
+        if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
         {
             Resume();
         }

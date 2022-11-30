@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
     public class CountdownManager: MonoBehaviour
     {
+        public static CountdownManager Current;
+
+        private void Awake()
+        {
+            Current = this;
+        }
+
+        [HideInInspector] public bool countingDown;
         public float countdown;
         public TMP_Text countdownText;
         public GameObject countdownUI;
@@ -12,12 +20,6 @@ using UnityEngine.SceneManagement;
         public bool shouldCountTime;
         private bool _soundPlayed;
         private bool _gameStart;
-        public static CountdownManager current;
-
-        private void Awake()
-        {
-            current = this;
-        }
 
         private void Start()
         {
@@ -32,6 +34,7 @@ using UnityEngine.SceneManagement;
             {
                 if (!_soundPlayed)
                 {
+                    countingDown = true;
                     countdownSound.Play();
                     _soundPlayed = true;
                 }
@@ -47,6 +50,7 @@ using UnityEngine.SceneManagement;
                     countdownUI.SetActive(false);
                     _soundPlayed = false;
                     _gameStart = false;
+                    countingDown = false;
                 }
             }
         }
