@@ -132,9 +132,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
 
-            if (_audioDeltaTimeList.Count < FramesToSmooth){
-                _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-            }
+            // if (_audioDeltaTimeList.Count < FramesToSmooth){
+            //     _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
+            // }
 
             if (GameManager.Current.playerIsDying)
             {
@@ -149,7 +149,8 @@ public class PlayerMovement : MonoBehaviour
 
             //Movement
             if (_movingSideway){
-                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
+                // var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
+                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * Time.fixedDeltaTime;
                 Vector3 desiredPosition = _rb.transform.position;
                 desiredPosition.x = lanePositions[currentLane];
                 var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / sidewayWalkSpeed;
@@ -191,23 +192,23 @@ public class PlayerMovement : MonoBehaviour
                 _rb.velocity = tempVelo;
             }
 
-            // Smooth audioDeltaTime
-            // Add the deltaTime this frame to a list
-            float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-            _audioDeltaTimeList.Add(deltaThisFrame);
-            _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
-            // If the list is too large, remove the oldest value
-            if (_audioDeltaTimeList.Count > FramesToSmooth)
-            {
-                _audioDeltaTimeList.RemoveAt(0);
-            }
-            // Get the average of all values in the list
-            float average = 0;
-            foreach (float delta in _audioDeltaTimeList)
-            {
-                average += delta;
-            }
-            _audioDeltaTime = average / _audioDeltaTimeList.Count;
+            // // Smooth audioDeltaTime
+            // // Add the deltaTime this frame to a list
+            // float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
+            // _audioDeltaTimeList.Add(deltaThisFrame);
+            // _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
+            // // If the list is too large, remove the oldest value
+            // if (_audioDeltaTimeList.Count > FramesToSmooth)
+            // {
+            //     _audioDeltaTimeList.RemoveAt(0);
+            // }
+            // // Get the average of all values in the list
+            // float average = 0;
+            // foreach (float delta in _audioDeltaTimeList)
+            // {
+            //     average += delta;
+            // }
+            // _audioDeltaTime = average / _audioDeltaTimeList.Count;
         }
     }
 
