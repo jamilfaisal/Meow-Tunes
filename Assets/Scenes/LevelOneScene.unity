@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 22304591}
   - component: {fileID: 22304590}
   m_Layer: 0
-  m_Name: Lane4
+  m_Name: Lane5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  laneNumber: 4
+  laneNumber: 5
   spacingSize: 2
 --- !u!4 &22304591
 Transform:
@@ -1467,6 +1467,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8246229353523203766, guid: 06a8f562281374453a95aaa6cd15bb7b, type: 3}
   m_PrefabInstance: {fileID: 41618076}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &52778101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52778103}
+  - component: {fileID: 52778102}
+  m_Layer: 0
+  m_Name: Lane0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &52778102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52778101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformNote: 5
+  fishTreatNote: 5
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platforms: []
+  fishtreats: []
+  laneNumber: 0
+  spacingSize: 2
+--- !u!4 &52778103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52778101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 44.68, y: 25.09, z: -66.805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &56061216
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,7 +4082,7 @@ GameObject:
   - component: {fileID: 160308260}
   - component: {fileID: 160308259}
   m_Layer: 0
-  m_Name: Lane2
+  m_Name: Lane3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4054,7 +4107,7 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  laneNumber: 2
+  laneNumber: 3
   spacingSize: 2
 --- !u!4 &160308260
 Transform:
@@ -30846,6 +30899,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
+--- !u!1 &1273328486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1273328488}
+  - component: {fileID: 1273328487}
+  m_Layer: 0
+  m_Name: Lane6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1273328487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273328486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformNote: 5
+  fishTreatNote: 5
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platforms: []
+  fishtreats: []
+  laneNumber: 6
+  spacingSize: 2
+--- !u!4 &1273328488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273328486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 62.68, y: 25.09, z: -66.805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1279548120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38442,7 +38548,7 @@ GameObject:
   - component: {fileID: 1563533518}
   - component: {fileID: 1563533517}
   m_Layer: 0
-  m_Name: Lane1
+  m_Name: Lane2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38467,7 +38573,7 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  laneNumber: 1
+  laneNumber: 2
   spacingSize: 2
 --- !u!4 &1563533518
 Transform:
@@ -39954,7 +40060,7 @@ GameObject:
   - component: {fileID: 1626550414}
   - component: {fileID: 1626550413}
   m_Layer: 0
-  m_Name: Lane3
+  m_Name: Lane4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39979,7 +40085,7 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  laneNumber: 3
+  laneNumber: 4
   spacingSize: 2
 --- !u!4 &1626550414
 Transform:
@@ -51238,7 +51344,7 @@ GameObject:
   - component: {fileID: 2122082842}
   - component: {fileID: 2122082841}
   m_Layer: 0
-  m_Name: Lane0
+  m_Name: Lane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51263,7 +51369,7 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
   fishtreats: []
-  laneNumber: 0
+  laneNumber: 1
   spacingSize: 2
 --- !u!4 &2122082842
 Transform:
