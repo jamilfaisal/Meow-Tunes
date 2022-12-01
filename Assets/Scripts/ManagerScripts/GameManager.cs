@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public void WonLevel() {
         gameIsEnding = false;
         _playerMovement.enabled = false;
-        UIManager.current.WonLevelUI();
+        UIManager.Current.WonLevelUI();
         StartCoroutine(GameHasEnded());
     }
 
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         MusicPlayer.Current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
-        UIManager.current.LostLevelUI();
+        UIManager.Current.LostLevelUI();
         StartCoroutine(GameHasEnded());
     }
     

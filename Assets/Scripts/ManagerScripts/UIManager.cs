@@ -7,11 +7,12 @@ using UnityEngine.InputSystem.XInput;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager current;
+    public static UIManager Current;
 
     public GameObject winLevelUI;
     public PlayerInput playerInput;
     public GameObject winLevelReplayPS4, winLevelReplayKeyboard, winLevelReplayXbox;
+    public GameObject loseLevelReplayPS4, loseLevelReplayKeyboard, loseLevelReplayXbox;
     public TMP_Text winLevelFishScoreText;
     public TMP_Text winLevelAccuracyScoreText;
     public TMP_Text winLevelFinalScoreText;
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        current = this;
+        Current = this;
         CheckIfPlayerUsingControllerOrKeyboard();
     }
 
@@ -57,12 +58,18 @@ public class UIManager : MonoBehaviour
                 winLevelReplayKeyboard.SetActive(false);
                 winLevelReplayPS4.SetActive(false);
                 winLevelReplayXbox.SetActive(true);
+                loseLevelReplayKeyboard.SetActive(false);
+                loseLevelReplayPS4.SetActive(false);
+                loseLevelReplayXbox.SetActive(true);
             }
             else
             {
                 winLevelReplayKeyboard.SetActive(false);
                 winLevelReplayXbox.SetActive(false);
                 winLevelReplayPS4.SetActive(true);
+                loseLevelReplayKeyboard.SetActive(false);
+                loseLevelReplayXbox.SetActive(false);
+                loseLevelReplayPS4.SetActive(true);
             }
         }
         else
@@ -70,6 +77,9 @@ public class UIManager : MonoBehaviour
             winLevelReplayXbox.SetActive(false);
             winLevelReplayPS4.SetActive(false);
             winLevelReplayKeyboard.SetActive(true);
+            loseLevelReplayXbox.SetActive(false);
+            loseLevelReplayPS4.SetActive(false);
+            loseLevelReplayKeyboard.SetActive(true);
         }
     }
 
