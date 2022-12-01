@@ -3459,6 +3459,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winLevelUI: {fileID: 112632965}
+  playerInput: {fileID: 1828724623}
+  winLevelReplayPS4: {fileID: 220223513}
+  winLevelReplayKeyboard: {fileID: 1015542484}
+  winLevelReplayXbox: {fileID: 1206503209}
   winLevelFishScoreText: {fileID: 2009538911}
   winLevelAccuracyScoreText: {fileID: 185380587}
   winLevelFinalScoreText: {fileID: 1087536115}
@@ -45281,6 +45285,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportSound: {fileID: 502785736}
+--- !u!114 &1828724623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
+  m_PrefabInstance: {fileID: 927319370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828724611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1834877311
 PrefabInstance:
   m_ObjectHideFlags: 0
