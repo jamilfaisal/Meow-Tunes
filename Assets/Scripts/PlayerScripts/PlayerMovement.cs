@@ -9,10 +9,6 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField]
     private InputActionReference movement;
-    private float _audioDeltaTime;
-    private readonly List<float> _audioDeltaTimeList = new List<float>();
-    private float _audioTimeLastFrame;
-    private const int FramesToSmooth = 8;
 
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
@@ -102,8 +98,6 @@ public class PlayerMovement : MonoBehaviour
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
         _rb.drag = groundDrag;
-
-        _audioTimeLastFrame = 0f;
     }
 
 
@@ -132,10 +126,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
 
-            // if (_audioDeltaTimeList.Count < FramesToSmooth){
-            //     _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-            // }
-
             if (GameManager.Current.playerIsDying)
             {
                 //Add some additional gravity to not make the control floaty
@@ -149,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
 
             //Movement
             if (_movingSideway){
-                // var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
                 var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * Time.fixedDeltaTime;
                 Vector3 desiredPosition = _rb.transform.position;
                 desiredPosition.x = lanePositions[currentLane];
@@ -191,24 +180,6 @@ public class PlayerMovement : MonoBehaviour
                 tempVelo.y = -6f;
                 _rb.velocity = tempVelo;
             }
-
-            // // Smooth audioDeltaTime
-            // // Add the deltaTime this frame to a list
-            // float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-            // _audioDeltaTimeList.Add(deltaThisFrame);
-            // _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
-            // // If the list is too large, remove the oldest value
-            // if (_audioDeltaTimeList.Count > FramesToSmooth)
-            // {
-            //     _audioDeltaTimeList.RemoveAt(0);
-            // }
-            // // Get the average of all values in the list
-            // float average = 0;
-            // foreach (float delta in _audioDeltaTimeList)
-            // {
-            //     average += delta;
-            // }
-            // _audioDeltaTime = average / _audioDeltaTimeList.Count;
         }
     }
 
@@ -263,10 +234,12 @@ public class PlayerMovement : MonoBehaviour
     public void triggerMove(InputAction.CallbackContext context){
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
+                // animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane -= 1;
             }
             else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<4){
+                // animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
             }
