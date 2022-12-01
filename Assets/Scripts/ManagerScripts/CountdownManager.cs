@@ -50,7 +50,7 @@ using UnityEngine.SceneManagement;
 
                 if (countingDown)
                 {
-                    _playerMovement.SetPlayerInputEnabledTrue();
+                    _playerMovement.SetPlayerInputEnabled(true);
                 }
                 countingDown = false;
             }

@@ -406,24 +406,14 @@ public class PlayerMovement : MonoBehaviour
         _canSaveJump = false;
     }
 
-    public void SetMovePlayerEnabledTrue()
+    public void SetMovePlayerEnabled(bool enabled)
     {
-        _movePlayerEnabled = true;
+        _movePlayerEnabled = enabled;
     }
 
-    public void SetMovePlayerEnabledFalse()
+    public void SetPlayerInputEnabled(bool enabled)
     {
-        _movePlayerEnabled = false;
-    }
-
-    public void SetPlayerInputEnabledTrue()
-    {
-        _playerInputEnabled = true;
-    }
-
-    public void SetPlayerInputEnabledFalse()
-    {
-        _playerInputEnabled = false;
+        _playerInputEnabled = enabled;
     }
 
     // private bool OnSlope()

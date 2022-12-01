@@ -28,7 +28,7 @@ public class LifeManager : MonoBehaviour
 
     public void LostLife()
     {
-        playerMovement.SetPlayerInputEnabledFalse();
+        playerMovement.SetPlayerInputEnabled(false);
         animator.Play("CatFalling", 0, 0f);
         StartCoroutine(WaitThenEnablePlayerInput());
         playerLives -= 1;
@@ -49,6 +49,6 @@ public class LifeManager : MonoBehaviour
     private IEnumerator WaitThenEnablePlayerInput()
     {
         yield return new WaitForSeconds(1.5f);
-        playerMovement.SetPlayerInputEnabledTrue();
+        playerMovement.SetPlayerInputEnabled(true);
     }
 }

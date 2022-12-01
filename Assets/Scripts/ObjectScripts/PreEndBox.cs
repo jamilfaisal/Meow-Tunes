@@ -28,8 +28,8 @@ public class PreEndBox : MonoBehaviour
             _playerMovement.centerPlayer();
 
             // Stop Player Forward Movement and Input Checking
-            _playerMovement.SetMovePlayerEnabledFalse();
-            _playerMovement.SetPlayerInputEnabledFalse();
+            _playerMovement.SetMovePlayerEnabled(false);
+            _playerMovement.SetPlayerInputEnabled(false);
 
             // Play animation and trigger camera change
             _cameraMovement.SetPlayCameraRotateAnimationTrue();
@@ -45,13 +45,13 @@ public class PreEndBox : MonoBehaviour
     IEnumerator WaitThenEnableMovePlayer()
     {
         yield return new WaitForSeconds(1);
-        _playerMovement.SetMovePlayerEnabledTrue();
+        _playerMovement.SetMovePlayerEnabled(true);
     }
 
     IEnumerator WaitThenEnablePlayerInput()
     {
         yield return new WaitForSeconds(4);
-        _playerMovement.SetPlayerInputEnabledTrue();
+        _playerMovement.SetPlayerInputEnabled(true);
     }
 
     IEnumerator WaitThenDisablePlayCameraRotate()
