@@ -56,7 +56,7 @@ public class PauseScreen : MonoBehaviour
 
     public void Pause()
     {
-        if (CountdownManager.Current.countingDown)
+        if (CountdownManager.Current.countingDown || GameManager.Current.HasGameEnded() || GameManager.Current.gameIsEnding)
         {
             return;
         }

@@ -23,6 +23,7 @@ public class PreEndBox : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
+            gameManager.gameIsEnding = true;
             // Move player to center lane
             _playerMovement.centerPlayer();
 
