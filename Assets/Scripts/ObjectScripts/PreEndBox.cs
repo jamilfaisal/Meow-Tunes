@@ -23,6 +23,9 @@ public class PreEndBox : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
+            // Move player to center lane
+            _playerMovement.centerPlayer();
+
             // Stop Player Forward Movement and Input Checking
             _playerMovement.SetMovePlayerEnabledFalse();
             _playerMovement.SetPlayerInputEnabledFalse();

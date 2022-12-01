@@ -257,6 +257,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void centerPlayer()
+    {
+        var newPos = _rb.transform.position;
+        if (currentLane != 2)
+        {
+            newPos.x = lanePositions[2];
+        }
+        if (!_grounded)
+        {
+            newPos.y = 27.9f;
+        }
+        _rb.transform.position = newPos;
+    }
+
     public void triggerMove(InputAction.CallbackContext context){
         // don't detect input if this is disabled
         if (!_playerInputEnabled) return;
