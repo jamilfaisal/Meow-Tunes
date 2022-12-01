@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
-    // public float sideMovementZOffset;
     public float[] lanePositions;
     public int currentLane;
     private bool _movingSideway;
@@ -110,13 +109,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Current.playerIsDying)
-        {
-            var velocity = _rb.velocity;
-            _rb.velocity = new Vector3(0f, velocity.y, 0f);
-            return;
-        }
-
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -126,19 +118,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.timeSinceLevelLoad > 5)
         {
-            if (_audioDeltaTimeList.Count < FramesToSmooth){
-                _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-            }
-
-            if (GameManager.Current.playerIsDying)
-            {
-                //Add some additional gravity to not make the control floaty
-                var velocity = _rb.velocity;
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 2f);
-                _rb.AddForce(Vector3.down * (20 * _rb.mass));
-                return;
-            }
-
             if (GameManager.Current.gameIsEnding)
             {
                 return;
@@ -153,13 +132,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
 
+            if (_audioDeltaTimeList.Count < FramesToSmooth){
+                _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
+            }
+
+            if (GameManager.Current.playerIsDying)
+            {
+                //Add some additional gravity to not make the control floaty
+                var velocity = _rb.velocity;
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 2f);
+                _rb.AddForce(Vector3.down * (20 * _rb.mass));
+                return;
+            }
+
             MyInput();
-            
+
+            //Movement
             if (_movingSideway){
                 var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
                 Vector3 desiredPosition = _rb.transform.position;
                 desiredPosition.x = lanePositions[currentLane];
-                // var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
                 var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / sidewayWalkSpeed;
                 desiredPosition.z += forwardWalkSpeed * estimatedTime * Time.fixedDeltaTime;
                 desiredPosition.y += _rb.velocity.y * estimatedTime;
@@ -168,7 +160,6 @@ public class PlayerMovement : MonoBehaviour
                 if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
                     var newPos = _rb.transform.position;
                     newPos.x = desiredPosition.x;
-                    // newPos.y = newPos.y + _rb.velocity.y * Time.deltaTime;
                     _rb.transform.position = newPos;
                     _movingSideway = false;
                     
@@ -199,27 +190,25 @@ public class PlayerMovement : MonoBehaviour
                 tempVelo.y = -6f;
                 _rb.velocity = tempVelo;
             }
-        }
-    }
 
-    void LateUpdate()
-    {
-        // Add the deltaTime this frame to a list
-        float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-        _audioDeltaTimeList.Add(deltaThisFrame);
-        _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
-        // If the list is too large, remove the oldest value
-        if (_audioDeltaTimeList.Count > FramesToSmooth)
-        {
-            _audioDeltaTimeList.RemoveAt(0);
+            // Smooth audioDeltaTime
+            // Add the deltaTime this frame to a list
+            float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
+            _audioDeltaTimeList.Add(deltaThisFrame);
+            _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
+            // If the list is too large, remove the oldest value
+            if (_audioDeltaTimeList.Count > FramesToSmooth)
+            {
+                _audioDeltaTimeList.RemoveAt(0);
+            }
+            // Get the average of all values in the list
+            float average = 0;
+            foreach (float delta in _audioDeltaTimeList)
+            {
+                average += delta;
+            }
+            _audioDeltaTime = average / _audioDeltaTimeList.Count;
         }
-        // Get the average of all values in the list
-        float average = 0;
-        foreach (float delta in _audioDeltaTimeList)
-        {
-            average += delta;
-        }
-        _audioDeltaTime = average / _audioDeltaTimeList.Count;
     }
 
     private void MyInput()
