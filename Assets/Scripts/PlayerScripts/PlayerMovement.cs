@@ -264,10 +264,6 @@ public class PlayerMovement : MonoBehaviour
         {
             newPos.x = lanePositions[2];
         }
-        if (!_grounded)
-        {
-            newPos.y = 27.9f;
-        }
         _rb.transform.position = newPos;
     }
 
