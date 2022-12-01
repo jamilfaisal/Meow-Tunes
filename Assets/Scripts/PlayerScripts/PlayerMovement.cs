@@ -262,12 +262,10 @@ public class PlayerMovement : MonoBehaviour
     public void triggerMove(InputAction.CallbackContext context){
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
-                animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane -= 1;
             }
             else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<4){
-                animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
             }
