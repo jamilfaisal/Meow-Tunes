@@ -9,10 +9,6 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField]
     private InputActionReference movement;
-    private float _audioDeltaTime;
-    private readonly List<float> _audioDeltaTimeList = new List<float>();
-    private float _audioTimeLastFrame;
-    private const int FramesToSmooth = 8;
 
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
@@ -30,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
-    public float sideMovementZOffset;
     public float[] lanePositions;
     public int currentLane;
     private bool _movingSideway;
@@ -105,20 +100,11 @@ public class PlayerMovement : MonoBehaviour
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
         _rb.drag = groundDrag;
-
-        _audioTimeLastFrame = 0f;
     }
 
 
     private void Update()
     {
-        if (GameManager.Current.playerIsDying)
-        {
-            var velocity = _rb.velocity;
-            _rb.velocity = new Vector3(0f, velocity.y, 0f);
-            return;
-        }
-
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -128,9 +114,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.timeSinceLevelLoad > 5)
         {
-            if (_audioDeltaTimeList.Count < FramesToSmooth){
-                _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
+            if (GameManager.Current.gameIsEnding)
+            {
+                return;
             }
+
+            if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
+            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.Current.HasGameEnded()) walkingSound.Stop();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
 
             if (GameManager.Current.playerIsDying)
             {
@@ -141,25 +137,21 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
-            if (GameManager.Current.gameIsEnding)
-            {
-                return;
-            }
             MyInput();
-            
+
+            //Movement
             if (_movingSideway){
-                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
+                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * Time.fixedDeltaTime;
                 Vector3 desiredPosition = _rb.transform.position;
                 desiredPosition.x = lanePositions[currentLane];
-                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
-                desiredPosition.z += forwardWalkSpeed * estimatedTime;
+                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / sidewayWalkSpeed;
+                desiredPosition.z += forwardWalkSpeed * estimatedTime * Time.fixedDeltaTime;
                 desiredPosition.y += _rb.velocity.y * estimatedTime;
                 _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
 
                 if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
                     var newPos = _rb.transform.position;
                     newPos.x = desiredPosition.x;
-                    newPos.y = newPos.y + _rb.velocity.y * Time.deltaTime;
                     _rb.transform.position = newPos;
                     _movingSideway = false;
                     
@@ -183,14 +175,6 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
 
-            if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
-            if (_rb.velocity.magnitude <= 0 || !_grounded || GameManager.Current.HasGameEnded()) walkingSound.Stop();
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
             MovePlayer();
             //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
             if (_rb.velocity.y < -6f){
@@ -199,26 +183,6 @@ public class PlayerMovement : MonoBehaviour
                 _rb.velocity = tempVelo;
             }
         }
-    }
-
-    void LateUpdate()
-    {
-        // Add the deltaTime this frame to a list
-        float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-        _audioDeltaTimeList.Add(deltaThisFrame);
-        _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
-        // If the list is too large, remove the oldest value
-        if (_audioDeltaTimeList.Count > FramesToSmooth)
-        {
-            _audioDeltaTimeList.RemoveAt(0);
-        }
-        // Get the average of all values in the list
-        float average = 0;
-        foreach (float delta in _audioDeltaTimeList)
-        {
-            average += delta;
-        }
-        _audioDeltaTime = average / _audioDeltaTimeList.Count;
     }
 
     private void MyInput()
@@ -272,12 +236,12 @@ public class PlayerMovement : MonoBehaviour
     public void triggerMove(InputAction.CallbackContext context){
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
-                animator.Play("CatSideJump", 0, 0f);
+                // animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane -= 1;
             }
-            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<lanePositions.Length-1){
-                animator.Play("CatSideJump", 0, 0f);
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<4){
+                // animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
             }
