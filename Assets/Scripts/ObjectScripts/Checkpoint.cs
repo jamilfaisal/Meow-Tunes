@@ -32,7 +32,7 @@ public class Checkpoint : MonoBehaviour
         inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
-        hopIndex = PlayerHop.Current.GetHopIndex();
+        hopIndex = PlayerHopManager.Current.GetHopIndex();
         _catRspawnOffsetY = 3f;
         
         if (checkpointSoundGameObject != null)
@@ -66,7 +66,7 @@ public class Checkpoint : MonoBehaviour
         inputIndexRightPSA = SingleButtonAction.Current.GetInputIndex();
         RespawnManager.Current.SetInputIndexRightPSA(inputIndexRightPSA);
 
-        hopIndex = PlayerHop.Current.GetHopIndex();
+        hopIndex = PlayerHopManager.Current.GetHopIndex();
         RespawnManager.Current.SetHopIndex(hopIndex);
 
         RespawnManager.Current.SetRespawnPoint(
