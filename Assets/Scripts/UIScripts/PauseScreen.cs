@@ -93,9 +93,14 @@ public class PauseScreen : MonoBehaviour
     public void PauseOrResumeController()
     {
         if (GameManager.Current.HasGameEnded()) return;
-        if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+        if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
         {
             Resume();
+        } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+        {
+            SettingsMenu.current.BackToMainMenuOrPauseScreen();
+            settingsMenuUI.SetActive(false);
+            pauseMenuUI.SetActive(true);
         }
         else
         {
