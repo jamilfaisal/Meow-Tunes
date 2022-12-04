@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -78,10 +79,13 @@ public class PauseScreen : MonoBehaviour
         Time.timeScale = 1f;
         GameManager.Current.BackToMainMenu();
     }
-    public void PauseOrResumeController()
+    public void PauseOrResumeController(InputAction.CallbackContext context)
     {
-        if (GameManager.Current.HasGameEnded()) return;
-        PauseOrResume();
+        if (context.performed)
+        {
+            if (GameManager.Current.HasGameEnded()) return;
+            PauseOrResume();
+        }
     }
 
     public void OpenSettingsMenu()

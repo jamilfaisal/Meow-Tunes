@@ -5812,6 +5812,7 @@ MonoBehaviour:
   countdownText: {fileID: 1533188171}
   countdownUI: {fileID: 363486406}
   countdownSound: {fileID: 573348226}
+  shouldCountTime: 0
 --- !u!1 &218272260
 GameObject:
   m_ObjectHideFlags: 0
@@ -16150,7 +16151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnLane: 0
   playerCharacter: {fileID: 1828724611}
-  scoreManager: {fileID: 19080280}
 --- !u!4 &650949133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
