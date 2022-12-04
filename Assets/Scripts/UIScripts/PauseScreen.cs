@@ -23,19 +23,7 @@ public class PauseScreen : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.Current.HasGameEnded())
         {
-            if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
-            {
-                Resume();
-            } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
-            {
-                SettingsMenu.current.BackToMainMenuOrPauseScreen();
-                settingsMenuUI.SetActive(false);
-                pauseMenuUI.SetActive(true);
-            }
-            else
-            {
-                Pause();
-            }
+            PauseOrResume();
         } 
     }
 
@@ -93,19 +81,7 @@ public class PauseScreen : MonoBehaviour
     public void PauseOrResumeController()
     {
         if (GameManager.Current.HasGameEnded()) return;
-        if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
-        {
-            Resume();
-        } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
-        {
-            SettingsMenu.current.BackToMainMenuOrPauseScreen();
-            settingsMenuUI.SetActive(false);
-            pauseMenuUI.SetActive(true);
-        }
-        else
-        {
-            Pause();
-        }
+        PauseOrResume();
     }
 
     public void OpenSettingsMenu()
@@ -123,6 +99,23 @@ public class PauseScreen : MonoBehaviour
     public void EnableMovement()
     {
         _playerMovementScript.enabled = true;
+    }
+
+    private void PauseOrResume()
+    {
+        if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
+        {
+            Resume();
+        } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+        {
+            SettingsMenu.current.BackToMainMenuOrPauseScreen();
+            settingsMenuUI.SetActive(false);
+            pauseMenuUI.SetActive(true);
+        }
+        else
+        {
+            Pause();
+        }
     }
 
 }
