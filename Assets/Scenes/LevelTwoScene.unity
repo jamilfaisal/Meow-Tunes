@@ -573,7 +573,6 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  fishtreats: []
   laneNumber: 4
   spacingSize: 2
 --- !u!4 &22304591
@@ -1531,7 +1530,6 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  fishtreats: []
   laneNumber: 2
   spacingSize: 2
 --- !u!4 &160308260
@@ -12302,7 +12300,6 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  fishtreats: []
   laneNumber: 1
   spacingSize: 2
 --- !u!4 &1563533518
@@ -12640,7 +12637,6 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  fishtreats: []
   laneNumber: 3
   spacingSize: 2
 --- !u!4 &1626550414
@@ -15405,7 +15401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10.12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15417,7 +15413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8773804
+      value: -6.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15445,6 +15441,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -965065640280900218, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
@@ -15960,7 +15960,6 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  fishtreats: []
   laneNumber: 0
   spacingSize: 2
 --- !u!4 &2122082842
