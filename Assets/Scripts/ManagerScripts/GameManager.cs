@@ -28,14 +28,14 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         if (Input.GetButton("Submit") && _gameHasEnded) {
-            RestartLevel();
+            StartCoroutine(WaitThenRestartLevel());
         }
     }
     public void WonLevel() {
         gameIsEnding = false;
         _playerMovement.enabled = false;
-        UIManager.current.WonLevelUI();
-        StartCoroutine(GameHasEnded());
+        UIManager.Current.WonLevelUI();
+        GameHasEnded();
     }
 
     public void LostLevel() {
@@ -44,14 +44,13 @@ public class GameManager : MonoBehaviour
         MusicPlayer.Current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
-        UIManager.current.LostLevelUI();
-        StartCoroutine(GameHasEnded());
+        UIManager.Current.LostLevelUI();
+        GameHasEnded();
     }
     
 
-    private IEnumerator GameHasEnded()
+    private void GameHasEnded()
     {
-        yield return new WaitForSeconds(3f);
         _gameHasEnded = true;
     }
 
@@ -60,7 +59,12 @@ public class GameManager : MonoBehaviour
         _gameIsRestarting = true;
         //MidiManager.current.RestartLevel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+    }
+
+    private IEnumerator WaitThenRestartLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        RestartLevel();
     }
 
     public void BackToMainMenu()

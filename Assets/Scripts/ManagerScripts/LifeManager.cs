@@ -16,17 +16,21 @@ public class LifeManager : MonoBehaviour
     public GameManager gameManager;
     public AudioSource respawnSound;
     public GameObject Player;
+    private PlayerMovement playerMovement;
     public Animator animator;
 
     private void Start()
     {
         playerLivesText.text = "x " + playerLives;
+        playerMovement = Player.GetComponent<PlayerMovement>();
         animator = Player.GetComponent<Animator>();
     }
 
     public void LostLife()
     {
+        playerMovement.SetPlayerInputEnabled(false);
         animator.Play("CatFalling", 0, 0f);
+        StartCoroutine(WaitThenEnablePlayerInput());
         playerLives -= 1;
         playerLivesText.text = "x " + playerLives;
         respawnSound.Play();
@@ -41,4 +45,10 @@ public class LifeManager : MonoBehaviour
         yield return new WaitForSeconds(respawnSound.clip.length - 5f);
         gameManager.LostLevel();
     } 
+
+    private IEnumerator WaitThenEnablePlayerInput()
+    {
+        yield return new WaitForSeconds(1.5f);
+        playerMovement.SetPlayerInputEnabled(true);
+    }
 }
