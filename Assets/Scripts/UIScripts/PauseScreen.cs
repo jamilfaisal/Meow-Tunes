@@ -22,7 +22,7 @@ public class PauseScreen : MonoBehaviour
         {
             Cursor.visible = true;
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.Current.HasGameEnded())
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.Current.HasGameEnded() && !CountdownManager.Current.countingDown)
         {
             PauseOrResume();
         } 
