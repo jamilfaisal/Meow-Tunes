@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -29,15 +30,7 @@ public class GameManager : MonoBehaviour
     private void Update() {
         if (Input.GetButton("Submit") && _gameHasEnded)
         {
-            var sceneIndex = SceneManager.GetActiveScene().buildIndex;
-            if (sceneIndex == 1)
-            {
-                StartCoroutine(WaitThenNextLevel());
-            }
-            else if (sceneIndex  == 2)
-            {
-                StartCoroutine(WaitThenBackToMainMenu());
-            }
+            NextLevelOrMainMenu();
         }
     }
 
@@ -105,11 +98,24 @@ public class GameManager : MonoBehaviour
         _gameHasEnded = false;
     }
 
-    public void StartLevel()
+    public void StartLevel(InputAction.CallbackContext context)
     {
-        if (_gameHasEnded)
+        if (context.performed && _gameHasEnded)
         {
-            RestartLevel();
+            NextLevelOrMainMenu();
+        }
+    }
+
+    private void NextLevelOrMainMenu()
+    {
+        var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (sceneIndex == 1)
+        {
+            StartCoroutine(WaitThenNextLevel());
+        }
+        else if (sceneIndex  == 2)
+        {
+            StartCoroutine(WaitThenBackToMainMenu());
         }
     }
 
