@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     {
         _gameIsRestarting = true;
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }
