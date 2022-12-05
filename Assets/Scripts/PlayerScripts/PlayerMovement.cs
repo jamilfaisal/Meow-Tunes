@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public int currentLane;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
+    private bool _playerInputEnabled;
 
     public float groundDrag;
 
@@ -89,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         lanePositions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
         _movingSideway = false;
         _movePlayerEnabled = true;
+        _playerInputEnabled = false;
 
         _readyToJump = true;
         //_canDoubleJump = false;
@@ -185,6 +187,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
+        // don't detect input if this is disabled
+        if (!_playerInputEnabled) return;
+
         // when to jump
         if(Input.GetButtonDown("Jump")){
             if(_readyToJump && _grounded){
@@ -216,22 +221,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetCanSaveJumpFalse()
+    public void centerPlayer()
     {
-        _canSaveJump = false;
-    }
-
-    public void SetMovePlayerEnabledFalse()
-    {
-        _movePlayerEnabled = false;
-    }
-
-    public void SetMovePlayerEnabledTrue()
-    {
-        _movePlayerEnabled = true;
+        var newPos = _rb.transform.position;
+        if (currentLane != 2)
+        {
+            newPos.x = lanePositions[2];
+        }
+        _rb.transform.position = newPos;
     }
 
     public void triggerMove(InputAction.CallbackContext context){
+        // don't detect input if this is disabled
+        if (!_playerInputEnabled) return;
+
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
                 // animator.Play("CatSideJump", 0, 0f);
@@ -247,6 +250,9 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TriggerJump(InputAction.CallbackContext context)
     {
+        // don't detect input if this is disabled
+        if (!_playerInputEnabled) return;
+
         if (!context.started && enabled)
         {
             if(_readyToJump && _grounded){
@@ -273,7 +279,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-
     private AudioSource PickJumpSound() {
         int jumpSoundIndex;
         if (_lastJumpSound == -1) {
@@ -358,6 +363,21 @@ public class PlayerMovement : MonoBehaviour
         // _exitingSlope = false;
         _justLanded = true;
         _canSaveJump = true;
+    }
+
+    public void SetCanSaveJumpFalse()
+    {
+        _canSaveJump = false;
+    }
+
+    public void SetMovePlayerEnabled(bool enabled)
+    {
+        _movePlayerEnabled = enabled;
+    }
+
+    public void SetPlayerInputEnabled(bool enabled)
+    {
+        _playerInputEnabled = enabled;
     }
 
     // private bool OnSlope()

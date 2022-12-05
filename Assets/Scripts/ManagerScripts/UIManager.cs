@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
         if (lastUpdatedInputMethod == "gamepad")
         {
             var gamepad = Gamepad.current;
-            if (gamepad is XInputController or SwitchProControllerHID)
+            if (gamepad is XInputController || gamepad is SwitchProControllerHID)
             {
                 winLevelReplayKeyboard.SetActive(false);
                 winLevelReplayPS4.SetActive(false);

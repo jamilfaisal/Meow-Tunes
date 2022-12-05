@@ -32,18 +32,17 @@ public class GameManager : MonoBehaviour
             var sceneIndex = SceneManager.GetActiveScene().buildIndex;
             if (sceneIndex == 1)
             {
-                NextLevel();
+                StartCoroutine(WaitThenNextLevel());
             }
             else if (sceneIndex  == 2)
             {
-                BackToMainMenu();
+                StartCoroutine(WaitThenBackToMainMenu());
             }
         }
     }
 
     private void NextLevel()
     {
-        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -51,7 +50,7 @@ public class GameManager : MonoBehaviour
         gameIsEnding = false;
         _playerMovement.enabled = false;
         UIManager.Current.WonLevelUI();
-        StartCoroutine(GameHasEnded());
+        GameHasEnded();
     }
 
     public void LostLevel() {
@@ -61,13 +60,12 @@ public class GameManager : MonoBehaviour
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.Current.LostLevelUI();
-        StartCoroutine(GameHasEnded());
+        GameHasEnded();
     }
     
 
-    private IEnumerator GameHasEnded()
+    private void GameHasEnded()
     {
-        yield return new WaitForSeconds(3f);
         _gameHasEnded = true;
     }
 
@@ -77,7 +75,18 @@ public class GameManager : MonoBehaviour
         //MidiManager.current.RestartLevel();
         UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+    }
+
+    private IEnumerator WaitThenNextLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        NextLevel();
+    }
+    
+    private IEnumerator WaitThenBackToMainMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        BackToMainMenu();
     }
 
     public void BackToMainMenu()

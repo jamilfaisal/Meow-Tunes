@@ -40,7 +40,7 @@ public class RespawnManager : MonoBehaviour
         _inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         _inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         _inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
-        _hopIndex = PlayerHop.Current.GetHopIndex();
+        _hopIndex = PlayerHopManager.Current.GetHopIndex();
     }
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
@@ -54,6 +54,7 @@ public class RespawnManager : MonoBehaviour
         // StartCoroutine(RespawnPlayerAfterCountdown());
         AdjustPlayerPosition();
         _playerCharacterMovement.enabled = false;
+        //PlayerMovement.Current.SetPlayerInputEnabled(false);
         PlayerMovement.Current.walkingSound.Stop();
         // Reset Fish Treats on the lanes
         MusicPlayer.Current.ResetAllFishTreats();
@@ -62,7 +63,7 @@ public class RespawnManager : MonoBehaviour
         SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
         PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
         PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
-        PlayerHop.Current.SetHopIndex(_hopIndex);
+        PlayerHopManager.Current.SetHopIndex(_hopIndex);
 
         CountdownManager.Current.SetCountdown(3f);
         yield return new WaitForSeconds(3f);

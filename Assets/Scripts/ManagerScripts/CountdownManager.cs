@@ -19,10 +19,13 @@ using UnityEngine.SceneManagement;
         public AudioSource countdownSound;
         public bool shouldCountTime;
         private bool _soundPlayed;
+        public GameObject playerGameObject;
+        private PlayerMovement _playerMovement;
         private bool _gameStart;
 
         private void Start()
         {
+            _playerMovement = playerGameObject.GetComponent<PlayerMovement>();
             shouldCountTime = true;
             countdown = 5f;
             _gameStart = true;
@@ -52,6 +55,7 @@ using UnityEngine.SceneManagement;
                     _gameStart = false;
                     countingDown = false;
                     shouldCountTime = false;
+                    _playerMovement.SetPlayerInputEnabled(true);
                 }
             }
         }
