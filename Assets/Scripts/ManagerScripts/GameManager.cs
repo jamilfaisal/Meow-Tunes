@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         gameOverSound.Play();
         _playerMovement.enabled = false;
         UIManager.current.LostLevelUI();
-       GameHasEnded();
+        GameHasEnded();
     }
     
 
