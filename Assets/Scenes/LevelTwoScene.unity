@@ -2163,6 +2163,7 @@ MonoBehaviour:
   countdownUI: {fileID: 146552034}
   countdownSound: {fileID: 573348226}
   shouldCountTime: 0
+  playerGameObject: {fileID: 1828724611}
 --- !u!1 &218272260
 GameObject:
   m_ObjectHideFlags: 0
