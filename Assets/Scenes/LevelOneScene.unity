@@ -30546,7 +30546,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Oops!
+  m_text: 'Oops!
+
+    -200'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 823fa2d9497d949e2931c5949719fc9e, type: 2}
   m_sharedMaterial: {fileID: 1477683747446890794, guid: 823fa2d9497d949e2931c5949719fc9e, type: 2}
@@ -32604,7 +32606,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Nice!
 
-'
+    +50'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 823fa2d9497d949e2931c5949719fc9e, type: 2}
   m_sharedMaterial: {fileID: 1477683747446890794, guid: 823fa2d9497d949e2931c5949719fc9e, type: 2}
@@ -50582,7 +50584,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Purr-fect!
 
-'
+    +100'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 823fa2d9497d949e2931c5949719fc9e, type: 2}
   m_sharedMaterial: {fileID: 1477683747446890794, guid: 823fa2d9497d949e2931c5949719fc9e, type: 2}
@@ -50616,7 +50618,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

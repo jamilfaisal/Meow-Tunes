@@ -23,6 +23,8 @@ public class ScoreManager : MonoBehaviour
     public AudioSource oopsSound;
     public GameObject cinemachineVirtualCam;
     private CameraShake cameraShake;
+    public AudioSource respawnSound;
+    public GameManager gameManager;
 
     private void Start()
     {
@@ -81,6 +83,17 @@ public class ScoreManager : MonoBehaviour
         niceText.SetActive(false);
         oopsText.SetActive(true);
         StartCoroutine(DelayOops());
+        if (playerAccuracyScore <= -1000)
+        {
+            respawnSound.Play();
+            gameManager.LostLevel();
+        }
+    }
+
+    private IEnumerator LoseLevel()
+    {
+        yield return new WaitForSeconds(respawnSound.clip.length - 5f);
+        gameManager.LostLevel();
     }
 
     public void Inaccurate()
