@@ -1382,6 +1382,11 @@ Transform:
   m_Father: {fileID: 1535193715}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &146552034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7712564533115823942, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+  m_PrefabInstance: {fileID: 210006395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &147287933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1951,6 +1956,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7712564531744390315, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_text
+      value: Back to Main Menu <voffset=0.4em><sprite="button_xbox_digital_a_1" index=0></voffset>
+      objectReference: {fileID: 0}
     - target: {fileID: 7712564531989505936, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -2047,13 +2056,20 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1828724611}
+    - target: {fileID: 7712564532694518102, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_text
+      value: Back to Main Menu   <voffset=0.4em><size=51><sprite="enter_button" index=0></size></voffset>
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564532798414597, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564532973872027, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_text
+      value: Back to Main Menu <voffset=0.4em><sprite="Button - PS Cross 1" index=0></voffset>
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
---- !u!1 &210006396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7712564532072014793, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
-  m_PrefabInstance: {fileID: 210006395}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &210006397 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712564532045739255, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
@@ -2086,6 +2102,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7712564531715344471, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
   m_PrefabInstance: {fileID: 210006395}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &210006402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7712564532072014795, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+  m_PrefabInstance: {fileID: 210006395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &216811448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,8 +2159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countingDown: 0
   countdown: 5
-  countdownText: {fileID: 0}
-  countdownUI: {fileID: 210006396}
+  countdownText: {fileID: 210006402}
+  countdownUI: {fileID: 146552034}
   countdownSound: {fileID: 573348226}
   shouldCountTime: 0
 --- !u!1 &218272260
