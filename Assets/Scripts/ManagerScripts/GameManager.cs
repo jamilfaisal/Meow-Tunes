@@ -27,10 +27,26 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetButton("Submit") && _gameHasEnded) {
-            RestartLevel();
+        if (Input.GetButton("Submit") && _gameHasEnded)
+        {
+            var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            if (sceneIndex == 1)
+            {
+                NextLevel();
+            }
+            else if (sceneIndex  == 2)
+            {
+                BackToMainMenu();
+            }
         }
     }
+
+    private void NextLevel()
+    {
+        UIManager.Current.DisplayLoadingScreen();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void WonLevel() {
         gameIsEnding = false;
         _playerMovement.enabled = false;
@@ -66,6 +82,7 @@ public class GameManager : MonoBehaviour
     public void BackToMainMenu()
     {
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene("MainMenuScene");
     }
 

@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text winLevelFinalScoreText;
     public GameObject lostLevelUI;
     public GameObject gameUI;
+    public GameObject loadingScreen;
 
     private void Awake()
     {
@@ -104,5 +105,10 @@ public class UIManager : MonoBehaviour
         gameUI.SetActive(false);
         lostLevelUI.SetActive(true);
 
+    }
+
+    public void DisplayLoadingScreen()
+    {
+        loadingScreen.SetActive(true);
     }
 }
