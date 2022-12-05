@@ -20,7 +20,6 @@ public class RespawnManager : MonoBehaviour
     private Rigidbody _playerCharacterRb;
     private PlayerMovement _playerCharacterMovement;
 
-    public ScoreManager scoreManager;
     private int _playerFishScore;
     private int _playerAccuracyScore;
 
@@ -36,8 +35,8 @@ public class RespawnManager : MonoBehaviour
         respawnLane = 2;
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
         _playerCharacterMovement = playerCharacter.GetComponent<PlayerMovement>();
-        _playerFishScore = scoreManager.GetPlayerFishScore();
-        _playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
+        _playerFishScore = ScoreManager.current.GetPlayerFishScore();
+        _playerAccuracyScore = ScoreManager.current.GetPlayerAccuracyScore();
         _inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
         _inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
         _inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
@@ -47,22 +46,27 @@ public class RespawnManager : MonoBehaviour
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
         GameManager.Current.playerIsDying = true;
-
-        // Reset Fish Treats on the lanes
-        MusicPlayer.Current.ResetAllFishTreats();
         
         // Reset values
         AdjustMusicTime();
         //AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
+        // StartCoroutine(RespawnPlayerAfterCountdown());
         AdjustPlayerPosition();
-        scoreManager.SetAndUpdateFishScore(_playerFishScore);
-        scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
+        _playerCharacterMovement.enabled = false;
+        PlayerMovement.Current.walkingSound.Stop();
+        // Reset Fish Treats on the lanes
+        MusicPlayer.Current.ResetAllFishTreats();
+        ScoreManager.current.SetAndUpdateFishScore(_playerFishScore);
+        ScoreManager.current.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
         SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
         PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
         PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
         PlayerHop.Current.SetHopIndex(_hopIndex);
 
+        CountdownManager.Current.SetCountdown(3f);
+        yield return new WaitForSeconds(3f);
+        _playerCharacterMovement.enabled = true;
         // Reset music related values
         MusicPlayer.Current.Resume();
         //MidiManager.current.ResumePlayback();

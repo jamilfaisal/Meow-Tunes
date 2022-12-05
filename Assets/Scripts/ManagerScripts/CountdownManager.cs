@@ -17,40 +17,53 @@ using UnityEngine.SceneManagement;
         public TMP_Text countdownText;
         public GameObject countdownUI;
         public AudioSource countdownSound;
-        private bool _shouldCountTime;
+        public bool shouldCountTime;
         private bool _soundPlayed;
+        private bool _gameStart;
 
         private void Start()
         {
-            _shouldCountTime = SceneManager.GetActiveScene().name != "MainMenuScene";
+            shouldCountTime = true;
             countdown = 5f;
+            _gameStart = true;
         }
         
         private void Update()
         {
-            if ( _shouldCountTime && !_soundPlayed)
+            if (shouldCountTime)
             {
-                countingDown = true;
-                countdownSound.Play();
-                _soundPlayed = true;
-            }
-            
-            if (_shouldCountTime && countdown > 0)
-            {
-                countdown -= Time.deltaTime;
-                countdownText.text = (countdown).ToString("0");
-            }
-            else
-            {
-                countdownSound.Stop();
-                countdownUI.SetActive(false);
-                countingDown = false;
+                if (!_soundPlayed)
+                {
+                    countingDown = true;
+                    countdownSound.Play();
+                    _soundPlayed = true;
+                }
+
+                if (countdown > 0)
+                {
+                    SubtractTime();
+                    countdownText.text = (countdown).ToString("0");
+                }
+                else
+                {
+                    countdownSound.Stop();
+                    countdownUI.SetActive(false);
+                    _soundPlayed = false;
+                    _gameStart = false;
+                    countingDown = false;
+                    shouldCountTime = false;
+                }
             }
         }
 
         public void SetCountdown(float time)
         {
             countdown = time;
+            shouldCountTime = true;
             countdownUI.SetActive(true);
+        }
+        
+        private void SubtractTime() {
+            countdown -= _gameStart ? Time.deltaTime : Time.unscaledDeltaTime;
         }
     }
