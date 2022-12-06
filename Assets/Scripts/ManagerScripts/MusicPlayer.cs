@@ -98,13 +98,6 @@ public class MusicPlayer : MonoBehaviour
 
     public void ResetAllFishTreats()
     {
-        var notes = MidiFileTest.GetNotes();
-        var array = new Note[notes.Count];
-        // Debug.Log(notes.Count);
-        notes.CopyTo(array, 0);
-        foreach (var lane in lanes){
-            lane.DestroyAllFishTreats();
-            lane.RespawnAllFishTreats(array);
-        }
+        FishTreatManager.Current.OnFishUnhideEvent();
     }
 }

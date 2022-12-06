@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -27,15 +28,23 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetButton("Submit") && _gameHasEnded) {
-            RestartLevel();
+        if (Input.GetButton("Submit") && _gameHasEnded)
+        {
+            NextLevelOrMainMenu();
         }
     }
+
+    private void NextLevel()
+    {
+        UIManager.Current.DisplayLoadingScreen();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void WonLevel() {
         gameIsEnding = false;
         _playerMovement.enabled = false;
-        UIManager.current.WonLevelUI();
-        StartCoroutine(GameHasEnded());
+        UIManager.Current.WonLevelUI();
+        GameHasEnded();
     }
 
     public void LostLevel() {
@@ -44,14 +53,13 @@ public class GameManager : MonoBehaviour
         MusicPlayer.Current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
-        UIManager.current.LostLevelUI();
-        StartCoroutine(GameHasEnded());
+        UIManager.Current.LostLevelUI();
+        GameHasEnded();
     }
     
 
-    private IEnumerator GameHasEnded()
+    private void GameHasEnded()
     {
-        yield return new WaitForSeconds(3f);
         _gameHasEnded = true;
     }
 
@@ -59,13 +67,26 @@ public class GameManager : MonoBehaviour
     {
         _gameIsRestarting = true;
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+    }
+
+    private IEnumerator WaitThenNextLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        NextLevel();
+    }
+    
+    private IEnumerator WaitThenBackToMainMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        BackToMainMenu();
     }
 
     public void BackToMainMenu()
     {
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -77,11 +98,24 @@ public class GameManager : MonoBehaviour
         _gameHasEnded = false;
     }
 
-    public void StartLevel()
+    public void StartLevel(InputAction.CallbackContext context)
     {
-        if (_gameHasEnded)
+        if (context.performed && _gameHasEnded)
         {
-            RestartLevel();
+            NextLevelOrMainMenu();
+        }
+    }
+
+    private void NextLevelOrMainMenu()
+    {
+        var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (sceneIndex == 1)
+        {
+            StartCoroutine(WaitThenNextLevel());
+        }
+        else if (sceneIndex  == 2)
+        {
+            StartCoroutine(WaitThenBackToMainMenu());
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: enter_button
   m_EditorClassIdentifier: 
   hashCode: -158561055
-  material: {fileID: 5183722630411135819}
+  material: {fileID: 8459127393756590262}
   materialHashCode: 0
   m_Version: 1.1.0
   m_FaceInfo:
@@ -48,22 +48,22 @@ MonoBehaviour:
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 224
-      m_Height: 256
-      m_HorizontalBearingX: -112
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 224
+      m_Width: 220
+      m_Height: 254
+      m_HorizontalBearingX: -110
+      m_HorizontalBearingY: 127
+      m_HorizontalAdvance: 220
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 224
-      m_Height: 256
+      m_Width: 220
+      m_Height: 254
     m_Scale: 1
     m_AtlasIndex: 0
     sprite: {fileID: 21300000, guid: 825c61f55866c264698575f9fbaebe64, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &5183722630411135819
+--- !u!21 &8459127393756590262
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 1
