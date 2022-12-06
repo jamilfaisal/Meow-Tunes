@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
-    
+
     [Header("Movement Animation")]
     public Animator animator;
 
@@ -198,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         // don't detect input if this is disabled
         if (!_playerInputEnabled) return;
 
-        if (enabled && Time.timeSinceLevelLoad > 5){
+        if (enabled){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
                 // animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
@@ -246,8 +246,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_playerInputEnabled) return;
 
-        stompSound.Play();
-        Stomp();
+        if (!context.canceled){
+            stompSound.Play();
+            Stomp();
+        }
     }
     
     private AudioSource PickJumpSound() {
