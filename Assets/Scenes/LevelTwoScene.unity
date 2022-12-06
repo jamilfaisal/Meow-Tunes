@@ -3533,7 +3533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: edited_with_tempo_test.mid
+      value: LVL2.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
@@ -4280,15 +4280,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60.2
+      value: 63.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.350002
+      value: 18.28
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -908.2
+      value: -1330.23
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c6f160c0ece1714283ad7dd90d89494, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8597,7 +8597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8033697961162981974, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.07
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 8033697961162981974, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9464,7 +9464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061666462}
   m_LocalRotation: {x: 0.23912627, y: 0.000000038371734, z: -0.0000000094498445, w: 0.9709885}
-  m_LocalPosition: {x: 53.68, y: 32.57, z: -76.149994}
+  m_LocalPosition: {x: 53.68, y: 40.5, z: -76.149994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11165,15 +11165,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.47348
+      value: 9.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.026
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1052.9133
+      value: 1474.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13546,7 +13546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727775221}
   m_LocalRotation: {x: 0.23912627, y: 0.000000038371734, z: -0.0000000094498445, w: 0.9709885}
-  m_LocalPosition: {x: 53.68, y: 32.57, z: -76.149994}
+  m_LocalPosition: {x: 53.68, y: 40.5, z: -76.149994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14331,7 +14331,7 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  sidewayWalkSpeed: 12.8
+  sidewayWalkSpeed: 13
   forwardWalkSpeed: 10.8
   lanePositions: []
   currentLane: 0
@@ -14358,7 +14358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb69c433ca0484a9e2a538a25cabb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 1.25
+  offset: 1.1
   teleportSound: {fileID: 502785736}
 --- !u!114 &1828724623 stripped
 MonoBehaviour:
