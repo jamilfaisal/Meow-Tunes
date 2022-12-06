@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerSideAction : PlayerAction
 {
-    // public static PlayerSideAction Current;
-
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestrictionRight;
     public List<double> timeStampsRight = new List<double>();
 
@@ -18,10 +16,6 @@ public class PlayerSideAction : PlayerAction
     private Color _blinkColorLeft;
     private Color _blinkColorRight;
 
-    // private void Awake()
-    // {
-    //     Current = this;
-    // }
 
     private void Start() {
         _blinkColorLeft = new Color(1f, 0.83f, 0f); //Yellow

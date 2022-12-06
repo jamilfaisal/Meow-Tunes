@@ -468,6 +468,17 @@
                 },
                 {
                     "name": "",
+                    "id": "de3a3a11-cc26-48a8-8c02-9e3166671039",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Stomp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "27d1997b-326d-4d58-b50e-62164feaeca1",
                     "path": "<XInputController>/buttonSouth",
                     "interactions": "",

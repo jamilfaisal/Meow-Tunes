@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource jumpSound3;
     public AudioSource jumpSound4;
     private AudioSource[] _jumpSounds;
+    public AudioSource stompSound; //Changes based on level
     private int _lastJumpSound = -1;
     
     public AudioSource landFromJumpSound;
@@ -137,8 +138,6 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
-            MyInput();
-
             //Movement
             if (_movingSideway){
                 var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * Time.fixedDeltaTime;
@@ -182,42 +181,6 @@ public class PlayerMovement : MonoBehaviour
                 tempVelo.y = -6f;
                 _rb.velocity = tempVelo;
             }
-        }
-    }
-
-    private void MyInput()
-    {
-        // don't detect input if this is disabled
-        if (!_playerInputEnabled) return;
-
-        // when to jump
-        if(Input.GetButtonDown("Jump")){
-            if(_readyToJump && _grounded){
-
-                _readyToJump = false;
-                //_canDoubleJump = true;
-
-                animator.Play("CatJumpFull", 0, 0f);
-                Jump();
-                PickJumpSound().Play();
-                
-                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
-            }
-            // Commenting out double jump
-	        if(_canSaveJump && !_grounded) { // if((_canDoubleJump || _canSaveJump) && !_grounded){
-
-                //_canDoubleJump = false;
-
-                animator.Play("CatJumpFull", 0, 0f);
-                HalfJump();
-                PickJumpSound().Play();
-
-                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
-            }
-        }
-        else if (Input.GetKey(stompKey))
-        {
-            Stomp();
         }
     }
 
@@ -277,6 +240,14 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
             }
         }
+    }
+
+    public void TriggerStomp(InputAction.CallbackContext context)
+    {
+        if (!_playerInputEnabled) return;
+
+        stompSound.Play();
+        Stomp();
     }
     
     private AudioSource PickJumpSound() {
