@@ -49,7 +49,7 @@ public class MusicPlayer : MonoBehaviour
         foreach (var playerAction in playerActions){
             playerAction.SetTimeStamps(array);
         }
-        BeatHop.Current.SetFrequency(bpm);
+        if (BeatHop.Current != null) BeatHop.Current.SetFrequency(bpm);
 
         audioSource.clip = songIntroNormal;
         audioSource.loop = false;
