@@ -11,12 +11,16 @@ public class Checkpoint : MonoBehaviour
     private float _catRspawnOffsetY;
 
     public ScoreManager scoreManager;
+    public SingleButtonAction jumpAction;
+    public SingleButtonAction stompAction;
+    public PlayerSideAction sideAction;
     private int playerFishScore;
     private int playerAccuracyScore;
 
-    private int inputIndexSBA; // Single Button Action
+    private int inputIndexJA; // Jump Action
     private int inputIndexPSA; // Player Side Action
     private int inputIndexRightPSA; // PSA Input index right
+    private int inputIndexSA; // Stomp Action
 
     private int hopIndex;
 
@@ -24,14 +28,18 @@ public class Checkpoint : MonoBehaviour
     {
         Player = GameObject.Find("Player");
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        jumpAction = GameObject.Find("ActionJump").GetComponent<SingleButtonAction>();
+        sideAction = GameObject.Find("ActionSide").GetComponent<PlayerSideAction>();
+        stompAction = GameObject.Find("ActionStomp").GetComponent<SingleButtonAction>();
         animator = Player.GetComponent<Animator>();
         var checkpointSoundGameObject = GameObject.FindGameObjectWithTag("checkpointSound");
 
         playerFishScore = scoreManager.GetPlayerFishScore();
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
-        inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
-        inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
-        inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
+        inputIndexJA = jumpAction.GetInputIndex();
+        inputIndexPSA = sideAction.GetInputIndex();
+        inputIndexRightPSA = sideAction.GetInputIndexRight();
+        inputIndexSA = stompAction.GetInputIndex();
         hopIndex = PlayerHopManager.Current.GetHopIndex();
         _catRspawnOffsetY = 3f;
         
@@ -59,12 +67,14 @@ public class Checkpoint : MonoBehaviour
         playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
         RespawnManager.Current.SetPlayerAccuracyScore(playerAccuracyScore);
 
-        inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
-        RespawnManager.Current.SetInputIndexSBA(inputIndexSBA);
-        inputIndexPSA = SingleButtonAction.Current.GetInputIndex();
+        inputIndexJA = jumpAction.GetInputIndex();
+        RespawnManager.Current.SetInputIndexJA(inputIndexJA);
+        inputIndexPSA = sideAction.GetInputIndex();
         RespawnManager.Current.SetInputIndexPSA(inputIndexPSA);
-        inputIndexRightPSA = SingleButtonAction.Current.GetInputIndex();
+        inputIndexRightPSA = sideAction.GetInputIndex();
         RespawnManager.Current.SetInputIndexRightPSA(inputIndexRightPSA);
+        inputIndexSA = stompAction.GetInputIndex();
+        RespawnManager.Current.SetInputIndexSA(inputIndexSA);
 
         hopIndex = PlayerHopManager.Current.GetHopIndex();
         RespawnManager.Current.SetHopIndex(hopIndex);
