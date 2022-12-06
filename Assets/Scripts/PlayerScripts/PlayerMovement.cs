@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
-    public KeyCode stompKey;
+    
     [Header("Movement Animation")]
     public Animator animator;
 
