@@ -569,7 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformNote: 0
   fishTreatNote: 7
-  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  platformPrefab: {fileID: 5536477984320006933, guid: 2402b303772b263498cc68319ff94625, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
@@ -1118,17 +1118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &92020533 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7712564532913417640, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
-  m_PrefabInstance: {fileID: 210006395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &92020534 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712564533062785695, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
@@ -1138,17 +1127,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &92020535 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7712564532941865884, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
-  m_PrefabInstance: {fileID: 210006395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &98813673
@@ -1526,7 +1504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformNote: 2
   fishTreatNote: 9
-  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  platformPrefab: {fileID: 5536477984320006933, guid: 2402b303772b263498cc68319ff94625, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
@@ -1954,6 +1932,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7712564531147206933, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564531147206933, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSoundEffectVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetFullscreen
+      objectReference: {fileID: 0}
     - target: {fileID: 7712564531744390315, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_text
       value: Back to Main Menu <voffset=0.4em><sprite="button_xbox_digital_a_1" index=0></voffset>
@@ -2054,6 +2048,22 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1828724611}
+    - target: {fileID: 7712564532108234925, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564532108234925, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: BackToMainMenuOrPauseScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564532621279158, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564532621279158, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OpenControlsScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 7712564532694518102, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_text
       value: Back to Main Menu   <voffset=0.4em><size=51><sprite="enter_button" index=0></size></voffset>
@@ -2065,6 +2075,22 @@ PrefabInstance:
     - target: {fileID: 7712564532973872027, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_text
       value: Back to Main Menu <voffset=0.4em><sprite="Button - PS Cross 1" index=0></voffset>
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564533062785695, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564533062785695, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMusicVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564533227012477, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564533227012477, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetQualitySetting
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
@@ -2392,6 +2418,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
+--- !u!114 &240990043 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7712564532178124256, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+  m_PrefabInstance: {fileID: 210006395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &248265289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3253,9 +3290,9 @@ MonoBehaviour:
   controlBackButton: {fileID: 2138490475}
   catJump4: {fileID: 9180474}
   settingsMenu: {fileID: 1766423206}
-  musicAudioTextValue: {fileID: 92020535}
+  musicAudioTextValue: {fileID: 509099706}
   musicAudioSlider: {fileID: 92020534}
-  soundEffectsTextValue: {fileID: 92020533}
+  soundEffectsTextValue: {fileID: 240990043}
   soundEffectsAudioSlider: {fileID: 92020532}
   qualitySettingDropdown: {fileID: 87983545}
   fullScreenToggle: {fileID: 87983544}
@@ -3476,7 +3513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: bpm
-      value: 120
+      value: 145
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: noteTime
@@ -3496,7 +3533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: full_arrangement_v19.mid
+      value: edited_with_tempo_test.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
@@ -3521,7 +3558,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: eaa0440d65c56544bbe986f208e0bdc8, type: 3}
+      objectReference: {fileID: 8300000, guid: 102ae114ce548e848b51930b6398d3ec, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -3569,7 +3606,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: eaa0440d65c56544bbe986f208e0bdc8, type: 3}
+      objectReference: {fileID: 8300000, guid: 102ae114ce548e848b51930b6398d3ec, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &386729660 stripped
@@ -4419,6 +4456,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &509099706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7712564532393696610, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+  m_PrefabInstance: {fileID: 210006395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &509836825
 GameObject:
   m_ObjectHideFlags: 0
@@ -5428,6 +5476,50 @@ Transform:
   m_Father: {fileID: 1535193715}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &584645634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584645635}
+  - component: {fileID: 584645636}
+  m_Layer: 0
+  m_Name: FishTreatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &584645635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584645634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 761166639}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &584645636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584645634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03606caf957a41b5af08bae2fe47e30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &587349140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6700,6 +6792,7 @@ Transform:
   - {fileID: 326870768}
   - {fileID: 162775318}
   - {fileID: 835656000}
+  - {fileID: 584645635}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8508,7 +8601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8033697961162981974, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -70.81
+      value: -69.2
       objectReference: {fileID: 0}
     - target: {fileID: 8033697961162981974, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9371,7 +9464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061666462}
   m_LocalRotation: {x: 0.23912627, y: 0.000000038371734, z: -0.0000000094498445, w: 0.9709885}
-  m_LocalPosition: {x: 53.68, y: 32.57, z: -77.759995}
+  m_LocalPosition: {x: 53.68, y: 32.57, z: -76.149994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12296,7 +12389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformNote: 3
   fishTreatNote: 10
-  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  platformPrefab: {fileID: 5536477984320006933, guid: 2402b303772b263498cc68319ff94625, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
@@ -12633,7 +12726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformNote: 1
   fishTreatNote: 8
-  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  platformPrefab: {fileID: 5536477984320006933, guid: 2402b303772b263498cc68319ff94625, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
@@ -13453,7 +13546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727775221}
   m_LocalRotation: {x: 0.23912627, y: 0.000000038371734, z: -0.0000000094498445, w: 0.9709885}
-  m_LocalPosition: {x: 53.68, y: 32.57, z: -77.759995}
+  m_LocalPosition: {x: 53.68, y: 32.57, z: -76.149994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14238,15 +14331,15 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  sidewayWalkSpeed: 10.8
-  forwardWalkSpeed: 8.8
+  sidewayWalkSpeed: 12.8
+  forwardWalkSpeed: 10.8
   lanePositions: []
   currentLane: 0
   groundDrag: 4
   maxJumpForce: 18
   jumpCooldown: 0
   stompForce: 9
-  jumpingGravity: 16
+  jumpingGravity: 40
   stompKey: 306
   animator: {fileID: 0}
   playerHeight: 2
@@ -14265,6 +14358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb69c433ca0484a9e2a538a25cabb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 1.25
   teleportSound: {fileID: 502785736}
 --- !u!114 &1828724623 stripped
 MonoBehaviour:
@@ -15459,6 +15553,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PR_LargePlatform_Lvl2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26cc1c004d910f845b5da85a8039efdb, type: 3}
 --- !u!4 &1943501414 stripped
@@ -15956,7 +16054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformNote: 4
   fishTreatNote: 11
-  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  platformPrefab: {fileID: 5536477984320006933, guid: 2402b303772b263498cc68319ff94625, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
