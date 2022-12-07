@@ -28,9 +28,9 @@ public class UIManager : MonoBehaviour
     public static GameObject PS4Jump2, XboxJump2, KeyboardJump2;
     public GameObject dpad, arrows;
 
-    public GameObject[] ps4Tutorial;
-    public GameObject[] xboxTutorial;
-    public GameObject[] keyboardTutorial;
+    public GameObject[] ps4Tutorial = new GameObject[]{ PS4Jump , PS4Eat , PS4Stomp , PS4Jump2 };
+    public GameObject[] xboxTutorial = new GameObject[] { XboxJump, XboxEat, XboxStomp, XboxJump2 };
+    public GameObject[] keyboardTutorial = new GameObject[] { KeyboardJump, KeyboardEat, KeyboardStomp, KeyboardJump2 };
     private bool _tutorialScene;
 
     private void Awake()
@@ -42,12 +42,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _tutorialScene = SceneManager.GetActiveScene().buildIndex == 1;
-        if (_tutorialScene)
-        {
-            ps4Tutorial = new[]{ PS4Jump , PS4Eat , PS4Stomp , PS4Jump2 };
-            xboxTutorial = new[] { XboxJump, XboxEat, XboxStomp, XboxJump2 };
-            keyboardTutorial = new[] { KeyboardJump, KeyboardEat, KeyboardStomp, KeyboardJump2 };
-        }
     }
 
     private void CheckIfPlayerUsingControllerOrKeyboard()

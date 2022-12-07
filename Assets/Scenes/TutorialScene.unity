@@ -2514,9 +2514,23 @@ MonoBehaviour:
   lostLevelUI: {fileID: 517697793}
   gameUI: {fileID: 487905220}
   loadingScreen: {fileID: 1387875330}
-  ps4Tutorial: []
-  xboxTutorial: []
-  keyboardTutorial: []
+  dpad: {fileID: 1941389643}
+  arrows: {fileID: 10939873}
+  ps4Tutorial:
+  - {fileID: 1235014533}
+  - {fileID: 91944551}
+  - {fileID: 1557958750}
+  - {fileID: 522134623}
+  xboxTutorial:
+  - {fileID: 709330786}
+  - {fileID: 1159298287}
+  - {fileID: 1780602558}
+  - {fileID: 179304212}
+  keyboardTutorial:
+  - {fileID: 2066574974}
+  - {fileID: 1202115199}
+  - {fileID: 1907122276}
+  - {fileID: 661228280}
 --- !u!1 &132171650
 GameObject:
   m_ObjectHideFlags: 0
