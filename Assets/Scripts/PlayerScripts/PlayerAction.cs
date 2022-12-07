@@ -19,6 +19,7 @@ public abstract class PlayerAction : MonoBehaviour
     protected double PerfectMarginOfError;
     protected double NiceMarginOfError;
     protected double AudioTime;
+    public bool enableBlink;
 
     protected virtual void Start() {
         PerfectMarginOfError = MusicPlayer.Current.perfectMarginOfError;
@@ -26,7 +27,7 @@ public abstract class PlayerAction : MonoBehaviour
         AbleToBlink = true;
     }
 
-    public abstract void SetTimeStamps(IEnumerable<Note> array);
+    public abstract void SetTimeStamps(IEnumerable<Note> array, Lane[] lanes);
 
     // Update is called once per frame
     public abstract void Update();
@@ -73,7 +74,8 @@ public abstract class PlayerAction : MonoBehaviour
         return inputIndex;
     }
 
-    protected List<double> AddNoteToTimeStamp(Note curNote, Melanchall.DryWetMidi.MusicTheory.NoteName curNoteRestriction, List<double> curTimeStamps){
+    protected List<double> AddNoteToTimeStamp(Note curNote, Melanchall.DryWetMidi.MusicTheory.NoteName curNoteRestriction,
+        List<double> curTimeStamps, Lane[] lanes, string direction){
         if (curNote.Octave == 1 && curNote.NoteName == curNoteRestriction)
         {
             var metricTimeSpan =
@@ -82,6 +84,11 @@ public abstract class PlayerAction : MonoBehaviour
                                 (double)metricTimeSpan.Milliseconds / 1000f);
 
             curTimeStamps.Add(spawnTime - prespawnWarningSeconds);
+            var velocityAsInt = Convert.ToInt32(curNote.Velocity);
+            var lane = velocityAsInt % 10 - 1;
+            var heightLevel = velocityAsInt / 10 % 10;
+            var oneEighthofBeat = 1 / (MusicPlayer.Current.bpm / 60f) / 2;
+            lanes[lane].SpawnArrow((float)spawnTime, heightLevel, direction, oneEighthofBeat);
         }
         return curTimeStamps;
     }

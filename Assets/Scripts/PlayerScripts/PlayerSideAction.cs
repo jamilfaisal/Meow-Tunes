@@ -47,12 +47,12 @@ public class PlayerSideAction : PlayerAction
         inputIndexRight = inputIR;
     }
 
-    public override void SetTimeStamps(IEnumerable<Note> array)
+    public override void SetTimeStamps(IEnumerable<Note> array, Lane[] lanes)
     {
         foreach (var note in array)
         {
-            timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps);
-            timeStampsRight = AddNoteToTimeStamp(note, noteRestrictionRight, timeStampsRight);
+            timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "left");
+            timeStampsRight = AddNoteToTimeStamp(note, noteRestrictionRight, timeStampsRight, lanes, "right");
         }
     }
 
@@ -62,9 +62,11 @@ public class PlayerSideAction : PlayerAction
         if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused())
         {
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
-
-            (AbleToBlink, PreviousBlink) = CheckBlink(_blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, AbleToBlink, PreviousBlink);
-            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(_blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
+            if (enableBlink)
+            {
+                (AbleToBlink, PreviousBlink) = CheckBlink(_blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, AbleToBlink, PreviousBlink);
+                (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(_blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
+            }
             
             if (InputIndex < timeStamps.Count){
                 TimeStamp = timeStamps[InputIndex];

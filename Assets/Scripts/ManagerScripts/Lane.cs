@@ -9,6 +9,7 @@ public class Lane : MonoBehaviour
     public GameObject platformPrefab;
     public GameObject fishTreatPrefab;
     public GameObject checkpointPrefab;
+    public GameObject arrowUpPrefab, arrowLeftPrefab, arrowRightPrefab, arrowDownPrefab;
     public List<Platform> platforms = new List<Platform>();
     
     public int laneNumber;
@@ -92,5 +93,31 @@ public class Lane : MonoBehaviour
         // Debug.Log(spawn_time);
         newFishtreat.transform.localPosition = position;
         newFishtreat.transform.rotation = transform.rotation;
+    }
+
+    public void SpawnArrow(float spawnTime, int heightLevel, string direction, float oneEighthofBeat)
+    {
+        var newArrow = Instantiate(GetArrowPrefab(direction), transform, true);
+        var y = heightLevel;
+        var z = (spawnTime / oneEighthofBeat) * spacingSize - 2.5f;
+        var position = new Vector3(X, y, z);
+        newArrow.transform.localPosition = position;
+    }
+
+    private GameObject GetArrowPrefab(string direction)
+    {
+        switch (direction)
+        {
+            case "up":
+                return arrowUpPrefab;
+            case "left":
+                return arrowLeftPrefab;
+            case "right":
+                return arrowRightPrefab;
+            case "down":
+                return arrowDownPrefab;
+        }
+
+        return null;
     }
 }
