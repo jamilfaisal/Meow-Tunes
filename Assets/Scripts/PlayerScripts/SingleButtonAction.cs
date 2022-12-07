@@ -1,7 +1,8 @@
-using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
+using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Note = Melanchall.DryWetMidi.Interaction.Note;
 
 public class SingleButtonAction : PlayerAction
 {
@@ -21,7 +22,15 @@ public class SingleButtonAction : PlayerAction
     {
         foreach (var note in array)
         {
-            timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "up");
+            if (noteRestriction == NoteName.E)
+            {
+                timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "down");
+
+            }
+            else
+            {
+                timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "up");
+            }
         }
     }
 
