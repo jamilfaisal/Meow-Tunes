@@ -30,7 +30,6 @@ public class SingleButtonAction : PlayerAction
     {   
         if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused() && InputIndex < timeStamps.Count)
         {
-            MarginOfError = MusicPlayer.Current.marginOfError;
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
             TimeStamp = timeStamps[InputIndex];
 

@@ -17,7 +17,8 @@ public class PlayerSideAction : PlayerAction
     private Color _blinkColorRight;
 
 
-    private void Start() {
+    protected override void Start() {
+        base.Start();
         _blinkColorLeft = new Color(1f, 0.83f, 0f); //Yellow
         _blinkColorRight = new Color(0.47f, 0.31f, 0.66f); //Purple
     }
@@ -56,7 +57,6 @@ public class PlayerSideAction : PlayerAction
     {
         if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused())
         {
-            MarginOfError = MusicPlayer.Current.marginOfError;
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
 
             (AbleToBlink, PreviousBlink) = CheckBlink(_blinkColorLeft, jumpAction.blinkColor, TimeStamp, jumpAction.TimeStamp, AbleToBlink, PreviousBlink);
