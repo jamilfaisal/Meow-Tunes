@@ -7066,7 +7066,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 102ae114ce548e848b51930b6398d3ec, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: niceMarginOfError
@@ -7075,27 +7075,27 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[0]
       value: 
-      objectReference: {fileID: 11918407}
+      objectReference: {fileID: 2122082841}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[1]
       value: 
-      objectReference: {fileID: 2122082841}
+      objectReference: {fileID: 1563533517}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[2]
       value: 
-      objectReference: {fileID: 1563533517}
+      objectReference: {fileID: 160308259}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[3]
       value: 
-      objectReference: {fileID: 160308259}
+      objectReference: {fileID: 1626550413}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[4]
       value: 
-      objectReference: {fileID: 1626550413}
+      objectReference: {fileID: 22304590}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[5]
       value: 
-      objectReference: {fileID: 22304590}
+      objectReference: {fileID: 32384471}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[6]
       value: 
