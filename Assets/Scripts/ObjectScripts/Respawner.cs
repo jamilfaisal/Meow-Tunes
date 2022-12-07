@@ -6,6 +6,12 @@ public class Respawner : MonoBehaviour
     public RespawnManager respawnManager;
     public AudioSource respawnSound;
     private AudioClip _respawnClip;
+    public static Respawner Current;
+
+    private void Awake()
+    {
+        Current = this;
+    }
 
     private void Start()
     {
@@ -19,12 +25,17 @@ public class Respawner : MonoBehaviour
             LifeManager.current.LostLife();
             if (LifeManager.current.playerLives != 0)
             {
-                StartCoroutine(Respawn());
+                Respawn();
             }
         }
     }
 
-    private IEnumerator Respawn()
+    public void Respawn()
+    {
+        StartCoroutine(RespawnRoutine());
+    }
+
+    private IEnumerator RespawnRoutine()
     {
         yield return respawnManager.RespawnPlayer(_respawnClip.length);
     }

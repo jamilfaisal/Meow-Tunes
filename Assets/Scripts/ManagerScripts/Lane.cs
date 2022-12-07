@@ -27,7 +27,7 @@ public class Lane : MonoBehaviour
             if (note.Octave == 1) continue;
             
             var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.Current.MidiFileTest.GetTempoMap());
 
             var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
                              (double)metricTimeSpan.Milliseconds / 1000f);
