@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Switch;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.XInput;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,14 +27,26 @@ public class UIManager : MonoBehaviour
     public static GameObject PS4Stomp, XboxStomp, KeyboardStomp;
     public static GameObject PS4Jump2, XboxJump2, KeyboardJump2;
 
-    public GameObject[] PS4Tutorial = new GameObject[4]{ PS4Jump , PS4Eat , PS4Stomp , PS4Jump2 };
-    public GameObject[] XboxTutorial = new GameObject[4] { XboxJump, XboxEat, XboxStomp, XboxJump2 };
-    public GameObject[] KeyboardTutorial = new GameObject[4] { KeyboardJump, KeyboardEat, KeyboardStomp, KeyboardJump2 };
+    public GameObject[] ps4Tutorial;
+    public GameObject[] xboxTutorial;
+    public GameObject[] keyboardTutorial;
+    private bool _tutorialScene;
 
     private void Awake()
     {
         Current = this;
         CheckIfPlayerUsingControllerOrKeyboard();
+    }
+
+    private void Start()
+    {
+        _tutorialScene = SceneManager.GetActiveScene().buildIndex == 1;
+        if (_tutorialScene)
+        {
+            ps4Tutorial = new[]{ PS4Jump , PS4Eat , PS4Stomp , PS4Jump2 };
+            xboxTutorial = new[] { XboxJump, XboxEat, XboxStomp, XboxJump2 };
+            keyboardTutorial = new[] { KeyboardJump, KeyboardEat, KeyboardStomp, KeyboardJump2 };
+        }
     }
 
     private void CheckIfPlayerUsingControllerOrKeyboard()
@@ -72,13 +85,15 @@ public class UIManager : MonoBehaviour
                 loseLevelReplayKeyboard.SetActive(false);
                 loseLevelReplayPS4.SetActive(false);
                 loseLevelReplayXbox.SetActive(true);
-
-                // Tutorial sign xbox
-                for (int i = 0; i < 4; i++)
+                if (_tutorialScene)
                 {
-                    PS4Tutorial[i].SetActive(false);
-                    XboxTutorial[i].SetActive(true);
-                    KeyboardTutorial[i].SetActive(false);
+                    // Tutorial sign xbox
+                    for (int i = 0; i < 4; i++)
+                    {
+                        ps4Tutorial[i].SetActive(false);
+                        xboxTutorial[i].SetActive(true);
+                        keyboardTutorial[i].SetActive(false);
+                    }
                 }
             }
             else
@@ -89,13 +104,15 @@ public class UIManager : MonoBehaviour
                 loseLevelReplayKeyboard.SetActive(false);
                 loseLevelReplayXbox.SetActive(false);
                 loseLevelReplayPS4.SetActive(true);
-
-                // Tutorial sign PS4
-                for (int i = 0; i < 4; i++)
+                if (_tutorialScene)
                 {
-                    PS4Tutorial[i].SetActive(true);
-                    XboxTutorial[i].SetActive(false);
-                    KeyboardTutorial[i].SetActive(false);
+                    // Tutorial sign PS4
+                    for (int i = 0; i < 4; i++)
+                    {
+                        ps4Tutorial[i].SetActive(true);
+                        xboxTutorial[i].SetActive(false);
+                        keyboardTutorial[i].SetActive(false);
+                    }
                 }
             }
         }
@@ -107,13 +124,15 @@ public class UIManager : MonoBehaviour
             loseLevelReplayXbox.SetActive(false);
             loseLevelReplayPS4.SetActive(false);
             loseLevelReplayKeyboard.SetActive(true);
-
-            // Tutorial sign keyboard
-            for (int i = 0; i < 4; i++)
+            if (_tutorialScene)
             {
-                PS4Tutorial[i].SetActive(false);
-                XboxTutorial[i].SetActive(false);
-                KeyboardTutorial[i].SetActive(true);
+                // Tutorial sign keyboard
+                for (int i = 0; i < 4; i++)
+                {
+                    ps4Tutorial[i].SetActive(false);
+                    xboxTutorial[i].SetActive(false);
+                    keyboardTutorial[i].SetActive(true);
+                }
             }
         }
     }

@@ -3834,6 +3834,9 @@ MonoBehaviour:
   lostLevelUI: {fileID: 1493388547}
   gameUI: {fileID: 1896935387}
   loadingScreen: {fileID: 1768372953}
+  ps4Tutorial: []
+  xboxTutorial: []
+  keyboardTutorial: []
 --- !u!1001 &128368780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9854,7 +9857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: full_arrangement_v33.mid
+      value: full_arrangement_v36.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
@@ -9879,7 +9882,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: 44ace67f450062f4c9effc6ad7a13bcd, type: 3}
+      objectReference: {fileID: 8300000, guid: 02d879abdb0b2694c8a26baa88aababc, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -9935,7 +9938,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 44ace67f450062f4c9effc6ad7a13bcd, type: 3}
+      objectReference: {fileID: 8300000, guid: 02d879abdb0b2694c8a26baa88aababc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &388057555
@@ -41139,7 +41142,6 @@ MonoBehaviour:
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
   lanePositions: []
-  centerLane: 0
   currentLane: 0
   numberOfLanes: 7
   groundDrag: 4
@@ -47288,7 +47290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7712564532858648094, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.028076
+      value: -4.028137
       objectReference: {fileID: 0}
     - target: {fileID: 7712564532988540200, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_AnchoredPosition.x
