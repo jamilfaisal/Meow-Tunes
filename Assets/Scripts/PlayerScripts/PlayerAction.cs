@@ -88,9 +88,7 @@ public abstract class PlayerAction : MonoBehaviour
             if (enableArrows)
             {
                 var velocityAsInt = Convert.ToInt32(curNote.Velocity);
-                Debug.Log(velocityAsInt);
                 var lane = velocityAsInt % 10 - 1;
-                Debug.Log(lane);
                 var heightLevel = velocityAsInt / 10 % 10;
                 var oneEighthofBeat = 1 / (MusicPlayer.Current.bpm / 60f) / 2;
                 lanes[lane].SpawnArrow((float)spawnTime, heightLevel, direction, oneEighthofBeat);
