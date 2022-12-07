@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
+    private bool _hitFish;
+    private Collider _fishtreatCollider;
 
     [Header("Movement Animation")]
     public Animator animator;
@@ -99,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         _readyToStomp = true;
         //_canDoubleJump = false;
         _canSaveJump = true;
+        _hitFish = false;
 
         animator = GetComponent<Animator>();
 
@@ -196,6 +199,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider otherCollider) 
+    {
+        if (otherCollider.gameObject.CompareTag("fishtreat"))
+        {
+            _hitFish = true;
+            _fishtreatCollider = otherCollider;
+        }
+    }
+
+    private void OnTriggerExit(Collider otherCollider)
+    {
+        if (otherCollider.gameObject.CompareTag("fishtreat"))
+        {
+            _hitFish = false;
+        }
+    }
+
     public void centerPlayer()
     {
         var newPos = _rb.transform.position;
@@ -262,6 +282,15 @@ public class PlayerMovement : MonoBehaviour
             print("STOMP!!");
             Stomp();
             stompSound.Play();
+        }
+    }
+
+    public void TriggerEat(InputAction.CallbackContext context)
+    {
+        if (!_playerInputEnabled) return;
+
+        if (context.performed && _hitFish){
+            _fishtreatCollider.gameObject.GetComponent<FishHit>().HideFishTreat();
         }
     }
     

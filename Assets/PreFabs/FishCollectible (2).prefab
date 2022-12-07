@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5574776756904989703}
   m_Layer: 2
   m_Name: FishCollectible (2)
-  m_TagString: Untagged
+  m_TagString: fishtreat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
