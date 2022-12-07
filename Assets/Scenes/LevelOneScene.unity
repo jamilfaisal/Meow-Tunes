@@ -37762,6 +37762,7 @@ MonoBehaviour:
   jump3: {fileID: 186910984}
   jump4: {fileID: 9180474}
   landJump: {fileID: 266175418}
+  stomp: {fileID: 1994855421}
   catWalking: {fileID: 1370060877}
   reachedCheckpoint: {fileID: 1174596371}
   catRespawn: {fileID: 1209738616}

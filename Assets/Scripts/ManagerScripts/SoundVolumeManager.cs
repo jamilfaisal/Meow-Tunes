@@ -7,7 +7,7 @@ public class SoundVolumeManager : MonoBehaviour
         SettingsMenu.current.VolumeChanged += SetVolumes;
     }
     public AudioSource music, gameOver;
-    public AudioSource jump1, jump2, jump3, jump4, landJump, catWalking, reachedCheckpoint, catRespawn, countdownSound,
+    public AudioSource jump1, jump2, jump3, jump4, landJump, stomp, catWalking, reachedCheckpoint, catRespawn, countdownSound,
         catTeleport, catOops;
     private void SetVolumes(float musicVolume, float soundEffectVolume)
     {
@@ -18,6 +18,7 @@ public class SoundVolumeManager : MonoBehaviour
         jump2.volume = soundEffectVolume;
         jump3.volume = soundEffectVolume;
         jump4.volume = soundEffectVolume;
+        stomp.volume = soundEffectVolume;
         landJump.volume = soundEffectVolume / 3;
         catWalking.volume = soundEffectVolume / 3;
         reachedCheckpoint.volume = soundEffectVolume;
