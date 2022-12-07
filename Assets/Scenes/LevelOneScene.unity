@@ -9841,7 +9841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: full_arrangement_v30.mid
+      value: full_arrangement_v31.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
@@ -9866,7 +9866,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: aca55c50ac628444badaf5e9d1ae94fb, type: 3}
+      objectReference: {fileID: 8300000, guid: 44ace67f450062f4c9effc6ad7a13bcd, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -9914,7 +9914,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: aca55c50ac628444badaf5e9d1ae94fb, type: 3}
+      objectReference: {fileID: 8300000, guid: 44ace67f450062f4c9effc6ad7a13bcd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &388057555
