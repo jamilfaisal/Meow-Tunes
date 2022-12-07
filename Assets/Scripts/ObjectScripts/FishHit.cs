@@ -9,16 +9,16 @@ public class FishHit : MonoBehaviour
         FishTreatManager.Current.FishUnhideEvent += UnhideFishTreat;
     }
 
-    private void OnTriggerEnter(Collider otherCollider) 
-    {
-        if (otherCollider.gameObject.CompareTag("Player"))
-        {
-            HideFishTreat();
-            ScoreManager.current.UpdateFishScore(1);
-        }
-    }
+    // private void OnTriggerEnter(Collider otherCollider) 
+    // {
+    //     if (otherCollider.gameObject.CompareTag("Player"))
+    //     {
+    //         HideFishTreat();
+    //         ScoreManager.current.UpdateFishScore(1);
+    //     }
+    // }
 
-    private void HideFishTreat()
+    public void HideFishTreat()
     {
         transform.localScale = new Vector3(0, 0, 0);
     }
