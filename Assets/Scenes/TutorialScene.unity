@@ -32895,10 +32895,26 @@ PrefabInstance:
     - target: {fileID: 7712564531147206933, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564531147206933, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSoundEffectVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetFullscreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SettingsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7712564531989505936, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_Name
@@ -32999,10 +33015,18 @@ PrefabInstance:
     - target: {fileID: 7712564532108234925, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564532108234925, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: BackToMainMenuOrPauseScreen
       objectReference: {fileID: 0}
     - target: {fileID: 7712564532621279158, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564532621279158, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OpenControlsScreen
       objectReference: {fileID: 0}
     - target: {fileID: 7712564532798414597, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_IsActive
@@ -33011,10 +33035,18 @@ PrefabInstance:
     - target: {fileID: 7712564533062785695, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564533062785695, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMusicVolume
       objectReference: {fileID: 0}
     - target: {fileID: 7712564533227012477, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 326870769}
+    - target: {fileID: 7712564533227012477, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetQualitySetting
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
