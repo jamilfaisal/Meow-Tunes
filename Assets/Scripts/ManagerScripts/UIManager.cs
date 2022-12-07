@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     public static GameObject PS4Eat, XboxEat, KeyboardEat;
     public static GameObject PS4Stomp, XboxStomp, KeyboardStomp;
     public static GameObject PS4Jump2, XboxJump2, KeyboardJump2;
+    public GameObject dpad, arrows;
 
     public GameObject[] ps4Tutorial;
     public GameObject[] xboxTutorial;
@@ -94,6 +95,8 @@ public class UIManager : MonoBehaviour
                         xboxTutorial[i].SetActive(true);
                         keyboardTutorial[i].SetActive(false);
                     }
+                    dpad.SetActive(true);
+                    arrows.SetActive(false);
                 }
             }
             else
@@ -113,6 +116,8 @@ public class UIManager : MonoBehaviour
                         xboxTutorial[i].SetActive(false);
                         keyboardTutorial[i].SetActive(false);
                     }
+                    dpad.SetActive(true);
+                    arrows.SetActive(false);
                 }
             }
         }
@@ -133,6 +138,8 @@ public class UIManager : MonoBehaviour
                     xboxTutorial[i].SetActive(false);
                     keyboardTutorial[i].SetActive(true);
                 }
+                dpad.SetActive(false);
+                arrows.SetActive(true);
             }
         }
     }
