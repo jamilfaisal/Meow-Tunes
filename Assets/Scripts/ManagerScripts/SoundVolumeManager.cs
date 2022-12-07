@@ -8,7 +8,7 @@ public class SoundVolumeManager : MonoBehaviour
     }
     public AudioSource music, gameOver;
     public AudioSource jump1, jump2, jump3, jump4, landJump, catWalking, reachedCheckpoint, catRespawn, countdownSound,
-        catTeleport;
+        catTeleport, catOops;
     private void SetVolumes(float musicVolume, float soundEffectVolume)
     {
         music.volume = musicVolume;
@@ -24,5 +24,6 @@ public class SoundVolumeManager : MonoBehaviour
         catRespawn.volume = soundEffectVolume;
         countdownSound.volume = soundEffectVolume;
         catTeleport.volume = soundEffectVolume;
+        catOops.volume = soundEffectVolume;
     }
 }
