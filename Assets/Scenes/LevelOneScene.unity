@@ -3826,6 +3826,21 @@ MonoBehaviour:
   lostLevelUI: {fileID: 1493388547}
   gameUI: {fileID: 1896935387}
   loadingScreen: {fileID: 1768372953}
+  PS4Tutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  XboxTutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  KeyboardTutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &128368780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41117,7 +41132,7 @@ MonoBehaviour:
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
   lanePositions: []
-  centerLane: 0
+  laneOfTheEndbox: 3
   currentLane: 0
   numberOfLanes: 7
   groundDrag: 4
