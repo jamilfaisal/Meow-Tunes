@@ -221,10 +221,6 @@ public class PlayerMovement : MonoBehaviour
             if (_ateFish){
                 _ateFish = false;
             }
-            else {
-                //didn't eat the fishtreat!
-                ScoreManager.current.Miss();
-            }
         }
     }
 
@@ -305,12 +301,8 @@ public class PlayerMovement : MonoBehaviour
                 //perfect!
                 _ateFish = true;
                 _fishtreatCollider.gameObject.GetComponent<FishHit>().HideFishTreat();
-                
-                ScoreManager.current.Hit();
-            }
-            else {
-                //Oops!
-                ScoreManager.current.Miss();
+
+                ScoreManager.current.UpdateFishScore(1);
             }
         }
     }
