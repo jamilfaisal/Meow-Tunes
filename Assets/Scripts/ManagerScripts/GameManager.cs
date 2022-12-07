@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void WonLevel() {
         gameIsEnding = false;
+        _lostGame = false;
         _playerMovement.enabled = false;
         UIManager.Current.WonLevelUI();
         GameHasEnded();

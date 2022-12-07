@@ -40912,6 +40912,7 @@ MonoBehaviour:
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
   lanePositions: []
+  centerLane: 2
   currentLane: 0
   groundDrag: 4
   maxJumpForce: 18

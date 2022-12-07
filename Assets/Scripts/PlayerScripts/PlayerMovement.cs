@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float[] lanePositions;
+    public int centerLane;
     public int currentLane;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
@@ -224,9 +225,9 @@ public class PlayerMovement : MonoBehaviour
     public void centerPlayer()
     {
         var newPos = _rb.transform.position;
-        if (currentLane != 2)
+        if (currentLane != centerLane)
         {
-            newPos.x = lanePositions[2];
+            newPos.x = lanePositions[centerLane];
         }
         _rb.transform.position = newPos;
     }
