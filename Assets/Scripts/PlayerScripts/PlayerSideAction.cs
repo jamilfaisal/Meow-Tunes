@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerSideAction : PlayerAction
 {
-    public static PlayerSideAction Current;
-
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestrictionRight;
     public List<double> timeStampsRight = new List<double>();
+
+    public SingleButtonAction jumpAction;
     public int inputIndexRight;
     private double _timeStampRight;
     private double _previousBlinkRight;
@@ -16,10 +16,6 @@ public class PlayerSideAction : PlayerAction
     private Color _blinkColorLeft;
     private Color _blinkColorRight;
 
-    private void Awake()
-    {
-        Current = this;
-    }
 
     protected override void Start() {
         base.Start();
@@ -63,8 +59,8 @@ public class PlayerSideAction : PlayerAction
         {
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
 
-            (AbleToBlink, PreviousBlink) = CheckBlink(_blinkColorLeft, SingleButtonAction.Current.blinkColor, TimeStamp, SingleButtonAction.Current.TimeStamp, AbleToBlink, PreviousBlink);
-            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(_blinkColorRight, SingleButtonAction.Current.blinkColor, _timeStampRight, SingleButtonAction.Current.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
+            (AbleToBlink, PreviousBlink) = CheckBlink(_blinkColorLeft, jumpAction.blinkColor, TimeStamp, jumpAction.TimeStamp, AbleToBlink, PreviousBlink);
+            (_ableToBlinkRight, _previousBlinkRight) = CheckBlink(_blinkColorRight, jumpAction.blinkColor, _timeStampRight, jumpAction.TimeStamp,_ableToBlinkRight, _previousBlinkRight);
             
             if (InputIndex < timeStamps.Count){
                 TimeStamp = timeStamps[InputIndex];

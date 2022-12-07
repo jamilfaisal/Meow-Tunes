@@ -5,19 +5,8 @@ using UnityEngine.InputSystem;
 
 public class SingleButtonAction : PlayerAction
 {
-    public Color blinkColor;
-    public static SingleButtonAction Current;
-
-    private void Awake()
-    {
-        Current = this;
-    }
-
-    protected override void Start() {
-        base.Start();
-        blinkColor = new Color(0.41f, 0.63f, 0.13f); //Green
-    }
-
+    public Color blinkColor; //Set your own Blink colour
+    
     public int GetInputIndex()
     {
         return InputIndex;
