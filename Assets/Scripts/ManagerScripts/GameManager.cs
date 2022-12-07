@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -27,10 +28,18 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetButton("Submit") && _gameHasEnded) {
-            StartCoroutine(WaitThenRestartLevel());
+        if (Input.GetButton("Submit") && _gameHasEnded)
+        {
+            NextLevelOrMainMenu();
         }
     }
+
+    private void NextLevel()
+    {
+        UIManager.Current.DisplayLoadingScreen();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void WonLevel() {
         gameIsEnding = false;
         _playerMovement.enabled = false;
@@ -58,18 +67,26 @@ public class GameManager : MonoBehaviour
     {
         _gameIsRestarting = true;
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private IEnumerator WaitThenRestartLevel()
+    private IEnumerator WaitThenNextLevel()
     {
         yield return new WaitForSeconds(2f);
-        RestartLevel();
+        NextLevel();
+    }
+    
+    private IEnumerator WaitThenBackToMainMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        BackToMainMenu();
     }
 
     public void BackToMainMenu()
     {
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -81,11 +98,24 @@ public class GameManager : MonoBehaviour
         _gameHasEnded = false;
     }
 
-    public void StartLevel()
+    public void StartLevel(InputAction.CallbackContext context)
     {
-        if (_gameHasEnded)
+        if (context.performed && _gameHasEnded)
         {
-            RestartLevel();
+            NextLevelOrMainMenu();
+        }
+    }
+
+    private void NextLevelOrMainMenu()
+    {
+        var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (sceneIndex == 1)
+        {
+            StartCoroutine(WaitThenNextLevel());
+        }
+        else if (sceneIndex  == 2)
+        {
+            StartCoroutine(WaitThenBackToMainMenu());
         }
     }
 
