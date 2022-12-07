@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float[] lanePositions;
-    public int centerLane;
+    private int centerLane;
     public int currentLane;
     public int numberOfLanes;
     private bool _movingSideway;
@@ -244,7 +244,7 @@ public class PlayerMovement : MonoBehaviour
                 _movingSideway = true;
                 currentLane -= 1;
             }
-            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<lanePositions.Length-1){
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<6){
                 animator.Play("CatRight", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
