@@ -32,7 +32,7 @@ public class RespawnManager : MonoBehaviour
     private void Start()
     {
         _respawnPointLocation = playerCharacter.transform.position;
-        respawnLane = 2;
+        respawnLane = 3;
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
         _playerCharacterMovement = playerCharacter.GetComponent<PlayerMovement>();
         _playerFishScore = ScoreManager.current.GetPlayerFishScore();

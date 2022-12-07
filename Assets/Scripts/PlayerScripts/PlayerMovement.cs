@@ -27,8 +27,9 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float[] lanePositions;
-    public int centerLane;
+    private int centerLane;
     public int currentLane;
+    public int numberOfLanes;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
     private bool _playerInputEnabled;
@@ -82,15 +83,14 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        currentLane = centerLane;
-        lanePositions = new float[7];
-        lanePositions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
-        lanePositions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
-        lanePositions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
-        lanePositions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
-        lanePositions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
-        lanePositions[5] = GameObject.Find("Lane5").GetComponent<Transform>().position.x;
-        lanePositions[6] = GameObject.Find("Lane6").GetComponent<Transform>().position.x;
+        currentLane = numberOfLanes / 2;
+        centerLane = numberOfLanes / 2;
+        lanePositions = new float[numberOfLanes];
+        for(int i = 0; i < numberOfLanes; i++)
+        {
+            string laneName = "Lane" + i.ToString();
+            lanePositions[i] = GameObject.Find(laneName).GetComponent<Transform>().position.x;
+        }
         _movingSideway = false;
         _movePlayerEnabled = true;
         _playerInputEnabled = false;
@@ -240,12 +240,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
-                // animator.Play("CatSideJump", 0, 0f);
+                animator.Play("CatLeft", 0, 0f);
                 _movingSideway = true;
                 currentLane -= 1;
             }
-            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<lanePositions.Length-1){
-                // animator.Play("CatSideJump", 0, 0f);
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<6){
+                animator.Play("CatRight", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
             }
