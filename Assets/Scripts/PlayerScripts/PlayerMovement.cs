@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float[] lanePositions;
+    public int centerLane;
     public int currentLane;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
@@ -81,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        currentLane = 3;
+        currentLane = centerLane;
         lanePositions = new float[7];
         lanePositions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
         lanePositions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
@@ -226,9 +227,9 @@ public class PlayerMovement : MonoBehaviour
     public void centerPlayer()
     {
         var newPos = _rb.transform.position;
-        if (currentLane != 2)
+        if (currentLane != centerLane)
         {
-            newPos.x = lanePositions[2];
+            newPos.x = lanePositions[centerLane];
         }
         _rb.transform.position = newPos;
     }

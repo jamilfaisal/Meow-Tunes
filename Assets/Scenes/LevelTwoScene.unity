@@ -450,7 +450,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &19080280
 MonoBehaviour:
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 22304591}
   - component: {fileID: 22304590}
   m_Layer: 0
-  m_Name: Lane4
+  m_Name: Lane5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +573,7 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  laneNumber: 4
+  laneNumber: 5
   spacingSize: 2
 --- !u!4 &22304591
 Transform:
@@ -1284,6 +1284,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
   m_PrefabInstance: {fileID: 825546143}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &101049353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 101049354}
+  - component: {fileID: 101049355}
+  m_Layer: 0
+  m_Name: FishtreatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101049354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101049353}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 761166639}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &101049355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101049353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03606caf957a41b5af08bae2fe47e30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &127235775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1358,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &127235777
 MonoBehaviour:
@@ -1506,7 +1550,7 @@ GameObject:
   - component: {fileID: 160308260}
   - component: {fileID: 160308259}
   m_Layer: 0
-  m_Name: Lane2
+  m_Name: Lane3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1530,7 +1574,7 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  laneNumber: 2
+  laneNumber: 3
   spacingSize: 2
 --- !u!4 &160308260
 Transform:
@@ -1577,7 +1621,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &162775319
 MonoBehaviour:
@@ -2141,7 +2185,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &216811450
 MonoBehaviour:
@@ -3235,7 +3279,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &326870769
 MonoBehaviour:
@@ -3432,7 +3476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210754, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210754, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3496,7 +3540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: full_arrangement_v19.mid
+      value: full_arrangement_v30.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
@@ -3521,7 +3565,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songIntroNormal
       value: 
-      objectReference: {fileID: 8300000, guid: eaa0440d65c56544bbe986f208e0bdc8, type: 3}
+      objectReference: {fileID: 8300000, guid: aca55c50ac628444badaf5e9d1ae94fb, type: 3}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.size
       value: 5
@@ -3569,7 +3613,7 @@ PrefabInstance:
     - target: {fileID: 1067746485611210781, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: eaa0440d65c56544bbe986f208e0bdc8, type: 3}
+      objectReference: {fileID: 8300000, guid: aca55c50ac628444badaf5e9d1ae94fb, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b3dd7804a34438a5409311918549c, type: 3}
 --- !u!1 &386729660 stripped
@@ -5658,6 +5702,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
+--- !u!1 &606360301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606360303}
+  - component: {fileID: 606360302}
+  m_Layer: 0
+  m_Name: Lane6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &606360302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606360301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformNote: 5
+  fishTreatNote: 5
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platforms: []
+  laneNumber: 6
+  spacingSize: 2
+--- !u!4 &606360303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606360301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 62.68, y: 25.09, z: -66.805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &608734283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
@@ -6008,7 +6104,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &647095795
 MonoBehaviour:
@@ -6154,7 +6250,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &685988069
 MonoBehaviour:
@@ -6688,6 +6784,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 101049354}
   - {fileID: 216811449}
   - {fileID: 19080279}
   - {fileID: 1683089408}
@@ -7276,7 +7373,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &835656001
 MonoBehaviour:
@@ -7790,7 +7887,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &912669642
 MonoBehaviour:
@@ -9589,6 +9686,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
   m_PrefabInstance: {fileID: 1121176739}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1123957904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1123957906}
+  - component: {fileID: 1123957905}
+  m_Layer: 0
+  m_Name: Lane0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1123957905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123957904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformNote: 5
+  fishTreatNote: 5
+  platformPrefab: {fileID: 5536477984320006933, guid: 4aa4a7bf6d2b1438995da99e206bea0b, type: 3}
+  fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
+  checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  platforms: []
+  laneNumber: 0
+  spacingSize: 2
+--- !u!4 &1123957906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123957904}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 44.68, y: 25.09, z: -66.805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1128394013 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712564531693420659, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
@@ -12276,7 +12425,7 @@ GameObject:
   - component: {fileID: 1563533518}
   - component: {fileID: 1563533517}
   m_Layer: 0
-  m_Name: Lane1
+  m_Name: Lane2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12300,7 +12449,7 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  laneNumber: 1
+  laneNumber: 2
   spacingSize: 2
 --- !u!4 &1563533518
 Transform:
@@ -12613,7 +12762,7 @@ GameObject:
   - component: {fileID: 1626550414}
   - component: {fileID: 1626550413}
   m_Layer: 0
-  m_Name: Lane3
+  m_Name: Lane4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12637,7 +12786,7 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  laneNumber: 3
+  laneNumber: 4
   spacingSize: 2
 --- !u!4 &1626550414
 Transform:
@@ -12763,7 +12912,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1650289271
 MonoBehaviour:
@@ -13045,7 +13194,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761166639}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1683089409
 MonoBehaviour:
@@ -14241,6 +14390,7 @@ MonoBehaviour:
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
   lanePositions: []
+  centerLane: 3
   currentLane: 0
   groundDrag: 4
   maxJumpForce: 18
@@ -15936,7 +16086,7 @@ GameObject:
   - component: {fileID: 2122082842}
   - component: {fileID: 2122082841}
   m_Layer: 0
-  m_Name: Lane0
+  m_Name: Lane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15960,7 +16110,7 @@ MonoBehaviour:
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
   platforms: []
-  laneNumber: 0
+  laneNumber: 1
   spacingSize: 2
 --- !u!4 &2122082842
 Transform:
