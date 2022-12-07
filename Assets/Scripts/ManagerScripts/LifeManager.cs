@@ -1,10 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LifeManager : MonoBehaviour
 {
     public static LifeManager current;
+    Scene currentScene;
+    int buildIndex;
 
     private void Awake()
     {
@@ -21,9 +24,19 @@ public class LifeManager : MonoBehaviour
 
     private void Start()
     {
-        playerLivesText.text = "x " + playerLives;
         playerMovement = Player.GetComponent<PlayerMovement>();
-        animator = Player.GetComponent<Animator>();
+        animator = Player.GetComponent<Animator>(); 
+        currentScene = SceneManager.GetActiveScene();
+        buildIndex = currentScene.buildIndex;
+
+        if (buildIndex == 1) // Scene is tutorial
+        {
+            playerLivesText.text = "x ∞";
+        }
+        else
+        {
+            playerLivesText.text = "x " + playerLives;
+        }
     }
 
     public void LostLife()
@@ -31,12 +44,15 @@ public class LifeManager : MonoBehaviour
         playerMovement.SetPlayerInputEnabled(false);
         animator.Play("CatFalling", 0, 0f);
         StartCoroutine(WaitThenEnablePlayerInput());
-        playerLives -= 1;
-        playerLivesText.text = "x " + playerLives;
         respawnSound.Play();
-        if (playerLives == 0)
+        if (buildIndex != 1) // Scene is tutorial
         {
-            StartCoroutine(LoseLevel());
+            playerLives -= 1;
+            playerLivesText.text = "x " + playerLives;
+            if (playerLives == 0)
+            {
+                StartCoroutine(LoseLevel());
+            }
         }
     }
 
