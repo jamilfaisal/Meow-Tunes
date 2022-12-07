@@ -87,7 +87,7 @@ public class Lane : MonoBehaviour
         {
             _y += 2f;
         }
-        _z = (spawnTime / oneEighthofBeat) * spacingSize - 2.5f;
+        _z = (spawnTime / oneEighthofBeat) * spacingSize - 2f;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
         newFishtreat.transform.localPosition = position;
