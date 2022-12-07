@@ -262,7 +262,6 @@ public class PlayerMovement : MonoBehaviour
         if (!_playerInputEnabled) return;
 
         if (context.performed && !_grounded && _readyToStomp){
-            print("STOMP!!");
             Stomp();
             stompSound.Play();
         }
