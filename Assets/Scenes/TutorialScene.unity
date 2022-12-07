@@ -30829,7 +30829,7 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  sidewayWalkSpeed: 8.2
+  sidewayWalkSpeed: 8.25
   forwardWalkSpeed: 6.25
   lanePositions: []
   currentLane: 0
