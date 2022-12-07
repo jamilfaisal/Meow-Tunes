@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public PlayerInput playerInput;
     // First button that is highlighted when player navigates to the main menu
     public GameObject mainMenuFirstButton, settingsFirstButton;
+    public GameObject loadingScreen;
 
     private void Awake()
     {
@@ -98,7 +99,8 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("LevelOneScene");
+        loadingScreen.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void QuitGame()
