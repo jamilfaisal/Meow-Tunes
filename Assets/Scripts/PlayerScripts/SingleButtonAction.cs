@@ -13,7 +13,8 @@ public class SingleButtonAction : PlayerAction
         Current = this;
     }
 
-    private void Start() {
+    protected override void Start() {
+        base.Start();
         blinkColor = new Color(0.41f, 0.63f, 0.13f); //Green
     }
 
@@ -40,7 +41,6 @@ public class SingleButtonAction : PlayerAction
     {   
         if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused() && InputIndex < timeStamps.Count)
         {
-            MarginOfError = MusicPlayer.Current.marginOfError;
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
             TimeStamp = timeStamps[InputIndex];
 
