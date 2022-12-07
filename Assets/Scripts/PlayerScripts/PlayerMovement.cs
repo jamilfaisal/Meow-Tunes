@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     // public float airMultiplier;
     private bool _readyToJump;
     //private bool _canDoubleJump;
+    private bool _readyToStomp;
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
@@ -94,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         _playerInputEnabled = false;
 
         _readyToJump = true;
+        _readyToStomp = true;
         //_canDoubleJump = false;
         _canSaveJump = true;
 
@@ -160,6 +163,14 @@ public class PlayerMovement : MonoBehaviour
                     // }
                 }
             }
+            //Stomping
+            if(!_readyToStomp){
+                var velocity = _rb.velocity;
+                velocity = new Vector3(velocity.x, 0f, velocity.z);
+                _rb.velocity = velocity;
+                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+            }
+
             MovementStateHandler();
             _rb.drag = groundDrag;
 
@@ -167,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 landFromJumpSound.Play();
                 _justLanded = false;
+                _readyToStomp = true;
             }
 
             if (_grounded && !_canSaveJump)
@@ -246,9 +258,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_playerInputEnabled) return;
 
-        if (!context.canceled){
-            stompSound.Play();
+        if (context.performed && !_grounded && _readyToStomp){
+            print("STOMP!!");
             Stomp();
+            stompSound.Play();
         }
     }
     
@@ -301,12 +314,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stomp()
     {
-        if (_grounded) return;
         // reset y velocity
-        var velocity = _rb.velocity;
-        velocity = new Vector3(velocity.x, 0f, velocity.z);
-        _rb.velocity = velocity;
-        _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+        _readyToStomp = false;
     }
 
     private void Jump()

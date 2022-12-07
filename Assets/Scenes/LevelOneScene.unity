@@ -10331,7 +10331,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1918844817}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &395757335
 AudioSource:
@@ -40998,9 +40998,8 @@ MonoBehaviour:
   groundDrag: 4
   maxJumpForce: 18
   jumpCooldown: 0
-  stompForce: 9
+  stompForce: 20
   jumpingGravity: 16
-  stompKey: 306
   animator: {fileID: 0}
   playerHeight: 2
   playerWidth: 2
