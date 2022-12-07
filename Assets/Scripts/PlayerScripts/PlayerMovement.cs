@@ -82,13 +82,15 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        currentLane = 2;
-        lanePositions = new float[5];
+        currentLane = 3;
+        lanePositions = new float[7];
         lanePositions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
         lanePositions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
         lanePositions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
         lanePositions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
         lanePositions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
+        lanePositions[5] = GameObject.Find("Lane5").GetComponent<Transform>().position.x;
+        lanePositions[6] = GameObject.Find("Lane6").GetComponent<Transform>().position.x;
         _movingSideway = false;
         _movePlayerEnabled = true;
         _playerInputEnabled = false;
@@ -242,7 +244,7 @@ public class PlayerMovement : MonoBehaviour
                 _movingSideway = true;
                 currentLane -= 1;
             }
-            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<4){
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<6){
                 // animator.Play("CatSideJump", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
