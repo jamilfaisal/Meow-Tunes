@@ -27,8 +27,9 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float[] lanePositions;
-    public int centerLane;
+    private int centerLane;
     public int currentLane;
+    public int numberOfLanes;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
     private bool _playerInputEnabled;
@@ -82,15 +83,14 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        currentLane = 3;
-        lanePositions = new float[7];
-        lanePositions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
-        lanePositions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
-        lanePositions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
-        lanePositions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
-        lanePositions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
-        lanePositions[5] = GameObject.Find("Lane5").GetComponent<Transform>().position.x;
-        lanePositions[6] = GameObject.Find("Lane6").GetComponent<Transform>().position.x;
+        currentLane = numberOfLanes / 2;
+        centerLane = numberOfLanes / 2;
+        lanePositions = new float[numberOfLanes];
+        for(int i = 0; i < numberOfLanes; i++)
+        {
+            string laneName = "Lane" + i.ToString();
+            lanePositions[i] = GameObject.Find(laneName).GetComponent<Transform>().position.x;
+        }
         _movingSideway = false;
         _movePlayerEnabled = true;
         _playerInputEnabled = false;

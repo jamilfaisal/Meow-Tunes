@@ -85,15 +85,12 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(DelayOops());
         if (playerAccuracyScore <= -1000)
         {
-            respawnSound.Play();
-            gameManager.LostLevel();
+            LifeManager.current.LostLife();
+            if (LifeManager.current.playerLives != 0)
+            {
+                Respawner.Current.Respawn();
+            }
         }
-    }
-
-    private IEnumerator LoseLevel()
-    {
-        yield return new WaitForSeconds(respawnSound.clip.length - 5f);
-        gameManager.LostLevel();
     }
 
     public void Inaccurate()

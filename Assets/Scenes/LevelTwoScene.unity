@@ -29168,6 +29168,7 @@ MonoBehaviour:
   lanePositions: []
   centerLane: 2
   currentLane: 0
+  numberOfLanes: 7
   groundDrag: 4
   maxJumpForce: 18
   jumpCooldown: 0
