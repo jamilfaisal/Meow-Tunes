@@ -765,6 +765,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 5
   spacingSize: 1.666667
@@ -2510,21 +2514,9 @@ MonoBehaviour:
   lostLevelUI: {fileID: 517697793}
   gameUI: {fileID: 487905220}
   loadingScreen: {fileID: 1387875330}
-  PS4Tutorial:
-  - {fileID: 1235014533}
-  - {fileID: 91944551}
-  - {fileID: 1557958750}
-  - {fileID: 522134623}
-  XboxTutorial:
-  - {fileID: 709330786}
-  - {fileID: 1159298287}
-  - {fileID: 1780602558}
-  - {fileID: 179304212}
-  KeyboardTutorial:
-  - {fileID: 2066574974}
-  - {fileID: 1202115199}
-  - {fileID: 1907122276}
-  - {fileID: 661228280}
+  ps4Tutorial: []
+  xboxTutorial: []
+  keyboardTutorial: []
 --- !u!1 &132171650
 GameObject:
   m_ObjectHideFlags: 0
@@ -3167,6 +3159,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 3
   spacingSize: 1.666667
@@ -3235,6 +3231,8 @@ MonoBehaviour:
   blinkCooldown: 0.125
   prespawnWarningSeconds: 0
   TimeStamp: 0
+  enableBlink: 0
+  enableArrows: 1
   blinkColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &164544098
 PrefabInstance:
@@ -17031,6 +17029,8 @@ MonoBehaviour:
   blinkCooldown: 0.125
   prespawnWarningSeconds: 0
   TimeStamp: 0
+  enableBlink: 0
+  enableArrows: 1
   noteRestrictionRight: 1
   timeStampsRight: []
   inputIndexRight: 0
@@ -30612,6 +30612,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 2
   spacingSize: 1.666667
@@ -31786,6 +31790,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 4
   spacingSize: 1.666667
@@ -38522,6 +38530,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 0
   spacingSize: 1.666667
@@ -40976,6 +40988,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 6
   spacingSize: 1.666667
@@ -41300,6 +41316,10 @@ MonoBehaviour:
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}
+  arrowUpPrefab: {fileID: 0}
+  arrowLeftPrefab: {fileID: 0}
+  arrowRightPrefab: {fileID: 0}
+  arrowDownPrefab: {fileID: 0}
   platforms: []
   laneNumber: 1
   spacingSize: 1.666667

@@ -20,6 +20,7 @@ public abstract class PlayerAction : MonoBehaviour
     protected double NiceMarginOfError;
     protected double AudioTime;
     public bool enableBlink;
+    public bool enableArrows;
 
     protected virtual void Start() {
         PerfectMarginOfError = MusicPlayer.Current.perfectMarginOfError;
@@ -84,11 +85,16 @@ public abstract class PlayerAction : MonoBehaviour
                                 (double)metricTimeSpan.Milliseconds / 1000f;
 
             curTimeStamps.Add(spawnTime - prespawnWarningSeconds);
-            var velocityAsInt = Convert.ToInt32(curNote.Velocity);
-            var lane = velocityAsInt % 10 - 1;
-            var heightLevel = velocityAsInt / 10 % 10;
-            var oneEighthofBeat = 1 / (MusicPlayer.Current.bpm / 60f) / 2;
-            lanes[lane].SpawnArrow((float)spawnTime, heightLevel, direction, oneEighthofBeat);
+            if (enableArrows)
+            {
+                var velocityAsInt = Convert.ToInt32(curNote.Velocity);
+                Debug.Log(velocityAsInt);
+                var lane = velocityAsInt % 10 - 1;
+                Debug.Log(lane);
+                var heightLevel = velocityAsInt / 10 % 10;
+                var oneEighthofBeat = 1 / (MusicPlayer.Current.bpm / 60f) / 2;
+                lanes[lane].SpawnArrow((float)spawnTime, heightLevel, direction, oneEighthofBeat);
+            }
         }
         return curTimeStamps;
     }
