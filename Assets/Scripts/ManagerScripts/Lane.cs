@@ -27,7 +27,7 @@ public class Lane : MonoBehaviour
             if (note.Octave == 1) continue;
             
             var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.Current.MidiFileTest.GetTempoMap());
 
             var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
                              (double)metricTimeSpan.Milliseconds / 1000f);
@@ -87,7 +87,7 @@ public class Lane : MonoBehaviour
         {
             _y += 2f;
         }
-        _z = (spawnTime / oneEighthofBeat) * spacingSize - 3.5f;
+        _z = (spawnTime / oneEighthofBeat) * spacingSize - 2.5f;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
         newFishtreat.transform.localPosition = position;

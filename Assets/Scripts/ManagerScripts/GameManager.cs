@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public bool playerIsDying;
     private bool _gameIsRestarting;
     private bool _gameHasEnded;
+    private bool _lostGame;
     public bool gameIsEnding;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     private void Update() {
         if (Input.GetButton("Submit") && _gameHasEnded)
         {
-            NextLevelOrMainMenu();
+            RestartLevelOrNextLevelOrMainMenu();
         }
     }
 
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void WonLevel() {
         gameIsEnding = false;
+        _lostGame = false;
         _playerMovement.enabled = false;
         UIManager.Current.WonLevelUI();
         GameHasEnded();
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
         _playerMovement.enabled = false;
         UIManager.Current.LostLevelUI();
         GameHasEnded();
+        _lostGame = true;
     }
     
 
@@ -83,6 +86,12 @@ public class GameManager : MonoBehaviour
         BackToMainMenu();
     }
 
+    private IEnumerator WaitThenRestartLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        RestartLevel();
+    }
+
     public void BackToMainMenu()
     {
         //MidiManager.current.RestartLevel();
@@ -102,20 +111,28 @@ public class GameManager : MonoBehaviour
     {
         if (context.performed && _gameHasEnded)
         {
-            NextLevelOrMainMenu();
+            RestartLevelOrNextLevelOrMainMenu();
         }
     }
 
-    private void NextLevelOrMainMenu()
+    private void RestartLevelOrNextLevelOrMainMenu()
     {
-        var sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (sceneIndex == 1)
+        if (_lostGame)
         {
-            StartCoroutine(WaitThenNextLevel());
+            StartCoroutine(WaitThenRestartLevel());
         }
-        else if (sceneIndex  == 2)
+        else
         {
-            StartCoroutine(WaitThenBackToMainMenu());
+            var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            switch (sceneIndex)
+            {
+                case 1:
+                    StartCoroutine(WaitThenNextLevel());
+                    break;
+                case 2:
+                    StartCoroutine(WaitThenBackToMainMenu());
+                    break;
+            }
         }
     }
 

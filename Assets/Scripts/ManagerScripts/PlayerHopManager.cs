@@ -32,7 +32,7 @@ public class PlayerHopManager : MonoBehaviour
 
     private void Update()
     {
-        if (Math.Abs(MusicPlayer.Current.GetAudioSourceTime() - jumpAction.GetNextTimestamp(_hopIndex)) < 0.1f)
+        if (Math.Abs(MusicPlayer.Current.GetAudioSourceTime() - SingleButtonAction.Current.GetNextTimestamp(_hopIndex)) < MusicPlayer.Current.perfectMarginOfError)
         {
             if (!_hopping)
             {
