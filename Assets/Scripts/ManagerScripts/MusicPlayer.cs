@@ -37,7 +37,7 @@ public class MusicPlayer : MonoBehaviour
             MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/" + midiFileName);
         if (Application.platform == RuntimePlatform.OSXPlayer)
             MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/" + midiFileName);
-        
+        // Debug.Log(MidiFileTest.GetTempoMap().GetTempoAtTime(new MetricTimeSpan(0,0,0)).BeatsPerMinute);        
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
         // Debug.Log(notes.Count);
@@ -49,7 +49,7 @@ public class MusicPlayer : MonoBehaviour
         foreach (var playerAction in playerActions){
             playerAction.SetTimeStamps(array);
         }
-        BeatHop.Current.SetFrequency(bpm);
+        if (BeatHop.Current != null) BeatHop.Current.SetFrequency(bpm);
 
         audioSource.clip = songIntroNormal;
         audioSource.loop = false;
