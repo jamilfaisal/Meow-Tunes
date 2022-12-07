@@ -6918,6 +6918,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: niceMarginOfError
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[0]
       value: 
       objectReference: {fileID: 11918407}
@@ -6945,6 +6949,10 @@ PrefabInstance:
       propertyPath: lanes.Array.data[6]
       value: 
       objectReference: {fileID: 32384471}
+    - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
+      propertyPath: perfectMarginOfError
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: playerActions.Array.size
       value: 2
@@ -29301,10 +29309,9 @@ MonoBehaviour:
   jumpSound4: {fileID: 9180474}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  sidewayWalkSpeed: 13.05
-  forwardWalkSpeed: 10.7
+  sidewayWalkSpeed: 12.79
+  forwardWalkSpeed: 10.79
   lanePositions: []
-  centerLane: 3
   currentLane: 0
   numberOfLanes: 7
   groundDrag: 4
@@ -29330,7 +29337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb69c433ca0484a9e2a538a25cabb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 1.05
+  offset: 1.13468
   teleportSound: {fileID: 502785736}
 --- !u!114 &1828724623 stripped
 MonoBehaviour:
