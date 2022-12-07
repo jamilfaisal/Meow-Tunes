@@ -11,6 +11,7 @@ public class PreEndBox : MonoBehaviour
     private PlayerMovement _playerMovement;
     private CameraMovement _cameraMovement;
     public Animator animator;
+    public AudioSource endJingle;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class PreEndBox : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
+            endJingle.Play();
             gameManager.gameIsEnding = true;
             // Move player to center lane
             _playerMovement.centerPlayer();

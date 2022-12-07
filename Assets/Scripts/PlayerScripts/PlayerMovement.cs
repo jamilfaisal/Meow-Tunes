@@ -240,12 +240,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (enabled && Time.timeSinceLevelLoad > 5){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
-                // animator.Play("CatSideJump", 0, 0f);
+                animator.Play("CatLeft", 0, 0f);
                 _movingSideway = true;
                 currentLane -= 1;
             }
             else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<6){
-                // animator.Play("CatSideJump", 0, 0f);
+                animator.Play("CatRight", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
             }
