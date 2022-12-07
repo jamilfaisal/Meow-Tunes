@@ -4482,6 +4482,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetSoundEffectVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 7712564531188277098, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4644,6 +4648,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+--- !u!1 &210006396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7712564531424952659, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+  m_PrefabInstance: {fileID: 210006395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &210006397 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712564532045739255, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
@@ -7346,7 +7355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 210006396}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &409924577
@@ -16100,7 +16109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -16116,7 +16125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -16153,7 +16162,7 @@ PrefabInstance:
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7712564531989505938, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -29295,7 +29304,7 @@ MonoBehaviour:
   sidewayWalkSpeed: 13.05
   forwardWalkSpeed: 10.7
   lanePositions: []
-  laneOfTheEndbox: 2
+  centerLane: 3
   currentLane: 0
   numberOfLanes: 7
   groundDrag: 4
