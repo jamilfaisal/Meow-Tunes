@@ -3171,6 +3171,21 @@ MonoBehaviour:
   lostLevelUI: {fileID: 386729660}
   gameUI: {fileID: 56649943}
   loadingScreen: {fileID: 2109638826}
+  PS4Tutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  XboxTutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  KeyboardTutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &132173032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7573723302174861771, guid: 3c9bbaa3fd30c49088734acf5995b9c7, type: 3}
@@ -4482,6 +4497,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetSoundEffectVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 7712564531188277098, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7712564531732320310, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4644,6 +4663,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+--- !u!1 &210006396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7712564531424952659, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
+  m_PrefabInstance: {fileID: 210006395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &210006397 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712564532045739255, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
@@ -7038,7 +7062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: niceMarginOfError
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: lanes.Array.data[0]
@@ -7070,7 +7094,7 @@ PrefabInstance:
       objectReference: {fileID: 32384471}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: perfectMarginOfError
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: playerActions.Array.size
@@ -7482,7 +7506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 210006396}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &409924577
@@ -16292,7 +16316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -16312,7 +16336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -16349,7 +16373,7 @@ PrefabInstance:
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7712564531989505938, guid: 0fc13999f4e39cd4a836f53d8b212c54, type: 3}
     - target: {fileID: 2571783344404323081, guid: 14f4e95082e50b24dbfc557f45ac129c, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -29510,9 +29534,10 @@ MonoBehaviour:
   stompSound: {fileID: 335329622}
   landFromJumpSound: {fileID: 266175418}
   walkingSound: {fileID: 1370060877}
-  sidewayWalkSpeed: 13.05
-  forwardWalkSpeed: 10.7
+  sidewayWalkSpeed: 12.79
+  forwardWalkSpeed: 10.79
   lanePositions: []
+  laneOfTheEndbox: 2
   currentLane: 0
   numberOfLanes: 7
   groundDrag: 4
@@ -29537,7 +29562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb69c433ca0484a9e2a538a25cabb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 1.05
+  offset: 1.13468
   teleportSound: {fileID: 502785736}
 --- !u!114 &1828724623 stripped
 MonoBehaviour:

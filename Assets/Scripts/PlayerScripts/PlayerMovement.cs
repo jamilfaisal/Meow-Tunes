@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
     public float[] lanePositions;
-    private int centerLane;
+    public int laneOfTheEndbox;
     public int currentLane;
     public int numberOfLanes;
     private bool _movingSideway;
@@ -90,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
         
         //Set lane positions for side movements
         currentLane = numberOfLanes / 2;
-        centerLane = numberOfLanes / 2;
         lanePositions = new float[numberOfLanes];
         for(int i = 0; i < numberOfLanes; i++)
         {
@@ -224,14 +223,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void centerPlayer()
+    public void PutPlayerOnLaneOfEndbox()
     {
-        var newPos = _rb.transform.position;
-        if (currentLane != centerLane)
-        {
-            newPos.x = lanePositions[centerLane];
-        }
-        _rb.transform.position = newPos;
+        var playerTransform = _rb.transform;
+        var newPos = playerTransform.position;
+        newPos.x = lanePositions[laneOfTheEndbox];
+        playerTransform.position = newPos;
     }
 
     public void triggerMove(InputAction.CallbackContext context){
@@ -394,14 +391,14 @@ public class PlayerMovement : MonoBehaviour
         _canSaveJump = false;
     }
 
-    public void SetMovePlayerEnabled(bool enabled)
+    public void SetMovePlayerEnabled(bool enable)
     {
-        _movePlayerEnabled = enabled;
+        _movePlayerEnabled = enable;
     }
 
-    public void SetPlayerInputEnabled(bool enabled)
+    public void SetPlayerInputEnabled(bool enable)
     {
-        _playerInputEnabled = enabled;
+        _playerInputEnabled = enable;
     }
 
     // private bool OnSlope()
