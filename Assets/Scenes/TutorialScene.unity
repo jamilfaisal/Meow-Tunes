@@ -30857,7 +30857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb69c433ca0484a9e2a538a25cabb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0.65
+  offset: 0.7
   teleportSound: {fileID: 502785736}
 --- !u!114 &1828724623 stripped
 MonoBehaviour:
@@ -32620,8 +32620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4af19939a59d924981c88d5de11ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformNote: 0
-  fishTreatNote: 7
+  platformNote: 5
+  fishTreatNote: 5
   platformPrefab: {fileID: 5536477984320006933, guid: 9eab5f1d2c053294bbe4e86c33fa1b3e, type: 3}
   fishTreatPrefab: {fileID: 246226352112295802, guid: d48770eaeb2450041975b4b13379f0bd, type: 3}
   checkpointPrefab: {fileID: 8860076903930998181, guid: 6bf176ba7eb508d4e9ab545eadcb1a2f, type: 3}

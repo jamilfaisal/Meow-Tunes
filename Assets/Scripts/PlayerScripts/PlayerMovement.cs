@@ -83,8 +83,8 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        currentLane = numberOfLanes/2;
-        centerLane = currentLane;
+        currentLane = numberOfLanes / 2;
+        centerLane = numberOfLanes / 2;
         lanePositions = new float[numberOfLanes];
         for(int i = 0; i < numberOfLanes; i++)
         {
