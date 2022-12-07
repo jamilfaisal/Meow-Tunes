@@ -98,9 +98,10 @@ public class Lane : MonoBehaviour
     public void SpawnArrow(float spawnTime, int heightLevel, string direction, float oneEighthofBeat)
     {
         var newArrow = Instantiate(GetArrowPrefab(direction), transform, true);
-        var y = heightLevel;
-        var z = (spawnTime / oneEighthofBeat) * spacingSize - 2.5f;
-        var position = new Vector3(X, y, z);
+        var newArrowPosition = newArrow.transform.position;
+        var y = (2*heightLevel - 1) + newArrowPosition.y;
+        var z = (spawnTime / oneEighthofBeat) * spacingSize - 3f;
+        var position = new Vector3((X + newArrowPosition.x), y, z);
         newArrow.transform.localPosition = position;
     }
 
