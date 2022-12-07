@@ -130,6 +130,9 @@ public class GameManager : MonoBehaviour
                     StartCoroutine(WaitThenNextLevel());
                     break;
                 case 2:
+                    StartCoroutine(WaitThenNextLevel());
+                    break;
+                case 3:
                     StartCoroutine(WaitThenBackToMainMenu());
                     break;
             }

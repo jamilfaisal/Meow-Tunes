@@ -1,7 +1,8 @@
-using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
+using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Note = Melanchall.DryWetMidi.Interaction.Note;
 
 public class SingleButtonAction : PlayerAction
 {
@@ -17,11 +18,19 @@ public class SingleButtonAction : PlayerAction
         InputIndex = inputI;
     }
     
-    public override void SetTimeStamps(IEnumerable<Note> array)
+    public override void SetTimeStamps(IEnumerable<Note> array, Lane[] lanes)
     {
         foreach (var note in array)
         {
-            timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps);
+            if (noteRestriction == NoteName.E)
+            {
+                timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "down");
+
+            }
+            else
+            {
+                timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "up");
+            }
         }
     }
 
@@ -32,8 +41,8 @@ public class SingleButtonAction : PlayerAction
         {
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
             TimeStamp = timeStamps[InputIndex];
-
-            (AbleToBlink, PreviousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  AbleToBlink, PreviousBlink);
+            if (enableBlink)
+                (AbleToBlink, PreviousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  AbleToBlink, PreviousBlink);
             
             InputIndex = CheckMiss(InputIndex, TimeStamp);
         }

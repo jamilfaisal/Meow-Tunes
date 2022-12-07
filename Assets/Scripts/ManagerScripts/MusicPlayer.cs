@@ -48,7 +48,7 @@ public class MusicPlayer : MonoBehaviour
             // Debug.Log(lane.timeStamps.Count);
         }
         foreach (var playerAction in playerActions){
-            playerAction.SetTimeStamps(array);
+            playerAction.SetTimeStamps(array, lanes);
         }
         if (BeatHop.Current != null) BeatHop.Current.SetFrequency(bpm);
 
