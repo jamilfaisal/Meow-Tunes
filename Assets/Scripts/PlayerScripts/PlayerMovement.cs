@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -15,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource jumpSound3;
     public AudioSource jumpSound4;
     private AudioSource[] _jumpSounds;
+    public AudioSource stompSound; //Changes based on level
     private int _lastJumpSound = -1;
     
     public AudioSource landFromJumpSound;
@@ -40,10 +43,14 @@ public class PlayerMovement : MonoBehaviour
     // public float airMultiplier;
     private bool _readyToJump;
     //private bool _canDoubleJump;
+    private bool _readyToStomp;
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
-    public KeyCode stompKey;
+    private bool _hitFish;
+    private bool _ateFish;
+    private Collider _fishtreatCollider;
+
     [Header("Movement Animation")]
     public Animator animator;
 
@@ -94,8 +101,11 @@ public class PlayerMovement : MonoBehaviour
         _playerInputEnabled = false;
 
         _readyToJump = true;
+        _readyToStomp = true;
         //_canDoubleJump = false;
         _canSaveJump = true;
+        _hitFish = false;
+        _ateFish = false;
 
         animator = GetComponent<Animator>();
 
@@ -138,8 +148,6 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
-            MyInput();
-
             //Movement
             if (_movingSideway){
                 var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * Time.fixedDeltaTime;
@@ -162,6 +170,14 @@ public class PlayerMovement : MonoBehaviour
                     // }
                 }
             }
+            //Stomping
+            if(!_readyToStomp){
+                var velocity = _rb.velocity;
+                velocity = new Vector3(velocity.x, 0f, velocity.z);
+                _rb.velocity = velocity;
+                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+            }
+
             MovementStateHandler();
             _rb.drag = groundDrag;
 
@@ -169,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 landFromJumpSound.Play();
                 _justLanded = false;
+                _readyToStomp = true;
             }
 
             if (_grounded && !_canSaveJump)
@@ -186,39 +203,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void MyInput()
+    private void OnTriggerEnter(Collider otherCollider) 
     {
-        // don't detect input if this is disabled
-        if (!_playerInputEnabled) return;
-
-        // when to jump
-        if(Input.GetButtonDown("Jump")){
-            if(_readyToJump && _grounded){
-
-                _readyToJump = false;
-                //_canDoubleJump = true;
-
-                animator.Play("CatJumpFull", 0, 0f);
-                Jump();
-                PickJumpSound().Play();
-                
-                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
-            }
-            // Commenting out double jump
-	        if(_canSaveJump && !_grounded) { // if((_canDoubleJump || _canSaveJump) && !_grounded){
-
-                //_canDoubleJump = false;
-
-                animator.Play("CatJumpFull", 0, 0f);
-                HalfJump();
-                PickJumpSound().Play();
-
-                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
-            }
-        }
-        else if (Input.GetKey(stompKey))
+        if (otherCollider.gameObject.CompareTag("fishtreat"))
         {
-            Stomp();
+            _hitFish = true;
+            _fishtreatCollider = otherCollider;
+        }
+    }
+
+    private void OnTriggerExit(Collider otherCollider)
+    {
+        if (otherCollider.gameObject.CompareTag("fishtreat"))
+        {
+            _hitFish = false;
+            if (_ateFish){
+                _ateFish = false;
+            }
         }
     }
 
@@ -234,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
         // don't detect input if this is disabled
         if (!_playerInputEnabled) return;
 
-        if (enabled && Time.timeSinceLevelLoad > 5){
+        if (enabled){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
                 animator.Play("CatLeft", 0, 0f);
                 _movingSideway = true;
@@ -274,6 +275,31 @@ public class PlayerMovement : MonoBehaviour
                 HalfJump();
                 PickJumpSound().Play();
                 Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
+            }
+        }
+    }
+
+    public void TriggerStomp(InputAction.CallbackContext context)
+    {
+        if (!_playerInputEnabled) return;
+
+        if (context.performed && !_grounded && _readyToStomp){
+            Stomp();
+            stompSound.Play();
+        }
+    }
+
+    public void TriggerEat(InputAction.CallbackContext context)
+    {
+        if (!_playerInputEnabled) return;
+
+        if (context.performed){
+            if (_hitFish){
+                //perfect!
+                _ateFish = true;
+                _fishtreatCollider.gameObject.GetComponent<FishHit>().HideFishTreat();
+
+                ScoreManager.current.UpdateFishScore(1);
             }
         }
     }
@@ -327,12 +353,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stomp()
     {
-        if (_grounded) return;
         // reset y velocity
-        var velocity = _rb.velocity;
-        velocity = new Vector3(velocity.x, 0f, velocity.z);
-        _rb.velocity = velocity;
-        _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+        _readyToStomp = false;
     }
 
     private void Jump()

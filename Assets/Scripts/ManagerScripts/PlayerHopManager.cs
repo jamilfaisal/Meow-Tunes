@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerHopManager : MonoBehaviour
 {
     public static PlayerHopManager Current;
+    public SingleButtonAction jumpAction;
 
     private bool _hopping;
     private int _hopIndex;
@@ -31,7 +32,7 @@ public class PlayerHopManager : MonoBehaviour
 
     private void Update()
     {
-        if (Math.Abs(MusicPlayer.Current.GetAudioSourceTime() - SingleButtonAction.Current.GetNextTimestamp(_hopIndex)) < MusicPlayer.Current.perfectMarginOfError)
+        if (Math.Abs(MusicPlayer.Current.GetAudioSourceTime() - jumpAction.GetNextTimestamp(_hopIndex)) < MusicPlayer.Current.perfectMarginOfError)
         {
             if (!_hopping)
             {
