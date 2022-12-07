@@ -8121,7 +8121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: midiFileName
-      value: hiphop_midi_100bpm_cubase.mid
+      value: HIP_HOP_V2.mid
       objectReference: {fileID: 0}
     - target: {fileID: 1067746485611210755, guid: c24b3dd7804a34438a5409311918549c, type: 3}
       propertyPath: songLoopFast
