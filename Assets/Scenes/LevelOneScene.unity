@@ -41041,6 +41041,7 @@ MonoBehaviour:
   sidewayWalkSpeed: 10.8
   forwardWalkSpeed: 8.8
   lanePositions: []
+  laneOfTheEndbox: 2
   currentLane: 0
   numberOfLanes: 5
   groundDrag: 4

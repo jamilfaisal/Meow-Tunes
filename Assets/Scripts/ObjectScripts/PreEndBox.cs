@@ -27,7 +27,7 @@ public class PreEndBox : MonoBehaviour
             endJingle.Play();
             gameManager.gameIsEnding = true;
             // Move player to center lane
-            _playerMovement.centerPlayer();
+            _playerMovement.PutPlayerOnLaneOfEndbox();
 
             // Stop Player Forward Movement and Input Checking
             _playerMovement.SetMovePlayerEnabled(false);
