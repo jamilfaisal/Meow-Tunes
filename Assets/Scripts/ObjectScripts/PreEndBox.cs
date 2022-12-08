@@ -11,6 +11,7 @@ public class PreEndBox : MonoBehaviour
     private PlayerMovement _playerMovement;
     private CameraMovement _cameraMovement;
     public Animator animator;
+    public AudioSource endJingle;
 
     private void Awake()
     {
@@ -23,8 +24,14 @@ public class PreEndBox : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            // Stop Player Forward Movement
-            _playerMovement.SetMovePlayerEnabledFalse();
+            endJingle.Play();
+            gameManager.gameIsEnding = true;
+            // Move player to center lane
+            _playerMovement.PutPlayerOnLaneOfEndbox();
+
+            // Stop Player Forward Movement and Input Checking
+            _playerMovement.SetMovePlayerEnabled(false);
+            _playerMovement.SetPlayerInputEnabled(false);
 
             // Play animation and trigger camera change
             _cameraMovement.SetPlayCameraRotateAnimationTrue();
@@ -32,6 +39,7 @@ public class PreEndBox : MonoBehaviour
 
             // Resume player Forward movement after wait
             StartCoroutine(WaitThenEnableMovePlayer());
+            StartCoroutine(WaitThenEnablePlayerInput());
             StartCoroutine(WaitThenDisablePlayCameraRotate());
         }
     }
@@ -39,7 +47,13 @@ public class PreEndBox : MonoBehaviour
     IEnumerator WaitThenEnableMovePlayer()
     {
         yield return new WaitForSeconds(1);
-        _playerMovement.SetMovePlayerEnabledTrue();
+        _playerMovement.SetMovePlayerEnabled(true);
+    }
+
+    IEnumerator WaitThenEnablePlayerInput()
+    {
+        yield return new WaitForSeconds(4);
+        _playerMovement.SetPlayerInputEnabled(true);
     }
 
     IEnumerator WaitThenDisablePlayCameraRotate()

@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -20,21 +22,9 @@ public class PauseScreen : MonoBehaviour
         {
             Cursor.visible = true;
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.Current.HasGameEnded())
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.Current.HasGameEnded() && !CountdownManager.Current.countingDown)
         {
-            if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
-            {
-                Resume();
-            } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
-            {
-                SettingsMenu.current.BackToMainMenuOrPauseScreen();
-                settingsMenuUI.SetActive(false);
-                pauseMenuUI.SetActive(true);
-            }
-            else
-            {
-                Pause();
-            }
+            PauseOrResume();
         } 
     }
 
@@ -42,13 +32,16 @@ public class PauseScreen : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
-        //MidiManager.current.ResumePlayback();
-        if (Time.time > 5)
-        {
-            musicPlayer.Resume();
-        }
-        Invoke(nameof(EnableMovement), 0.3f);
+        CountdownManager.Current.SetCountdown(5f);
+        StartCoroutine(ResumeAfterCountdown());
+    }
+
+    public IEnumerator ResumeAfterCountdown()
+    {
+        yield return new WaitForSecondsRealtime(5);
+        musicPlayer.Resume();
         Time.timeScale = 1f;
+        EnableMovement();
         GameManager.Current.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -56,19 +49,19 @@ public class PauseScreen : MonoBehaviour
 
     public void Pause()
     {
-        if (CountdownManager.Current.countingDown)
+        if (CountdownManager.Current.countingDown || GameManager.Current.HasGameEnded() || GameManager.Current.gameIsEnding)
         {
             return;
         }
+        musicPlayer.Pause();
+        _playerMovementScript.enabled = false;
+        PlayerMovement.Current.walkingSound.Stop();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(pauseScreenFirstButton);
         pauseMenuUI.SetActive(true);
-        musicPlayer.Pause();
         //MidiManager.current.PausePlayback();
-        _playerMovementScript.enabled = false;
-        PlayerMovement.Current.walkingSound.Stop();
-        Time.timeScale = 0f;
         GameManager.Current.PauseGame();
+        Time.timeScale = 0f;
         // This is because the camera script locks the cursor,
         // so we need to enable it again to be able to click buttons
         Cursor.lockState = CursorLockMode.None;
@@ -86,16 +79,12 @@ public class PauseScreen : MonoBehaviour
         Time.timeScale = 1f;
         GameManager.Current.BackToMainMenu();
     }
-    public void PauseOrResumeController()
+    public void PauseOrResumeController(InputAction.CallbackContext context)
     {
-        if (GameManager.Current.HasGameEnded()) return;
-        if (GameManager.Current.IsGamePaused())
+        if (context.performed)
         {
-            Resume();
-        }
-        else
-        {
-            Pause();
+            if (GameManager.Current.HasGameEnded()) return;
+            PauseOrResume();
         }
     }
 
@@ -114,6 +103,23 @@ public class PauseScreen : MonoBehaviour
     public void EnableMovement()
     {
         _playerMovementScript.enabled = true;
+    }
+
+    private void PauseOrResume()
+    {
+        if (GameManager.Current.IsGamePaused() && !settingsMenuUI.activeInHierarchy)
+        {
+            Resume();
+        } else if (GameManager.Current.IsGamePaused() && settingsMenuUI.activeInHierarchy)
+        {
+            SettingsMenu.current.BackToMainMenuOrPauseScreen();
+            settingsMenuUI.SetActive(false);
+            pauseMenuUI.SetActive(true);
+        }
+        else
+        {
+            Pause();
+        }
     }
 
 }

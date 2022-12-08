@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public bool playerIsDying;
     private bool _gameIsRestarting;
     private bool _gameHasEnded;
+    private bool _lostGame;
     public bool gameIsEnding;
     public GameObject playerGameObject;
     private PlayerMovement _playerMovement;
@@ -27,15 +29,24 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetButton("Submit") && _gameHasEnded) {
-            RestartLevel();
+        if (Input.GetButton("Submit") && _gameHasEnded)
+        {
+            RestartLevelOrNextLevelOrMainMenu();
         }
     }
+
+    private void NextLevel()
+    {
+        UIManager.Current.DisplayLoadingScreen();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void WonLevel() {
         gameIsEnding = false;
+        _lostGame = false;
         _playerMovement.enabled = false;
-        UIManager.current.WonLevelUI();
-        StartCoroutine(GameHasEnded());
+        UIManager.Current.WonLevelUI();
+        GameHasEnded();
     }
 
     public void LostLevel() {
@@ -44,14 +55,14 @@ public class GameManager : MonoBehaviour
         MusicPlayer.Current.audioSource.Pause();
         gameOverSound.Play();
         _playerMovement.enabled = false;
-        UIManager.current.LostLevelUI();
-        StartCoroutine(GameHasEnded());
+        UIManager.Current.LostLevelUI();
+        GameHasEnded();
+        _lostGame = true;
     }
     
 
-    private IEnumerator GameHasEnded()
+    private void GameHasEnded()
     {
-        yield return new WaitForSeconds(3f);
         _gameHasEnded = true;
     }
 
@@ -59,13 +70,32 @@ public class GameManager : MonoBehaviour
     {
         _gameIsRestarting = true;
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+    }
+
+    private IEnumerator WaitThenNextLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        NextLevel();
+    }
+    
+    private IEnumerator WaitThenBackToMainMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        BackToMainMenu();
+    }
+
+    private IEnumerator WaitThenRestartLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        RestartLevel();
     }
 
     public void BackToMainMenu()
     {
         //MidiManager.current.RestartLevel();
+        UIManager.Current.DisplayLoadingScreen();
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -77,11 +107,35 @@ public class GameManager : MonoBehaviour
         _gameHasEnded = false;
     }
 
-    public void StartLevel()
+    public void StartLevel(InputAction.CallbackContext context)
     {
-        if (_gameHasEnded)
+        if (context.performed && _gameHasEnded)
         {
-            RestartLevel();
+            RestartLevelOrNextLevelOrMainMenu();
+        }
+    }
+
+    private void RestartLevelOrNextLevelOrMainMenu()
+    {
+        if (_lostGame)
+        {
+            StartCoroutine(WaitThenRestartLevel());
+        }
+        else
+        {
+            var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            switch (sceneIndex)
+            {
+                case 1:
+                    StartCoroutine(WaitThenNextLevel());
+                    break;
+                case 2:
+                    StartCoroutine(WaitThenNextLevel());
+                    break;
+                case 3:
+                    StartCoroutine(WaitThenBackToMainMenu());
+                    break;
+            }
         }
     }
 

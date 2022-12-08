@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
@@ -19,13 +20,16 @@ public class RespawnManager : MonoBehaviour
     [SerializeField] public GameObject playerCharacter;
     private Rigidbody _playerCharacterRb;
     private PlayerMovement _playerCharacterMovement;
+    public SingleButtonAction jumpAction;
+    public PlayerSideAction sideAction;
+    public SingleButtonAction stompAction;
 
-    public ScoreManager scoreManager;
     private int _playerFishScore;
     private int _playerAccuracyScore;
 
-    private int _inputIndexSBA; // Single Button Action
+    private int _inputIndexJA; // Jump Action
     private int _inputIndexPSA; // Player Side Action
+    private int _inputIndexSA; // Stomp Action
     private int _inputIndexRightPSA; // PSA Input index right
 
     private int _hopIndex;
@@ -33,36 +37,44 @@ public class RespawnManager : MonoBehaviour
     private void Start()
     {
         _respawnPointLocation = playerCharacter.transform.position;
-        respawnLane = 2;
+        respawnLane = 3;
         _playerCharacterRb = playerCharacter.GetComponent<Rigidbody>();
         _playerCharacterMovement = playerCharacter.GetComponent<PlayerMovement>();
-        _playerFishScore = scoreManager.GetPlayerFishScore();
-        _playerAccuracyScore = scoreManager.GetPlayerAccuracyScore();
-        _inputIndexSBA = SingleButtonAction.Current.GetInputIndex();
-        _inputIndexPSA = PlayerSideAction.Current.GetInputIndex();
-        _inputIndexRightPSA = PlayerSideAction.Current.GetInputIndexRight();
-        _hopIndex = PlayerHop.Current.GetHopIndex();
+        _playerFishScore = ScoreManager.current.GetPlayerFishScore();
+        _playerAccuracyScore = ScoreManager.current.GetPlayerAccuracyScore();
+        _inputIndexJA = jumpAction.GetInputIndex();
+        _inputIndexPSA = sideAction.GetInputIndex();
+        _inputIndexRightPSA = sideAction.GetInputIndexRight();
+        _inputIndexSA = stompAction.GetInputIndex();
+        _hopIndex = PlayerHopManager.Current.GetHopIndex();
     }
 
     public IEnumerator RespawnPlayer(float respawnClipLength)
     {
         GameManager.Current.playerIsDying = true;
-
-        // Reset Fish Treats on the lanes
-        MusicPlayer.Current.ResetAllFishTreats();
         
         // Reset values
         AdjustMusicTime();
         //AdjustMidiTime();
         yield return new WaitForSeconds(respawnClipLength - 5f);
+        // StartCoroutine(RespawnPlayerAfterCountdown());
         AdjustPlayerPosition();
-        scoreManager.SetAndUpdateFishScore(_playerFishScore);
-        scoreManager.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
-        SingleButtonAction.Current.SetInputIndex(_inputIndexSBA);
-        PlayerSideAction.Current.SetInputIndex(_inputIndexPSA);
-        PlayerSideAction.Current.SetInputIndexRight(_inputIndexRightPSA);
-        PlayerHop.Current.SetHopIndex(_hopIndex);
+        _playerCharacterMovement.enabled = false;
+        //PlayerMovement.Current.SetPlayerInputEnabled(false);
+        PlayerMovement.Current.walkingSound.Stop();
+        // Reset Fish Treats on the lanes
+        MusicPlayer.Current.ResetAllFishTreats();
+        ScoreManager.current.SetAndUpdateFishScore(_playerFishScore);
+        ScoreManager.current.SetAndUpdatePlayerAccuracyScore(_playerAccuracyScore);
+        jumpAction.SetInputIndex(_inputIndexJA);
+        sideAction.SetInputIndex(_inputIndexPSA);
+        sideAction.SetInputIndexRight(_inputIndexRightPSA);
+        stompAction.SetInputIndex(_inputIndexSA);
+        PlayerHopManager.Current.SetHopIndex(_hopIndex);
 
+        CountdownManager.Current.SetCountdown(3f);
+        yield return new WaitForSeconds(3f);
+        _playerCharacterMovement.enabled = true;
         // Reset music related values
         MusicPlayer.Current.Resume();
         //MidiManager.current.ResumePlayback();
@@ -114,9 +126,14 @@ public class RespawnManager : MonoBehaviour
         _playerAccuracyScore = score;
     }
 
-    public void SetInputIndexSBA(int inputI)
+    public void SetInputIndexJA(int inputI)
     {
-        _inputIndexSBA = inputI;
+        _inputIndexJA = inputI;
+    }
+
+    public void SetInputIndexSA(int inputI)
+    {
+        _inputIndexSA = inputI;
     }
 
     public void SetInputIndexPSA(int inputI)

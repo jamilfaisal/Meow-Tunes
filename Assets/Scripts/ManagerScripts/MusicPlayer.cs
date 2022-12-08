@@ -1,6 +1,7 @@
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
@@ -15,13 +16,14 @@ public class MusicPlayer : MonoBehaviour
     // public float songPositionInBeats;
     // public float dspSongTime;
 
-    public static MidiFile MidiFileTest;
+    public MidiFile MidiFileTest;
     public float bpm;
 
     public string midiFileName;
     public Lane[] lanes;
     public PlayerAction[] playerActions;
-    public double marginOfError = 0.3;
+    public double perfectMarginOfError;
+    public double niceMarginOfError;
     public int inputDelayInMilliseconds; //Delay Time for when the music starts
 
     private bool _audioPlayed;
@@ -31,13 +33,12 @@ public class MusicPlayer : MonoBehaviour
     }
     
     private void Start()
-    {
-        MidiFileTest = null;
+    {   
         if (Application.platform is RuntimePlatform.WindowsPlayer or RuntimePlatform.OSXEditor or RuntimePlatform.WindowsEditor)
             MidiFileTest = MidiFile.Read(Application.dataPath + "/StreamingAssets/" + midiFileName);
         if (Application.platform == RuntimePlatform.OSXPlayer)
             MidiFileTest = MidiFile.Read(Application.dataPath + "/Resources/Data/StreamingAssets/" + midiFileName);
-        
+        // Debug.Log(MidiFileTest.GetTempoMap().GetTempoAtTime(new MetricTimeSpan(0,0,0)).BeatsPerMinute);
         var notes = MidiFileTest.GetNotes();
         var array = new Note[notes.Count];
         // Debug.Log(notes.Count);
@@ -47,11 +48,11 @@ public class MusicPlayer : MonoBehaviour
             // Debug.Log(lane.timeStamps.Count);
         }
         foreach (var playerAction in playerActions){
-            playerAction.SetTimeStamps(array);
+            playerAction.SetTimeStamps(array, lanes);
         }
-        BeatHop.Current.SetFrequency(bpm);
+        if (BeatHop.Current != null) BeatHop.Current.SetFrequency(bpm);
 
-        audioSource.clip = songIntroNormal;
+        //audioSource.clip = songIntroNormal;
         audioSource.loop = false;
         
         // secPerBeat = 60f / songBpm;
@@ -97,13 +98,6 @@ public class MusicPlayer : MonoBehaviour
 
     public void ResetAllFishTreats()
     {
-        var notes = MidiFileTest.GetNotes();
-        var array = new Note[notes.Count];
-        // Debug.Log(notes.Count);
-        notes.CopyTo(array, 0);
-        foreach (var lane in lanes){
-            lane.DestroyAllFishTreats();
-            lane.RespawnAllFishTreats(array);
-        }
+        FishTreatManager.Current.OnFishUnhideEvent();
     }
 }

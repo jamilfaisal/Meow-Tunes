@@ -20,13 +20,19 @@ public class ScoreManager : MonoBehaviour
     public GameObject oopsText;
     public GameObject niceText;
     public GameObject perfectText;
-    
+    public AudioSource oopsSound;
+    public GameObject cinemachineVirtualCam;
+    private CameraShake cameraShake;
+    public AudioSource respawnSound;
+    public GameManager gameManager;
+
     private void Start()
     {
         playerAccuracyScore = 0;
         playerFishScore = 0;
         accuracyScoreText.text = "x 0";
         fishScoreText.text = "x 0";
+        cameraShake = cinemachineVirtualCam.GetComponent<CameraShake>();
     }
 
     public int GetPlayerFishScore()
@@ -69,10 +75,22 @@ public class ScoreManager : MonoBehaviour
 
     public void Miss()
     {
+        playerAccuracyScore -= 200;
+        accuracyScoreText.text = "x " + playerAccuracyScore.ToString("n0");
+        oopsSound.Play();
+        cameraShake.Shake(0.5f);
         perfectText.SetActive(false);
         niceText.SetActive(false);
         oopsText.SetActive(true);
         StartCoroutine(DelayOops());
+        if (playerAccuracyScore <= -1000)
+        {
+            LifeManager.current.LostLife();
+            if (LifeManager.current.playerLives != 0)
+            {
+                Respawner.Current.Respawn();
+            }
+        }
     }
 
     public void Inaccurate()

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,10 +10,6 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField]
     private InputActionReference movement;
-    private float _audioDeltaTime;
-    private readonly List<float> _audioDeltaTimeList = new List<float>();
-    private float _audioTimeLastFrame;
-    private const int FramesToSmooth = 8;
 
     [Header("Sound Effects")]
     public AudioSource jumpSound1;
@@ -20,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource jumpSound3;
     public AudioSource jumpSound4;
     private AudioSource[] _jumpSounds;
+    public AudioSource stompSound; //Changes based on level
     private int _lastJumpSound = -1;
     
     public AudioSource landFromJumpSound;
@@ -30,11 +28,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float sidewayWalkSpeed;
     public float forwardWalkSpeed;
-    public float sideMovementZOffset;
     public float[] lanePositions;
+    public int laneOfTheEndbox;
     public int currentLane;
+    public int numberOfLanes;
     private bool _movingSideway;
     private bool _movePlayerEnabled;
+    private bool _playerInputEnabled;
 
     public float groundDrag;
 
@@ -43,10 +43,14 @@ public class PlayerMovement : MonoBehaviour
     // public float airMultiplier;
     private bool _readyToJump;
     //private bool _canDoubleJump;
+    private bool _readyToStomp;
     private bool _canSaveJump;
     public float stompForce = 3f;
     public float jumpingGravity;
-    public KeyCode stompKey;
+    private bool _hitFish;
+    private bool _ateFish;
+    private Collider _fishtreatCollider;
+
     [Header("Movement Animation")]
     public Animator animator;
 
@@ -85,38 +89,33 @@ public class PlayerMovement : MonoBehaviour
         _rb.freezeRotation = true;
         
         //Set lane positions for side movements
-        currentLane = 2;
-        lanePositions = new float[5];
-        lanePositions[0] = GameObject.Find("Lane0").GetComponent<Transform>().position.x;
-        lanePositions[1] = GameObject.Find("Lane1").GetComponent<Transform>().position.x;
-        lanePositions[2] = GameObject.Find("Lane2").GetComponent<Transform>().position.x;
-        lanePositions[3] = GameObject.Find("Lane3").GetComponent<Transform>().position.x;
-        lanePositions[4] = GameObject.Find("Lane4").GetComponent<Transform>().position.x;
+        currentLane = numberOfLanes / 2;
+        lanePositions = new float[numberOfLanes];
+        for(int i = 0; i < numberOfLanes; i++)
+        {
+            string laneName = "Lane" + i.ToString();
+            lanePositions[i] = GameObject.Find(laneName).GetComponent<Transform>().position.x;
+        }
         _movingSideway = false;
         _movePlayerEnabled = true;
+        _playerInputEnabled = false;
 
         _readyToJump = true;
+        _readyToStomp = true;
         //_canDoubleJump = false;
         _canSaveJump = true;
+        _hitFish = false;
+        _ateFish = false;
 
         animator = GetComponent<Animator>();
 
         _jumpSounds = new[] { jumpSound1, jumpSound2, jumpSound3, jumpSound4 };
         _rb.drag = groundDrag;
-
-        _audioTimeLastFrame = 0f;
     }
 
 
     private void Update()
     {
-        if (GameManager.Current.playerIsDying)
-        {
-            var velocity = _rb.velocity;
-            _rb.velocity = new Vector3(0f, velocity.y, 0f);
-            return;
-        }
-
         // ground check shoot a sphere to the foot of the player
         // Cast origin and the sphere must not overlap for it to work, thus we make the origin higher
         var sphereCastRadius = playerWidth * 0.5f;
@@ -126,59 +125,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.timeSinceLevelLoad > 5)
         {
-            if (_audioDeltaTimeList.Count < FramesToSmooth){
-                _audioDeltaTime = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-            }
-
-            if (GameManager.Current.playerIsDying)
-            {
-                //Add some additional gravity to not make the control floaty
-                var velocity = _rb.velocity;
-                _rb.velocity = new Vector3(velocity.x, velocity.y, 2f);
-                _rb.AddForce(Vector3.down * (20 * _rb.mass));
-                return;
-            }
-
             if (GameManager.Current.gameIsEnding)
             {
                 return;
-            }
-            MyInput();
-            
-            if (_movingSideway){
-                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * _audioDeltaTime;
-                Vector3 desiredPosition = _rb.transform.position;
-                desiredPosition.x = lanePositions[currentLane];
-                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / (sidewayWalkSpeed + sideMovementZOffset);
-                desiredPosition.z += forwardWalkSpeed * estimatedTime;
-                desiredPosition.y += _rb.velocity.y * estimatedTime;
-                _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
-
-                if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
-                    var newPos = _rb.transform.position;
-                    newPos.x = desiredPosition.x;
-                    newPos.y = newPos.y + _rb.velocity.y * Time.deltaTime;
-                    _rb.transform.position = newPos;
-                    _movingSideway = false;
-                    
-                    //may be used to solve jump-while-moving-sideway-bug
-                    // if (!_readyToJump && _rb.velocity.y > 0){
-                    //     _rb.AddForce(transform.up * _rb.velocity.y*2, ForceMode.Impulse);
-                    // }
-                }
-            }
-            MovementStateHandler();
-            _rb.drag = groundDrag;
-
-            if (_justLanded && _grounded)
-            {
-                landFromJumpSound.Play();
-                _justLanded = false;
-            }
-
-            if (_grounded && !_canSaveJump)
-            {
-                Invoke(nameof(ResetJump), jumpCooldown);
             }
 
             if (_rb.velocity.magnitude > 1 && _grounded && !walkingSound.isPlaying) walkingSound.Play();
@@ -189,6 +138,61 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (Time.timeSinceLevelLoad > 5 && _movePlayerEnabled){
+
+            if (GameManager.Current.playerIsDying)
+            {
+                //Add some additional gravity to not make the control floaty
+                var velocity = _rb.velocity;
+                _rb.velocity = new Vector3(velocity.x, velocity.y, 2f);
+                _rb.AddForce(Vector3.down * (20 * _rb.mass));
+                return;
+            }
+
+            //Movement
+            if (_movingSideway){
+                var step =  Mathf.Sqrt(Mathf.Pow(forwardWalkSpeed, 2) + Mathf.Pow(sidewayWalkSpeed, 2)) * Time.fixedDeltaTime;
+                Vector3 desiredPosition = _rb.transform.position;
+                desiredPosition.x = lanePositions[currentLane];
+                var estimatedTime = Mathf.Abs((desiredPosition.x - _rb.transform.position.x)) / sidewayWalkSpeed;
+                desiredPosition.z += forwardWalkSpeed * estimatedTime * Time.fixedDeltaTime;
+                desiredPosition.y += _rb.velocity.y * estimatedTime;
+                _rb.transform.position = Vector3.MoveTowards(_rb.transform.position, desiredPosition, step);
+
+                if (Mathf.Abs(_rb.transform.position.x - desiredPosition.x) < 0.001f){
+                    var newPos = _rb.transform.position;
+                    newPos.x = desiredPosition.x;
+                    _rb.transform.position = newPos;
+                    _movingSideway = false;
+                    
+                    //may be used to solve jump-while-moving-sideway-bug
+                    // if (!_readyToJump && _rb.velocity.y > 0){
+                    //     _rb.AddForce(transform.up * _rb.velocity.y*2, ForceMode.Impulse);
+                    // }
+                }
+            }
+            //Stomping
+            if(!_readyToStomp){
+                var velocity = _rb.velocity;
+                velocity = new Vector3(velocity.x, 0f, velocity.z);
+                _rb.velocity = velocity;
+                _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+            }
+
+            MovementStateHandler();
+            _rb.drag = groundDrag;
+
+            if (_justLanded && _grounded)
+            {
+                landFromJumpSound.Play();
+                _justLanded = false;
+                _readyToStomp = true;
+            }
+
+            if (_grounded && !_canSaveJump)
+            {
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
+
             MovePlayer();
             //Limits downward velocity to be too high (happens sometimes when jumping and switching lanes at the same time)
             if (_rb.velocity.y < -6f){
@@ -199,83 +203,46 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    private void OnTriggerEnter(Collider otherCollider) 
     {
-        // Add the deltaTime this frame to a list
-        float deltaThisFrame = MusicPlayer.Current.audioSource.time - _audioTimeLastFrame;
-        _audioDeltaTimeList.Add(deltaThisFrame);
-        _audioTimeLastFrame = MusicPlayer.Current.audioSource.time;
-        // If the list is too large, remove the oldest value
-        if (_audioDeltaTimeList.Count > FramesToSmooth)
+        if (otherCollider.gameObject.CompareTag("fishtreat"))
         {
-            _audioDeltaTimeList.RemoveAt(0);
+            _hitFish = true;
+            _fishtreatCollider = otherCollider;
         }
-        // Get the average of all values in the list
-        float average = 0;
-        foreach (float delta in _audioDeltaTimeList)
-        {
-            average += delta;
-        }
-        _audioDeltaTime = average / _audioDeltaTimeList.Count;
     }
 
-    private void MyInput()
+    private void OnTriggerExit(Collider otherCollider)
     {
-        // when to jump
-        if(Input.GetButtonDown("Jump")){
-            if(_readyToJump && _grounded){
-
-                _readyToJump = false;
-                //_canDoubleJump = true;
-
-                animator.Play("CatJumpFull", 0, 0f);
-                Jump();
-                PickJumpSound().Play();
-                
-                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
-            }
-            // Commenting out double jump
-	        if(_canSaveJump && !_grounded) { // if((_canDoubleJump || _canSaveJump) && !_grounded){
-
-                //_canDoubleJump = false;
-
-                animator.Play("CatJumpFull", 0, 0f);
-                HalfJump();
-                PickJumpSound().Play();
-
-                Invoke(nameof(SetCanSaveJumpFalse), 0.1f);
+        if (otherCollider.gameObject.CompareTag("fishtreat"))
+        {
+            _hitFish = false;
+            if (_ateFish){
+                _ateFish = false;
             }
         }
-        else if (Input.GetKey(stompKey))
-        {
-            Stomp();
-        }
     }
 
-    public void SetCanSaveJumpFalse()
+    public void PutPlayerOnLaneOfEndbox()
     {
-        _canSaveJump = false;
-    }
-
-    public void SetMovePlayerEnabledFalse()
-    {
-        _movePlayerEnabled = false;
-    }
-
-    public void SetMovePlayerEnabledTrue()
-    {
-        _movePlayerEnabled = true;
+        var playerTransform = _rb.transform;
+        var newPos = playerTransform.position;
+        newPos.x = lanePositions[laneOfTheEndbox];
+        playerTransform.position = newPos;
     }
 
     public void triggerMove(InputAction.CallbackContext context){
-        if (enabled && Time.timeSinceLevelLoad > 5){
+        // don't detect input if this is disabled
+        if (!_playerInputEnabled) return;
+
+        if (enabled){
             if (context.ReadValue<Vector2>().x < 0 && !_movingSideway && currentLane>0){
-                animator.Play("CatSideJump", 0, 0f);
+                animator.Play("CatLeft", 0, 0f);
                 _movingSideway = true;
                 currentLane -= 1;
             }
-            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<4){
-                animator.Play("CatSideJump", 0, 0f);
+            else if (context.ReadValue<Vector2>().x > 0 && !_movingSideway && currentLane<6){
+                animator.Play("CatRight", 0, 0f);
                 _movingSideway = true;
                 currentLane += 1;
             }
@@ -283,6 +250,9 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TriggerJump(InputAction.CallbackContext context)
     {
+        // don't detect input if this is disabled
+        if (!_playerInputEnabled) return;
+
         if (!context.started && enabled)
         {
             if(_readyToJump && _grounded){
@@ -308,8 +278,32 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    
 
+    public void TriggerStomp(InputAction.CallbackContext context)
+    {
+        if (!_playerInputEnabled) return;
+
+        if (context.performed && !_grounded && _readyToStomp){
+            Stomp();
+            stompSound.Play();
+        }
+    }
+
+    public void TriggerEat(InputAction.CallbackContext context)
+    {
+        if (!_playerInputEnabled) return;
+
+        if (context.performed){
+            if (_hitFish){
+                //perfect!
+                _ateFish = true;
+                _fishtreatCollider.gameObject.GetComponent<FishHit>().HideFishTreat();
+
+                ScoreManager.current.UpdateFishScore(1);
+            }
+        }
+    }
+    
     private AudioSource PickJumpSound() {
         int jumpSoundIndex;
         if (_lastJumpSound == -1) {
@@ -359,12 +353,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stomp()
     {
-        if (_grounded) return;
         // reset y velocity
-        var velocity = _rb.velocity;
-        velocity = new Vector3(velocity.x, 0f, velocity.z);
-        _rb.velocity = velocity;
-        _rb.AddForce(-transform.up * stompForce, ForceMode.Impulse);
+        _readyToStomp = false;
     }
 
     private void Jump()
@@ -394,6 +384,21 @@ public class PlayerMovement : MonoBehaviour
         // _exitingSlope = false;
         _justLanded = true;
         _canSaveJump = true;
+    }
+
+    public void SetCanSaveJumpFalse()
+    {
+        _canSaveJump = false;
+    }
+
+    public void SetMovePlayerEnabled(bool enable)
+    {
+        _movePlayerEnabled = enable;
+    }
+
+    public void SetPlayerInputEnabled(bool enable)
+    {
+        _playerInputEnabled = enable;
     }
 
     // private bool OnSlope()

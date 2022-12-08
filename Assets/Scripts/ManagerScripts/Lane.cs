@@ -9,8 +9,8 @@ public class Lane : MonoBehaviour
     public GameObject platformPrefab;
     public GameObject fishTreatPrefab;
     public GameObject checkpointPrefab;
+    public GameObject arrowUpPrefab, arrowLeftPrefab, arrowRightPrefab, arrowDownPrefab;
     public List<Platform> platforms = new List<Platform>();
-    public List<FishHit> fishtreats = new List<FishHit>();
     
     public int laneNumber;
     private float _oneEighthofBeat;
@@ -28,7 +28,7 @@ public class Lane : MonoBehaviour
             if (note.Octave == 1) continue;
             
             var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
+                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.Current.MidiFileTest.GetTempoMap());
 
             var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
                              (double)metricTimeSpan.Milliseconds / 1000f);
@@ -88,39 +88,37 @@ public class Lane : MonoBehaviour
         {
             _y += 2f;
         }
-        _z = (spawnTime / oneEighthofBeat) * spacingSize - 3.5f;
+        _z = (spawnTime / oneEighthofBeat) * spacingSize - 2f;
         var position = new Vector3(X, _y, _z);
         // Debug.Log(spawn_time);
         newFishtreat.transform.localPosition = position;
         newFishtreat.transform.rotation = transform.rotation;
-        fishtreats.Add(newFishtreat.GetComponent<FishHit>());
     }
 
-    public void RespawnAllFishTreats(IEnumerable<Note> array)
+    public void SpawnArrow(float spawnTime, int heightLevel, string direction, float oneEighthofBeat)
     {
-        _oneEighthofBeat = 1 / (MusicPlayer.Current.bpm / 60f) / 2;
-        foreach (var note in array)
-        {
-            var metricTimeSpan =
-                TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, MusicPlayer.MidiFileTest.GetTempoMap());
-            var spawnTime = ((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
-                             (double)metricTimeSpan.Milliseconds / 1000f);
-            if (note.NoteName == fishTreatNote)
-            {
-                SpawnFishTreat(note.Octave, note.Velocity, (float)spawnTime, _oneEighthofBeat);
-            }
-        }
+        var newArrow = Instantiate(GetArrowPrefab(direction), transform, true);
+        var newArrowPosition = newArrow.transform.position;
+        var y = (2*heightLevel - 1) + newArrowPosition.y;
+        var z = (spawnTime / oneEighthofBeat) * spacingSize - 3.5f;
+        var position = new Vector3((X + newArrowPosition.x), y, z);
+        newArrow.transform.localPosition = position;
     }
 
-    public void DestroyAllFishTreats()
+    private GameObject GetArrowPrefab(string direction)
     {
-        foreach (var fishHit in fishtreats)
+        switch (direction)
         {
-            // Check it is not NULL
-            if (fishHit)
-            {
-                fishHit.DestroyFishTreat();
-            }
+            case "up":
+                return arrowUpPrefab;
+            case "left":
+                return arrowLeftPrefab;
+            case "right":
+                return arrowRightPrefab;
+            case "down":
+                return arrowDownPrefab;
         }
+
+        return null;
     }
 }

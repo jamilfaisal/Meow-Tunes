@@ -1,22 +1,13 @@
-using Melanchall.DryWetMidi.Interaction;
 using System.Collections.Generic;
+using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Note = Melanchall.DryWetMidi.Interaction.Note;
 
 public class SingleButtonAction : PlayerAction
 {
-    public Color blinkColor;
-    public static SingleButtonAction Current;
-
-    private void Awake()
-    {
-        Current = this;
-    }
-
-    private void Start() {
-        blinkColor = new Color(0.41f, 0.63f, 0.13f); //Green
-    }
-
+    public Color blinkColor; //Set your own Blink colour
+    
     public int GetInputIndex()
     {
         return InputIndex;
@@ -27,11 +18,19 @@ public class SingleButtonAction : PlayerAction
         InputIndex = inputI;
     }
     
-    public override void SetTimeStamps(IEnumerable<Note> array)
+    public override void SetTimeStamps(IEnumerable<Note> array, Lane[] lanes)
     {
         foreach (var note in array)
         {
-            timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps);
+            if (noteRestriction == NoteName.E)
+            {
+                timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "down");
+
+            }
+            else
+            {
+                timeStamps = AddNoteToTimeStamp(note, noteRestriction, timeStamps, lanes, "up");
+            }
         }
     }
 
@@ -40,11 +39,10 @@ public class SingleButtonAction : PlayerAction
     {   
         if (Time.timeSinceLevelLoad > 5 && !GameManager.Current.IsGamePaused() && InputIndex < timeStamps.Count)
         {
-            MarginOfError = MusicPlayer.Current.marginOfError;
             AudioTime = MusicPlayer.Current.GetAudioSourceTime() - (MusicPlayer.Current.inputDelayInMilliseconds / 1000.0);
             TimeStamp = timeStamps[InputIndex];
-
-            (AbleToBlink, PreviousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  AbleToBlink, PreviousBlink);
+            if (enableBlink)
+                (AbleToBlink, PreviousBlink) = CheckBlink(blinkColor, blinkColor, TimeStamp, TimeStamp,  AbleToBlink, PreviousBlink);
             
             InputIndex = CheckMiss(InputIndex, TimeStamp);
         }

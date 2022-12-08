@@ -2,21 +2,29 @@ using UnityEngine;
 
 public class FishHit : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider otherCollider) 
+    private Vector3 _initLocalScale;
+    private void Start()
     {
-        if (otherCollider.gameObject.CompareTag("Player"))
-        {
-            DestroyFishTreat();
-            ScoreManager.current.UpdateFishScore(1);
-        }
+        _initLocalScale = transform.localScale;
+        FishTreatManager.Current.FishUnhideEvent += UnhideFishTreat;
     }
 
-    public void DestroyFishTreat()
+    // private void OnTriggerEnter(Collider otherCollider) 
+    // {
+    //     if (otherCollider.gameObject.CompareTag("Player"))
+    //     {
+    //         HideFishTreat();
+    //         ScoreManager.current.UpdateFishScore(1);
+    //     }
+    // }
+
+    public void HideFishTreat()
     {
-        // Check it is not NULL
-        if (gameObject)
-        {
-            Destroy(gameObject);
-        }
+        transform.localScale = new Vector3(0, 0, 0);
+    }
+
+    private void UnhideFishTreat()
+    {
+        transform.localScale = _initLocalScale;
     }
 }
